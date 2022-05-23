@@ -28,7 +28,7 @@
                         <span class="d-flex">
                             <span class="material-icons">
                                 navigate_next
-                            </span>Angina Classification
+                            </span>Pre-op Symptoms
                         </span>
 
                         <span class="material-icons text-warning">
@@ -166,6 +166,20 @@
                         </span> </a>
                 </li>
 
+<li class="nav-item ">
+                        <a class="nav-link py-1" data-bs-toggle="pill" data-bs-target="#preop-medications">
+                            <span class="d-flex">
+                                <span class="material-icons">
+                                    navigate_next
+                                </span> Medications
+                            </span>
+
+                            <span class="material-icons text-warning">
+
+                                do_not_disturb_on
+                            </span>
+                        </a>
+                    </li>
 
 
 
@@ -646,7 +660,7 @@
                                         <table class="table">
                                             <thead>
                                                 <th>#</th>
-                                                <th>Illness</th>
+                                                <th>Diagnosis</th>
                                                 <th>Relation</th>
 
                                             </thead>
@@ -981,7 +995,7 @@
                             <div class="modal-body">
                                 <div class="row g-3">
                                     <div class="col-sm-12">
-                                        <label class="form-label">Illness</label>
+                                        <label class="form-label">Diagnosis</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="" value="">
                                         </div>
@@ -1526,7 +1540,7 @@
                     <div class="d-flex align-items-center text-white bg-teal  p-3 mb-3  rounded shadow-sm">
 
                         <div class="lh-1">
-                            <h5 class="h6 mb-0 text-white lh-1">Angina Classification</h1>
+                            <h5 class="h6 mb-0 text-white lh-1">Pre-op Symptoms</h1>
                         </div>
                     </div>
 
@@ -1963,10 +1977,155 @@
                         </div>
                     </div>
                 </section>
+ {{-- Medications --}}
 
-                {{-- Medications --}}
+                    <section id="preop-medications" class="tab-pane fade" role="tabpanel">
+
+                        <div class="d-flex align-items-center text-white bg-teal  p-3 mb-3  rounded shadow-sm">
+
+                            <div class="lh-1">
+                                <h5 class="h6 mb-0 text-white lh-1">Medications</h1>
+                            </div>
+                        </div>
+
+                        <div class="card mb-5  rounded shadow-sm">
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <th>#</th>
+                                                    <th>Medication</th>
+                                                    <th>Indication</th>
+                                                    <th>Start Date</th>
+                                                    <th>Status</th>
+                                                    <th>Stop Date</th>
+                                                    <th>Dosage</th>
+                                                    <th>Reason for Discontinuation</th>
+                                                </thead>
+                                                <tbody>
+
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-row-reverse bd-highlight">
+                                    <button class="btn btn-primary mb-3" data-bs-toggle="modal"
+                                        data-bs-target="#modalMedications">+ Add
+                                        Medication</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+{{-- Modal Medications --}}
+                    <div class="modal fade" id="modalMedications" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content rounded">
+                                <div class="modal-header bg-teal text-white ">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add Medication</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row g-3">
+                                        <div class="col-sm-6">
+                                            <label class="form-label">Medication</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label class="form-label">Indication</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <label class="form-label">Start Date</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <label class="form-label">Status</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <label class="form-label">Stop Date</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <label class="form-label">Dosage</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <label class="form-label">Reason for
+                                                discontinuation </label>
+                                            <div class="input-group">
+                                                <textarea id="" cols="30" rows="3" class="form-control" placeholder="" value=""></textarea>
+                                            </div>
+                                        </div>
 
 
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {{-- Modal Medications --}}
+                    <div class="modal fade" id="modalMedications" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content rounded">
+                                <div class="modal-header bg-teal text-white ">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
 

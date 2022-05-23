@@ -28,7 +28,7 @@
                             <span class="d-flex">
                                 <span class="material-icons">
                                     navigate_next
-                                </span>Angina Classification
+                                </span>Post-Op Symptoms
                             </span>
 
                             <span class="material-icons text-warning">
@@ -570,7 +570,7 @@
                                             <table class="table">
                                                 <thead>
                                                     <th>#</th>
-                                                    <th>Illness</th>
+                                                    <th>Diagnosis</th>
                                                     <th>Relation</th>
 
                                                 </thead>
@@ -811,7 +811,7 @@
                                 <div class="modal-body">
                                     <div class="row g-3">
                                         <div class="col-sm-12">
-                                            <label class="form-label">Illness</label>
+                                            <label class="form-label">Diagnosis</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" placeholder="" value="">
                                             </div>
@@ -1377,6 +1377,10 @@
                                             <input type="text" class="form-control" placeholder="" value="">
                                         </div>
                                     </div>
+                                    
+                                    <div class="col-sm-12">
+                                        <h6>Clinical Safety Parameters</h6>
+                                    </div>
 
 
 
@@ -1475,7 +1479,7 @@
                         <div class="d-flex align-items-center text-white bg-teal  p-3 mb-3  rounded shadow-sm">
 
                             <div class="lh-1">
-                                <h5 class="h6 mb-0 text-white lh-1">Angina Classification</h1>
+                                <h5 class="h6 mb-0 text-white lh-1">Post-op Symptoms</h1>
                             </div>
                         </div>
 

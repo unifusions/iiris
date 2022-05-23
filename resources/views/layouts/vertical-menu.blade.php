@@ -12,7 +12,7 @@
 
         <li class="nav-item">
           
-            <a href="{{-- route('crf.index') --}}" class="nav-link">
+            <a href="{{ route('crf') }}" class="nav-link">
               <span class="material-icons">
                 description
                 </span>
