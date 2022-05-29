@@ -1,9 +1,7 @@
-/node_modules
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
-.env
 .env.backup
 .phpunit.result.cache
 Homestead.json
@@ -14,3 +12,5 @@ yarn-error.log
 /.vscode
 .env.example
 .env
+node_modules
+app/Http/Controllers/CaseReportFormControllerOld.php
