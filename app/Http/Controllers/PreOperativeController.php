@@ -1,0 +1,109 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CaseReportForm;
+use App\Models\CaseReportFormVisit;
+use App\Models\CaseReportFormVisitMode;
+use App\Models\PreOperative;
+use App\Models\PreOperativeData;
+use Illuminate\Http\Request;
+
+class PreOperativeController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(CaseReportForm $crf)
+    {
+
+       
+        // $casereportform = CaseReportForm::where('subject_id', $subject_id)->first();
+        // $preop = CaseReportFormVisit::where('case_report_form_id', $casereportform->id)
+        //     ->first()
+        //     ->casereportformvisitmode
+        //     ->where('mode', 'preop')->first();
+
+        
+        // // $preop = CaseReportFormVisitMode::find($id);
+        // return view('casereportforms.visits.preoperative.index', compact('subject_id', 'visit_no', 'preop'));
+
+        if($crf->preoperatives)
+            $preoperative = $crf->preoperatives;
+            return view('casereportforms.PreOperativeData.show', compact('crf', 'preoperative'));
+           
+        
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(CaseReportForm $crf, PreOperativeData $preoperative)
+    {
+        
+        // $preop = CaseReportFormVisitMode::find($id);
+        // return view('casereportforms.visits.preoperative.show', compact('preop'));
+
+        return view('casereportforms.PreOperativeData.show', compact('preoperative'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update($id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}

@@ -2,31 +2,44 @@
 
 namespace App\Traits;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
 trait FilterByFacility{
      protected static function bootFilterByFacility(){
-          if(Auth::check()){
-               static::creating(function ($model){
 
-                    $model->facility_id = Auth::user()->facility_id;
-               });
-          }
+          static::creating(function ($model)
+          {
+              if (auth()->check()) {
+                  $model->user_id = auth()->id();
+              }
+          });
+          
+          
+          static::addGlobalScope('facility_id', function (Builder $builder) {
+              if (auth()->check()) {
+               if(auth()->user()->role_id===4){
+                    $builder->where('facility_id', auth()->user()->facility_id)->where('user_id', auth()->id());
+               }
 
-          // {
-          //      if (auth()->check()) {
-          //          static::creating(function ($model) {
-          //              $model->created_by_user_id = auth()->id();
-          //          });
+               if(auth()->user()->role_id===3){
+                    $builder->where('facility_id', auth()->user()->facility_id);
+               }
+                  
+              }
+          });
+      
+          //dd(auth()->user());
+
+
+               //     if (Auth::user()->role_id === 4) {
+               //         static::addGlobalScope('user_id', function (Builder $builder) {
+               //             $builder->where('user_id', auth()->id());
+               //         });
+               //     }
+               
            
-          //          // if user is not administrator - role_id 1
-          //          if (auth()->user()->role_id != 1) {
-          //              static::addGlobalScope('created_by_user_id', function (Builder $builder) {
-          //                  $builder->where('created_by_user_id', auth()->id());
-          //              });
-          //          }
-          //      }
-          //  }
      }
 }
+
 
