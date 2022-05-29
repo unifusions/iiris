@@ -1,5 +1,5 @@
 <header class="p-3 row mb-3">
-    <nav class="navbar navbar-dark fixed-top">
+    <nav class="navbar navbar-light fixed-top">
         <div class="container ">
             <div class="d-flex align-items-center">
                 <a href="{{ route('dashboard') }}" class="navbar-brand">

@@ -14,14 +14,25 @@
     @livewireStyles
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"" rel=" stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-    <!-- Scripts -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Scripts -->
+
+
+
     @livewireScripts
 </head>
 
@@ -29,29 +40,31 @@
 
 <body>
     {{-- @include('layouts.navigation') --}}
-    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">IIRIS</a>
+    <header class="navbar sticky-top bg-white flex-md-nowrap p-0 align-items-baseline">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 bg-dark" href="{{ route('dashboard') }} "> <img
+                src="{{ asset('images/iiris-logo.png') }}" height=35px /></a>
 
-        <div class="d-flex text-white flex-grow-1 ">
+
+
+        <div class="d-flex flex-grow-1 ">
             <div class="d-flex ms-4">
                 {{ $header ?? '' }}
-            </div>          
+            </div>
 
-          
+
         </div>
-       
 
-        <div class="navbar">
-           
+
+        <div class="navbar ">
+
             <div class="d-flex px-4">
                 <div class="dropdown ">
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32"
-                            class="rounded-circle me-2">
-                        <span class="text-white"> {{ Auth::user()->name ?? ''}}</span>
+                        {{-- <span class="user-dropdown bg-success text-white p-2 m-2">{{Auth::user()->name ? (Str::ucfirst(substr(Auth::user()->name, 0, 1))) : ''  }}</span> --}}
+                        <span class="fw-bold"> {{ Auth::user()->name ?? '' }}</span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" text-small" aria-labelledby="dropdownUser1" style="">
+                    <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1" style="">
                         <li><span class="dropdown-item text-gray">{{ Auth::user()->email ?? '' }}</span></li>
                         <li>
                             <hr class="dropdown-divider">
@@ -81,25 +94,28 @@
 
     <div class="container-fluid">
         <div class="row g-3">
-            <div class="col-md-2  d-md-block bg-dark sidebar collapse">
+            <div class="col-md-2 d-md-block bg-dark sidebar shadow">
                 @include('layouts.vertical-menu')
             </div>
 
 
-            <main class="col-md-10  ms-sm-auto px-0">
+            <main class="col-md-10  ms-sm-auto px-0 d-flex flex-column ">
 
-                <section class="container-fluid mt-3">
-                   
+                <section class="container-fluid mt-3 mb-5">
 
-                    {{  $slot }} 
-                    
+
+                    {{ $slot }}
+
                 </section>
 
-                @include('layouts.footer')
                 
+                    @include('layouts.footer')
+                
+               
+
             </main>
 
-            
+
         </div>
     </div>
 
@@ -108,10 +124,6 @@
 
 
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
 
 </body>
 
