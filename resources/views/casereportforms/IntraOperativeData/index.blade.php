@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2">
+<div class="tab-pane fade show active" id="tab2" role="tabpanel" aria-labelledby="tab2">
     <div class="row mt-3">
 
         <div class="col-md-12">

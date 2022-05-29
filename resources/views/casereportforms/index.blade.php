@@ -1,85 +1,106 @@
 <x-app-layout>
-
-
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
-
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Case Report Forms') }}
-            </h2>
-
-            {{-- @can('research-coordinator') --}}
-                <a href="{{ route('crf.create') }}" class="btn btn-primary">+ New Case Report Form</a>
-                {{-- @endcan --}}
+            <a href="{{ url()->previous() }}" class="btn btn-light btn-sm me-3 d-flex align-items-center"><span
+                    class="material-icons  small">arrow_back</span> </a>
+            <span class="fw-bold">{{ __('Case Report Forms') }}</span>
         </div>
     </x-slot>
 
-    <div class="row">
-        <div class="col-12">
+    @if (session('message'))
+        <x-toast-notification>
+            <x-slot name="type"> {{ session('type') }}</x-slot>{{ session('message') }}
 
-          
+        </x-toast-notification>
+    @endif
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 mb-3 d-flex justify-content-between">
+                @can('coordinator')
+                    <a href="{{ route('crf.create') }}" class="btn btn-primary shadow">+ New Case Report Form</a>
+                @endcan
+            </div>
+
+            <div class="col-sm-12">
+
+                <div class="card shadow">
+                    <div class="card-body">
+
+
+
+                        <div class="row g-3 fw-bold pb-2 mb-2">
+
+                            <div class="col-sm-1">#</div>
+                            <div class="col-sm-2">Created On</div>
+                            <div class="col-sm-1">Subject ID</div>
+                            <div class="col-sm-2">Facility</div>
+                            <div class="col-sm-1">UHID</div>
+                            <div class="col-sm-3">Status</div>
+
+                            <div class="col-sm-2 text-right">Actions</div>
+                        </div>
+
+                        @if ($caseReportForm->total() > 0)
+                            @foreach ($caseReportForm as $index => $crf)
+                                <div class="row  border-top pt-2 mt-2">
+
+                                    <div class="col-sm-1">{{ $index + 1 }}</div>
+                                    <div class="col-sm-2">{{ $crf->created_at }}</div>
+                                    <div class="col-sm-1">{{ $crf->subject_id }}</div>
+                                    <div class="col-sm-1">{{ $crf->facility->name }}</div>
+                                    <div class="col-sm-1">{{ $crf->uhid }}</div>
+                                    <div class="col-sm-4">
+
+
+                                        <a href=" {{ route('crf.preoperative.index', ['crf' => $crf]) }}"
+                                            class="badge text-decoration-none rounded-pill fw-normal {{ $crf->preoperatives->form_status ? ($crf->preoperatives->visit_status ? 'bg-success' : 'bg-warning text-dark ') : 'disabled text-white bg-secondary' }}">
+                                            Pre Operative</a>
+
+                                        <a
+                                            class="badge text-decoration-none rounded-pill fw-normal {{ $crf->intraoperatives->form_status ? ($crf->intraoperatives->visit_status ? 'bg-success' : 'bg-warning text-dark ') : 'disabled text-white bg-secondary' }}">Intra
+                                            Operative</a>
+                                        <a href=" {{ route('crf.postoperative.index', ['crf' => $crf]) }}"
+                                            class="badge text-decoration-none rounded-pill fw-normal nav-link  {{ $crf->postoperatives->form_status ? ($crf->postoperatives->visit_status ? 'bg-success' : 'bg-warning text-dark ') : 'disabled text-white bg-secondary' }}">Post
+                                            Operative</a>
+
+
+
+                                    </div>
+
+                                    <div class="col-sm-2 gap-1"> <a href="{{ route('crf.edit', $crf->subject_id) }}"
+                                            class="btn btn-sm btn-secondary">Edit</a>
+                                        <a href="{{ route('crf.show', $crf->subject_id) }}" type="button"
+                                            class="btn btn-sm btn-info">View</a>
+
+                                        <a href="{{ route('crf.destroy', $crf->subject_id) }}" type="button"
+                                            class="btn btn-sm btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+
+                    </div>
+
+                    @if ($caseReportForm->hasPages())
+                        <div class="card-footer">
+
+                            {{ $caseReportForm->links() }}
+
+
+                        </div>
+                    @endif
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
         </div>
-
-
-    
-
-    @can('research-coordinator')
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Subject ID</th>
-                        <th>Facility</th>
-                        <th>UHID</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {{-- @if (count($caseReportForm) > 0) --}}
-                        {{-- @foreach ($caseReportForm as $index => $crf)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $crf->subjectId }}</td>
-                                <td>{{ $crf->facility->facilityName }}</td>
-                                <td>{{ $crf->uhid }}</td>
-                                <td>
-                                    <h6> <span
-                                            class="badge rounded-pill {{ $crf->status ? 'bg-success px-3' : 'bg-warning text-dark  px-4' }}">
-                                            {{ $crf->status ? 'Approved' : 'Draft' }}
-                                        </span></h6>
-                                </td>
-                                <td>
-
-                                    <a href="{{ route('crf.edit', $crf->id) }}" class="btn btn-sm btn-secondary">Edit</a>
-                                    <a href="{{ route('crf.show', $crf->id) }}" type="button"
-                                        class="btn btn-sm btn-info">View</a>
-
-                                    <a href="{{ route('crf.destroy', $crf->id) }}" type="button"
-                                        class="btn btn-sm btn-danger">Delete</a>
-
-                                </td>
-                            </tr>
-                        @endforeach
-                    @else
-                        No Records
-                    @endif --}}
-
-                    <tr>
-                        <td> </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    {{-- @elsecan('reseach-investigator') --}}
-        reserach co-ordinator
-    @else
-    @endcan
-
-
-
-
     </div>
+
 </x-app-layout>
