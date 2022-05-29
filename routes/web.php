@@ -1,6 +1,20 @@
 <?php
 
+use App\Http\Controllers\CaseReportFormController;
+
+
+
+use App\Http\Controllers\PreOperativeController;
+use App\Http\Controllers\PostOperativeController;
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IntraOperativeController;
+
+use App\Http\Controllers\ScheduledVisitController;
+use App\Http\Controllers\UnscheduledvisitController;
+
+use App\Http\Controllers\PreOperative\PreOperativePhysicalExaminationController;
+use App\Http\Controllers\PreOperative\PreOperativeSymptomsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,37 +34,32 @@ Route::get('/', function () {
 })->middleware(['auth'])->name('dashboard');
 
 
-Route::get('/crf', function(){
-    return view('casereportforms.index');
-})->name('crf');
 
-Route::get('/crf/create', function(){
-    return view('casereportforms.create');
-})->name('crf.create');
+Route::group(['middleware' => 'auth'], function () {
 
-Route::get('/crf/create/visit', function(){
-    return view('casereportforms.show');
-})->name('crf.visit');
+    Route::resource('crf', CaseReportFormController::class)->parameters(['crf' => 'crf:subject_id']);
+
+    Route::scopeBindings()->group(function () {
+        
+        Route::resource('crf.preoperative', PreOperativeController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
+        Route::resource('crf.postoperative', PostOperativeController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
+        Route::resource('crf.intraoperative', IntraOperativeController::class)->parameters(['crf' => 'crf:subject_id', 'intraoperative' => 'intraoperative:visit_no']);
+        Route::resource('crf.scheduledvisit', ScheduledVisitController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
+        Route::resource('crf.unscheduledvisit', UnscheduledvisitController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
+    
+        Route::resource('crf.preoperative.physicalexamination', PreOperativePhysicalExaminationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
+        Route::resource('crf.preoperative.symptoms', PreOperativeSymptomsController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
 
 
-
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-Route::get('/underconstruction', function () {
-    return view('underconstruction');
-})->middleware(['auth'])->name('underconstruction');
+    });
 
 
 
-// Route::resource('crf', CrfController::class)->middleware(['auth']);
 
-// Route::get('/roles', RolesComponent::class)->middleware(['auth'])->name('roles');
-
-// Route::get('/facility', FacilityLocation::class)->middleware(['auth'])->name('facility');
-// Route::get('/users', UserMaster::class)->middleware(['auth'])->name('users');
-
+    Route::get('/underconstruction', function () {
+        return view('underconstruction');
+    })->middleware(['auth'])->name('underconstruction');
+});
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
