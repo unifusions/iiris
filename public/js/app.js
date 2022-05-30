@@ -5133,7 +5133,11 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__(/*! flatpickr/dist/themes/dark.css */ "./node_modules/flatpickr/dist/themes/dark.css");
 
-(0,flatpickr__WEBPACK_IMPORTED_MODULE_0__["default"])(".calendar", {});
+(0,flatpickr__WEBPACK_IMPORTED_MODULE_0__["default"])(".calendar", {
+  altInput: true,
+  altFormat: 'd/m/Y',
+  dateFormat: 'Y-m-d'
+});
 var $ = (jquery__WEBPACK_IMPORTED_MODULE_1___default());
 var height, weight;
 $("#height").change(function () {

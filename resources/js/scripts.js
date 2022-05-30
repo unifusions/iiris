@@ -4,7 +4,11 @@ import jquery from 'jquery';
 require("flatpickr/dist/themes/dark.css");
 
 
-flatpickr(".calendar", {});
+flatpickr(".calendar", {
+  altInput: true,
+  altFormat: 'd/m/Y',
+  dateFormat: 'Y-m-d',
+});
 
 
 var $ = jquery;

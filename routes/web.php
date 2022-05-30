@@ -9,12 +9,13 @@ use App\Http\Controllers\PostOperativeController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IntraOperativeController;
-
+use App\Http\Controllers\PreOperative\PreOperativeLabInvestigation;
 use App\Http\Controllers\ScheduledVisitController;
 use App\Http\Controllers\UnscheduledvisitController;
 
 use App\Http\Controllers\PreOperative\PreOperativePhysicalExaminationController;
 use App\Http\Controllers\PreOperative\PreOperativeSymptomsController;
+use App\Http\Controllers\PreOperative\PreOperativeLabInvestigationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     
         Route::resource('crf.preoperative.physicalexamination', PreOperativePhysicalExaminationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.symptoms', PreOperativeSymptomsController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
+        Route::resource('crf.preoperative.labinvestigation', PreOperativeLabInvestigationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
 
 
     });

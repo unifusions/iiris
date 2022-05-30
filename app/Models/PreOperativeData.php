@@ -18,6 +18,10 @@ class PreOperativeData extends Model
 
     ];
 
+    public function crf(){
+        return $this->belongsTo(CaseReportForm::class);
+    }
+
     public function physicalexaminations(){
         return $this->hasOne(PhysicalExamination::class);
     }
@@ -26,9 +30,11 @@ class PreOperativeData extends Model
         return $this->hasOne(OperativeSymptoms::class);
     }
 
-    public function crf(){
-        return $this->belongsTo(CaseReportForm::class);
+    public function labinvestigations(){
+        return $this->hasOne(LabInvestigation::class);
     }
+
+   
 
 }
 

@@ -71,12 +71,14 @@
                                         <span class="material-icons text-warning">priority_high</span>
                                     </a>
 
-
-
-                                    <a href="#"
-                                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center ">
+                                    <a href="{{ route('crf.preoperative.labinvestigation.create', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center
+                                        {{ !empty($preoperative->labinvestigations) ? 'disabled' : '' }}  ">
                                         Lab Investigation
-                                        <span class="material-icons text-warning">priority_high</span>
+                                        <span
+                                            class="material-icons {{ !empty($preoperative->labinvestigations) ? 'text-success' : 'text-warning' }}">
+                                            {{ !empty($preoperative->labinvestigations) ? 'done' : 'priority_high' }}
+                                        </span>
                                     </a>
 
                                     <a href="#"
@@ -188,7 +190,7 @@
                             {{-- /Physical Examination --}}
 
                             {{-- Preoperative Sympmtoms --}}
-                            <section class="border-bottom">
+                            <section class="border-bottom mb-3">
 
                                 @empty($preoperative->symptoms)
                                     <div class="row mb-3">
@@ -436,6 +438,195 @@
                             </section>
 
                             {{-- /Preoperative Sympmtoms --}}
+
+
+                            {{-- Lab Investigation --}}
+                            <section class="border-bottom">
+
+                                @empty($preoperative->labinvestigations)
+                                    <div class="row mb-3">
+                                        <div class="col-12 d-flex justify-content-between">
+                                            <span class="fs-6 fw-bold me-3">Pre-Operative Lab Investigation</span>
+                                            <a href="{{ route('crf.preoperative.labinvestigation.create', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                                class="btn btn-primary btn-sm"> Add Lab Investigation </a>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="row mb-3">
+                                        <div class="col-12 d-flex justify-content-between">
+                                            <span class="fs-6 fw-bold me-3">Pre-Operative Lab Investigation</span>
+
+                                            @can('coordinator')
+                                                <a href="{{ route('crf.preoperative.labinvestigation.edit', ['crf' => $crf, 'preoperative' => $preoperative, 'labinvestigation' => $preoperative->labinvestigations]) }}"
+                                                    class="btn btn-warning btn-sm">Edit </a>
+                                            @endcan
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Date</div>
+                                        <div class="col-9 fw-bold">{{ $preoperative->labinvestigations->li_date->format('d/m/Y') }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Red Blood Cell (RBC)
+
+                                        </div>
+                                        <div class="col-3">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->rbc }}</span>
+                                            <span class="text-secondary small me-3">cells/cu.mm
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">White Blood Cell (WBC)
+
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->wbc }}</span>
+
+                                            <span class="text-secondary small me-3">cells/cu.mm
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Hemoglobin
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->hemoglobin }}</span>
+                                            <span class="text-secondary small me-3">g/dl
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Hematocrit
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->hematocrit }}</span>
+                                            <span class="text-secondary small me-3">%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Platelet Count
+
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->platelet }}</span>
+                                            <span class="text-secondary small me-3">cells/cu.mm
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Blood Urea
+
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->blood_urea }}</span>
+                                            <span class="text-secondary small me-3">mg/dl
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Serum Creatinine
+
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->serum_creatinine }}</span>
+                                            <span class="text-secondary small me-3">mg/dl
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Alanine Transaminase (ALT)
+
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->alt }}</span>
+                                            <span class="text-secondary small me-3">u/l
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Aspartate Transaminase (AST)
+
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->ast }}</span>
+                                            <span class="text-secondary small me-3">u/l
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Alkaline Phosphatase (ALP)
+
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->alp }}</span>
+                                            <span class="text-secondary small me-3">u/l
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Albumin
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->albumin }}</span>
+                                            <span class="text-secondary small me-3">gm/dl
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Total Protein
+
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->total_protein }}</span>
+                                            <span class="text-secondary small me-3">gm/dl
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Bilirubin
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->bilirubin }}</span>
+                                            <span class="text-secondary small me-3">mg/dl
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Prothrombin Time(PT) INR
+
+                                        </div>
+                                        <div class="col-3 ">
+                                            <span class="fw-bold">{{ $preoperative->labinvestigations->pt_inr }}</span>
+                                            <span class="text-secondary small me-3">seconds</span>
+                                        </div>
+                                    </div>
+
+
+
+                                   
+                                @endempty
+                            </section>
+
+                            {{-- /Lab Investigation --}}
+
+
                         </div>
 
                         <div class="card-footer">
