@@ -17,6 +17,9 @@ class PreOperativeData extends Model
 
 
     ];
+    protected $casts = [
+        'fieldsets' => 'array'
+    ];
 
     public function crf(){
         return $this->belongsTo(CaseReportForm::class);
@@ -32,6 +35,10 @@ class PreOperativeData extends Model
 
     public function labinvestigations(){
         return $this->hasOne(LabInvestigation::class);
+    }
+
+    public function electrocardiograms(){
+        return $this->hasOne(Electrocardiogram::class);
     }
 
    

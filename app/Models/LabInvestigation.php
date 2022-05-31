@@ -34,15 +34,9 @@ class LabInvestigation extends Model
     protected $dates = ['li_date'];
 
    
-
-    // public function setLiDateAttribute(){
-    //     return Carbon::parse('d/m/Y', $this->attributes['li_date'])->format('Y-m-d');
-    // }
-    
-    // public function getLiDateAttribute(){
-    //     return Carbon::createFromFormat('Y-m-d', $this->attributes['li_date'])->format('d/m/Y');
-    // }
-
+    public function preoperatives(){
+        return $this->belongsTo(PreOperativeData::class);
+    }
 
 
 

@@ -18,12 +18,15 @@
         <div class="  @can('coordinator') container-fluid @endcan  @can('investigator') container @endcan">
             <div class="row">
                 @can('coordinator')
-                    <div class="col-3">
+                    <div class="col-xl-3 col-md-4">
                         <div class="card shadow">
                             <div class="card-header">
                                 Fields
                             </div>
                             <div class="card-body">
+
+
+
                                 <div class="list-group">
                                     <a href=" {{ route('crf.preoperative.physicalexamination.create', ['crf' => $crf, 'preoperative' => $preoperative]) }} "
                                         class="list-group-item list-group-item-action d-flex justify-content-between align-items-center  {{ !empty($preoperative->physicalexaminations) ? 'disabled' : '' }} ">
@@ -81,10 +84,14 @@
                                         </span>
                                     </a>
 
-                                    <a href="#"
-                                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center ">
+                                    <a href="{{ route('crf.preoperative.electrocardiogram.create', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center
+                                        {{ !empty($preoperative->electrocardiograms) ? 'disabled' : '' }} ">
                                         Electrocardiogram
-                                        <span class="material-icons text-warning">priority_high</span>
+                                        <span
+                                            class="material-icons {{ !empty($preoperative->electrocardiograms) ? 'text-success' : 'text-warning' }}">
+                                            {{ !empty($preoperative->electrocardiograms) ? 'done' : 'priority_high' }}
+                                        </span>
                                     </a>
 
                                     <a href="#"
@@ -105,7 +112,7 @@
                         </div>
                     </div>
                 @endcan
-                <div class=" @can('coordinator') col-9 @endcan  @can('investigator') col-12 @endcan ">
+                <div class=" @can('coordinator') col-xl-9 col-md-8 @endcan  @can('investigator') col-12 @endcan ">
 
                     <div class="card shadow mb-3">
                         <div class="card-header">
@@ -125,7 +132,7 @@
 
                                 @empty($preoperative->physicalexaminations)
                                     <div class="row mb-3">
-                                        <div class="col-12">
+                                        <div class="col-12 d-flex justify-content-between">
                                             <span class="fs-6 fw-bold me-3">Physical Examination</span>
                                             <a href="{{ route('crf.preoperative.physicalexamination.create', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
                                                 class="btn btn-primary btn-sm"> Add Physical Examination </a>
@@ -133,7 +140,7 @@
                                     </div>
                                 @else
                                     <div class="row mb-3">
-                                        <div class="col-12">
+                                        <div class="col-12 d-flex justify-content-between">
                                             <span class="fs-6 fw-bold me-3">Physical Examination</span>
                                             @can('coordinator')
                                                 <a href="{{ route('crf.preoperative.physicalexamination.edit', ['crf' => $crf, 'preoperative' => $preoperative, 'physicalexamination' => $preoperative->physicalexaminations]) }}"
@@ -193,8 +200,8 @@
                             <section class="border-bottom mb-3">
 
                                 @empty($preoperative->symptoms)
-                                    <div class="row mb-3">
-                                        <div class="col-12">
+                                    <div class="row mb-3 ">
+                                        <div class="col-12 d-flex justify-content-between">
                                             <span class="fs-6 fw-bold me-3">Pre-Operative Symptoms</span>
                                             <a href="{{ route('crf.preoperative.symptoms.create', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
                                                 class="btn btn-primary btn-sm"> Add Pre Operative Symptoms </a>
@@ -202,7 +209,7 @@
                                     </div>
                                 @else
                                     <div class="row mb-3">
-                                        <div class="col-12">
+                                        <div class="col-12 d-flex justify-content-between">
                                             <span class="fs-6 fw-bold me-3">Pre-Operative Symptoms</span>
 
                                             @can('coordinator')
@@ -441,7 +448,7 @@
 
 
                             {{-- Lab Investigation --}}
-                            <section class="border-bottom">
+                            <section class="border-bottom mb-3">
 
                                 @empty($preoperative->labinvestigations)
                                     <div class="row mb-3">
@@ -465,7 +472,8 @@
 
                                     <div class="row mb-3">
                                         <div class="col-3 text-secondary">Date</div>
-                                        <div class="col-9 fw-bold">{{ $preoperative->labinvestigations->li_date->format('d/m/Y') }}
+                                        <div class="col-9 fw-bold">
+                                            {{ $preoperative->labinvestigations->li_date->format('d/m/Y') }}
                                         </div>
                                     </div>
 
@@ -496,7 +504,8 @@
                                         <div class="col-3 text-secondary">Hemoglobin
                                         </div>
                                         <div class="col-3 ">
-                                            <span class="fw-bold">{{ $preoperative->labinvestigations->hemoglobin }}</span>
+                                            <span
+                                                class="fw-bold">{{ $preoperative->labinvestigations->hemoglobin }}</span>
                                             <span class="text-secondary small me-3">g/dl
                                             </span>
                                         </div>
@@ -506,7 +515,8 @@
                                         <div class="col-3 text-secondary">Hematocrit
                                         </div>
                                         <div class="col-3 ">
-                                            <span class="fw-bold">{{ $preoperative->labinvestigations->hematocrit }}</span>
+                                            <span
+                                                class="fw-bold">{{ $preoperative->labinvestigations->hematocrit }}</span>
                                             <span class="text-secondary small me-3">%</span>
                                         </div>
                                     </div>
@@ -516,7 +526,8 @@
 
                                         </div>
                                         <div class="col-3 ">
-                                            <span class="fw-bold">{{ $preoperative->labinvestigations->platelet }}</span>
+                                            <span
+                                                class="fw-bold">{{ $preoperative->labinvestigations->platelet }}</span>
                                             <span class="text-secondary small me-3">cells/cu.mm
                                             </span>
                                         </div>
@@ -527,7 +538,8 @@
 
                                         </div>
                                         <div class="col-3 ">
-                                            <span class="fw-bold">{{ $preoperative->labinvestigations->blood_urea }}</span>
+                                            <span
+                                                class="fw-bold">{{ $preoperative->labinvestigations->blood_urea }}</span>
                                             <span class="text-secondary small me-3">mg/dl
                                             </span>
                                         </div>
@@ -538,7 +550,8 @@
 
                                         </div>
                                         <div class="col-3 ">
-                                            <span class="fw-bold">{{ $preoperative->labinvestigations->serum_creatinine }}</span>
+                                            <span
+                                                class="fw-bold">{{ $preoperative->labinvestigations->serum_creatinine }}</span>
                                             <span class="text-secondary small me-3">mg/dl
                                             </span>
                                         </div>
@@ -581,7 +594,8 @@
                                         <div class="col-3 text-secondary">Albumin
                                         </div>
                                         <div class="col-3 ">
-                                            <span class="fw-bold">{{ $preoperative->labinvestigations->albumin }}</span>
+                                            <span
+                                                class="fw-bold">{{ $preoperative->labinvestigations->albumin }}</span>
                                             <span class="text-secondary small me-3">gm/dl
                                             </span>
                                         </div>
@@ -592,7 +606,8 @@
 
                                         </div>
                                         <div class="col-3 ">
-                                            <span class="fw-bold">{{ $preoperative->labinvestigations->total_protein }}</span>
+                                            <span
+                                                class="fw-bold">{{ $preoperative->labinvestigations->total_protein }}</span>
                                             <span class="text-secondary small me-3">gm/dl
                                             </span>
                                         </div>
@@ -602,7 +617,8 @@
                                         <div class="col-3 text-secondary">Bilirubin
                                         </div>
                                         <div class="col-3 ">
-                                            <span class="fw-bold">{{ $preoperative->labinvestigations->bilirubin }}</span>
+                                            <span
+                                                class="fw-bold">{{ $preoperative->labinvestigations->bilirubin }}</span>
                                             <span class="text-secondary small me-3">mg/dl
                                             </span>
                                         </div>
@@ -613,20 +629,113 @@
 
                                         </div>
                                         <div class="col-3 ">
-                                            <span class="fw-bold">{{ $preoperative->labinvestigations->pt_inr }}</span>
+                                            <span
+                                                class="fw-bold">{{ $preoperative->labinvestigations->pt_inr }}</span>
                                             <span class="text-secondary small me-3">seconds</span>
                                         </div>
                                     </div>
 
 
 
-                                   
+
                                 @endempty
                             </section>
-
                             {{-- /Lab Investigation --}}
 
+                            {{-- Electrocardiogram --}}
+                            <section class="border-bottom mb-3">
 
+                                @empty($preoperative->electrocardiograms)
+                                    <div class="row mb-3">
+                                        <div class="col-12 d-flex justify-content-between">
+                                            <span class="fs-6 fw-bold me-3">Pre-Operative Electrocardiogram</span>
+                                            <a href="{{ route('crf.preoperative.electrocardiogram.create', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                                class="btn btn-primary btn-sm"> Add Electrocardiograms </a>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="row mb-3">
+                                        <div class="col-12 d-flex justify-content-between">
+                                            <span class="fs-6 fw-bold me-3">Pre-Operative Electrocardiograms</span>
+
+                                            @can('coordinator')
+                                                <a href="{{ route('crf.preoperative.electrocardiogram.edit', ['crf' => $crf, 'preoperative' => $preoperative, 'electrocardiogram' => $preoperative->electrocardiograms]) }}"
+                                                    class="btn btn-warning btn-sm">Edit </a>
+                                            @endcan
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Date</div>
+                                        <div class="col-9 fw-bold">
+                                            {{ $preoperative->electrocardiograms->ecg_date->format('d/M/Y') }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Rhythm
+
+                                        </div>
+                                        <div class="col-9">
+                                            <span
+                                                class="fw-bold">{{ $preoperative->electrocardiograms->rhythm }}</span>
+                                            @if ($preoperative->electrocardiograms->rhythm === 'Others')
+                                                <span class="text-secondary">
+                                                    {{ $preoperative->electrocardiograms->rhythm_others }}
+                                                </span>
+                                            @endif
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">Rate</div>
+                                        <div class="col-3 ">
+                                            <span
+                                                class="fw-bold">{{ $preoperative->electrocardiograms->rate }}</span>
+
+                                            <span class="text-secondary small me-3">bpm
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">LVH</div>
+                                        <div class="col-9 ">
+                                            <span
+                                                class="fw-bold">{{ $preoperative->electrocardiograms->lvh ? 'Yes' : 'No' }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-3 text-secondary">LV Strain
+                                        </div>
+                                        <div class="col-9">
+                                            <span
+                                                class="fw-bold">{{ $preoperative->electrocardiograms->lvs ? 'Yes' : 'No' }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3 text-secondary">PR Interval</div>
+                                        <div class="col-sm-3">
+                                            <span
+                                                class="fw-bold">{{ $preoperative->electrocardiograms->printerval }}</span>
+                                            <span class="text-secondary small me-3">ms</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3 text-secondary">QRS Duration</div>
+                                        <div class="col-sm-3 ">
+                                            <span
+                                                class="fw-bold">{{ $preoperative->electrocardiograms->qrsduration }}</span>
+                                            <span class="text-secondary small me-3">ms</span>
+                                        </div>
+                                    </div>
+                                @endempty
+                            </section>
+                            {{-- /Electrocardiogram --}}
                         </div>
 
                         <div class="card-footer">

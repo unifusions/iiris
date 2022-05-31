@@ -1,9 +1,16 @@
 <x-app-layout>
+
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
+        <nav aria-label="breadcrumb ">
+            <ol class="breadcrumb">
+               
+                <li class="breadcrumb-item active d-flex justify-content-between align-items-center" aria-current="page"><span class="material-icons me-3">dashboard</span> <span> {{ 'Dashboard' }}</span>
+                </li>
+            </ol>
+        </nav>
     </x-slot>
+
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

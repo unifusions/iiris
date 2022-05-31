@@ -139,3 +139,14 @@ $('#others').change(function () {
 });
 
 
+$('input[name="rhythm"]').change(function () {
+  if ($('#rhythmothers').is(":checked")) {
+    $('#rhythmothers_text').addClass('show').removeClass('hide');
+  }
+  else {
+    $('#rhythmothers_text').addClass('hide').removeClass('show');
+  }
+});
+
+
+//Electrocardiogram

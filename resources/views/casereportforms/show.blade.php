@@ -3,13 +3,20 @@
     <x-slot name="header">
         <nav aria-label="breadcrumb ">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={{ route('crf.index') }} class="">
-                        {{ __('Case Report Form  ') }}</a> </li>
+               <li class="breadcrumb-item">
+                   <a href="{{ route('dashboard') }}"><span class="material-icons small">home</span></a>
+               </li>
 
-                <li class="breadcrumb-item active" aria-current="page"> <span> {{ $crf->subject_id }}</span></li>
+               <li class="breadcrumb-item">
+                <a href="{{ route('crf.index') }}">Case Report Form</a>
+            </li>
+
+            <li class="breadcrumb-item active" aria-current="page"> <span> {{ $crf->subject_id }}</span></li>
+
             </ol>
         </nav>
     </x-slot>
+
 
     <div class="container">
         <div class="row">

@@ -1,12 +1,22 @@
 <x-app-layout>
 
     <x-slot name="header">
-        <div class="d-flex justify-content-between align-items-center">
-            <a href="{{ url()->previous() }}" class="btn btn-light btn-sm me-3 d-flex align-items-center"><span
-                    class="material-icons  small">arrow_back</span> </a>
-            <span class="fw-bold">{{ __('New Case Report Form') }}</span>
-        </div>
+        <nav aria-label="breadcrumb ">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('dashboard') }}"><span class="material-icons small">home</span></a>
+                </li>
+
+                <li class="breadcrumb-item">
+                    <a href="{{ route('crf.index') }}">Case Report Form</a>
+                </li>
+
+                <li class="breadcrumb-item active" aria-current="page"> <span> {{ 'New Case Report Forms' }}</span>
+                </li>
+            </ol>
+        </nav>
     </x-slot>
+
 
 
     <div class="container">
@@ -41,7 +51,7 @@
                                 </div>
 
                                 <div class="col-sm-8">
-                                    <span class="fw-bold">{{auth()->user()->facility->name }}</span>
+                                    <span class="fw-bold">{{ auth()->user()->facility->name }}</span>
                                 </div>
 
                             </div>
@@ -130,8 +140,7 @@
                                 </div>
 
 
-                                {{-- <a href="{{ route('crf.visit') }}" class="btn btn-primary">Proceed</a> --}}
-
+                            
                             </div>
                         </div>
 
@@ -142,8 +151,6 @@
     </div>
 
 
-
-    </div>
 
 
 
