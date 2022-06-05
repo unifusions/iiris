@@ -20,15 +20,13 @@
 
 
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h4 class="fw-light">
-                    {{ __('New Case Report Form') }}
-                </h4>
-
+        <div class="row mb-3">
+            <div class="col-sm-12 mb-3">
+                <div class="fs-3 fw-normal ">  {{ __('New Case Report Form') }}</div>
             </div>
+
             <div class="col-sm-12">
-                <div class="card rounded shadow-sm">
+                <div class="card rounded-5 shadow-sm">
                     <form action="{{ route('crf.store') }}" method="POST">
                         @csrf
 
@@ -135,8 +133,8 @@
                         <div class="card-footer">
                             <div class="row g-3">
                                 <div class="col-sm-12">
-                                    <a href="{{ url()->previous() }}" class="btn btn-secondary me-2">Cancel</a>
-                                    <button type="submit" class="btn btn-primary">Proceed</a>
+                                    <a href="{{ url()->previous() }}" class="btn btn-secondary me-2 rounded-5 fw-bold text-uppercase">Cancel</a>
+                                    <button type="submit" class="btn btn-primary fw-bold rounded-5 text-uppercase">Proceed</a>
                                 </div>
 
 

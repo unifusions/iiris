@@ -35,10 +35,10 @@ class CaseReportFormController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, CaseReportForm $crf)
     {
         $request->validate([]);
-        $crf = new CaseReportForm;
+        
         $crf->date_of_consent = $request->dateOfConsent;
         $crf->uhid = $request->uhid;
         $crf->gender = $request->gender;
@@ -46,9 +46,10 @@ class CaseReportFormController extends Controller
         $crf->save();
 
         $subject_id = $crf->subject_id;
-        $message = 'Case Report Form with'  . $crf->subject_id . 'created succesfully';
+        $message = 'Case Report Form with '  . $crf->subject_id . ' created succesfully';
 
-        return view('casereportforms.show', compact('crf'))->with(['message', '$message',  'type' => 'success']);
+        return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+        // return view('casereportforms.show', compact('crf'))->with(['message', '$message',  'type' => 'success']);
     }
 
     /**
@@ -59,7 +60,7 @@ class CaseReportFormController extends Controller
      */
     public function show(CaseReportForm $crf)
     {
-        //
+
         return view('casereportforms.show', compact('crf'));
     }
 
@@ -72,6 +73,7 @@ class CaseReportFormController extends Controller
     public function edit(CaseReportForm $caseReportForm)
     {
         //
+        return 'edit';
     }
 
     /**
@@ -84,6 +86,7 @@ class CaseReportFormController extends Controller
     public function update(Request $request, CaseReportForm $caseReportForm)
     {
         //
+        return 'update';
     }
 
     /**
@@ -92,8 +95,9 @@ class CaseReportFormController extends Controller
      * @param  \App\Models\CaseReportForm  $caseReportForm
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CaseReportForm $caseReportForm)
+    public function destroy(CaseReportForm $crf)
     {
-        //
+        $crf->delete();
+        return $this->index();
     }
 }

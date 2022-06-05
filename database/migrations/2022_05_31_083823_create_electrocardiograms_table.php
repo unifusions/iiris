@@ -32,6 +32,7 @@ return new class extends Migration
             $table->integer('qrsduration')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

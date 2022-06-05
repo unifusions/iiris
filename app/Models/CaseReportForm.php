@@ -69,4 +69,8 @@ class CaseReportForm extends Model
     public function unscheduledvisits(){
         return $this->hasMany(UnscheduledVisit::class);
     }
+
+    public function preoperativeEchocardiographies(){
+        return $this->hasManyThrough(Echocardiography::class, PreOperativeData::class,'case_report_form_id','pre_operative_data_id','id','id');
+    }
 }

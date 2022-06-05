@@ -10,7 +10,7 @@
                         class=""> {{ $crf->subject_id }}
                     </a> </li>
 
-                <li class="breadcrumb-item"><a href=" {{ route($breadcrumb['link'], $storeParameters) }}"
+                <li class="breadcrumb-item"><a href=" {{ route($breadcrumb['link'], ['crf' => $storeParameters['crf']]) }}"
                         class="">
                         {{ $breadcrumb['name'] }} </a> </li>
 
@@ -21,7 +21,7 @@
     </x-slot>
 
     <div class="container">
-        <form action="{{ route($storeUri, $storeParameters) }}" method="POST">
+        <form action="{{ route($storeUri, [$storeParameters['crf'], $storeParameters['preoperative']] ) }}" method="POST">
             @csrf
             <div class="card shadow mt-3">
                 <div class="card-header">

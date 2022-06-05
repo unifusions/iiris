@@ -47,4 +47,8 @@ class User extends Authenticatable
     public function facility(){
         return $this->belongsTo(Facility::class);
     }
+
+    public function casereportforms(){
+        return $this->hasMany(CaseReportForm::class);
+    }
 }

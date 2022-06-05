@@ -10,7 +10,7 @@
                         class=""> {{ $crf->subject_id }}
                     </a> </li>
 
-                <li class="breadcrumb-item"><a href=" {{ route($breadcrumb['link'], $storeParameters) }}"
+                <li class="breadcrumb-item"><a href=" {{ route($breadcrumb['link'], ['crf' => $storeParameters['crf']]) }}"
                         class="">
                         {{ $breadcrumb['name'] }} </a> </li>
 

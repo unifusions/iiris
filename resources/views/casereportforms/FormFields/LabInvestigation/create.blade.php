@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="input-group">
-                            <input type="text" class="form-control calendar" name="date">
+                            <input type="text" class="form-control calendar" name="li_date">
                         </div>
                     </div>
                 </div>

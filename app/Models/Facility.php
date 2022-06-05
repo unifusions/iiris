@@ -19,7 +19,7 @@ class Facility extends Model
         'pin_code'
     ];
 
-    public function user(){
+    public function users(){
         return $this->hasMany(User::class);
     }
 }

@@ -50,7 +50,7 @@ class PreOperativeLabInvestigationController extends Controller
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, LabInvestigationService $labInvestigationService )
     {
         
-       return $labInvestigationService->createPreoperativeLabInvestigation($request);
+       $labInvestigationService->createPreoperativeLabInvestigation($request);
        return redirect()->route('crf.preoperative.index', ['crf' => $crf, 'preoperative' => $preoperative]);
     }
 
@@ -98,7 +98,7 @@ class PreOperativeLabInvestigationController extends Controller
     {
         //
         
-        $labinvestigations = $labInvestigationService->updatePreoperativeLabInvestigation($request, $labinvestigation);
+        $labInvestigationService->updatePreoperativeLabInvestigation($request, $labinvestigation);
         return redirect()->route('crf.preoperative.index', ['crf' => $crf, 'preoperative' => $preoperative]);
     }
 

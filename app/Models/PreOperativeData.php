@@ -10,40 +10,62 @@ class PreOperativeData extends Model
     use HasFactory;
 
     protected $fillable = [
-        'case_report_form_id' ,
+        'case_report_form_id',
         'visit_no',
+        'medical_history',
+        'surgical_history', 
+        'family_history',
+        'physical_activity',
+        'hasMedications',
         'form_status',
         'visit_status',
 
 
     ];
     protected $casts = [
-        'fieldsets' => 'array'
+        'medical_history' => 'boolean'
     ];
 
-    public function crf(){
+    public function crf()
+    {
         return $this->belongsTo(CaseReportForm::class);
     }
-
-    public function physicalexaminations(){
+    public function physicalexaminations()
+    {
         return $this->hasOne(PhysicalExamination::class);
     }
-
-    public function symptoms(){
+    public function symptoms()
+    {
         return $this->hasOne(OperativeSymptoms::class);
     }
-
-    public function labinvestigations(){
+    public function medicalhistories(){
+        return $this->hasMany(MedicalHistory::class);
+    }
+    public function surgicalhistories(){
+        return $this->hasMany(SurgicalHistory::class);
+    }
+    public function familyhistories(){
+        return $this->hasMany(FamilyHistory::class);
+    }
+    public function personalhistories(){
+        return $this->hasOne(PersonalHistory::class);
+    }
+    public function physicalactivities(){
+        return $this->hasMany(PhysicalActivity::class);
+    }
+    public function labinvestigations()
+    {
         return $this->hasOne(LabInvestigation::class);
     }
-
-    public function electrocardiograms(){
+    public function electrocardiograms()
+    {
         return $this->hasOne(Electrocardiogram::class);
     }
-
-   
-
+    public function echocardiographies()
+    {
+        return $this->hasOne(Echocardiography::class);
+    }
+    public function medications(){
+        return $this->hasMany(Medication::class);
+    }
 }
-
-
-

@@ -56,7 +56,8 @@ class PreOperativePhysicalExaminationController extends Controller
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, PhysicalExaminationService $physicalExaminationService)
     {
         $physicalexamination = $physicalExaminationService->createPreOperativePhysicalExamination($request);
-        return redirect()->route('crf.preoperative.index', ['crf' => $crf, 'preoperative' => $preoperative]);
+       // return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative])->with(['crf' => $crf]);
+       return view('casereportforms.PreOperativeData.show', compact('crf', 'preoperative'));
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CaseReportForm;
 use App\Models\IntraOperativeData;
+use App\Models\PreOperativeData;
 use Illuminate\Http\Request;
 
 class IntraOperativeController extends Controller
@@ -13,9 +14,11 @@ class IntraOperativeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(CaseReportForm $crf, IntraOperativeData $intraoperative)
     {
+       
         
+        return view('casereportforms.IntraOperativeData.index', compact('crf', 'intraoperative'));
     }
 
     /**
@@ -34,9 +37,13 @@ class IntraOperativeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, CaseReportForm $crf)
     {
-        //
+        $intraoperative = IntraOperativeData::Create([
+            'date_of_procedure' => $request->date_of_procedure
+        ]);
+        return view('casereportforms.IntraOperativeData.index', compact('crf', 'intraoperative'));
+
     }
 
     /**

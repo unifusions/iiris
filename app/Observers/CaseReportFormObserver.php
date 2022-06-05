@@ -31,7 +31,7 @@ class CaseReportFormObserver
     {
         $user = auth()->user();
 
-        $crf_count = CaseReportForm::where('facility_id', '=', $user->facility_id)->count();
+        $crf_count = CaseReportForm::withTrashed()->where('facility_id', '=', $user->facility_id)->count();
 
         $caseReportForm->subject_id = str_pad($user->facility_id, 3, '0', STR_PAD_LEFT) . '-' . str_pad($crf_count++, 3, '0', STR_PAD_LEFT);
 
