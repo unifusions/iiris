@@ -499,12 +499,12 @@
                             </div>
                         @else
                             <div class="card-header">
-                                
-                                    <div class="d-flex justify-content-between"> <span class="fs-6 fw-bold me-3">Pre-Operative
-                                            Medical History</span></div>
+
+                                <div class="d-flex justify-content-between"> <span class="fs-6 fw-bold me-3">Pre-Operative
+                                        Medical History</span>
                                     <a href="{{ route('crf.preoperative.medicalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
                                         class="btn btn-primary rounded-5"> Add Medical History </a>
-                                
+                                </div>
                             </div>
                             @if ($preoperative->medical_history)
                                 <div class="card-body">
@@ -1338,13 +1338,13 @@
                         @else
                             <div class="card-header">
 
-                               
-                                    <div class="d-flex justify-content-between">
-                                        <span class="fs-6 fw-bold me-3">Medications</span>
-                                        <a href="{{ route('crf.preoperative.medication.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
-                                            class="btn btn-primary btn-sm"> All Medications </a>
-                                    </div>
-                              
+
+                                <div class="d-flex justify-content-between">
+                                    <span class="fs-6 fw-bold me-3">Medications</span>
+                                    <a href="{{ route('crf.preoperative.medication.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                        class="btn btn-primary btn-sm"> All Medications </a>
+                                </div>
+
                             </div>
                             <div class="card-body">
                                 @if (count($preoperative->medications) > 0)
