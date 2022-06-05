@@ -489,20 +489,22 @@
                     <section class="card shadow-sm rounded-5 mb-3">
                         @if ($preoperative->medical_history === 'null')
                             <div class="card-header">
-                                <div class="row ">
-                                    <div class="col-12 d-flex justify-content-between">
-                                        <span class="fs-6 fw-bold me-3">Pre-Operative Medical History</span>
-                                        <a href="{{ route('crf.preoperative.medicalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
-                                            class="btn btn-primary rounded-5"> Add Medical History </a>
-                                    </div>
+
+                                <div class=" d-flex justify-content-between">
+                                    <span class="fs-6 fw-bold me-3">Pre-Operative Medical History</span>
+                                    <a href="{{ route('crf.preoperative.medicalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                        class="btn btn-primary rounded-5"> Add Medical History </a>
+
                                 </div>
                             </div>
                         @else
                             <div class="card-header">
-                                <div class="row">
-                                    <div class="col-sm-12"> <span class="fs-6 fw-bold me-3">Pre-Operative
+                                
+                                    <div class="d-flex justify-content-between"> <span class="fs-6 fw-bold me-3">Pre-Operative
                                             Medical History</span></div>
-                                </div>
+                                    <a href="{{ route('crf.preoperative.medicalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                        class="btn btn-primary rounded-5"> Add Medical History </a>
+                                
                             </div>
                             @if ($preoperative->medical_history)
                                 <div class="card-body">
@@ -623,7 +625,7 @@
                             <div class="card-body">
                                 @if (count($preoperative->familyhistories) > 0)
                                     <div class="row mb-3">
-                                        
+
                                         <div class="col-sm-12">
                                             <table class="table">
                                                 <tr>
@@ -659,148 +661,146 @@
                     {{-- Personal History --}}
                     <section class="card shadow-sm rounded-5 mb-3">
                         @empty($preoperative->personalhistories)
-                            
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <span class="fs-6 fw-bold me-3">Personal History</span>
-                                <a href="{{ route('crf.preoperative.personalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
-                                    class="btn btn-primary btn-sm"> Add Personal History </a>
+
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <span class="fs-6 fw-bold me-3">Personal History</span>
+                                    <a href="{{ route('crf.preoperative.personalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                        class="btn btn-primary btn-sm"> Add Personal History </a>
+                                </div>
                             </div>
-                        </div>
                         @else
-
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between">
-                                <span class="fs-6 fw-bold me-3">Personal History</span>
-                                <a href="{{ route('crf.preoperative.personalhistory.edit', ['crf' => $crf, 'preoperative' => $preoperative, 'personalhistory' => $preoperative->personalhistories]) }}"
-                                    class="btn btn-primary btn-sm"> Edit </a>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-3 text-secondary">Smoking</div>
-                                <div class="col-9 fw-bold">
-                                    <div class="mb-2">
-                                        {{ $preoperative->personalhistories->smoking }}
-                                    </div>
-                                  
-                                    
-                                    @if($preoperative->personalhistories->smoking !== 'Never')
-                                    <div class="row fw-normal">
-                                        <div class="col-sm-4">
-                                            <span class="text-secondary">No. of Cigrattes</span>
-                                            <span>{{ $preoperative->personalhistories->cigarettes }}</span>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <span class="text-secondary">Smoking Since</span>
-                                            <span>{{ $preoperative->personalhistories->smoking_since }}</span>
-                                        </div>
-
-                                      
-                                        <div class="col-sm-4">
-                                            <span class="text-secondary">Stopped Since</span>
-                                            <span>{{ $preoperative->personalhistories->smoking_stopped }}</span>
-                                        </div>
-                                      
-
-                                    </div>
-                                    @endif
-                                    
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row mb-3">
-                                <div class="col-3 text-secondary">Alcohol</div>
-                                <div class="col-9 fw-bold">
-                                    <div class="mb-2">
-                                        {{ $preoperative->personalhistories->alchohol }}
-                                    </div>
-                                  
-                                    
-                                    @if($preoperative->personalhistories->alchohol !== 'Never')
-                                    <div class="row fw-normal">
-                                        <div class="col-sm-4">
-                                            <span class="text-secondary">Quantity</span>
-                                            <span>{{ $preoperative->personalhistories->cigarettes }}</span>
-                                            <span class="text-muted">ml</span>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <span class="text-secondary">Smoking Since</span>
-                                            <span>{{ $preoperative->personalhistories->alchohol_since }}</span>
-                                        </div>
-
-                                      
-                                        <div class="col-sm-4">
-                                            <span class="text-secondary">Stopped Since</span>
-                                            <span>{{ $preoperative->personalhistories->alchohol_stopped }}</span>
-                                        </div>
-                                     
-
-                                    </div>
-                                    @endif
-                                    
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row mb-3">
-                                <div class="col-3 text-secondary">Tobacco</div>
-                                <div class="col-9 fw-bold">
-                                    <div class="mb-2">
-                                        {{ $preoperative->personalhistories->tobacco }}
-                                    </div>
-                                                                                                           
-                                    @if($preoperative->personalhistories->tobacco !== 'Never')
-                                    
-                                    <div class="row fw-normal">
-                                        <div class="col-sm-12">
-                                            <span class="text-secondary">Type</span>
-                                            <span>{{ $preoperative->personalhistories->tobacco_type }}</span>
-                                            
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <span class="text-secondary">Quantity</span>
-                                            <span>{{ $preoperative->personalhistories->tobacco_quantity }}</span>
-                                            
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <span class="text-secondary">Consuming Since</span>
-                                            <span>{{ $preoperative->personalhistories->tobacco_since }}</span>
-                                        </div>
-
-                                      
-                                        <div class="col-sm-4">
-                                            <span class="text-secondary">Stopped Since</span>
-                                            <span>{{ $preoperative->personalhistories->tobacco_stopped }}</span>
-                                        </div>
-                                     
-
-                                    </div>
-                                    @endif
-                                    
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between">
+                                    <span class="fs-6 fw-bold me-3">Personal History</span>
+                                    <a href="{{ route('crf.preoperative.personalhistory.edit', ['crf' => $crf, 'preoperative' => $preoperative, 'personalhistory' => $preoperative->personalhistories]) }}"
+                                        class="btn btn-primary btn-sm"> Edit </a>
                                 </div>
                             </div>
 
-                        </div>
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-3 text-secondary">Smoking</div>
+                                    <div class="col-9 fw-bold">
+                                        <div class="mb-2">
+                                            {{ $preoperative->personalhistories->smoking }}
+                                        </div>
+
+
+                                        @if ($preoperative->personalhistories->smoking !== 'Never')
+                                            <div class="row fw-normal">
+                                                <div class="col-sm-4">
+                                                    <span class="text-secondary">No. of Cigrattes</span>
+                                                    <span>{{ $preoperative->personalhistories->cigarettes }}</span>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <span class="text-secondary">Smoking Since</span>
+                                                    <span>{{ $preoperative->personalhistories->smoking_since }}</span>
+                                                </div>
+
+
+                                                <div class="col-sm-4">
+                                                    <span class="text-secondary">Stopped Since</span>
+                                                    <span>{{ $preoperative->personalhistories->smoking_stopped }}</span>
+                                                </div>
+
+
+                                            </div>
+                                        @endif
+
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-3 text-secondary">Alcohol</div>
+                                    <div class="col-9 fw-bold">
+                                        <div class="mb-2">
+                                            {{ $preoperative->personalhistories->alchohol }}
+                                        </div>
+
+
+                                        @if ($preoperative->personalhistories->alchohol !== 'Never')
+                                            <div class="row fw-normal">
+                                                <div class="col-sm-4">
+                                                    <span class="text-secondary">Quantity</span>
+                                                    <span>{{ $preoperative->personalhistories->cigarettes }}</span>
+                                                    <span class="text-muted">ml</span>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <span class="text-secondary">Smoking Since</span>
+                                                    <span>{{ $preoperative->personalhistories->alchohol_since }}</span>
+                                                </div>
+
+
+                                                <div class="col-sm-4">
+                                                    <span class="text-secondary">Stopped Since</span>
+                                                    <span>{{ $preoperative->personalhistories->alchohol_stopped }}</span>
+                                                </div>
+
+
+                                            </div>
+                                        @endif
+
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
+                                    <div class="col-3 text-secondary">Tobacco</div>
+                                    <div class="col-9 fw-bold">
+                                        <div class="mb-2">
+                                            {{ $preoperative->personalhistories->tobacco }}
+                                        </div>
+
+                                        @if ($preoperative->personalhistories->tobacco !== 'Never')
+                                            <div class="row fw-normal">
+                                                <div class="col-sm-12">
+                                                    <span class="text-secondary">Type</span>
+                                                    <span>{{ $preoperative->personalhistories->tobacco_type }}</span>
+
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <span class="text-secondary">Quantity</span>
+                                                    <span>{{ $preoperative->personalhistories->tobacco_quantity }}</span>
+
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <span class="text-secondary">Consuming Since</span>
+                                                    <span>{{ $preoperative->personalhistories->tobacco_since }}</span>
+                                                </div>
+
+
+                                                <div class="col-sm-4">
+                                                    <span class="text-secondary">Stopped Since</span>
+                                                    <span>{{ $preoperative->personalhistories->tobacco_stopped }}</span>
+                                                </div>
+
+
+                                            </div>
+                                        @endif
+
+                                    </div>
+                                </div>
+
+                            </div>
 
                         @endempty
-                        
+
                     </section>
                     {{-- /Personal History --}}
 
                     {{-- Physical Activity --}}
                     <div class="card shadow-sm rounded-5 mb-3">
-                        @if($preoperative->physical_activity === 'null')
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <span class="fs-6 fw-bold me-3">Physical Activity</span>
-                                <a href="{{ route('crf.preoperative.physicalactivity.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
-                                    class="btn btn-primary btn-sm"> Add Physical Activity </a>
+                        @if ($preoperative->physical_activity === 'null')
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <span class="fs-6 fw-bold me-3">Physical Activity</span>
+                                    <a href="{{ route('crf.preoperative.physicalactivity.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                        class="btn btn-primary btn-sm"> Add Physical Activity </a>
+                                </div>
                             </div>
-                        </div>
                         @else
                             <div class="card-header">
                                 <div class="d-flex justify-content-between">
@@ -810,7 +810,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                @if(count($preoperative->physicalactivities)>0)
+                                @if (count($preoperative->physicalactivities) > 0)
                                     <div class="table-responsive">
                                         <table class="table">
                                             <tr>
@@ -821,7 +821,8 @@
                                             @foreach ($preoperative->physicalactivities as $physicalactivity)
                                                 <tr>
                                                     <td>{{ $physicalactivity->activity_type }}</td>
-                                                    <td>{{ $physicalactivity->duration}} <span class="text-muted">mins</span> </td>
+                                                    <td>{{ $physicalactivity->duration }} <span
+                                                            class="text-muted">mins</span> </td>
                                                 </tr>
                                             @endforeach
 
@@ -1016,9 +1017,9 @@
                     </section>
                     {{-- /Lab Investigation --}}
 
-                    
 
-                 
+
+
 
                     <div class="card shadow-sm rounded-5 mb-3">
 
@@ -1330,20 +1331,20 @@
                                     <div class="col-12 d-flex justify-content-between">
                                         <span class="fs-6 fw-bold me-3">Medications</span>
                                         <a href="{{ route('crf.preoperative.medication.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
-                                            class="btn btn-primary btn-sm"> Add Echocardiography </a>
+                                            class="btn btn-primary btn-sm"> Add Medications </a>
                                     </div>
                                 </div>
                             </div>
                         @else
                             <div class="card-header">
 
-                                <div class="row">
-                                    <div class="col-12 d-flex justify-content-between">
+                               
+                                    <div class="d-flex justify-content-between">
                                         <span class="fs-6 fw-bold me-3">Medications</span>
                                         <a href="{{ route('crf.preoperative.medication.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
                                             class="btn btn-primary btn-sm"> All Medications </a>
                                     </div>
-                                </div>
+                              
                             </div>
                             <div class="card-body">
                                 @if (count($preoperative->medications) > 0)
