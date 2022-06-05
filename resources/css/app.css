@@ -32,6 +32,10 @@ main{
   margin-top: 6rem;
 }
 
+form{
+  margin-bottom: 0;
+}
+
 .rounded-pill.bg-warning{
   background-color: #FEF3C7!important;
   color: #954614!important
