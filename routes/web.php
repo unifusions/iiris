@@ -11,7 +11,7 @@ use App\Http\Controllers\IntraOperativeController;
 use App\Http\Controllers\PreOperative\FamilyHistoryController;
 
 use App\Http\Controllers\PreOperative\MedicalHistoryController;
-use App\Http\Controllers\Preoperative\PreOperativeEchocardiographyController;
+use App\Http\Controllers\PreOperative\PreOperativeEchocardiographyController;
 use App\Http\Controllers\PreOperative\PreOperativeElectrocardiogramController;
 
 use App\Http\Controllers\ScheduledVisitController;
