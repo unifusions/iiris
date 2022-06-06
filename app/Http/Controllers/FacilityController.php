@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Facility;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class FacilityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
+    public function __construct()
+    {
+
+        
+    }
+    
     public function index()
     {
         $facilities = Facility::orderBy('name','asc')->paginate(15);

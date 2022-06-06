@@ -133,8 +133,8 @@
                         <div class="card-footer">
                             <div class="row g-3">
                                 <div class="col-sm-12">
-                                    <a href="{{ url()->previous() }}" class="btn btn-secondary me-2 rounded-5 fw-bold text-uppercase">Cancel</a>
-                                    <button type="submit" class="btn btn-primary fw-bold rounded-5 text-uppercase">Proceed</a>
+                                    <a href="{{ url()->previous() }}" class="btn btn-sm btn-secondary me-2 rounded-5 fw-bold text-uppercase">Cancel</a>
+                                    <button type="submit" class="btn btn-primary btn-sm rounded-5   fw-bold text-uppercase">Proceed</a>
                                 </div>
 
 

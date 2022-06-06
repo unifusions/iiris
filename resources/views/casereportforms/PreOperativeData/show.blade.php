@@ -24,8 +24,6 @@
                         <div class="card shadow-sm rounded-5">
                             <div class="card-header">
                                 Preoperative Fields
-
-
                             </div>
                             <div class="card-body">
                                 <div class="list-group">
@@ -142,13 +140,26 @@
                     <div class="d-flex justify-content-between mb-3">
                         <span class="fs-3"> Preoperative Data </span>
                         @can('coordinator')
-                            <button class="btn btn-primary">Submit for Approval</button>
+                            @if (!$preoperative->is_submitted)
+                                <form
+                                    action="{{ route('crf.preoperative.update', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                    method="POST" style="margin:0">
+                                    @method('PUT')
+                                    @csrf
+                                    <input type="hidden" value=1 name="isSubmitted">
+                                    <button class="btn btn-primary" type="submit">Submit for Approval</button>
+                                </form>
+                            @endif
                         @endcan
 
                         @can('investigator')
-                            <form action="">
+                            <form
+                                action="{{ route('crf.preoperative.update', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                method="POST" style="margin:0">
+                                @method('PUT')
                                 @csrf
-                                <button type="submit" class="btn btn-success">Approve</button>
+                                <button type="submit" class="btn btn-danger rounded-5" value=1 name="disapprove">Disapprove</button>
+                                <button type="submit" class="btn btn-success rounded-5" value=1 name="approve">Approve</button>
                             </form>
                         @endcan
                     </div>
@@ -492,18 +503,22 @@
 
                                 <div class=" d-flex justify-content-between">
                                     <span class="fs-6 fw-bold me-3">Pre-Operative Medical History</span>
-                                    <a href="{{ route('crf.preoperative.medicalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
-                                        class="btn btn-primary rounded-5"> Add Medical History </a>
+                                    @if (!$preoperative->is_submitted)
+                                        <a href="{{ route('crf.preoperative.medicalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                            class="btn btn-primary rounded-5"> Add Medical History </a>
+                                    @endif
 
                                 </div>
                             </div>
                         @else
                             <div class="card-header">
 
-                                <div class="d-flex justify-content-between"> <span class="fs-6 fw-bold me-3">Pre-Operative
+                                <div class="d-flex justify-content-between"> <span class="fs-6 fw-bold me-3">
                                         Medical History</span>
-                                    <a href="{{ route('crf.preoperative.medicalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
-                                        class="btn btn-primary rounded-5"> Add Medical History </a>
+                                    @if (!$preoperative->is_submitted)
+                                        <a href="{{ route('crf.preoperative.medicalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
+                                            class="btn btn-primary rounded-5 btn-sm"> Add Medical History </a>
+                                    @endif
                                 </div>
                             </div>
                             @if ($preoperative->medical_history)
@@ -1027,7 +1042,7 @@
                             <div class="card-body">
                                 <div class="row ">
                                     <div class="col-12 d-flex justify-content-between">
-                                        <span class="fs-6 fw-bold me-3">Pre-Operative Electrocardiogram</span>
+                                        <span class="fs-6 fw-bold me-3">Electrocardiogram</span>
                                         <a href="{{ route('crf.preoperative.electrocardiogram.create', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
                                             class="btn btn-primary btn-sm"> Add Electrocardiograms </a>
                                     </div>
@@ -1122,7 +1137,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 d-flex justify-content-between">
-                                        <span class="fs-6 fw-bold me-3">Pre-Operative Echocardiography</span>
+                                        <span class="fs-6 fw-bold me-3">Echocardiography</span>
                                         <a href="{{ route('crf.preoperative.echocardiography.create', ['crf' => $crf, 'preoperative' => $preoperative]) }}"
                                             class="btn btn-primary btn-sm"> Add Echocardiography </a>
                                     </div>

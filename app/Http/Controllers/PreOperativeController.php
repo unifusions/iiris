@@ -129,6 +129,32 @@ class PreOperativeController extends Controller
             return redirect()->route('crf.preoperative.index', compact('crf', 'preoperative'));
         }
 
+        if (isset($request->isSubmitted)) {
+            $preoperative->is_submitted = $request->isSubmitted;
+            $preoperative->save();
+            $message = 'Preoperative Data successfully submitted for approval';
+
+            return redirect()->route('crf.preoperative.index', compact('crf', 'preoperative'))->with(['message' => $message]);
+        }
+
+
+        if (isset($request->approve)) {
+            $preoperative->visit_status = $request->approve;
+            $preoperative->save();
+            $message = 'Preoperative Data has been approved';
+
+            return redirect()->route('crf.preoperative.index', compact('crf', 'preoperative'))->with(['message' => $message]);
+        }
+
+        if (isset($request->disapprove)) {
+            $preoperative->is_submitted = !$request->disapprove;
+            $preoperative->visit_status = !$request->disapprove;
+            $preoperative->save();
+            $message = 'Preoperative Data has been disapproved';
+
+            return redirect()->route('crf.preoperative.index', compact('crf', 'preoperative'))->with(['message' => $message]);
+        }
+
     }
 
     /**

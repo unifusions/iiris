@@ -46,8 +46,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
     
     //Admin Specific ROutes
-
-    Route::resource('facility', FacilityController::class);
+    
+    Route::resource('facility', FacilityController::class)->middleware(['admin']);
     
     Route::resource('crf', CaseReportFormController::class)->parameters(['crf' => 'crf:subject_id']);
 

@@ -58,7 +58,7 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
             <!-- Search form -->
             <div class="">
 
-                {{ $header }}
+                {{ $header ?? '' }}
 
 
             </div>
@@ -103,7 +103,8 @@ integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+
 
 @if (session('message'))
     <x-toast-notification>
-        <x-slot name="type"> {{ session('type') }}</x-slot>{{ session('message') }}
+        <x-slot name="type"> {{ session('type') }}</x-slot>
+        {{ session('message') }}
 
     </x-toast-notification>
 @endif

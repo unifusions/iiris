@@ -45,7 +45,7 @@ class CaseReportFormController extends Controller
         $crf->date_of_birth = $request->subjectDob;
         $crf->save();
 
-        $subject_id = $crf->subject_id;
+        
         $message = 'Case Report Form with '  . $crf->subject_id . ' created succesfully';
 
         return redirect()->route('crf.show', $crf)->with(['message' => $message]);

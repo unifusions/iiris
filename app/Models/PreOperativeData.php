@@ -19,6 +19,7 @@ class PreOperativeData extends Model
         'hasMedications',
         'form_status',
         'visit_status',
+        'is_submitted'
 
 
     ];
