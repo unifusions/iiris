@@ -62,7 +62,7 @@ class PreOperativePhysicalActivityController extends Controller
         ];
 
         $physicalactivity = $physicalActivityService->createPreoperativePhysicalActivity($request);
-        return view('casereportforms.FormFields.physicalactivity.index', compact('storeUri', 'destroyUri', 'crf','preoperative','storeParameters', 'breadcrumb'));
+        return view('casereportforms.FormFields.PhysicalActivity.index', compact('storeUri', 'destroyUri', 'crf','preoperative','storeParameters', 'breadcrumb'));
     }
 
     /**
