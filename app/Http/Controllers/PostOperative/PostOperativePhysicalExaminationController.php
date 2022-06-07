@@ -40,9 +40,11 @@ class PostOperativePhysicalExaminationController extends Controller
     
     public function store(Request $request, CaseReportForm $crf, PostOperativeData $postoperative, PhysicalExaminationService $physicalExaminationService)
     {
-        $physicalexamination = $physicalExaminationService->createPostOperativePhysicalExamination($request);
+        $physicalExaminationService->createPostOperativePhysicalExamination($request);
+        $message = 'Physical examination for the post operative date has been created successfully';
        // return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative])->with(['crf' => $crf]);
-       return view('casereportforms.PreOperativeData.show', compact('crf', 'postoperative'));
+       //return view('casereportforms.PreOperativeData.show', compact('crf', 'postoperative'));
+       return redirect()->route('crf.postoperative.index', ['crf' => $crf ])->with(['message' => $message]);
     }
 
    

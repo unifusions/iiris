@@ -947,7 +947,7 @@
                     {{-- Safety Parameters --}}
                     {{-- Physical Examination --}}
                     <div class="card shadow-sm mb-3 rounded-5">
-                        @empty($postoperative->physicalexaminations)
+                        @empty($postoperative->safteyparametersh)
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="fs-6 fw-bold me-3">Safety Parameter
