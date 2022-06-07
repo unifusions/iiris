@@ -8,6 +8,14 @@ use App\Http\Controllers\PostOperativeController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IntraOperativeController;
+use App\Http\Controllers\PostOperative\EchocardiographyController;
+use App\Http\Controllers\PostOperative\ElectrocardiogramController;
+use App\Http\Controllers\PostOperative\LabInvestigationController;
+use App\Http\Controllers\PostOperative\MedicationsController;
+use App\Http\Controllers\PostOperative\OperativeSymptomController;
+use App\Http\Controllers\PostOperative\PostOperativePhysicalExaminationController;
+use App\Http\Controllers\PostOperative\PostOperativeSafetyController;
+use App\Http\Controllers\PostOperative\SafetyParameterController;
 use App\Http\Controllers\PreOperative\FamilyHistoryController;
 
 use App\Http\Controllers\PreOperative\MedicalHistoryController;
@@ -71,8 +79,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.preoperative.physicalactivity', PreOperativePhysicalActivityController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.medication', PreOperativeMedicationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         
-        Route::resource('crf.intraoperative', IntraOperativeController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
+        Route::resource('crf.intraoperative', IntraOperativeController::class)->parameters(['crf' => 'crf:subject_id', 'intraoperative' => 'intraoperative:visit_no']);
     
+        Route::resource('crf.postoperative.physicalexamination', PostOperativePhysicalExaminationController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
+        Route::resource('crf.postoperative.symptoms', OperativeSymptomController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
+        Route::resource('crf.postoperative.labinvestigation', LabInvestigationController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
+        Route::resource('crf.postoperative.electrocardiogram', ElectrocardiogramController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
+        Route::resource('crf.postoperative.echocardiography', EchocardiographyController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
+        Route::resource('crf.postoperative.safetyparameter', PostOperativeSafetyController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
+        Route::resource('crf.postoperative.medication', MedicationsController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
+
     });
 
 

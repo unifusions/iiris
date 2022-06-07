@@ -25,6 +25,25 @@ class ElectrocardiogramService
           return $electrocardiogram;
      }
 
+     public function createPostoperativeElectrocardiogram(Request $request): Electrocardiogram
+     {
+          $electrocardiogram = Electrocardiogram::Create([
+               'case_report_form_id' => $request->crf->id,
+               'post_operative_data_id'  => $request->postoperative->id,
+               'ecg_date' => $request->ecg_date,
+               'rhythm' => $request->rhythm,
+               'rhythm_others' => $request->rhythm_others,
+               'rate' => $request->rate,
+               'lvh' => $request->lvh,
+               'lvs' => $request->lvs,
+               'printerval' => $request->printerval,
+               'qrsduration' => $request->qrsduration
+          ]);
+
+          return $electrocardiogram;
+     }
+
+
      public function updatePreoperativeElectrocardiogram(Request $request, Electrocardiogram $electrocardiogram): Electrocardiogram
      {
 

@@ -21,7 +21,7 @@
     </x-slot>
 
     <div class="container">
-        <form action="{{ route($storeUri, [$storeParameters['crf'], $storeParameters['preoperative']] ) }}" method="POST">
+        <form action="{{ route($storeUri, [$storeParameters['crf'], $storeParameters['mode']] ) }}" method="POST">
             @csrf
             <div class="card shadow mt-3">
                 <div class="card-header">

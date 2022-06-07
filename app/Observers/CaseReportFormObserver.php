@@ -53,6 +53,7 @@ class CaseReportFormObserver
             array(
                 'case_report_form_id' => $caseReportForm->id,
                 'visit_no' => 1,
+                'form_status' => true
               
             )
         );
@@ -60,6 +61,7 @@ class CaseReportFormObserver
         $postoperative = new PostOperativeData([
                 'case_report_form_id' => $caseReportForm->id,
                 'visit_no' => 1,
+                'form_status' => true
         ]
         );
 

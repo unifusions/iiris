@@ -87,14 +87,14 @@
                                                 <td>
                                                     <div class="d-flex justify-content-even gap-2">
                                                         <a href=" {{ route('crf.preoperative.index', ['crf' => $crf]) }}"
-                                                            class="badge text-decoration-none rounded-pill fw-bold p-2 {{ $crf->preoperatives->form_status ? ($crf->preoperatives->visit_status ? 'bg-success' : 'bg-warning ') : 'disabled bg-secondary' }}">
+                                                            class="badge text-decoration-none rounded-pill fw-bold p-2 {{ $crf->preoperatives->form_status ? ($crf->preoperatives->visit_status ? 'bg-success' : 'bg-warning ') : 'bg-secondary' }}">
                                                             Pre Operative</a>
 
-                                                        <a
-                                                            class="badge text-decoration-none rounded-pill fw-bold p-2 {{ $crf->intraoperatives->form_status ? ($crf->intraoperatives->visit_status ? 'bg-success' : 'bg-warning text-dark ') : 'disabled text-white bg-secondary' }}">Intra
+                                                        <a href="{{ route('crf.intraoperative.index', ['crf' => $crf]) }}"
+                                                            class="badge text-decoration-none rounded-pill fw-bold p-2 {{ $crf->intraoperatives->form_status ? ($crf->intraoperatives->visit_status ? 'bg-success' : 'bg-warning') : 'bg-secondary' }}">Intra
                                                             Operative</a>
                                                         <a href=" {{ route('crf.postoperative.index', ['crf' => $crf]) }}"
-                                                            class="badge text-decoration-none rounded-pill fw-bold p-2  {{ $crf->postoperatives->form_status ? ($crf->postoperatives->visit_status ? 'bg-success' : 'bg-warning text-dark ') : 'disabled text-white bg-secondary' }}">Post
+                                                            class="badge text-decoration-none rounded-pill fw-bold p-2  {{ $crf->postoperatives->form_status ? ($crf->postoperatives->visit_status ? 'bg-success' : 'bg-warning') : ' bg-secondary' }}">Post
                                                             Operative</a>
                                                     </div>
 

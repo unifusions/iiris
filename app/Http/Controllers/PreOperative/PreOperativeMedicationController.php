@@ -10,50 +10,43 @@ use Illuminate\Http\Request;
 
 class PreOperativeMedicationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(CaseReportForm $crf, PreOperativeData $preoperative)
     {
+        $storeUri = 'crf.preoperative.medication.store';
+        $opStoreUri = 'crf.preoperative.update';
+        $destroyUri = 'crf.preoperative.medication.destroy';
         $storeParameters = [
             'crf' => $crf,
             'preoperative' => $preoperative,
+            
         ];
         $breadcrumb = [
             'name' => 'Pre Operative Data',
-            'link' => 'crf.preoperative.index'
+            'link' => 'crf.preoperative.index',
+            'mode' => 'preoperative'
         ];
 
-        return view('casereportforms.FormFields.Medications.index', compact('storeParameters', 'breadcrumb', 'crf', 'preoperative'));
+        return view('casereportforms.FormFields.Medications.index', compact('storeUri','opStoreUri','destroyUri','storeParameters', 'breadcrumb', 'crf', 'preoperative'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative)
     {
+        $storeUri = 'crf.preoperative.medication.store';
+        $destroyUri = 'crf.preoperative.medication.destroy';
         $storeParameters = [
             'crf' => $crf,
             'preoperative' => $preoperative,
         ];
         $breadcrumb = [
             'name' => 'Pre Operative Data',
-            'link' => 'crf.preoperative.index'
+            'link' => 'crf.preoperative.index',
+            'mode' => 'preoperative'
         ];
 
         Medication::create([
@@ -67,51 +60,39 @@ class PreOperativeMedicationController extends Controller
             'stop_date' => $request->mstop_date
         ]);
 
-        return view('casereportforms.FormFields.Medications.index', compact('storeParameters', 'breadcrumb', 'crf', 'preoperative'));
+        return view('casereportforms.FormFields.Medications.index', compact('storeUri','destroyUri','storeParameters', 'breadcrumb', 'crf', 'preoperative'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(CaseReportForm $crf, PreOperativeData $preoperative, Medication $medication)
     {
-        //
+        $storeUri = 'crf.preoperative.medication.store';
+        $destroyUri = 'crf.preoperative.medication.destroy';
+        $storeParameters = [
+            'crf' => $crf,
+            'preoperative' => $preoperative,
+        ];
+        $breadcrumb = [
+            'name' => 'Pre Operative Data',
+            'link' => 'crf.preoperative.index',
+            'mode' => 'preoperative'
+        ];
+
+        $medication->delete();
+        return view('casereportforms.FormFields.Medications.index', compact('storeUri','destroyUri','storeParameters', 'breadcrumb', 'crf', 'preoperative'));
+
     }
 }

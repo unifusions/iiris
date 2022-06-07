@@ -36,7 +36,7 @@ class PreOperativePhysicalExaminationController extends Controller
         $storeUri = 'crf.preoperative.physicalexamination.store';
         $storeParameters = [
             'crf' => $crf,
-            'preoperative' => $preoperative
+            'mode' => $preoperative
         ];
 
         $breadcrumb = [
@@ -72,7 +72,7 @@ class PreOperativePhysicalExaminationController extends Controller
         $storeUri = 'crf.preoperative.physicalexamination.store';
         $storeParameters = [
             'crf' => $crf,
-            'preoperative' => $preoperative
+            'mode' => $preoperative
         ];
 
         $breadcrumb = [
@@ -94,7 +94,7 @@ class PreOperativePhysicalExaminationController extends Controller
         $storeUri = 'crf.preoperative.physicalexamination.update';
         $storeParameters = [
             'crf' => $crf,
-            'preoperative' => $preoperative,
+            'mode' => $preoperative,
             'physicalexamination' => $physicalexamination
         ];
 

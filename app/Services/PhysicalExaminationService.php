@@ -41,4 +41,21 @@ class PhysicalExaminationService
           $physicalexamination->save();
           return $physicalexamination;
      }
+
+     public function createPostOperativePhysicalExamination(Request $request): PhysicalExamination
+     {
+          $physicalexamination = PhysicalExamination::Create([
+               'case_report_form_id' => $request->crf->id,
+               'post_operative_data_id' => $request->postoperative->id,
+               'height' => $request->height,
+               'weight' => $request->weight,
+               'bsa' => $request->bsa,
+               'heart_rate' => $request->heart_rate,
+               'systolic_bp' => $request->systolic_bp,
+               'diastolic_bp' => $request->diastolic_bp
+          ]);
+
+          return $physicalexamination;
+     }
+
 }

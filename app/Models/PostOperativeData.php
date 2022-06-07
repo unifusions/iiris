@@ -14,8 +14,30 @@ class PostOperativeData extends Model
         'form_status',
         'visit_status',
     ];
-    public function PhysicalExamination()
+    public function physicalexaminations()
     {
         return $this->hasOne(PhysicalExamination::class);
+    }
+
+    public function symptoms(){
+        return $this->hasOne(OperativeSymptoms::class);
+    }
+
+    public function labinvestigations(){
+        return $this->hasOne(LabInvestigation::class);
+    }
+    public function electrocardiograms()
+    {
+        return $this->hasOne(Electrocardiogram::class);
+    }
+    public function echocardiographies()
+    {
+        return $this->hasOne(Echocardiography::class);
+    }
+    public function safetyparameters(){
+        return $this->hasOne(SafetyParameter::class);
+    }
+    public function medications(){
+        return $this->hasMany(Medication::class);
     }
 }

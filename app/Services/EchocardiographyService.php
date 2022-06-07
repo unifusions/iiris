@@ -34,6 +34,33 @@ class EchocardiographyService
           return $echocardiography;
      }
 
+     public function createPostoperativeEchocardiography(Request $request): Echocardiography
+     {
+          $echocardiography = Echocardiography::Create([
+               'case_report_form_id' => $request->crf->id,
+               'post_operative_data_id'  => $request->postoperative->id,
+               'echodate'=> $request->echodate,
+               'peak_velocity'=> $request->peak_velocity,
+               'velocity_time_integral'=> $request->velocity_time_integral,
+               'peak_gradient'=> $request->peak_gradient,
+               'mean_gradient'=> $request->mean_gradient,
+               'heart_rate'=> $request->heart_rate,
+               'stroke_volume'=> $request->stroke_volume,
+               'dvi'=> $request->dvi,
+               'eoa'=> $request->eoa,
+               'acceleration_time'=> $request->acceleration_time,
+               'lvot_vti'=> $request->lvot_vti,
+               'lv_mass'=> $request->lv_mass,
+               'ivs_diastole'=> $request->ivs_diastole,
+               'pw_diastole'=> $request->pw_diastole,
+               'lvidend_systole'=> $request->lvidend_systole,
+               'lvidend_diastole'=> $request->lvidend_diastole,
+               'ejection_fraction'=> $request->ejection_fraction
+          ]);
+
+          return $echocardiography;
+     }
+
      public function updatePreoperativeEchocardiography(Request $request, Echocardiography $echocardiography): Echocardiography
      {
 

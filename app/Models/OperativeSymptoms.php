@@ -12,6 +12,7 @@ class OperativeSymptoms extends Model
     protected $fillable = [
         'case_report_form_id',
         'pre_operative_data_id',
+        'post_operative_data_id',
         'symptoms',
         'angina', 'angina_class', 'angina_duration',
         'dyspnea', 'dyspnea_class', 'dyspnea_duration',

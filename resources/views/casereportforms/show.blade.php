@@ -113,13 +113,12 @@
 
                     <li class="nav-item ">
                         <a class="nav-link rounded {{ $crf->intraoperatives->form_status ? '' : 'disabled' }}"
-                            href="{{ route('crf.postoperative.index', ['crf' => $crf->subject_id]) }}">
+                            href="{{ route('crf.intraoperative.index', ['crf' => $crf->subject_id]) }}">
                             Intra Operative Data</a>
                     </li>
-
                     <li class="nav-item ">
                         <a class="nav-link rounded {{ $crf->postoperatives->form_status ? '' : 'disabled' }}"
-                            href="{{ route('crf.intraoperative.index', ['crf' => $crf->subject_id]) }}">
+                            href="{{ route('crf.postoperative.index', ['crf' => $crf->subject_id]) }}">
                             Post Operative Data</a>
                     </li>
 

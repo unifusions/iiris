@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\PostOperative;
 
-use App\Models\CaseReportForm;
-use App\Models\PostOperativeData;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PostOperativeController extends Controller
+class SafetyParameterController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CaseReportForm $crf)
-    {   
-        if ($crf->postoperatives)
-            $postoperative = $crf->postoperatives;
-        return view('casereportforms.PostOperativeData.index', compact('crf', 'postoperative'));
+    public function index()
+    {
+        //
     }
 
     /**
@@ -47,9 +44,9 @@ class PostOperativeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(CaseReportForm $crf, PostOperativeData $postoperative )
+    public function show($id)
     {
-        return $postoperative;
+        //
     }
 
     /**
@@ -70,15 +67,9 @@ class PostOperativeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,CaseReportForm $crf, PostOperativeData $postoperative)
+    public function update(Request $request, $id)
     {
-        if (isset($request->hasMedications)) {
-            $postoperative->hasMedications = $request->hasMedications;
-            $postoperative->save();
-            if ($postoperative->hasMedications)
-                return redirect()->route('crf.postoperative.medication.index', ['crf' => $crf, 'postoperative' => $postoperative]);
-            return redirect()->route('crf.postoperative.index', compact('crf', 'postoperative'));
-        }
+        //
     }
 
     /**

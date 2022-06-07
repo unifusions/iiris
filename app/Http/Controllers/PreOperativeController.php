@@ -142,7 +142,6 @@ class PreOperativeController extends Controller
             $preoperative->visit_status = $request->approve;
             $preoperative->save();
             $message = 'Preoperative Data has been approved';
-
             return redirect()->route('crf.preoperative.index', compact('crf', 'preoperative'))->with(['message' => $message]);
         }
 

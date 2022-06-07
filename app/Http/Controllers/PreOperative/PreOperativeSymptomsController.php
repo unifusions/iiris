@@ -12,11 +12,6 @@ use Illuminate\Http\Request;
 
 class PreOperativeSymptomsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(CaseReportForm $crf, PreOperativeData $preoperative)
     {
         
@@ -27,11 +22,7 @@ class PreOperativeSymptomsController extends Controller
         return $this->create($crf, $preoperative);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create(CaseReportForm $crf, PreOperativeData $preoperative)
     {
 
@@ -52,12 +43,7 @@ class PreOperativeSymptomsController extends Controller
         return view('casereportforms.FormFields.OperativeSymptoms.create', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, PreOperativeData $preoperative, OperativeSymptomsService $operativeSymptomsService)
     {
         
@@ -65,23 +51,13 @@ class PreOperativeSymptomsController extends Controller
             return redirect()->route('crf.preoperative.index', ['crf' => $crf, 'preoperative' => $preoperative]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit(CaseReportForm $crf, PreOperativeData $preoperative, OperativeSymptoms $symptom)
     {
       
@@ -94,8 +70,6 @@ class PreOperativeSymptomsController extends Controller
 
         ];
 
-
-
         $breadcrumb = [
             'name' => 'Pre Operative Data',
             'link' => 'crf.preoperative.index'
@@ -104,13 +78,7 @@ class PreOperativeSymptomsController extends Controller
         return view('casereportforms.FormFields.OperativeSymptoms.edit', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf', 'symptom'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function update(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, PreOperativeData $preoperative, OperativeSymptoms $symptom, OperativeSymptomsService $operativeSymptomsService)
     {
         
@@ -118,12 +86,6 @@ class PreOperativeSymptomsController extends Controller
             return redirect()->route('crf.preoperative.index', ['crf' => $crf, 'preoperative' => $preoperative]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
