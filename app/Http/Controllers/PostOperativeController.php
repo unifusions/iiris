@@ -14,7 +14,7 @@ class PostOperativeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(CaseReportForm $crf)
-    {   
+    {
         if ($crf->postoperatives)
             $postoperative = $crf->postoperatives;
         return view('casereportforms.PostOperativeData.index', compact('crf', 'postoperative'));
@@ -47,9 +47,11 @@ class PostOperativeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(CaseReportForm $crf, PostOperativeData $postoperative )
+    public function show(CaseReportForm $crf, PostOperativeData $postoperative)
     {
-        return $postoperative;
+        if ($crf->postoperatives)
+            $postoperative = $crf->postoperatives;
+        return view('casereportforms.PostOperativeData.index', compact('crf', 'postoperative'));
     }
 
     /**
@@ -70,7 +72,7 @@ class PostOperativeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,CaseReportForm $crf, PostOperativeData $postoperative)
+    public function update(Request $request, CaseReportForm $crf, PostOperativeData $postoperative)
     {
         if (isset($request->hasMedications)) {
             $postoperative->hasMedications = $request->hasMedications;

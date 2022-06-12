@@ -15,7 +15,7 @@
                         {{ $breadcrumb['name'] }} </a> </li>
 
 
-                <li class="breadcrumb-item active" aria-current="page"> <span> {{ __('Safety Parameter') }}</span>
+                <li class="breadcrumb-item active" aria-current="page"> <span> {{ __('Safety Parameters') }}</span>
                 </li>
             </ol>
         </nav>
@@ -24,7 +24,7 @@
     <div class="container">
         <div class="card shadow-sm mb-3 rounded-5">
           <div class="card-header ">
-               <h4>Physical Examination</h4>
+               <h4>Safety Parameters</h4>
            </div>
             <form action="{{ route($storeUri, $storeParameters) }}" method="POST">
                 @csrf
