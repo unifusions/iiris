@@ -1,6 +1,4 @@
-const path = require('path')
-const mix = require('laravel-mix')
-const nodeExternals = require('webpack-node-externals');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -13,26 +11,25 @@ const nodeExternals = require('webpack-node-externals');
  |
  */
 
-mix
-    .js('resources/js/app.js', 'public/js')
+ mix
+ .js('resources/js/app.js', 'public/js')
     .react()
     // .postCss('resources/css/app.css', 'public/css', [
     //     require('postcss-import'),
     //     require('tailwindcss'),
     //     require('autoprefixer'),
     // ])
-    .alias({ '@': path.resolve('resources/js'),
+    .alias({
+        '@': 'resources/js',
     })
-    .webpackConfig({
-        target:'node',
-        externals:[nodeExternals()],
-        stats: {
-            children: true,
-        },
+ .webpackConfig({
+    stats: {
+        children: true,
+    },
+    
+});
 
-    });
-
-
+mix;
 
 if (mix.inProduction()) {
     mix.version();
