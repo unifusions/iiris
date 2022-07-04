@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -22,7 +23,7 @@ const mix = require('laravel-mix');
     // ]
     )
     .alias({
-        '@': 'resources/js',
+        '@': path.resolve('resources/js'),
     })
  .webpackConfig({
     stats: {

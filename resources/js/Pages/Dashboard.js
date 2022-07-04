@@ -10,7 +10,7 @@ const CoordinatorDashboard = (props) => {
 
     return (
         <>
-          {console.log(props)}  
+        
             <Col lg={colDivision} className="d-flex align-items-stretch mb-3">
                 <Card className="shadow-sm rounded-5 w-100" >
                     <Card.Body>
