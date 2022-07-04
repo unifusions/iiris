@@ -1,13 +1,5 @@
+@extends('errors::minimal')
 
-
-@if(auth()->check())
-<x-app-layout>
-    Invalid Data Request
-</x-app-layout>
-
-@else
-<x-guest-layout>
-    404
-</x-guest-layout>
-
-@endif
+@section('title', __('Not Found'))
+@section('code', '404')
+@section('message', __('Not Found'))
