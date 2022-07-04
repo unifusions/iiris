@@ -98,6 +98,7 @@ const Create = () => {
                                    <FormRadio
                                         type="radio" labelText="Gender"
                                         name="gender"
+                                        selectedValue={data.gender}
                                         options={genderRadios}
                                         handleChange={e => setData('gender', e.target.value)}
                                         error={errors.gender}
