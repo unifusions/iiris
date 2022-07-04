@@ -27,6 +27,11 @@ class Medication extends Model
         'start_date',
         'stop_date'
     ];
+
+    protected $casts = [
+        'start_date' => 'datetime:d/m/Y',
+        'stop_date' => 'datetime:d/m/Y',
+    ];
     public function preoperative(){
         return $this->belongsTo(PreOperativeData::class);
     }

@@ -6,27 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\CaseReportForm;
 use App\Models\Medication;
 use App\Models\PreOperativeData;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PreOperativeMedicationController extends Controller
 {
     public function index(CaseReportForm $crf, PreOperativeData $preoperative)
     {
-        $storeUri = 'crf.preoperative.medication.store';
-        $opStoreUri = 'crf.preoperative.update';
-        $destroyUri = 'crf.preoperative.medication.destroy';
-        $storeParameters = [
+        return Inertia::render('CaseReportForm/FormFields/Medications/Index', [
             'crf' => $crf,
+            'mode' => 'preoperative',
             'preoperative' => $preoperative,
-            
-        ];
-        $breadcrumb = [
-            'name' => 'Pre Operative Data',
-            'link' => 'crf.preoperative.index',
-            'mode' => 'preoperative'
-        ];
-
-        return view('casereportforms.FormFields.Medications.index', compact('storeUri','opStoreUri','destroyUri','storeParameters', 'breadcrumb', 'crf', 'preoperative'));
+            'medications' => $preoperative->medications,
+            'updateUrl' => 'crf.preoperative.update',
+            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative])
+        ]);
     }
 
     public function create()
@@ -34,33 +29,23 @@ class PreOperativeMedicationController extends Controller
         //
     }
 
-    
+
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative)
     {
-        $storeUri = 'crf.preoperative.medication.store';
-        $destroyUri = 'crf.preoperative.medication.destroy';
-        $storeParameters = [
-            'crf' => $crf,
-            'preoperative' => $preoperative,
-        ];
-        $breadcrumb = [
-            'name' => 'Pre Operative Data',
-            'link' => 'crf.preoperative.index',
-            'mode' => 'preoperative'
-        ];
+        
 
         Medication::create([
             'pre_operative_data_id' => $request->preoperative->id,
-            'medication' => $request->medication_name,
+            'medication' => $request->medication,
             'indication' => $request->indication,
             'status' => $request->status,
             'dosage' => $request->dosage,
             'reason' => $request->reason,
-            'start_date' => $request->mstart_date,
-            'stop_date' => $request->mstop_date
+            'start_date' => Carbon::parse($request->start_date)->addHours(5)->addMinutes(30),
+            'stop_date' => $request->stop_date !== null ? Carbon::parse($request->stop_date)->addHours(5)->addMinutes(30) : null
         ]);
 
-        return view('casereportforms.FormFields.Medications.index', compact('storeUri','destroyUri','storeParameters', 'breadcrumb', 'crf', 'preoperative'));
+        return redirect()->back()->with(['message' => 'Medication Added successfully']);
     }
 
     public function show($id)
@@ -79,20 +64,9 @@ class PreOperativeMedicationController extends Controller
     }
     public function destroy(CaseReportForm $crf, PreOperativeData $preoperative, Medication $medication)
     {
-        $storeUri = 'crf.preoperative.medication.store';
-        $destroyUri = 'crf.preoperative.medication.destroy';
-        $storeParameters = [
-            'crf' => $crf,
-            'preoperative' => $preoperative,
-        ];
-        $breadcrumb = [
-            'name' => 'Pre Operative Data',
-            'link' => 'crf.preoperative.index',
-            'mode' => 'preoperative'
-        ];
-
+        
         $medication->delete();
-        return view('casereportforms.FormFields.Medications.index', compact('storeUri','destroyUri','storeParameters', 'breadcrumb', 'crf', 'preoperative'));
-
+        return redirect()->back()->with(['message' => 'Medication '. $medication->id .' Deleted successfully']);
+        
     }
 }

@@ -10,8 +10,8 @@ class LabInvestigationService
      public function createPreoperativeLabInvestigation(Request $request): LabInvestigation
      {
           $labinvestiagtions = LabInvestigation::Create([
-               'case_report_form_id' => $request->crf->id,
-               'pre_operative_data_id' => $request->preoperative->id,
+               'case_report_form_id' => $request->case_report_form_id,
+               'pre_operative_data_id' => $request->pre_operative_data_id,
                'li_date'=> $request->li_date,
                'rbc'=> $request->rbc,
                'wbc'=> $request->wbc,

@@ -25,20 +25,16 @@ class CaseReportForm extends Model
         'date_of_birth',
         
     ];
+    protected $appends = ['age', 'preoperative', 'intraoperative', 'postoperative', 'facility','unscheduledvisits', 'scheduledvisits', 'physicalexaminations'];
+    protected $dates = ['date_of_consent','date_of_birth'];
 
-    public function getDateOfConsentAttribute(){
-        return Carbon::createFromFormat('Y-m-d', $this->attributes['date_of_consent'])->format('d/m/Y');
-    }
-
-    public function getDateOfBirthAttribute(){
-        return Carbon::createFromFormat('Y-m-d', $this->attributes['date_of_birth'])->format('d/m/Y');
-    }
-
-    public function getCreatedAtAttribute(){
-        return Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['created_at'])->format('d/m/Y');
-    }
-
-
+    protected $casts = [
+        'date_of_consent' => 'datetime:d/m/Y',
+        'date_of_birth' => 'datetime:d/m/Y',
+        'created_at' => 'datetime:d/m/Y',
+    ];
+   
+   
     public function getAgeAttribute(){
         $current = Carbon::now();
         $subjectdoB = Carbon::createFromFormat('Y-m-d', $this->attributes['date_of_birth']);
@@ -49,25 +45,62 @@ class CaseReportForm extends Model
     public function facility(){
         return $this->belongsTo(Facility::class);
     }
+    public function getFacilityAttribute(){
+        return $this->facility()->first();
+    }
 
     public function preoperatives(){
         return $this->hasOne(PreOperativeData::class);
     }
 
+    public function getPreoperativeAttribute(){
+        return $this->preoperatives()->first();
+    }
+
+
     public function intraoperatives(){
         return $this->hasOne(IntraOperativeData::class);
     }
 
+    public function getIntraoperativeAttribute(){
+        return $this->intraoperatives()->first();
+    }
+
+
     public function postoperatives(){
         return $this->hasOne(PostOperativeData::class);
     }
+    public function getPostoperativeAttribute(){
+        return $this->postoperatives()->first();
+    }
+    
 
     public function scheduledvisits(){
         return $this->hasMany(ScheduledVisit::class);
     }
 
+    public function getScheduledVisitsAttribute(){
+        return $this->scheduledvisits()->get();
+    }
+
     public function unscheduledvisits(){
         return $this->hasMany(UnscheduledVisit::class);
+    }
+
+    public function getUnscheduledVisitsAttribute(){
+        return $this->unscheduledvisits()->get();
+    }
+
+    public function getPhysicalexaminationsAttribute(){
+        $pe = [
+            'preoperative' => $this->hasManyThrough(PhysicalExamination::class, PreOperativeData::class,'case_report_form_id','pre_operative_data_id','id','id')->first(),
+            'postoperative' => $this->hasManyThrough(PhysicalExamination::class, PreOperativeData::class,'case_report_form_id','post_operative_data_id','id','id')->first(),
+            'scheduledvisits' => $this->hasManyThrough(PhysicalExamination::class, ScheduledVisit::class,'case_report_form_id','scheduled_visits_id','id','id')->get(),
+            'unscheduledvisits' => $this->hasManyThrough(PhysicalExamination::class, UnscheduledVisit::class,'case_report_form_id','unscheduled_visits_id','id','id')->get(),
+
+        ];
+        return $pe;
+
     }
 
     public function preoperativeEchocardiographies(){

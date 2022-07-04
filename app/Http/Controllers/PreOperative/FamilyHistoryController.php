@@ -7,7 +7,7 @@ use App\Models\CaseReportForm;
 use App\Models\FamilyHistory;
 use App\Models\PreOperativeData;
 use Illuminate\Http\Request;
-
+use Inertia\Inertia;
 class FamilyHistoryController extends Controller
 {
     /**
@@ -27,7 +27,20 @@ class FamilyHistoryController extends Controller
             'name' => 'Pre Operative Data',
             'link' => 'crf.preoperative.index'
         ];
-        return view('casereportforms.FormFields.FamilyHistory.index', compact('crf','preoperative','storeParameters', 'breadcrumb'));
+        // return view('casereportforms.FormFields.FamilyHistory.index', compact('crf','preoperative','storeParameters', 'breadcrumb'));
+
+        return Inertia::render(
+            'CaseReportForm/FormFields/FamilyHistory/Index',
+            [
+                'crf' => $crf,
+                'mode' => 'preoperative',
+                'preoperative' => $preoperative,
+                'familyhistories' => $preoperative->familyhistories,
+                'updateUrl' => 'crf.preoperative.update',
+                'backUrl' => route('crf.preoperative.show', [$crf, $preoperative])
+            ]
+        );
+
     }
 
     /**
@@ -37,15 +50,10 @@ class FamilyHistoryController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative)
     {
         $storeParameters = [
@@ -57,57 +65,39 @@ class FamilyHistoryController extends Controller
             'link' => 'crf.preoperative.index'
         ];
 
-        $familyhistory = FamilyHistory::create([
+       FamilyHistory::create([
             'pre_operative_data_id' => $request->preoperative->id,
-            'diagnosis' => $request->fh_diagnosis,
-            'relation' => $request->fh_relation,
+            'diagnosis' => $request->diagnosis,
+            'relation' => $request->relation,
         ]);
+        return redirect()->back()->with(['message' => 'Operation Successful !', 'modalClose' => true]);
 
-        return view('casereportforms.FormFields.FamilyHistory.index', compact('crf','preoperative','storeParameters', 'breadcrumb'));
+//        return view('casereportforms.FormFields.FamilyHistory.index', compact('crf','preoperative','storeParameters', 'breadcrumb'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+  
+    public function destroy(CaseReportForm $crf, PreOperativeData $preoperative, FamilyHistory $familyhistory)
     {
-        //
+        $familyhistory->delete();
+        $message = 'Record ID:' . $familyhistory->id . ' deleted successfully';
+        return redirect()->back()->with(['message' => $message]);
     }
 }

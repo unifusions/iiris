@@ -2,99 +2,74 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CaseReportFormStoreRequest;
 use App\Models\CaseReportForm;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class CaseReportFormController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $caseReportForm = CaseReportForm::orderBy('subject_id', 'desc')->paginate(10);
-        return view('casereportforms.index', compact('caseReportForm'));
+        // return view('casereportforms.index', compact('caseReportForm'));
+
+        return Inertia::render('CaseReportForm/Index', [
+            'crf' => $caseReportForm,
+            'facility' => auth()->user()->facility->name ?? ''
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create()
     {
-        //
-        return view('casereportforms.create');
+       
+        return Inertia::render('CaseReportForm/Create', ['facility' => auth()->user()->facility->name]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request, CaseReportForm $crf)
+    
+    public function store(CaseReportFormStoreRequest $request, CaseReportForm $crf)
     {
-        $request->validate([]);
-        
-        $crf->date_of_consent = $request->dateOfConsent;
+        $request->validated();
+        $crf->date_of_consent =  Carbon::parse($request->date_of_consent)->addHours(5)->addMinutes(30);
         $crf->uhid = $request->uhid;
         $crf->gender = $request->gender;
-        $crf->date_of_birth = $request->subjectDob;
+        $crf->date_of_birth = Carbon::parse($request->date_of_birth)->addHours(5)->addMinutes(30);
         $crf->save();
 
+        $message = 'Case Report Form with ' . $crf->subject_id . ' created succesfully';
         
-        $message = 'Case Report Form with '  . $crf->subject_id . ' created succesfully';
-
         return redirect()->route('crf.show', $crf)->with(['message' => $message]);
-        // return view('casereportforms.show', compact('crf'))->with(['message', '$message',  'type' => 'success']);
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\CaseReportForm  $caseReportForm
-     * @return \Illuminate\Http\Response
-     */
+  
     public function show(CaseReportForm $crf)
     {
-
-        return view('casereportforms.show', compact('crf'));
+        return Inertia::render('CaseReportForm/Show', [
+            'crf' => $crf,
+            'facility' => auth()->user()->facility->name ?? '',
+            'backUrl' => route('crf.index'),
+            'preoperativeUrl' => route('crf.preoperative.show', [$crf, $crf->preoperatives])
+        ]);
+        // return view('casereportforms.show', compact('crf'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CaseReportForm  $caseReportForm
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(CaseReportForm $caseReportForm)
     {
         //
         return 'edit';
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CaseReportForm  $caseReportForm
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, CaseReportForm $caseReportForm)
     {
-        //
         return 'update';
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\CaseReportForm  $caseReportForm
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(CaseReportForm $crf)
     {
         $crf->delete();

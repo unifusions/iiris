@@ -101,9 +101,13 @@
             </div>
 
         </div>
+
+        
         <div class="card shadow-sm mt-3 rounded-5">
             <div class="card-body">
                 <ul class="nav align-items-center justify-content-between">
+
+                    
                     <li class="nav-item ">
                         <a class="nav-link rounded {{ $crf->preoperatives->form_status ? '' : 'disabled' }}"
                             href="{{ route('crf.preoperative.index', ['crf' => $crf->subject_id]) }}">

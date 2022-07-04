@@ -7,6 +7,7 @@ use App\Models\CaseReportForm;
 use App\Models\MedicalHistory;
 use App\Models\PreOperativeData;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class MedicalHistoryController extends Controller
 {
@@ -27,7 +28,19 @@ class MedicalHistoryController extends Controller
             'link' => 'crf.preoperative.index'
         ];
 
-        return view('casereportforms.FormFields.MedicalHistory.index', compact('crf', 'preoperative', 'storeParameters', 'breadcrumb'));
+        // return view('casereportforms.FormFields.MedicalHistory.index', compact('crf', 'preoperative', 'storeParameters', 'breadcrumb'));
+
+        return Inertia::render(
+            'CaseReportForm/FormFields/MedicalHistory/Index',
+            [
+                'crf' => $crf,
+                'mode' => 'preoperative',
+                'preoperative' => $preoperative,
+                'medicalhistories' => $preoperative->medicalhistories,
+                'updateUrl' => 'crf.preoperative.update',
+                'backUrl' => route('crf.preoperative.show', [$crf,$preoperative])
+            ]
+        );
     }
 
     /**
@@ -57,15 +70,17 @@ class MedicalHistoryController extends Controller
             'link' => 'crf.preoperative.index'
         ];
 
-       
+
         $medicalhistory = MedicalHistory::Create([
-                'pre_operative_data_id' =>  $request->preoperative->id,
-                'diagnosis' => $request->mh_diagnosis,
-                'duration' => $request->mh_duration,
-                'treatment' => $request->mh_treatment,
-            ]);
-       
-        return view('casereportforms.FormFields.MedicalHistory.index', compact('crf', 'preoperative', 'storeParameters', 'breadcrumb'));
+            'pre_operative_data_id' =>  $request->pre_operative_data_id,
+            'diagnosis' => $request->diagnosis,
+            'duration' => $request->duration,
+            'treatment' => $request->treatment,
+        ]);
+        
+        return redirect()->back()->with(['message' => 'Operation Successful !', 'modalClose' => true]);
+     
+        // return view('casereportforms.FormFields.MedicalHistory.index', compact('crf', 'preoperative', 'storeParameters', 'breadcrumb'));
     }
 
     /**
@@ -110,17 +125,18 @@ class MedicalHistoryController extends Controller
      */
     public function destroy(CaseReportForm $crf, PreoperativeData $preoperative, MedicalHistory $medicalhistory)
     {
-        $storeParameters = [
-            'crf' => $crf,
-            'preoperative' => $preoperative,
-        ];
-        $breadcrumb = [
-            'name' => 'Pre Operative Data',
-            'link' => 'crf.preoperative.index'
-        ];
+        // $storeParameters = [
+        //     'crf' => $crf,
+        //     'preoperative' => $preoperative,
+        // ];
+        // $breadcrumb = [
+        //     'name' => 'Pre Operative Data',
+        //     'link' => 'crf.preoperative.index'
+        // ];
 
-       $medicalhistory->delete();
-       return view('casereportforms.FormFields.MedicalHistory.index', compact('crf', 'preoperative', 'storeParameters', 'breadcrumb'));
-
+        $medicalhistory->delete();
+        $message = 'Record ID:' . $medicalhistory->id . ' deleted successfully';
+        return redirect()->back()->with(['message'=>$message]);
+        // return view('casereportforms.FormFields.MedicalHistory.index', compact('crf', 'preoperative', 'storeParameters', 'breadcrumb'));
     }
 }

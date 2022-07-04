@@ -20,6 +20,7 @@ class Electrocardiogram extends Model
         'rate', 'lvh', 'lvs','printerval', 'qrsduration'
     ];
     protected $dates = ['ecg_date'];
+   
 
     public function preoperatives(){
         return $this->belongsTo(PreOperativeData::class);

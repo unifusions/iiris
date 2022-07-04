@@ -121,7 +121,7 @@
                                     <div class="d-flex flex-column">
                                         <span class="fw-normal fs-1 text-info"> {{ $crfcount ?? '' }}</span>
                                         <span class="fw-light fs-5 text-secondary">Case Report Forms</span>
-                                        <span class="fs-6 text-muted">from the facility</span>
+                                        <span class="fs-6 text-muted">from {{ auth()->user()->facility->name }}</span>
                                     </div>
                                 </div>
                             </div>

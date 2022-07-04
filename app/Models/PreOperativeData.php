@@ -35,10 +35,13 @@ class PreOperativeData extends Model
     {
         return $this->hasOne(PhysicalExamination::class);
     }
+
+
     public function symptoms()
     {
         return $this->hasOne(OperativeSymptoms::class);
     }
+
     public function medicalhistories(){
         return $this->hasMany(MedicalHistory::class);
     }
@@ -66,6 +69,11 @@ class PreOperativeData extends Model
     {
         return $this->hasOne(Echocardiography::class);
     }
+
+    public function echodicomfiles(){
+        return $this->hasManyThrough(EchoDicomFile::class, Echocardiography::class);
+    }
+
     public function medications(){
         return $this->hasMany(Medication::class);
     }

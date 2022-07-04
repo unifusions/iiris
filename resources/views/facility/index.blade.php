@@ -23,7 +23,7 @@
 
                 </div>
                 <div class="col-sm-12">
-                    <div class="card shadow rounded-5">
+                    <div class="card shadow-sm rounded-5">
                         <div class="card-body">
                             @if (count($facilities) > 0)
                                 <div class="table-responsive">

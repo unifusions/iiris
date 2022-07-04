@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +14,7 @@ class IntraOperativeData extends Model
         'case_report_form_id' ,
         'visit_no',
         'form_status',
+        'is_submitted',
         'visit_status',
         'date_of_procedure',
         'arterial_cannulation',
@@ -28,7 +30,12 @@ class IntraOperativeData extends Model
         'all_paravalvular_leak',
         'major_paravalvular_leak'
     ];
+    protected $dates = ['date_of_procedure'];
 
-    protected $casts = [ 'date_of_procedure' => 'datetime:Y-m-d'];
+    
+   
+    public function casereportform(){
+        return $this->belongsTo(CaseReportForm::class);
+    }
 
 }

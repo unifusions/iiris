@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('echo_dicom_files', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('echocardiography_id')->constrained('echocardiographies')->onDelete('cascade');
+            $table->uuid('uuid')->nullable();
+            $table->string('file_name')->nullable();
+            $table->string('file_path')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('echo_dicom_files');
+    }
+};

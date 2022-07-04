@@ -9,12 +9,14 @@ use App\Models\OperativeSymptoms;
 use App\Models\PreOperativeData;
 use App\Services\OperativeSymptomsService;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PreOperativeSymptomsController extends Controller
 {
     public function index(CaseReportForm $crf, PreOperativeData $preoperative)
     {
-        
+
+
 
         if (!empty($preoperative->symptoms))
             return $this->show($crf, $preoperative, $preoperative->symptoms);
@@ -22,7 +24,7 @@ class PreOperativeSymptomsController extends Controller
         return $this->create($crf, $preoperative);
     }
 
-   
+
     public function create(CaseReportForm $crf, PreOperativeData $preoperative)
     {
 
@@ -40,27 +42,34 @@ class PreOperativeSymptomsController extends Controller
             'link' => 'crf.preoperative.index'
         ];
 
-        return view('casereportforms.FormFields.OperativeSymptoms.create', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf'));
+        // return view('casereportforms.FormFields.OperativeSymptoms.create', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf'));
+
+        return Inertia::render('CaseReportForm/FormFields/Symptoms/Create', [
+            'postUrl' => 'crf.preoperative.symptoms.store',
+            'crf' => $crf,
+            'mode' => 'preoperative',
+            'preoperative' => $preoperative,
+            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative])
+        ]);
     }
 
-  
+
     public function store(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, PreOperativeData $preoperative, OperativeSymptomsService $operativeSymptomsService)
     {
-        
-        if($operativeSymptomsService->createOperativeSymptoms($request) )
-            return redirect()->route('crf.preoperative.index', ['crf' => $crf, 'preoperative' => $preoperative]);
+
+        if ($operativeSymptomsService->createOperativeSymptoms($request))
+            return redirect()->route('crf.preoperative.show', [$crf, $preoperative])->with(['message' => 'Properative Symptoms for subject' . $crf->subject_id . 'created successfully']);
     }
 
-   
+
     public function show($id)
     {
-        //
     }
 
-   
+
     public function edit(CaseReportForm $crf, PreOperativeData $preoperative, OperativeSymptoms $symptom)
     {
-      
+
         $storeUri = 'crf.preoperative.symptoms.update';
         $storeParameters = [
             'crf' => $crf,
@@ -75,14 +84,23 @@ class PreOperativeSymptomsController extends Controller
             'link' => 'crf.preoperative.index'
         ];
 
-        return view('casereportforms.FormFields.OperativeSymptoms.edit', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf', 'symptom'));
+        return Inertia::render('CaseReportForm/FormFields/Symptoms/Edit', [
+            'putUrl' => 'crf.preoperative.symptoms.update',
+            'crf' => $crf,
+            'mode' => 'preoperative',
+            'preoperative' => $preoperative,
+            'symptom' => $symptom,
+            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative])
+        ]);
+
+        // return view('casereportforms.FormFields.OperativeSymptoms.edit', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf', 'symptom'));
     }
 
- 
+
     public function update(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, PreOperativeData $preoperative, OperativeSymptoms $symptom, OperativeSymptomsService $operativeSymptomsService)
     {
-        
-        if($operativeSymptomsService->updateOperativeSymptoms($request))
+
+        if ($operativeSymptomsService->updateOperativeSymptoms($request))
             return redirect()->route('crf.preoperative.index', ['crf' => $crf, 'preoperative' => $preoperative]);
     }
 

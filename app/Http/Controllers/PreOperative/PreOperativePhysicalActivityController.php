@@ -8,6 +8,7 @@ use App\Models\PhysicalActivity;
 use App\Models\PreOperativeData;
 use App\Services\PhysicalActivityService;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PreOperativePhysicalActivityController extends Controller
 {
@@ -20,7 +21,7 @@ class PreOperativePhysicalActivityController extends Controller
     {
         $storeUri = 'crf.preoperative.physicalactivity.store';
         $destroyUri = 'crf.preoperative.physicalactivity.destroy';
-        
+
         $storeParameters = [
             'crf' => $crf,
             'preoperative' => $preoperative,
@@ -29,7 +30,16 @@ class PreOperativePhysicalActivityController extends Controller
             'name' => 'Pre Operative Data',
             'link' => 'crf.preoperative.index'
         ];
-        return view('casereportforms.FormFields.PhysicalActivity.index', compact('storeUri','destroyUri', 'storeParameters', 'breadcrumb', 'crf', 'preoperative'));
+        // return view('casereportforms.FormFields.PhysicalActivity.index', compact('storeUri','destroyUri', 'storeParameters', 'breadcrumb', 'crf', 'preoperative'));
+        return Inertia::render('CaseReportForm/FormFields/PhysicalActivity/Index', [
+            'postUrl' => 'crf.preoperative.physicalactivity.store',
+            'updateUrl' => 'crf.preoperative.update',
+            'crf' => $crf,
+            'mode' => 'preoperative',
+            'preoperative' => $preoperative,
+            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative]),
+            'physicalactivities'=> $preoperative->physicalactivities
+        ]);
     }
 
     /**
@@ -39,7 +49,6 @@ class PreOperativePhysicalActivityController extends Controller
      */
     public function create()
     {
-      
     }
 
     /**
@@ -62,7 +71,9 @@ class PreOperativePhysicalActivityController extends Controller
         ];
 
         $physicalactivity = $physicalActivityService->createPreoperativePhysicalActivity($request);
-        return view('casereportforms.FormFields.PhysicalActivity.index', compact('storeUri', 'destroyUri', 'crf','preoperative','storeParameters', 'breadcrumb'));
+        // return view('casereportforms.FormFields.PhysicalActivity.index', compact('storeUri', 'destroyUri', 'crf', 'preoperative', 'storeParameters', 'breadcrumb'));
+        return redirect()->back()->with(['message' => 'Physical Activity Created !']);
+
     }
 
     /**
@@ -107,7 +118,7 @@ class PreOperativePhysicalActivityController extends Controller
      */
     public function destroy(CaseReportForm $crf, PreOperativeData $preoperative, PhysicalActivity $physicalactivity)
     {
-        
+
         $storeUri = 'crf.preoperative.physicalactivity.store';
         $destroyUri = 'crf.preoperative.physicalactivity.destroy';
         $storeParameters = [
@@ -120,7 +131,8 @@ class PreOperativePhysicalActivityController extends Controller
         ];
 
         $physicalactivity->delete();
-        return view('casereportforms.FormFields.PhysicalActivity.index', compact('storeUri','destroyUri', 'storeParameters', 'breadcrumb', 'crf', 'preoperative'));
+        return redirect()->back()->with(['message' => 'Physical Activity Deleted !']);
 
+        // return view('casereportforms.FormFields.PhysicalActivity.index', compact('storeUri', 'destroyUri', 'storeParameters', 'breadcrumb', 'crf', 'preoperative'));
     }
 }

@@ -8,6 +8,7 @@ use App\Models\LabInvestigation;
 use App\Models\PostOperativeData;
 use App\Services\LabInvestigationService;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class LabInvestigationController extends Controller
 {
@@ -18,17 +19,14 @@ class LabInvestigationController extends Controller
 
     public function create(CaseReportForm $crf, PostOperativeData $postoperative)
     {
-        $storeUri = 'crf.postoperative.labinvestigation.store';
-        $storeParameters = [
+        return Inertia::render('CaseReportForm/FormFields/LabInvestigation/Create', [
+            'postUrl' => 'crf.postoperative.labinvestigation.store',
+            'backUrl' => route('crf.postoperative.show', [$crf, $postoperative]),
             'crf' => $crf,
             'postoperative' => $postoperative,
-        ];
-        $breadcrumb = [
-            'name' => 'Post Operative Data',
-            'link' => 'crf.postoperative.index'
-        ];
+            'mode' => 'postoperative',
 
-        return view('casereportforms.FormFields.LabInvestigation.create', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf'));
+        ]);
     }
 
    
@@ -36,7 +34,7 @@ class LabInvestigationController extends Controller
     {
         
        $labInvestigationService->createPostoperativeLabInvestigation($request);
-       return redirect()->route('crf.postoperative.index', ['crf' => $crf, 'postoperative' => $postoperative]);
+       return redirect()->route('crf.postoperative.show', ['crf' => $crf, 'postoperative' => $postoperative])->with(['message' => 'Lab Investigation created successfully']);
     }
 
    
@@ -48,25 +46,22 @@ class LabInvestigationController extends Controller
    
     public function edit(CaseReportForm $crf, PostOperativeData $postoperative ,LabInvestigation $labinvestigation)
     {
-        $storeUri = 'crf.preoperative.labinvestigation.update';
-        $storeParameters = [
+        return Inertia::render('CaseReportForm/FormFields/LabInvestigation/Edit', [
+            'putUrl' => 'crf.postoperative.labinvestigation.update',
+            'backUrl' => route('crf.postoperative.show', [$crf, $postoperative]),
             'crf' => $crf,
             'postoperative' => $postoperative,
             'labinvestigation' => $labinvestigation,
-        ];
-        $breadcrumb = [
-            'name' => 'Post Operative Data',
-            'link' => 'crf.postoperative.index'
-        ];
-        
-        return view('casereportforms.FormFields.LabInvestigation.edit', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf' ,'labinvestigation'));
+            'mode' => 'postoperative',
+
+        ]);
     }
 
     
     public function update(Request $request, CaseReportForm $crf, PostOperativeData $postoperative, LabInvestigation $labinvestigation, LabInvestigationService $labInvestigationService)
     {
         $labInvestigationService->updatePreoperativeLabInvestigation($request, $labinvestigation);
-        return redirect()->route('crf.postoperative.index', ['crf' => $crf, 'preoperative' => $postoperative]);
+        return redirect()->route('crf.postoperative.show', ['crf' => $crf, 'postoperative' => $postoperative])->with(['message' => 'Lab Investigation updated successfully']);
     }
 
    

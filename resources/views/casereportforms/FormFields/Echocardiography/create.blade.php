@@ -22,7 +22,7 @@
 
 
     <div class="container">
-        <form action="{{ route($storeUri, $storeParameters) }}" method="POST">
+        <form action="{{ route($storeUri, $storeParameters) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card  shadow mt-3">
                 <div class="card-header">
@@ -233,6 +233,18 @@
                                 <input type="number" class="form-control with-units" name="ejection_fraction" placeholder="" value="">
                                 <span class="input-group-text text-secondary input-units">% </span>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+<div class="col-sm-2 col-form-label">
+    <label for="" class="form-label">Upload Files</label>
+</div>
+
+                    
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <input type="file" class="form-control" name="echofiles" multiple>
                         </div>
                     </div>
 

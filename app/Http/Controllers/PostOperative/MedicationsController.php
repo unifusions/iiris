@@ -8,26 +8,20 @@ use App\Models\Medication;
 use App\Models\PostOperativeData;
 use App\Models\PreOperativeData;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class MedicationsController extends Controller
 {
     public function index(CaseReportForm $crf, PostOperativeData $postoperative)
     {
-        $storeUri = 'crf.postoperative.medication.store';
-        $destroyUri = 'crf.postoperative.medication.destroy';
-        $opStoreUri = 'crf.postoperative.update';
-        $storeParameters = [
+        return Inertia::render('CaseReportForm/FormFields/Medications/Index', [
             'crf' => $crf,
+            'mode' => 'postoperative',
             'postoperative' => $postoperative,
-           
-        ];
-        $breadcrumb = [
-            'name' => 'Post Operative Data',
-            'link' => 'crf.postoperative.index',
-            'mode' => 'postoperative'
-        ];
-
-        return view('casereportforms.FormFields.Medications.index', compact('storeUri','destroyUri','opStoreUri', 'storeParameters', 'breadcrumb', 'crf', 'postoperative'));
+            'medications' => $postoperative->medications,
+            'updateUrl' => 'crf.postoperative.update',
+            'backUrl' => route('crf.postoperative.show', [$crf, $postoperative])
+        ]);
     }
 
     public function create()
@@ -38,17 +32,7 @@ class MedicationsController extends Controller
     
     public function store(Request $request, CaseReportForm $crf, PostOperativeData $postoperative)
     {
-        $storeUri = 'crf.postoperative.medication.store';
-        $destroyUri = 'crf.postoperative.medication.destroy';
-        $storeParameters = [
-            'crf' => $crf,
-            'postoperative' => $postoperative,
-        ];
-        $breadcrumb = [
-            'name' => 'Post Operative Data',
-            'link' => 'crf.postoperative.index',
-            'mode' => 'postoperative'
-        ];
+        
 
         Medication::create([
             'post_operative_data_id' => $request->postoperative->id,
@@ -57,11 +41,11 @@ class MedicationsController extends Controller
             'status' => $request->status,
             'dosage' => $request->dosage,
             'reason' => $request->reason,
-            'start_date' => $request->mstart_date,
-            'stop_date' => $request->mstop_date
+            'start_date' => $request->start_date,
+            'stop_date' => $request->stop_date
         ]);
 
-        return view('casereportforms.FormFields.Medications.index', compact('storeUri','destroyUri','storeParameters', 'breadcrumb', 'crf', 'postoperative'));
+        return redirect()->back()->with(['message' => 'Medication Added successfully']);
     }
 
     public function show($id)
@@ -80,19 +64,9 @@ class MedicationsController extends Controller
     }
     public function destroy(CaseReportForm $crf, PostOperativeData $postoperative, Medication $medication)
     {
-        $storeUri = 'crf.postoperative.medication.store';
-        $destroyUri = 'crf.postoperative.medication.destroy';
-        $storeParameters = [
-            'crf' => $crf,
-            'postoperative' => $postoperative,
-        ];
-        $breadcrumb = [
-            'name' => 'Post Operative Data',
-            'link' => 'crf.postoperative.index',
-            'mode' => 'postoperative'
-        ];
+         
         $medication->delete();
-        return view('casereportforms.FormFields.Medications.index', compact('storeUri','destroyUri','storeParameters', 'breadcrumb', 'crf', 'postoperative'));
+        return redirect()->back()->with(['message' => 'Medication '. $medication->id .' Deleted successfully']);
 
     }
 }

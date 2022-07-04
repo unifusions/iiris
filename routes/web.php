@@ -1,12 +1,19 @@
 <?php
 
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
+
+
 use App\Http\Controllers\CaseReportFormController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EchoDicomFilesController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\PreOperativeController;
 use App\Http\Controllers\PostOperativeController;
 
-use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\IntraOperativeController;
 use App\Http\Controllers\PostOperative\EchocardiographyController;
 use App\Http\Controllers\PostOperative\ElectrocardiogramController;
@@ -33,20 +40,22 @@ use App\Http\Controllers\PreOperative\PreOperativePersonalHistoryController;
 use App\Http\Controllers\PreOperative\PreOperativePhysicalActivityController;
 use App\Http\Controllers\PreOperative\SurgicalHistoryController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
+// Route::get('/react-dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('rd');
 
+require __DIR__.'/auth.php';
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -87,9 +96,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.postoperative.electrocardiogram', ElectrocardiogramController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
         Route::resource('crf.postoperative.echocardiography', EchocardiographyController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
         Route::resource('crf.postoperative.safetyparameter', PostOperativeSafetyController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
-        Route::resource('crf.postoperative.medication', MedicationsController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
+        Route::resource('crf.postoperative.medication', MedicationsController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
 
     });
+
+    Route::get('/dicomviewer/{echodicomfile}', [EchoDicomFilesController::class, 'viewer'] )->name('dicomviewer');
+    Route::post('/dicomupload', [EchoDicomFilesController::class, 'uploaded'] )->name('dicomuploader');
 
 
 
@@ -98,6 +110,3 @@ Route::group(['middleware' => 'auth'], function () {
         return view('underconstruction');
     })->middleware(['auth'])->name('underconstruction');
 });
-
-
-require __DIR__ . '/auth.php';

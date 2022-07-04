@@ -42,4 +42,8 @@ class Echocardiography extends Model
     {
         return $this->belongsTo(PreOperativeData::class);
     }
+
+    public function echodicomfiles(){
+        return $this->hasMany(EchoDicomFile::class);
+    }
 }

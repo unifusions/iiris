@@ -31,60 +31,73 @@ class PersonalHistory extends Model
         'tobacco_stopped',
     ];
 
-    protected $dates=[ 'smoking_since',
-    'smoking_stopped',
-    
-    'alchohol_since',
-    'alchohol_stopped',
-    
-    'tobacco_since',
-    'tobacco_stopped',];
+    protected $dates = [
+        'smoking_since',
+        'smoking_stopped',
 
+        'alchohol_since',
+        'alchohol_stopped',
 
-    protected function smokingSince(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => !empty($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('F Y') : null,
-            set: fn ($value) => !empty($value) ? Carbon::createFromFormat('F Y', $value)->format('Y-m-d') : null
-        );
-    }
+        'tobacco_since',
+        'tobacco_stopped',
+    ];
 
-    protected function smokingStopped(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => !empty($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('F Y') : null,
-            set: fn ($value) => !empty($value) ? Carbon::createFromFormat('F Y', $value)->format('Y-m-d') : null
-        );
-    }
+    // protected $casts = [
+    //     'smoking_since' => 'datetime:d/m/Y',
+    //     'smoking_stopped' => 'datetime:d/m/Y',
 
-    protected function alchoholSince(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => !empty($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('F Y') : null,
-            set: fn ($value) => !empty($value) ? Carbon::createFromFormat('F Y', $value)->format('Y-m-d') : null
-        );
-    }
+    //     'alchohol_since'=> 'datetime:d/m/Y',
+    //     'alchohol_stopped'=> 'datetime:d/m/Y',
 
-    protected function alchoholStopped(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => !empty($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('F Y') : null,
-            set: fn ($value) => !empty($value) ? Carbon::createFromFormat('F Y', $value)->format('Y-m-d') : null
-        );
-    }
+    //     'tobacco_since'=> 'datetime:d/m/Y',
+    //     'tobacco_stopped'=> 'datetime:d/m/Y',
 
-    protected function tobaccoSince(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => !empty($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('F Y') : null,
-            set: fn ($value) => !empty($value) ? Carbon::createFromFormat('F Y', $value)->format('Y-m-d') : null
-        );
-    }
-    protected function tobaccoStopped(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => !empty($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('F Y') : null,
-            set: fn ($value) => !empty($value) ? Carbon::createFromFormat('F Y', $value)->format('Y-m-d') : null
-        );
-    }    
+    // ];
+
+    // protected function smokingSince(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => !empty($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('F Y') : null,
+    //         set: fn ($value) => !empty($value) ? Carbon::createFromFormat('F Y', $value)->format('Y-m-d') : null
+    //     );
+    // }
+
+    // protected function smokingStopped(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => !empty($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('F Y') : null,
+    //         set: fn ($value) => !empty($value) ? Carbon::createFromFormat('F Y', $value)->format('Y-m-d') : null
+    //     );
+    // }
+
+    // protected function alchoholSince(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => !empty($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('F Y') : null,
+    //         set: fn ($value) => !empty($value) ? Carbon::createFromFormat('F Y', $value)->format('Y-m-d') : null
+    //     );
+    // }
+
+    // protected function alchoholStopped(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => !empty($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('F Y') : null,
+    //         set: fn ($value) => !empty($value) ? Carbon::createFromFormat('F Y', $value)->format('Y-m-d') : null
+    //     );
+    // }
+
+    // protected function tobaccoSince(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => !empty($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('F Y') : null,
+    //         set: fn ($value) => !empty($value) ? Carbon::createFromFormat('F Y', $value)->format('Y-m-d') : null
+    //     );
+    // }
+    // protected function tobaccoStopped(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => !empty($value) ? Carbon::createFromFormat('Y-m-d', $value)->format('F Y') : null,
+    //         set: fn ($value) => !empty($value) ? Carbon::createFromFormat('F Y', $value)->format('Y-m-d') : null
+    //     );
+    // }    
 }

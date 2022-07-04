@@ -8,6 +8,7 @@ use App\Models\LabInvestigation;
 use App\Models\PreOperativeData;
 use App\Services\LabInvestigationService;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PreOperativeLabInvestigationController extends Controller
 {
@@ -29,7 +30,15 @@ class PreOperativeLabInvestigationController extends Controller
             'link' => 'crf.preoperative.index'
         ];
 
-        return view('casereportforms.FormFields.LabInvestigation.create', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf'));
+        // return view('casereportforms.FormFields.LabInvestigation.create', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf'));
+        return Inertia::render('CaseReportForm/FormFields/LabInvestigation/Create', [
+            'postUrl' => 'crf.preoperative.labinvestigation.store',
+            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative]),
+            'crf' => $crf,
+            'preoperative' => $preoperative,
+            'mode' => 'preoperative',
+
+        ]);
     }
 
    
@@ -37,7 +46,7 @@ class PreOperativeLabInvestigationController extends Controller
     {
         
        $labInvestigationService->createPreoperativeLabInvestigation($request);
-       return redirect()->route('crf.preoperative.index', ['crf' => $crf, 'preoperative' => $preoperative]);
+       return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative]);
     }
 
    
@@ -60,14 +69,23 @@ class PreOperativeLabInvestigationController extends Controller
             'link' => 'crf.preoperative.index'
         ];
         
-        return view('casereportforms.FormFields.LabInvestigation.edit', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf' ,'labinvestigation'));
+        // return view('casereportforms.FormFields.LabInvestigation.edit', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf' ,'labinvestigation'));
+        return Inertia::render('CaseReportForm/FormFields/LabInvestigation/Edit', [
+            'putUrl' => 'crf.preoperative.labinvestigation.update',
+            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative]),
+            'crf' => $crf,
+            'preoperative' => $preoperative,
+            'labinvestigation' => $labinvestigation,
+            'mode' => 'preoperative',
+
+        ]);
     }
 
     
     public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, LabInvestigation $labinvestigation, LabInvestigationService $labInvestigationService)
     {
         $labInvestigationService->updatePreoperativeLabInvestigation($request, $labinvestigation);
-        return redirect()->route('crf.preoperative.index', ['crf' => $crf, 'preoperative' => $preoperative]);
+        return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative]);
     }
 
    

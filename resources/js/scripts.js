@@ -1,11 +1,9 @@
 import flatpickr from "flatpickr";
-
 import jquery from 'jquery';
 
+const monthSelect = require("flatpickr/dist/plugins/monthSelect/index");
 require("flatpickr/dist/themes/light.css");
 require("flatpickr/dist/plugins/monthSelect/style.css");
-
-const monthSelect = require("flatpickr/dist/plugins/monthSelect/index");
 
 flatpickr(".calendar", {
   altInput: true,
@@ -271,16 +269,16 @@ $('input[name ="tobacco"]').change(function () {
   if (tobaccoStatus === 'Never') {
     $('#tobacco_wrapper').hide('fast');
   }
-  else if(tobaccoStatus === 'Used To') {
+  else if (tobaccoStatus === 'Used To') {
     $('#tobacco_wrapper').show('fast');
     flatpickr("#tobaccoSince", {
       maxDate: 'today',
       allowInput: true,
-      plugins: [new monthSelect({theme: 'light'})]
+      plugins: [new monthSelect({ theme: 'light' })]
     });
     $('#tobaccoStoppedSince').removeAttr('disabled')
   }
-  else{
+  else {
     $('#tobacco_wrapper').show('fast');
     flatpickr('#tobaccoStoppedSince').destroy();
     $('#tobaccoStoppedSince').val('');
@@ -290,7 +288,7 @@ $('input[name ="tobacco"]').change(function () {
       altInput: 'm.Y',
       dateFormat: 'Y-m',
       allowInput: true,
-      plugins: [new monthSelect({theme: 'light'})]
+      plugins: [new monthSelect({ theme: 'light' })]
     });
   }
 });

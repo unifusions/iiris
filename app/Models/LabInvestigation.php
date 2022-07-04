@@ -33,6 +33,7 @@ class LabInvestigation extends Model
 
     protected $dates = ['li_date'];
 
+
    
     public function preoperatives(){
         return $this->belongsTo(PreOperativeData::class);

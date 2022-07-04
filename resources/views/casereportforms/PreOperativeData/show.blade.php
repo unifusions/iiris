@@ -193,7 +193,7 @@
 
                             <div class="card-body">
                                 <div class="row mb-3 fw-normal">
-                                    <div class="col-3 text-secondary ">Height</div>
+                                    <div class="col-3 text-secondary "></div>
                                     <div class="col-9">{{ $preoperative->physicalexaminations->height }} <span
                                             class="text-secondary small">cms</span></div>
                                 </div>
@@ -1331,6 +1331,18 @@
                                             class="fw-bold">{{ $preoperative->echocardiographies->ejection_fraction }}</span>
                                         <span class="text-secondary small">%
                                         </span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-3 text-secondary">Dicom Files</div>
+                                    <div class="col-9">
+                                       
+                                        
+                                        @foreach ($preoperative->echodicomfiles as $edf)
+                                        
+                                            <a href="{{ route('dicomviewer', $edf) }}" target = "_blank"> {{ $edf->file_name }}</a> 
+                                        @endforeach
                                     </div>
                                 </div>
 

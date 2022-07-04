@@ -8,68 +8,60 @@ use App\Models\Electrocardiogram;
 use App\Models\PreOperativeData;
 use App\Services\ElectrocardiogramService;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PreOperativeElectrocardiogramController extends Controller
 {
-   
+
     public function index()
     {
-        //
-        return 'index';
     }
 
-    
+
     public function create(CaseReportForm $crf, PreOperativeData $preoperative)
     {
-        $storeUri = 'crf.preoperative.electrocardiogram.store';
-        $storeParameters = [
+        
+
+        return Inertia::render('CaseReportForm/FormFields/Electrocardiogram/Create', [
             'crf' => $crf,
             'preoperative' => $preoperative,
-        ];
-        $breadcrumb = [
-            'name' => 'Pre Operative Data',
-            'link' => 'crf.preoperative.index'
-        ];
-        return  view('casereportforms.FormFields.Electrocardiogram.create', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf'));
+            'mode' => 'preoperative',
+            'postUrl' => 'crf.preoperative.electrocardiogram.store',
+            'backUrl'=> route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative])
+        ]);
     }
 
-    
+
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, ElectrocardiogramService $electrocardiogramService)
     {
         $electrocardiogram = $electrocardiogramService->createPreoperativeElectrocardiogram($request);
-        return redirect()->route('crf.preoperative.index', ['crf' => $crf, 'preoperative' => $preoperative]);
+        return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative])->with(['message' => 'Electrocardiogram saved successfully']);
     }
 
     public function show($id)
     {
-        //
     }
 
-    
-    public function edit(CaseReportForm $crf, PreOperativeData $preoperative,Electrocardiogram $electrocardiogram, ElectrocardiogramService $electrocardiogramService)
+
+    public function edit(CaseReportForm $crf, PreOperativeData $preoperative, Electrocardiogram $electrocardiogram, ElectrocardiogramService $electrocardiogramService)
     {
-        $storeUri = 'crf.preoperative.electrocardiogram.update';
-        $storeParameters = [
+        return Inertia::render('CaseReportForm/FormFields/Electrocardiogram/Edit', [
             'crf' => $crf,
             'preoperative' => $preoperative,
-            'electrocardiogram' =>$electrocardiogram
-        ];
-        $breadcrumb = [
-            'name' => 'Pre Operative Data',
-            'link' => 'crf.preoperative.index'
-        ];
-        
-        return  view('casereportforms.FormFields.Electrocardiogram.edit', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf', 'electrocardiogram'));
+            'mode' => 'preoperative',
+            'putUrl' => 'crf.preoperative.electrocardiogram.update',
+            'electrocardiogram' => $electrocardiogram,
+            'backUrl'=> route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative])
+        ]);
     }
 
-    public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative,Electrocardiogram $electrocardiogram, ElectrocardiogramService $electrocardiogramService)
+    public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, Electrocardiogram $electrocardiogram, ElectrocardiogramService $electrocardiogramService)
     {
         $electrocardiogram = $electrocardiogramService->updatePreoperativeElectrocardiogram($request, $electrocardiogram);
-        return redirect()->route('crf.preoperative.index', ['crf' => $crf, 'preoperative' => $preoperative]);
+        return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative])->with(['message' => 'Electrocardiogram edited successfully']);
     }
 
     public function destroy($id)
     {
-        //
     }
 }

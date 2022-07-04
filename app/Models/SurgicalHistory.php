@@ -18,7 +18,7 @@ class SurgicalHistory extends Model
     ];
 
     protected $dates = ['sh_date'];
-    
+    protected $casts = ['sh_date' => 'date:d/m/Y'];
     public function preoperatives(){
         return $this->belongsTo(PreOperativeData::class);
     }

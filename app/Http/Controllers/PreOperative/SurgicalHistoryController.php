@@ -6,15 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\CaseReportForm;
 use App\Models\PreOperativeData;
 use App\Models\SurgicalHistory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class SurgicalHistoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(CaseReportForm $crf, PreOperativeData $preoperative)
     {
         $storeParameters = [
@@ -26,28 +24,29 @@ class SurgicalHistoryController extends Controller
             'link' => 'crf.preoperative.index'
         ];
 
-        return view('casereportforms.FormFields.SurgicalHistory.index', compact('crf', 'preoperative', 'storeParameters', 'breadcrumb'));
+        // return view('casereportforms.FormFields.SurgicalHistory.index', compact('crf', 'preoperative', 'storeParameters', 'breadcrumb'));
+
+        return Inertia::render(
+            'CaseReportForm/FormFields/SurgicalHistory/Index',
+            [
+                'crf' => $crf,
+                'mode' => 'preoperative',
+                'preoperative' => $preoperative,
+                'surgicalhistories' => $preoperative->surgicalhistories,
+                'updateUrl' => 'crf.preoperative.update',
+                'backUrl' => route('crf.preoperative.show', [$crf, $preoperative])
+            ]
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative)
     {
-       
+
         $storeParameters = [
             'crf' => $crf,
             'preoperative' => $preoperative,
@@ -57,59 +56,39 @@ class SurgicalHistoryController extends Controller
             'link' => 'crf.preoperative.index'
         ];
 
-       
-        $medicalhistory = SurgicalHistory::Create([
-                'pre_operative_data_id' =>  $request->preoperative->id,
-                'diagnosis' => $request->sh_diagnosis,
-                'sh_date' => $request->sh_date,
-                'treatment' => $request->sh_treatment,
-            ]);
-       
-        return view('casereportforms.FormFields.SurgicalHistory.index', compact('crf', 'preoperative', 'storeParameters', 'breadcrumb'));
+    
+        SurgicalHistory::Create([
+            'pre_operative_data_id' =>  $request->preoperative->id,
+            'sh_date' => Carbon::parse($request->sh_date)->addHours(5)->addMinutes(30),
+            'diagnosis' => $request->diagnosis,
+            'treatment' => $request->treatment,
+        ]);
+
+        return redirect()->back()->with(['message' => 'Operation Successful !', 'modalClose' => true]);
+
+        // return view('casereportforms.FormFields.SurgicalHistory.index', compact('crf', 'preoperative', 'storeParameters', 'breadcrumb'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
-        //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function destroy(CaseReportForm $crf, PreoperativeData $preoperative, SurgicalHistory $surgicalhistory)
     {
-        //
+        $surgicalhistory->delete();
+        $message = 'Record ID:' . $surgicalhistory->id . ' deleted successfully';
+        return redirect()->back()->with(['message' => $message]);
     }
 }

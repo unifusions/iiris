@@ -8,6 +8,7 @@ use App\Models\CaseReportFormVisitMode;
 use App\Models\PreOperative;
 use App\Models\PreOperativeData;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PreOperativeController extends Controller
 {
@@ -29,6 +30,8 @@ class PreOperativeController extends Controller
 
         // // $preop = CaseReportFormVisitMode::find($id);
         // return view('casereportforms.visits.preoperative.index', compact('subject_id', 'visit_no', 'preop'));
+
+
 
         if ($crf->preoperatives)
             $preoperative = $crf->preoperatives;
@@ -67,8 +70,23 @@ class PreOperativeController extends Controller
 
         // $preop = CaseReportFormVisitMode::find($id);
         // return view('casereportforms.visits.preoperative.show', compact('preop'));
-
-        return view('casereportforms.PreOperativeData.show', compact('crf', 'preoperative'));
+        return Inertia::render('CaseReportForm/Preoperative/Index', [
+            'crf' => $crf,
+            'preoperative' => $preoperative,
+            'physicalexamination' => $preoperative->physicalexaminations,
+            'symptoms' => $preoperative->symptoms,
+            'medicalhistories' => $preoperative->medicalhistories,
+            'surgicalhistories' => $preoperative->surgicalhistories,
+            'familyhistories' => $preoperative->familyhistories,
+            'physicalactivities' => $preoperative->physicalactivities,
+            'personalhistories' => $preoperative->personalhistories,
+            'echocardiographies' => $preoperative->echocardiographies,
+            'electrocardiograms' => $preoperative->electrocardiograms,
+            'labinvestigations' => $preoperative->labinvestigations,
+            'medications' => $preoperative->medications,
+            // 'echoFiles' => $preoperative->echocardiographies->echodicomfiles 
+        ]);
+        // return view('casereportforms.PreOperativeData.show', compact('crf', 'preoperative'));
     }
 
     /**
@@ -98,6 +116,7 @@ class PreOperativeController extends Controller
             $preoperative->save();
             if ($preoperative->medical_history)
                 return redirect()->route('crf.preoperative.medicalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]);
+            return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative]);
         }
 
         if (isset($request->surgical_history)) {
@@ -105,12 +124,15 @@ class PreOperativeController extends Controller
             $preoperative->save();
             if ($preoperative->surgical_history)
                 return redirect()->route('crf.preoperative.surgicalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]);
+            return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative]);
         }
 
         if (isset($request->family_history)) {
             $preoperative->family_history = $request->family_history;
             $preoperative->save();
-            return redirect()->route('crf.preoperative.familyhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]);
+            if ($preoperative->family_history)
+                return redirect()->route('crf.preoperative.familyhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]);
+            return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative]);
         }
 
         if (isset($request->physical_activity)) {
@@ -118,7 +140,7 @@ class PreOperativeController extends Controller
             $preoperative->save();
             if ($preoperative->physical_activity)
                 return redirect()->route('crf.preoperative.physicalactivity.index', ['crf' => $crf, 'preoperative' => $preoperative]);
-            return redirect()->route('crf.preoperative.index', compact('crf', 'preoperative'));
+            return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative]);
         }
 
         if (isset($request->hasMedications)) {
@@ -129,12 +151,12 @@ class PreOperativeController extends Controller
             return redirect()->route('crf.preoperative.index', compact('crf', 'preoperative'));
         }
 
-        if (isset($request->isSubmitted)) {
-            $preoperative->is_submitted = $request->isSubmitted;
+        if (isset($request->is_submitted)) {
+            $preoperative->is_submitted = $request->is_submitted;
             $preoperative->save();
             $message = 'Preoperative Data successfully submitted for approval';
 
-            return redirect()->route('crf.preoperative.index', compact('crf', 'preoperative'))->with(['message' => $message]);
+            return redirect()->route('crf.preoperative.show', [$crf, $preoperative])->with(['message' => $message]);
         }
 
 
@@ -142,7 +164,7 @@ class PreOperativeController extends Controller
             $preoperative->visit_status = $request->approve;
             $preoperative->save();
             $message = 'Preoperative Data has been approved';
-            return redirect()->route('crf.preoperative.index', compact('crf', 'preoperative'))->with(['message' => $message]);
+            return redirect()->route('crf.preoperative.index', [$crf, $preoperative])->with(['message' => $message]);
         }
 
         if (isset($request->disapprove)) {
@@ -151,9 +173,8 @@ class PreOperativeController extends Controller
             $preoperative->save();
             $message = 'Preoperative Data has been disapproved';
 
-            return redirect()->route('crf.preoperative.index', compact('crf', 'preoperative'))->with(['message' => $message]);
+            return redirect()->route('crf.preoperative.index', [$crf, $preoperative])->with(['message' => $message]);
         }
-
     }
 
     /**
