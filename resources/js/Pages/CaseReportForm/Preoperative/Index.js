@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { usePage } from '@inertiajs/inertia-react';
+
 import Authenticated from '@/Layouts/Authenticated';
 import { Link } from '@inertiajs/inertia-react';
-import { LinkIcon } from '@heroicons/react/outline';
+
 import { Row, Col, Card, Container } from 'react-bootstrap';
 import PhysicalExaminationData from '../FormData/PhysicalExaminationData';
 import SymptomsData from '../FormData/SymptomsData';
