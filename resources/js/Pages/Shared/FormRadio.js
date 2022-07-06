@@ -29,7 +29,7 @@ const FormRadio = ({ type = 'radio', name, checked, selectedValue, options, clas
                               id={index} key={index}>
                               <input id={`${name}${option.labelText}`} name={name} value={option.value} type={type}
                                    className={`form-check-input ` + className} checked = {selectedValue === option.value}
-                                   onChange={(e) => handleChange(e)}
+                                   onChange={(e) => handleChange(e)}  required = {required ? index===1 && true : false }
                               />
                              
                               <label className="form-check-label" htmlFor={`${name}${option.labelText}`}>{option.labelText}</label>

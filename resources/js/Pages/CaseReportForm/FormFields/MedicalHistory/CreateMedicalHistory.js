@@ -41,7 +41,7 @@ export default function CreateMedicalHistory({ crf, preoperative, medicalhistori
                               <Col>{medicalhistory.diagnosis}</Col>
                               <Col>{medicalhistory.duration}</Col>
                               <Col>{medicalhistory.treatment}</Col>
-                              <Col> <Link href={route('crf.preoperative.medicalhistory.destroy', {crf:crf, preoperative:preoperative, medicalhistory:medicalhistory})} type="submit" method="delete" className='btn btn-danger btn-sm'>Delete</Link>
+                              <Col> <Link href={route('crf.preoperative.medicalhistory.destroy', { crf: crf, preoperative: preoperative, medicalhistory: medicalhistory })} type="submit" method="delete" className='btn btn-danger btn-sm'>Delete</Link>
                               </Col>
                          </Row>)
 
@@ -57,37 +57,32 @@ export default function CreateMedicalHistory({ crf, preoperative, medicalhistori
                          preoperative.medical_history !== null &&
                          <>
                               {preoperative.medical_history ? <>
+
                                    <Modal.Header closeButton>
-                                        <Modal.Title>Modal title</Modal.Title>
+                                        <Modal.Title>Create Medical History</Modal.Title>
                                    </Modal.Header>
+
                                    <form onSubmit={handlesubmit}>
                                         <Modal.Body>
-
-
 
                                              <FormInput
                                                   labelText='Diagnosis'
                                                   value={data.diagnosis}
                                                   handleChange={e => setData('diagnosis', e.target.value)} />
+
                                              <FormInput
                                                   labelText='Duration'
                                                   value={data.duration}
-
                                                   handleChange={e => setData('duration', e.target.value)} />
 
-                                             <FormInput labelText='Treatment'
+                                             <FormInput
+                                                  labelText='Treatment'
                                                   value={data.treatment}
                                                   handleChange={e => setData('treatment', e.target.value)} />
-
-
-
-
 
                                         </Modal.Body>
                                         <Modal.Footer>
                                              <FormButton processing={processing} labelText='Add Medical History' type="submit" mode="primary" className="btn-sm" />
-
-
                                         </Modal.Footer>
                                    </form>
                               </> : 'No medical history found'}

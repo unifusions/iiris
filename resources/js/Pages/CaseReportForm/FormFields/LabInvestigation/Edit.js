@@ -3,14 +3,15 @@ import React, { useEffect, useState } from "react";
 import { Container, Card, Row, Col } from "react-bootstrap";
 
 import { Head, Link, usePage, useForm, } from "@inertiajs/inertia-react";
-import FormInput from "@/Pages/Shared/FormInput";
+
 import FormInputWithLabel from "@/Pages/Shared/FormInputWithLabel";
-import FormInputDuration from "@/Pages/Shared/FormInputDuration";
+
 
 import FormButton from "@/Pages/Shared/FormButton";
 import Authenticated from '@/Layouts/Authenticated';
-import FormRadio from "@/Pages/Shared/FormRadio";
+
 import FormCalendar from "@/Pages/Shared/FormCalendar";
+import PageTitle from "@/Pages/Shared/PageTitle";
 
 
 const Edit = () => {
@@ -73,10 +74,8 @@ const Edit = () => {
 
                <Head title="Create Personal History" />
                <Container>
-                    <div className='d-flex justify-content-between align-items-center mb-3'>
-                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Case Report Forms</h2>
-                         <Link href={backUrl} className="btn btn-primary" method="get" type="button" as="button">Back</Link>
-                    </div>
+               <PageTitle backUrl={backUrl} pageTitle = 'Edit Lab Investigation' />
+
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit}>

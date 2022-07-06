@@ -10,6 +10,7 @@ import FormInputDuration from "@/Pages/Shared/FormInputDuration";
 import FormButton from "@/Pages/Shared/FormButton";
 import Authenticated from '@/Layouts/Authenticated';
 import FormRadio from "@/Pages/Shared/FormRadio";
+import PageTitle from "@/Pages/Shared/PageTitle";
 
 
 const Edit = () => {
@@ -196,10 +197,8 @@ const Edit = () => {
 
                <Head title="Create New Case Report Form" />
                <Container>
-                    <div className='d-flex justify-content-between align-items-center mb-3'>
-                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Case Report Forms</h2>
-                         <Link href={backUrl} className="btn btn-primary" method="get" type="button" as="button">Back</Link>
-                    </div>
+                    <PageTitle backUrl={backUrl} pageTitle='Edit Symptoms' />
+
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit}

@@ -61,7 +61,7 @@ export default function CreateFamilyHistory({ crf, preoperative, familyhistories
                          <>
                               {preoperative.family_history ? <>
                                    <Modal.Header closeButton>
-                                        <Modal.Title>Modal title</Modal.Title>
+                                        <Modal.Title>Create Family History</Modal.Title>
                                    </Modal.Header>
                                    <form onSubmit={handlesubmit}>
                                         <Modal.Body>

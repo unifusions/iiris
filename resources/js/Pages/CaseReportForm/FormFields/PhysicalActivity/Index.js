@@ -12,6 +12,7 @@ import { RenderBackButton, RenderCreateButton, RenderUpdateButton } from "../../
 
 
 import CreatePhysicalActivity from "./CreatePhysicalActivity";
+import PageTitle from "@/Pages/Shared/PageTitle";
 
 
 const Create = () => {
@@ -70,9 +71,11 @@ const Create = () => {
                }
           >
                <Head title="Physical Activity" />
-               {console.log({postUrl})}
+               
 
                <Container>
+               <PageTitle backUrl={backUrl} pageTitle = 'Physical Activity' />
+
                     <Card className="mb-3 shadow-sm rounded-5">
                          <Card.Body>
                               <form onSubmit={preopSubmit}>
@@ -105,7 +108,8 @@ const Create = () => {
 
                     {preoperative.physical_activity !== null &&
                          <>
-                              {preoperative.physical_activity ? <CreatePhysicalActivity mode= {mode} postUrl = {postUrl} preoperative={preoperative} crf={crf} physicalactivities={physicalactivities} /> : ''}
+                              {preoperative.physical_activity ? <CreatePhysicalActivity 
+                              mode= {mode} postUrl = {postUrl} preoperative={preoperative} crf={crf} physicalactivities={physicalactivities} modalTitle='Create Physical Activity'/> : ''}
                          </>
 
                     }

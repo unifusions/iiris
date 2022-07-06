@@ -11,14 +11,15 @@ import FormButton from "@/Pages/Shared/FormButton";
 import Authenticated from '@/Layouts/Authenticated';
 import FormRadio from "@/Pages/Shared/FormRadio";
 import FormCalendar from "@/Pages/Shared/FormCalendar";
+import PageTitle from "@/Pages/Shared/PageTitle";
 
 
 const Create = () => {
      const { auth, roles, postUrl, mode, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, backUrl } = usePage().props;
      const { data, setData, errors, post, processing, hasErrors, transform } = useForm({
-          pre_operative_data_id: preoperative !== undefined ? preoperative.id : null,
-          scheduled_visits_id: scheduledvisit !== undefined ? scheduledvisit.id : null,
-          unscheduled_visits_id: unscheduledvisit !== undefined ? unscheduledvisit.id : null,
+          pre_operative_data_id: preoperative !== undefined ? preoperative.id : '',
+          scheduled_visits_id: scheduledvisit !== undefined ? scheduledvisit.id : '',
+          unscheduled_visits_id: unscheduledvisit !== undefined ? unscheduledvisit.id : '',
           smoking: '',
           cigarettes: '',
           smoking_since: '',
@@ -79,10 +80,8 @@ const Create = () => {
 
                <Head title="Create Personal History" />
                <Container>
-                    <div className='d-flex justify-content-between align-items-center mb-3'>
-                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Case Report Forms</h2>
-                         <Link href={backUrl} className="btn btn-primary" method="get" type="button" as="button">Back</Link>
-                    </div>
+               <PageTitle backUrl={backUrl} pageTitle = 'Create Personal History' />
+
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit}>
@@ -97,6 +96,7 @@ const Create = () => {
                                         checked={data.smoking !== '' && data.smoking}
                                         error={errors.smoking}
                                         className={`${errors.smoking ? 'is-invalid' : ''}`}
+                                        required
                                    />
 
                                    {data.smoking !== '' ? <>
@@ -143,6 +143,7 @@ const Create = () => {
                                         checked={data.alchohol !== '' && data.alchohol}
                                         error={errors.alchohol}
                                         className={`${errors.alchohol ? 'is-invalid' : ''}`}
+                                        required
                                    />
                                    {data.alchohol !== '' ? <>
                                         {data.alchohol !== 'Never' &&
@@ -156,7 +157,7 @@ const Create = () => {
                                                   />
 
                                                   <FormCalendar
-                                                       labelText='Smoking Since'
+                                                       labelText='Alcohol Since'
                                                        name=''
                                                        value={data.alchohol_since}
                                                        handleChange={(date) => setData('alchohol_since', new Date(date))}
@@ -189,6 +190,7 @@ const Create = () => {
                                         checked={data.tobacco !== '' && data.tobacco}
                                         error={errors.tobacco}
                                         className={`${errors.tobacco ? 'is-invalid' : ''}`}
+                                        required
                                    />
 
                                    {data.tobacco !== '' ? <>
@@ -200,6 +202,7 @@ const Create = () => {
                                                        error={errors.tobacco_type}
                                                        handleChange={e => setData('quantity', e.target.value)}
                                                        className={`${errors.tobacco_type ? 'is-invalid' : ''}`}
+                                                       
                                                   />
 
                                                   <FormInput
@@ -211,7 +214,7 @@ const Create = () => {
                                                   />
 
                                                   <FormCalendar
-                                                       labelText='Smoking Since'
+                                                       labelText='Tobacco Since'
                                                        name=''
                                                        value={data.tobacco_since}
                                                        handleChange={(date) => setData('tobacco_since', new Date(date))}

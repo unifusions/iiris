@@ -12,6 +12,7 @@ import { RenderBackButton, RenderCreateButton, RenderUpdateButton } from "../../
 
 
 import CreateSurgicalHistory from "./CreateSurgicalHistory";
+import PageTitle from "@/Pages/Shared/PageTitle";
 
 
 const Create = () => {
@@ -49,8 +50,10 @@ const Create = () => {
           >
                <Head title="Medical History" />
 
+               
 
                <Container>
+               <PageTitle backUrl={backUrl} pageTitle='Surgical History' />
                     <Card className="mb-3 shadow-sm rounded-5">
                          <Card.Body>
                               <form onSubmit={preopSubmit}>

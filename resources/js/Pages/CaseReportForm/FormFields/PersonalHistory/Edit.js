@@ -11,6 +11,7 @@ import FormButton from "@/Pages/Shared/FormButton";
 import Authenticated from '@/Layouts/Authenticated';
 import FormRadio from "@/Pages/Shared/FormRadio";
 import FormCalendar from "@/Pages/Shared/FormCalendar";
+import PageTitle from "@/Pages/Shared/PageTitle";
 
 
 const Edit = () => {
@@ -19,17 +20,17 @@ const Edit = () => {
           pre_operative_data_id: preoperative !== undefined ? preoperative.id : '',
           scheduled_visits_id: scheduledvisit !== undefined ? scheduledvisit.id : '',
           unscheduled_visits_id: unscheduledvisit !== undefined ? unscheduledvisit.id : '',
-          smoking: personalhistories.smoking,
-          cigarettes: personalhistories.cigarettes,
+          smoking: personalhistories.smoking || '',
+          cigarettes: personalhistories.cigarettes || '',
           smoking_since: personalhistories.smoking_since !== null ? personalhistories.smoking_since : '',
           smoking_stopped: personalhistories.smoking_stopped !== null ? personalhistories.smoking_stopped : '',
-          alchohol: personalhistories.alchohol,
-          quantity: personalhistories.quantity,
+          alchohol: personalhistories.alchohol || '',
+          quantity: personalhistories.quantity || '',
           alchohol_since: personalhistories.alchohol_since !== null ? personalhistories.alchohol_since : '',
           alchohol_stopped: personalhistories.alchohol_stopped !== null ? personalhistories.alchohol_stopped : '',
-          tobacco: personalhistories.tobacco,
-          tobacco_type: personalhistories.tobacco_type,
-          tobacco_quantity: personalhistories.tobacco_quantity,
+          tobacco: personalhistories.tobacco || '',
+          tobacco_type: personalhistories.tobacco_type || '',
+          tobacco_quantity: personalhistories.tobacco_quantity || '',
           tobacco_since: personalhistories.tobacco_since !== null ? personalhistories.tobacco_since : '',
           tobacco_stopped: personalhistories.tobacco_stopped !== null ? personalhistories.tobacco_stopped : '',
      });
@@ -78,12 +79,10 @@ const Edit = () => {
           >
 
                <Head title="Create Personal History" />
-               {console.log(personalhistories)}
+               
                <Container>
-                    <div className='d-flex justify-content-between align-items-center mb-3'>
-                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Case Report Forms</h2>
-                         <Link href={backUrl} className="btn btn-primary" method="get" type="button" as="button">Back</Link>
-                    </div>
+               <PageTitle backUrl={backUrl} pageTitle = 'Edit Personal History' />
+
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit}>
@@ -99,8 +98,8 @@ const Edit = () => {
                                         error={errors.smoking}
                                         className={`${errors.smoking ? 'is-invalid' : ''}`}
                                    />
-                              
-                                   
+
+
                                    {data.smoking !== '' ? <>
                                         {data.smoking !== 'Never' &&
                                              <>
@@ -142,7 +141,7 @@ const Edit = () => {
                                         selectedValue={data.alchohol}
                                         options={consumptionOptions}
                                         handleChange={e => setData('alchohol', e.target.value)}
-                                       // checked={data.alchohol !== '' && data.alchohol}
+                                        // checked={data.alchohol !== '' && data.alchohol}
                                         error={errors.alchohol}
                                         className={`${errors.alchohol ? 'is-invalid' : ''}`}
                                    />

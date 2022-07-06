@@ -12,6 +12,7 @@ import { RenderBackButton, RenderCreateButton, RenderUpdateButton } from "../../
 
 
 import CreateFamilyHistory from "./CreateFamilyHistory";
+import PageTitle from "@/Pages/Shared/PageTitle";
 
 
 const Create = () => {
@@ -51,6 +52,8 @@ const Create = () => {
 
 
                <Container>
+               <PageTitle backUrl={backUrl} pageTitle = 'Family History' />
+
                     <Card className="mb-3 shadow-sm rounded-5">
                          <Card.Body>
                               <form onSubmit={preopSubmit}>

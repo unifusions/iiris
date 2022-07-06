@@ -7,6 +7,7 @@ import FormInput from "@/Pages/Shared/FormInput";
 import FormInputWithLabel from "@/Pages/Shared/FormInputWithLabel";
 import FormButton from "@/Pages/Shared/FormButton";
 import Authenticated from '@/Layouts/Authenticated';
+import PageTitle from "@/Pages/Shared/PageTitle";
 
 
 const Create = () => {
@@ -62,25 +63,24 @@ const Create = () => {
                     </li>
                </>
                }
-          >
+          > 
                <Head title="Create New Case Report Form" />
                <Container>
-                    <div className='d-flex justify-content-between align-items-center mb-3'>
-                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Case Report Forms</h2>
-                         <Link href={backUrl} className="btn btn-primary" method="get" type="button" as="button">Back</Link>
-                    </div>
+               <PageTitle backUrl={backUrl} pageTitle = 'Create Physical Examination' />
+
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit}
-                              // className={hasErrors && 'was-validated'}
+                              
                               >
 
                                    <FormInputWithLabel
                                         type="number"
                                         className={`${errors.height && 'is-invalid '}`}
                                         error={errors.height} labelText="Height"
-                                        handleChange={e => setData('height', e.target.value)}
+                                        handleChange={e => setData('height', e.target.value.toString().split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                         units='cms'
+                                        value={data.height}
                                         step = '0.01'
                                         min = {50}
                                         max = {250}
@@ -91,7 +91,7 @@ const Create = () => {
                                         type="number"
                                         className={`${errors.weight && 'is-invalid '}`}
                                         error={errors.weight} labelText="Weight"
-                                        handleChange={e => setData('weight', e.target.value)}
+                                        handleChange={e => setData('weight', e.target.value.toString().split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                         onBlur={updateBsa}
                                         step = '0.01'
                                         min = {50}
@@ -104,7 +104,6 @@ const Create = () => {
                                         className={`${errors.bsa && 'is-invalid '}`}
                                         error={errors.bsa} labelText="BSA"
                                         value={data.bsa}
-                                        // handleChange={e => setData('bsa', Math.sqrt((state.height * state.weight) / 3000).toFixed(2))}
                                         units='m<sup>2</sup>'
                                         disabled
                                    />

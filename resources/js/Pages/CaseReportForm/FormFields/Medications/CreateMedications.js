@@ -59,7 +59,7 @@ export default function CreateMedications({ crf, preoperative, postoperative, me
                <Card className="mb-3 shadow-sm rounded-5">
                     <Card.Body>
 
-                         <button onClick={handleShow} className='btn btn-primary'>Add New Medical History</button>
+                         <button onClick={handleShow} className='btn btn-primary'>Add New Medication</button>
                          <hr />
                          {medications.length > 0 &&
                               medications.map((medication, index) => <Row className="mb-2" key={index}>
@@ -91,7 +91,7 @@ export default function CreateMedications({ crf, preoperative, postoperative, me
 
 
                          <Modal.Header closeButton>
-                              <Modal.Title>Add New Medication</Modal.Title>
+                              <Modal.Title>Create Medication</Modal.Title>
                          </Modal.Header>
 
                          <Modal.Body>

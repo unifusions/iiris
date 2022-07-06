@@ -11,6 +11,7 @@ import FormRadio from "@/Pages/Shared/FormRadio";
 import { RenderBackButton, RenderCreateButton, RenderUpdateButton } from "../../FormData/FormDataHelper";
 import MedicalHistoryData from "../../FormData/MedicalHistoryData";
 import CreateMedicalHistory from "./CreateMedicalHistory";
+import PageTitle from "@/Pages/Shared/PageTitle";
 
 
 const Create = () => {
@@ -60,6 +61,8 @@ const Create = () => {
 
 
                <Container>
+               <PageTitle backUrl={backUrl} pageTitle = 'Medical History' />
+
                     <Card className="mb-3 shadow-sm rounded-5">
                          <Card.Body>
                               <form onSubmit={preopSubmit}>

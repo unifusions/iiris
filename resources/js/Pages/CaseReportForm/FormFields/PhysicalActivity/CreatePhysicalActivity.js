@@ -1,18 +1,18 @@
 import FormButton from "@/Pages/Shared/FormButton";
-import FormCalendar from "@/Pages/Shared/FormCalendar";
 import FormInput from "@/Pages/Shared/FormInput";
+import FormInputWithLabel from "@/Pages/Shared/FormInputWithLabel";
 import { Link, useForm } from "@inertiajs/inertia-react";
 import React, { useState } from "react";
 import { Card, Col, Modal, Row } from "react-bootstrap";
 
 
-export default function CreatePhysicalActivity({ crf, mode,postUrl,  preoperative, physicalactivities, postoperative, scheduledvisit, unscheduledvisit }) {
+export default function CreatePhysicalActivity({ crf, mode, postUrl, preoperative, physicalactivities, postoperative, scheduledvisit, unscheduledvisit, modalTitle }) {
 
      const { data, setData, processing, post, errors, reset } = useForm({
           pre_operative_data_id: preoperative.id,
-          diagnosis: '',
-          relation: '',
-          
+          activity_type: '',
+          duration: '',
+
      })
 
 
@@ -20,7 +20,7 @@ export default function CreatePhysicalActivity({ crf, mode,postUrl,  preoperativ
           e.preventDefault();
           switch (mode) {
                case 'preoperative':
-                    return post(route(`${postUrl}`, { crf: crf, preoperative: preoperative }),  {
+                    return post(route(`${postUrl}`, { crf: crf, preoperative: preoperative }), {
                          preserveScroll: true,
                          onSuccess: () => { reset(); setShow(false); }
                     });
@@ -42,7 +42,7 @@ export default function CreatePhysicalActivity({ crf, mode,postUrl,  preoperativ
 
           }
 
-         
+
 
 
      }
@@ -59,13 +59,13 @@ export default function CreatePhysicalActivity({ crf, mode,postUrl,  preoperativ
                     {physicalactivities.length > 0 &&
                          physicalactivities.map((physicalactivity, index) => <Row className="mb-2" key={index}>
                               <Col>{index + 1}</Col>
-                              
+
                               <Col>{physicalactivity.activity_type}</Col>
                               <Col>{physicalactivity.duration}</Col>
-                              <Col> 
-                              <Link href={route('crf.preoperative.physicalactivity.destroy', { crf: crf, preoperative: preoperative, physicalactivity: physicalactivity })} 
-                              type="submit" method="delete"  as="button"
-                              className='btn btn-danger btn-sm'>Delete</Link>
+                              <Col>
+                                   <Link href={route('crf.preoperative.physicalactivity.destroy', { crf: crf, preoperative: preoperative, physicalactivity: physicalactivity })}
+                                        type="submit" method="delete" as="button"
+                                        className='btn btn-danger btn-sm'>Delete</Link>
                               </Col>
                          </Row>)
 
@@ -82,28 +82,44 @@ export default function CreatePhysicalActivity({ crf, mode,postUrl,  preoperativ
                          <>
                               {preoperative.physical_activity ? <>
                                    <Modal.Header closeButton>
-                                        <Modal.Title>Modal title</Modal.Title>
+                                        <Modal.Title>{modalTitle}</Modal.Title>
                                    </Modal.Header>
                                    <form onSubmit={handlesubmit}>
                                         <Modal.Body>
 
+
+
                                              <FormInput
+                                                  type="text"
+                                                  className={`${errors.activity_type && 'is-invalid '}`}
+                                                  error={errors.activity_type}
                                                   labelText='Activity Type'
                                                   value={data.activity_type}
-                                                  handleChange={e => setData('activity_type', e.target.value)} />
+                                                  handleChange={e => setData('activity_type', e.target.value)}
+                                             />
+
+                                             <FormInputWithLabel
+                                                  type="number"
+                                                  className={`${errors.duration && 'is-invalid '}`}
+                                                  error={errors.duration} labelText="Duration"
+                                                  handleChange={e => setData('duration', e.target.value)}
+                                                  units='mins'
+                                                  value={data.duration}                                                 
+                                                  min={1}
+                                                  max={60}
+                                                  
+                                                  required />
 
 
-                                             <FormInput labelText='Duration'
-                                                  value={data.duration}
-                                                  handleChange={e => setData('duration', e.target.value)} />
+                                           
                                         </Modal.Body>
                                         <Modal.Footer>
-                                             <FormButton processing={processing} labelText='Add Family History' type="submit" mode="primary" className="btn-sm" />
+                                             <FormButton processing={processing} labelText='Add Physical Activity' type="submit" mode="primary" className="btn-sm" />
 
 
                                         </Modal.Footer>
                                    </form>
-                              </> : 'No medical history found'}
+                              </> : 'No Physical Activity recorded'}
                          </>
 
                     }

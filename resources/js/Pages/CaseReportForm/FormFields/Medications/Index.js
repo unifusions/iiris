@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Container, Card, Row, Col, Modal } from "react-bootstrap";
 
 import { Head, Link, usePage, useForm, } from "@inertiajs/inertia-react";
-import FormInput from "@/Pages/Shared/FormInput";
-import FormInputWithLabel from "@/Pages/Shared/FormInputWithLabel";
+
 import FormButton from "@/Pages/Shared/FormButton";
 import Authenticated from '@/Layouts/Authenticated';
 import FormRadio from "@/Pages/Shared/FormRadio";
 import { RenderBackButton, RenderCreateButton, RenderUpdateButton } from "../../FormData/FormDataHelper";
 import CreateMedications from "./CreateMedications";
+import PageTitle from "@/Pages/Shared/PageTitle";
 
 
 
@@ -62,9 +62,9 @@ const Create = () => {
                }
           >
                <Head title="Medications" />
-
-
                <Container>
+               <PageTitle backUrl={backUrl} pageTitle = 'Medications' />
+                    
                     <Card className="mb-3 shadow-sm rounded-5">
                          <Card.Body>
                               <form onSubmit={handlesubmit}>
@@ -110,7 +110,7 @@ const Create = () => {
                     {preoperative !== undefined &&
                          <>
                               {preoperative.hasMedications !== null && <>
-                                   {preoperative.hasMedications ==='1'? <CreateMedications crf={crf} preoperative={preoperative} medications={medications} mode={mode} /> : ''}
+                                   {preoperative.hasMedications ? <CreateMedications crf={crf} preoperative={preoperative} medications={medications} mode={mode} /> : ''}
                               </>}
                          </>
                     }

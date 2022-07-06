@@ -41,10 +41,10 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
                               <Col>{surgicalhistory.sh_date}</Col>
                               <Col>{surgicalhistory.diagnosis}</Col>
                               <Col>{surgicalhistory.treatment}</Col>
-                              <Col> 
-                              <Link href={route('crf.preoperative.surgicalhistory.destroy', { crf: crf, preoperative: preoperative, surgicalhistory: surgicalhistory })} 
-                              type="submit" method="delete"  as="button"
-                              className='btn btn-danger btn-sm'>Delete</Link>
+                              <Col>
+                                   <Link href={route('crf.preoperative.surgicalhistory.destroy', { crf: crf, preoperative: preoperative, surgicalhistory: surgicalhistory })}
+                                        type="submit" method="delete" as="button"
+                                        className='btn btn-danger btn-sm'>Delete</Link>
                               </Col>
                          </Row>)
 
@@ -61,7 +61,7 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
                          <>
                               {preoperative.surgical_history ? <>
                                    <Modal.Header closeButton>
-                                        <Modal.Title>Modal title</Modal.Title>
+                                        <Modal.Title>Add New Surgical History</Modal.Title>
                                    </Modal.Header>
                                    <form onSubmit={handlesubmit}>
                                         <Modal.Body>
@@ -73,7 +73,7 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
                                                   handleChange={(date) => setData('sh_date', new Date(date))}
                                                   className={`${errors.sh_date && 'is-invalid'}`}
                                              />
-                                             
+
                                              <FormInput
                                                   labelText='Diagnosis'
                                                   value={data.diagnosis}
@@ -85,12 +85,10 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
                                                   handleChange={e => setData('treatment', e.target.value)} />
                                         </Modal.Body>
                                         <Modal.Footer>
-                                             <FormButton processing={processing} labelText='Add Medical History' type="submit" mode="primary" className="btn-sm" />
-
-
+                                             <FormButton processing={processing} labelText='Add Surgical History' type="submit" mode="primary" className="btn-sm" />
                                         </Modal.Footer>
                                    </form>
-                              </> : 'No medical history found'}
+                              </> : 'No surgical history found'}
                          </>
 
                     }

@@ -39,7 +39,8 @@ class PreOperativePhysicalExaminationController extends Controller
             'postUrl' => 'crf.preoperative.physicalexamination.store',
             'crf' => $crf,
             'mode' => 'preoperative',
-            'preoperative' => $preoperative
+            'preoperative' => $preoperative,
+            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative]),
 
 
         ]);
