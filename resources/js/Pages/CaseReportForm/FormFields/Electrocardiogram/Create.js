@@ -124,7 +124,7 @@ const Create = () => {
                                         value={data.rate}
                                         error={errors.rate}
                                         units='bpm'
-                                        handleChange={e => setData('rate', e.target.value)}
+                                        handleChange={e => setData('rate', e.target.value.toString().slice(0,6).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormRadio
@@ -157,7 +157,7 @@ const Create = () => {
                                         value={data.printerval}
                                         error={errors.printerval}
                                         units='ms'
-                                        handleChange={e => setData('printerval', e.target.value)}
+                                        handleChange={e => setData('printerval', e.target.value.toString().slice(0,6).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
 <FormInputWithLabel
@@ -167,7 +167,7 @@ const Create = () => {
                                         value={data.qrsduration}
                                         error={errors.qrsduration}
                                         units='ms'
-                                        handleChange={e => setData('qrsduration', e.target.value)}
+                                        handleChange={e => setData('qrsduration', e.target.value.toString().slice(0,6).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
 

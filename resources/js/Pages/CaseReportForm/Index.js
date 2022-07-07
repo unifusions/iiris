@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Authenticated from '@/Layouts/Authenticated';
 import { Head, Link } from '@inertiajs/inertia-react';
 
-import { Card } from 'react-bootstrap';
+import { Card, Table } from 'react-bootstrap';
 import TablePagination from '../Shared/TablePagination';
 import BadgeLink from '../Shared/BadgeLinks';
 
@@ -22,7 +22,8 @@ export default class Index extends React.Component {
                     header={
                          <div className='d-flex justify-content-between align-items-center mb-3'>
                               <h2 className="font-semibold text-xl text-gray-800 leading-tight">Case Report Forms</h2>
-                              <Link href={route('crf.create')} className="btn btn-primary" method="get" type="button" as="button" >Create</Link>
+                              {this.props.roles.coordinator && <Link href={route('crf.create')} className="btn btn-primary" method="get" type="button" as="button" >Create</Link>}
+                              
                          </div>
 
                     }
@@ -31,7 +32,7 @@ export default class Index extends React.Component {
                     <Head title="Case Report Form" />
                     <Card className="card shadow-sm rounded-5">
                          <Card.Body>
-                              <table className='table table-hover'>
+                              <Table hover responsive size="sm">
                                    <thead>
                                         <tr>
                                              <th>Subject ID</th>
@@ -55,19 +56,15 @@ export default class Index extends React.Component {
                                                        status={crf.intraoperative.is_submitted ? crf.intraoperative.visit_status ? 'bg-success' : 'bg-warning' : 'bg-secondary'} labelText='Intra Operative' />
                                                   <BadgeLink routeUrl={route('crf.postoperative.show', { crf: crf, postoperative: crf.postoperative })}
                                                        status={crf.postoperative.is_submitted ? crf.postoperative.visit_status ? 'bg-success' : 'bg-warning' : 'bg-secondary'} labelText='Post Operative' />
-
-
-
                                              </td>
 
                                              <td>
-                                                  <Link href={route('crf.show', { crf: crf })}> View
-                                                  </Link>
+                                                  <Link href={route('crf.show', { crf: crf })} className='btn btn-primary btn-sm'> View </Link>
                                              </td>
-
                                         </tr>)}
                                    </tbody>
-                              </table>
+                              </Table>
+                             
                               <hr />
                               <TablePagination links={this.props.crf.links} />
 
@@ -77,7 +74,7 @@ export default class Index extends React.Component {
                     </Card>
 
 
-               </Authenticated>
+               </Authenticated >
           );
      }
 

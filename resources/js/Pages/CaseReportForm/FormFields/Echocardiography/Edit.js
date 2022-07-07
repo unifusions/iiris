@@ -97,7 +97,7 @@ const Create = () => {
                                         value={data.peak_velocity}
                                         error={errors.peak_velocity}
                                         units='mmHg'
-                                        handleChange={e => setData('peak_velocity', e.target.value)}
+                                        handleChange={e => setData('peak_velocity', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -107,7 +107,7 @@ const Create = () => {
                                         value={data.velocity_time_integral}
                                         error={errors.velocity_time_integral}
                                         units='cm'
-                                        handleChange={e => setData('velocity_time_integral', e.target.value)}
+                                        handleChange={e => setData('velocity_time_integral', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -117,7 +117,7 @@ const Create = () => {
                                         value={data.peak_gradient}
                                         error={errors.peak_gradient}
                                         units='mmHg'
-                                        handleChange={e => setData('peak_gradient', e.target.value)}
+                                        handleChange={e => setData('peak_gradient', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -127,7 +127,7 @@ const Create = () => {
                                         value={data.mean_gradient}
                                         error={errors.mean_gradient}
                                         units='mmHg'
-                                        handleChange={e => setData('mean_gradient', e.target.value)}
+                                        handleChange={e => setData('mean_gradient', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -137,7 +137,7 @@ const Create = () => {
                                         value={data.heart_rate}
                                         error={errors.heart_rate}
                                         units='bpm'
-                                        handleChange={e => setData('heart_rate', e.target.value)}
+                                        handleChange={e => setData('heart_rate',e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -147,7 +147,7 @@ const Create = () => {
                                         value={data.stroke_volume}
                                         error={errors.stroke_volume}
                                         units='ml'
-                                        handleChange={e => setData('stroke_volume', e.target.value)}
+                                        handleChange={e => setData('stroke_volume', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInput
@@ -157,7 +157,7 @@ const Create = () => {
                                         value={data.dvi}
                                         error={errors.dvi}
 
-                                        handleChange={e => setData('dvi', e.target.value)}
+                                        handleChange={e => setData('dvi', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -167,7 +167,7 @@ const Create = () => {
                                         value={data.eoa}
                                         error={errors.eoa}
                                         units='cm<sup>2</sup>/m<sup>2</sup>'
-                                        handleChange={e => setData('eoa', e.target.value)}
+                                        handleChange={e => setData('eoa', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -177,7 +177,7 @@ const Create = () => {
                                         value={data.acceleration_time}
                                         error={errors.acceleration_time}
                                         units='millisec'
-                                        handleChange={e => setData('acceleration_time', e.target.value)}
+                                        handleChange={e => setData('acceleration_time', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -187,7 +187,7 @@ const Create = () => {
                                         value={data.lvot_vti}
                                         error={errors.lvot_vti}
                                         units='cm'
-                                        handleChange={e => setData('lvot_vti', e.target.value)}
+                                        handleChange={e => setData('lvot_vti', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -197,7 +197,7 @@ const Create = () => {
                                         value={data.lv_mass}
                                         error={errors.lv_mass}
                                         units='g'
-                                        handleChange={e => setData('lv_mass', e.target.value)}
+                                        handleChange={e => setData('lv_mass', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -207,7 +207,7 @@ const Create = () => {
                                         value={data.ivs_diastole}
                                         error={errors.ivs_diastole}
                                         units='cm'
-                                        handleChange={e => setData('ivs_diastole', e.target.value)}
+                                        handleChange={e => setData('ivs_diastole', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -217,7 +217,7 @@ const Create = () => {
                                         value={data.pw_diastole}
                                         error={errors.pw_diastole}
                                         units='cm'
-                                        handleChange={e => setData('pw_diastole', e.target.value)}
+                                        handleChange={e => setData('pw_diastole', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -227,7 +227,7 @@ const Create = () => {
                                         value={data.lvidend_systole}
                                         error={errors.lvidend_systole}
                                         units='cm'
-                                        handleChange={e => setData('lvidend_systole', e.target.value)}
+                                        handleChange={e => setData('lvidend_systole', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -237,7 +237,7 @@ const Create = () => {
                                         value={data.lvidend_diastole}
                                         error={errors.lvidend_diastole}
                                         units='cm'
-                                        handleChange={e => setData('lvidend_diastole', e.target.value)}
+                                        handleChange={e => setData('lvidend_diastole', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -247,7 +247,7 @@ const Create = () => {
                                         value={data.ejection_fraction}
                                         error={errors.ejection_fraction}
                                         units='%'
-                                        handleChange={e => setData('ejection_fraction', e.target.value)}
+                                        handleChange={e => setData('ejection_fraction', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                         min='1'
                                         max='100'
                                         step='0.1'

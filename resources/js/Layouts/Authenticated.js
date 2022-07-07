@@ -15,6 +15,7 @@ import { Card, Toast, ToastContainer } from 'react-bootstrap';
 import CardHeader from 'react-bootstrap/esm/CardHeader';
 import ToastAlert from '@/Pages/Shared/ToastAlert';
 
+
 // import route from 'vendor/tightenco/ziggy/src/js';
 
 
@@ -42,7 +43,7 @@ const AdminNavigation = () => {
         <>
 
             <li className="nav-item">
-                <Link className="nav-link" href="#">
+                <Link className="nav-link" href={route('facility.index')}>
                     <OfficeBuildingIcon className='menu-arrow' style={iconStyle} />
                     <span className="menu-title ms-1">Facility</span>
                 </Link>

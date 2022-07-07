@@ -6,7 +6,7 @@ const BadgeLink = ({routeUrl, status, labelText}) => {
      return (
           <>
                <Link href={routeUrl}
-               className={`badge text-decoration-none rounded-pill fw-bold p-2 ` + status}
+               className={`badge text-decoration-none rounded-pill fw-bold p-2 me-2 ` + status}
                     >
                     {labelText}
                </Link>

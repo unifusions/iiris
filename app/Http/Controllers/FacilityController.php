@@ -5,20 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Facility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Inertia\Inertia;
 
 class FacilityController extends Controller
 {
-  
+
     public function __construct()
     {
-
-        
     }
-    
+
     public function index()
     {
-        $facilities = Facility::orderBy('name','asc')->paginate(15);
-        return view('facility.index', compact('facilities'));
+        $facilities = Facility::orderBy('id', 'asc')->paginate(15);
+        // return view('facility.index', compact('facilities'));
+
+        return Inertia::render('Facility/Index', [
+            'facilities' => $facilities
+        ]);
     }
 
     /**
@@ -48,7 +51,6 @@ class FacilityController extends Controller
             'state' => $request->state,
         ]);
         return redirect()->route('facility.index');
-
     }
 
     /**
@@ -82,7 +84,7 @@ class FacilityController extends Controller
      */
     public function update(Request $request, Facility $facility)
     {
-       
+
         $facility->name = $request->facilityName;
         $facility->address_line_1 = $request->address_line_1;
         $facility->address_line_2 = $request->address_line_2;

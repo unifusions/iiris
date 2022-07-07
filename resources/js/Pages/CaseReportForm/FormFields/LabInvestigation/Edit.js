@@ -94,7 +94,7 @@ const Edit = () => {
                                         value={data.rbc}
                                         error={errors.rbc}
                                         units='cells/cu.mm'
-                                        handleChange={e => setData('rbc', e.target.value)}
+                                        handleChange={e => setData('rbc', e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -104,7 +104,7 @@ const Edit = () => {
                                         value={data.wbc}
                                         error={errors.wbc}
                                         units='cells/cu.mm'
-                                        handleChange={e => setData('wbc', e.target.value)}
+                                        handleChange={e => setData('wbc', e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -114,7 +114,7 @@ const Edit = () => {
                                         value={data.hemoglobin}
                                         error={errors.hemoglobin}
                                         units='g/dl'
-                                        handleChange={e => setData('hemoglobin', e.target.value)}
+                                        handleChange={e => setData('hemoglobin',e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -124,7 +124,7 @@ const Edit = () => {
                                         value={data.hematocrit}
                                         error={errors.hematocrit}
                                         units='%'
-                                        handleChange={e => setData('hematocrit', e.target.value)}
+                                        handleChange={e => setData('hematocrit', e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -134,7 +134,7 @@ const Edit = () => {
                                         value={data.platelet}
                                         error={errors.platelet}
                                         units='cells/cu.mm'
-                                        handleChange={e => setData('platelet', e.target.value)}
+                                        handleChange={e => setData('platelet', e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -144,7 +144,7 @@ const Edit = () => {
                                         value={data.blood_urea}
                                         error={errors.blood_urea}
                                         units='mg/dl'
-                                        handleChange={e => setData('blood_urea', e.target.value)}
+                                        handleChange={e => setData('blood_urea', e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -154,7 +154,7 @@ const Edit = () => {
                                         value={data.serum_creatinine}
                                         error={errors.serum_creatinine}
                                         units='mg/dl'
-                                        handleChange={e => setData('serum_creatinine', e.target.value)}
+                                        handleChange={e => setData('serum_creatinine', e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -164,7 +164,7 @@ const Edit = () => {
                                         value={data.alt}
                                         error={errors.alt}
                                         units='u/l'
-                                        handleChange={e => setData('alt', e.target.value)}
+                                        handleChange={e => setData('alt', e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -174,7 +174,7 @@ const Edit = () => {
                                         value={data.ast}
                                         error={errors.ast}
                                         units='u/l'
-                                        handleChange={e => setData('ast', e.target.value)}
+                                        handleChange={e => setData('ast', e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -184,7 +184,7 @@ const Edit = () => {
                                         value={data.alp}
                                         error={errors.alp}
                                         units='u/l'
-                                        handleChange={e => setData('alp', e.target.value)}
+                                        handleChange={e => setData('alp', e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -194,7 +194,7 @@ const Edit = () => {
                                         value={data.albumin}
                                         error={errors.albumin}
                                         units='gm/dl'
-                                        handleChange={e => setData('albumin', e.target.value)}
+                                        handleChange={e => setData('albumin',e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -204,7 +204,7 @@ const Edit = () => {
                                         value={data.total_protein}
                                         error={errors.total_protein}
                                         units='gm/dl'
-                                        handleChange={e => setData('total_protein', e.target.value)}
+                                        handleChange={e => setData('total_protein',e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -214,7 +214,7 @@ const Edit = () => {
                                         value={data.bilirubin}
                                         error={errors.bilirubin}
                                         units='mg/dl'
-                                        handleChange={e => setData('bilirubin', e.target.value)}
+                                        handleChange={e => setData('bilirubin',e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -224,7 +224,7 @@ const Edit = () => {
                                         value={data.pt_inr}
                                         error={errors.pt_inr}
                                         units='seconds'
-                                        handleChange={e => setData('pt_inr', e.target.value)}
+                                        handleChange={e => setData('pt_inr', e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                    />
 
                                   
