@@ -39,7 +39,7 @@ class OperativeSymptomController extends Controller
 
     public function store(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, PostOperativeData $postoperative, OperativeSymptomsService $operativeSymptomsService)
     {
-
+        
         if ($operativeSymptomsService->createPostOperativeSymptoms($request))
             return redirect()->route('crf.postoperative.index', ['crf' => $crf, 'postoperative' => $postoperative]);
     }

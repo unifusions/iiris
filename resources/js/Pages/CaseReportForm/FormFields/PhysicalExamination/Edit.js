@@ -66,7 +66,7 @@ const Edit = () => {
               
                <Head title="Create New Case Report Form" />
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle = 'Edit Physical Examination' />
+               <PageTitle backUrl={backUrl} pageTitle = 'Edit Physical Examination' role={roles}/>
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>

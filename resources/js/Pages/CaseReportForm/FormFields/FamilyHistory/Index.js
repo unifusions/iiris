@@ -52,7 +52,7 @@ const Create = () => {
 
 
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle = 'Family History' />
+               <PageTitle backUrl={backUrl} pageTitle = 'Family History' role={roles}/>
 
                     <Card className="mb-3 shadow-sm rounded-5">
                          <Card.Body>

@@ -81,7 +81,7 @@ const Edit = () => {
                <Head title="Create Personal History" />
                
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle = 'Edit Personal History' />
+               <PageTitle backUrl={backUrl} pageTitle = 'Edit Personal History' role={roles}/>
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>

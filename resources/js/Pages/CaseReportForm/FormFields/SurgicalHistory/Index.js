@@ -53,7 +53,7 @@ const Create = () => {
                
 
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle='Surgical History' />
+               <PageTitle backUrl={backUrl} pageTitle='Surgical History' role={roles}/>
                     <Card className="mb-3 shadow-sm rounded-5">
                          <Card.Body>
                               <form onSubmit={preopSubmit}>

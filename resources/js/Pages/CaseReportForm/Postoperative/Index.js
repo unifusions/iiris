@@ -71,6 +71,7 @@ export default class Index extends React.Component {
                                              symptoms={symptoms}
                                              enableActions={postoperative.is_submitted}
                                              role={roles}
+                                             title = "Post Operative"
                                              createUrl={route('crf.postoperative.symptoms.create', { crf: crf, postoperative: postoperative })}
                                              editUrl={symptoms !== null && route('crf.postoperative.symptoms.edit', { crf: crf, postoperative: postoperative, symptom: symptoms })}
                                         />

@@ -192,7 +192,7 @@ const Create = () => {
              
                <Head title="Create New Case Report Form" />
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle='Create Symptoms' />
+               <PageTitle backUrl={backUrl} pageTitle='Create Symptoms' role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
