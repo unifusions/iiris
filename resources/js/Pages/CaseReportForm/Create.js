@@ -8,6 +8,7 @@ import FormInput from '../Shared/FormInput';
 import FormCalendar from '../Shared/FormCalendar';
 import FormRadio from '../Shared/FormRadio';
 import FormButton from '../Shared/FormButton';
+import PageTitle from '../Shared/PageTitle';
 
 
 
@@ -65,10 +66,8 @@ const Create = () => {
           >
                <Head title="Create New Case Report Form" />
                <Container>
-                    <div className='d-flex justify-content-between align-items-center mb-3'>
-                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Case Report Forms</h2>
-                         <Link href={route('crf.index')} className="btn btn-primary" method="get" type="button" as="button">Back</Link>
-                    </div>
+                    <PageTitle backUrl={route('crf.index')}  role={roles} pageTitle='Create Case Report Forms'/>
+                    
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit}

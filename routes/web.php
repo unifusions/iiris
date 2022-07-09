@@ -39,8 +39,8 @@ use App\Http\Controllers\PreOperative\PreOperativeMedicationController;
 use App\Http\Controllers\PreOperative\PreOperativePersonalHistoryController;
 use App\Http\Controllers\PreOperative\PreOperativePhysicalActivityController;
 use App\Http\Controllers\PreOperative\SurgicalHistoryController;
-
-
+use App\Http\Controllers\ScheduledVisit\ScheduledVisitPhysicalExaminationController;
+use App\Http\Controllers\TicketsController;
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -65,7 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Admin Specific ROutes
     
     Route::resource('facility', FacilityController::class)->middleware(['admin']);
-    
+    Route::resource('tickets', TicketsController::class);
     Route::resource('crf', CaseReportFormController::class)->parameters(['crf' => 'crf:subject_id']);
 
     Route::scopeBindings()->group(function () {
@@ -97,6 +97,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.postoperative.echocardiography', EchocardiographyController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
         Route::resource('crf.postoperative.safetyparameter', PostOperativeSafetyController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
         Route::resource('crf.postoperative.medication', MedicationsController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
+
+        Route::resource('crf.scheduledvisit.physicalexamination', ScheduledVisitPhysicalExaminationController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
+
 
     });
 

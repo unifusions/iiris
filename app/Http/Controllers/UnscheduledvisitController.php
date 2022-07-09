@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CaseReportForm;
 use App\Models\UnscheduledVisit;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class UnscheduledvisitController extends Controller
 {
@@ -13,9 +14,14 @@ class UnscheduledvisitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(CaseReportForm $crf)
     {
-        //
+        return Inertia::render('CaseReportForm/UnscheduledVisit/Index',[
+            'backUrl' => route('crf.show',[$crf]),
+            'createUrl' => route('crf.unscheduledvisit.create', [$crf]),
+            'crf' => $crf,
+            'unscheduledvisits' => $crf->unscheduledvisits,
+        ]);
     }
 
     /**
@@ -23,9 +29,9 @@ class UnscheduledvisitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CaseReportForm $crf)
     {
-        //
+        dd($crf);
     }
 
     /**

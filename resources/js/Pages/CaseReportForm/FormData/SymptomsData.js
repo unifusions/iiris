@@ -4,7 +4,7 @@ import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton 
 
 
 
-export default function SymptomsData({ symptoms, role, createUrl, editUrl, enableActions }) {
+export default function SymptomsData({ symptoms, role, createUrl, editUrl, enableActions, title }) {
      return (
 
           <Card className="mb-3 shadow-sm rounded-5">
@@ -13,7 +13,7 @@ export default function SymptomsData({ symptoms, role, createUrl, editUrl, enabl
                <Card.Body>
                     <div className='d-flex justify-content-between align-items-center'>
                          <div className='fs-6 fw-bold'>
-                              Symptoms
+                              {title} Symptoms
                          </div>
 
                          {!enableActions &&

@@ -58,4 +58,21 @@ class PhysicalExaminationService
           return $physicalexamination;
      }
 
+     public function createScheduledVisitPhysicalExamination(Request $request): PhysicalExamination
+     {
+          $physicalexamination = PhysicalExamination::Create([
+               'case_report_form_id' => $request->crf->id,
+               'scheduled_visits_id' => $request->scheduledvisit->id,
+               'height' => $request->height,
+               'weight' => $request->weight,
+               'bsa' => $request->bsa,
+               'heart_rate' => $request->heart_rate,
+               'systolic_bp' => $request->systolic_bp,
+               'diastolic_bp' => $request->diastolic_bp
+          ]);
+
+          return $physicalexamination;
+     }
+
+
 }

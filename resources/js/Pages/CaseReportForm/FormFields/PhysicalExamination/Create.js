@@ -66,13 +66,11 @@ const Create = () => {
           > 
                <Head title="Create New Case Report Form" />
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle = 'Create Physical Examination' />
+               <PageTitle backUrl={backUrl} pageTitle = 'Create Physical Examination' role={roles}/>
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
-                              <form onSubmit={handlesubmit}
-                              
-                              >
+                              <form onSubmit={handlesubmit} >
 
                                    <FormInputWithLabel
                                         type="number"

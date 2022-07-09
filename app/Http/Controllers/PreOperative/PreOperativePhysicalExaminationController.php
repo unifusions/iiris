@@ -51,7 +51,7 @@ class PreOperativePhysicalExaminationController extends Controller
     {
 
        
-        $physicalexamination = $physicalExaminationService->createPreOperativePhysicalExamination($request);
+        $physicalExaminationService->createPreOperativePhysicalExamination($request);
         return redirect()->route('crf.preoperative.show', [$crf, $preoperative])->with(['crf' => $crf]);
         //return view('casereportforms.PreOperativeData.show', compact('crf', 'preoperative'));
     }

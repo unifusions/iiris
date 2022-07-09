@@ -16,12 +16,9 @@ class ScheduledVisit extends Model
     ];
 
 
-    public function crf(){
-        return $this->belongsTo(CaseReportForm::class);
-    }
 
     public function physicalexaminations(){
-        return $this->hasOne(PhysicalExamination::class);
+        return $this->hasOne(PhysicalExamination::class, 'scheduled_visits_id', 'id');
     }
 
 }

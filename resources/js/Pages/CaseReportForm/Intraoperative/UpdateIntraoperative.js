@@ -73,6 +73,11 @@ export default function UpdateIntraOperative({ crf, intraoperative, role }) {
                          handleChange={(date) => setData('date_of_procedure', date)}
                          className={`${errors.date_of_procedure && 'is-invalid'}`}
                     />
+                    <hr />
+                    <div className="row mb-3">
+                         <div className="col-sm-12 fw-bold">Surgical Strategy</div>
+
+                    </div>
 
                     <FormInput
                          type="text"

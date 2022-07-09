@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CaseReportForm;
 use App\Models\Facility;
 use App\Models\ScheduledVisit;
+use App\Models\Tickets;
 use App\Models\UnscheduledVisit;
 use App\Models\User;
 use App\Scopes\CaseReportFormUserScope;
@@ -26,7 +27,12 @@ class DashboardController extends Controller
         $adminData = [
             'allcrfcount' => count(CaseReportForm::withoutGlobalScope('facility_id')->get()),
             'usersCount' => count(User::where('role_id', '3')->orWhere('role_id', '4')->get()),
-            'facilityCount' => count(Facility::all())
+            'facilityCount' => count(Facility::all()),
+            'tickets' => count(Tickets::all()),
+        ];
+
+        $adminTables = [
+            'crfs' => CaseReportForm::all()
         ];
         // return view('dashboard')->with($data);
 
