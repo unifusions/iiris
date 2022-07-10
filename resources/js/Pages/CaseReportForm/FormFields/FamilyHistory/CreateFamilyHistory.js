@@ -3,7 +3,8 @@ import FormCalendar from "@/Pages/Shared/FormCalendar";
 import FormInput from "@/Pages/Shared/FormInput";
 import { Link, useForm } from "@inertiajs/inertia-react";
 import React, { useState } from "react";
-import { Card, Col, Modal, Row } from "react-bootstrap";
+import { Card, Col, FormSelect, Modal, Row } from "react-bootstrap";
+import FormInputSelect from "@/Pages/Shared/FormInputSelect";
 
 
 export default function CreateFamilyHistory({ crf, preoperative, familyhistories }) {
@@ -28,7 +29,12 @@ export default function CreateFamilyHistory({ crf, preoperative, familyhistories
 
      const [show, setShow] = useState(false);
      const handleShow = () => setShow(true);
-
+     const relationOptions = [
+          {optionText: 'Father', value:'Father'},
+          {optionText: 'Mother', value:'Mother'},
+          {optionText: 'Brother', value:'Brother'},
+          {optionText: 'Sister', value:'Sister'}
+     ]
      return (
           <Card className="mb-3 shadow-sm rounded-5">
                <Card.Body>
@@ -71,10 +77,13 @@ export default function CreateFamilyHistory({ crf, preoperative, familyhistories
                                                   value={data.diagnosis}
                                                   handleChange={e => setData('diagnosis', e.target.value)} />
 
-
-                                             <FormInput labelText='Relation'
-                                                  value={data.relation}
-                                                  handleChange={e => setData('relation', e.target.value)} />
+                                             <FormInputSelect 
+                                              labelText='Relation'
+                                              selectedValue={data.relation}
+                                              handleChange={e => setData('relation', e.target.value)}
+                                              options = {relationOptions}
+                                             />
+                                             
                                         </Modal.Body>
                                         <Modal.Footer>
                                              <FormButton processing={processing} labelText='Add Family History' type="submit" mode="primary" className="btn-sm" />

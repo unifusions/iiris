@@ -24,8 +24,11 @@ export default function UpdateIntraOperative({ crf, intraoperative, role }) {
           tcb_time: intraoperative.tcb_time || '',
           acc_time: intraoperative.acc_time || '',
           concomitant_procedure: intraoperative.concomitant_procedure || '',
-          all_paravalvular_leak: intraoperative.all_paravalvular_leak || '',
-          major_paravalvular_leak: intraoperative.major_paravalvular_leak || ''
+          all_paravalvular_leak: intraoperative.all_paravalvular_leak ===1 ? '1' : '0' || '',
+          all_paravalvular_leak_specify: intraoperative.all_paravalvular_leak_specify || '',
+
+          major_paravalvular_leak: intraoperative.major_paravalvular_leak  ===1 ? '1' : '0'|| '',
+          major_paravalvular_leak_specify: intraoperative.major_paravalvular_leak_specify || ''
      });
 
      const [isAortotomyOthers, setAortotomyOthers] = useState(false);
@@ -61,6 +64,10 @@ export default function UpdateIntraOperative({ crf, intraoperative, role }) {
      ]
 
 
+     const boolRadios = [
+          { labelText: 'Yes', value: '1' },
+          { labelText: 'No', value: '0' }
+     ]
 
      return (
           <>
@@ -162,20 +169,39 @@ export default function UpdateIntraOperative({ crf, intraoperative, role }) {
                          <div className="col-sm-12 fw-bold">Intraoperative TEE</div>
 
                     </div>
-                    <FormInput
-                         type="text"
-                         className={`${errors.all_paravalvular_leak && 'is-invalid '}`}
-                         value={data.all_paravalvular_leak}
-                         error={errors.all_paravalvular_leak} labelText="All paravalvular
-                         leak"
-                         handleChange={e => setData('all_paravalvular_leak', e.target.value)} />
+                    <FormRadio
+                         type="radio" labelText="All paravalvular leak"
+                         name="all_paravalvular_leak"
+                         options={boolRadios}
+                         selectedValue={data.all_paravalvular_leak}
+                         handleChange={e => setData('all_paravalvular_leak', e.target.value)}
+                         error={errors.all_paravalvular_leak}
+                         className={`${errors.all_paravalvular_leak ? 'is-invalid' : ''}`} />
 
                     <FormInput
                          type="text"
-                         className={`${errors.major_paravalvular_leak && 'is-invalid '}`}
-                         value={data.major_paravalvular_leak}
-                         error={errors.major_paravalvular_leak} labelText="Major Pravalvular Leak"
-                         handleChange={e => setData('major_paravalvular_leak', e.target.value)} />
+                         className={`${errors.all_paravalvular_leak_specify && 'is-invalid '}`}
+                         value={data.all_paravalvular_leak_specify}
+                         error={errors.all_paravalvular_leak_specify} labelText="Specify"
+                         handleChange={e => setData('all_paravalvular_leak_specify', e.target.value)} />
+
+                    <FormRadio
+                         type="radio" labelText="Major Pravalvular Leak"
+                         name="major_paravalvular_leak"
+                         options={boolRadios}
+                         selectedValue={data.major_paravalvular_leak}
+                         handleChange={e => setData('major_paravalvular_leak', e.target.value)}
+                         error={errors.major_paravalvular_leak}
+                         className={`${errors.major_paravalvular_leak ? 'is-invalid' : ''}`} />
+
+                    <FormInput
+                         type="text"
+                         className={`${errors.major_paravalvular_leak_specify && 'is-invalid '}`}
+                         value={data.major_paravalvular_leak_specify}
+                         error={errors.major_paravalvular_leak_specify} labelText="Specify"
+                         handleChange={e => setData('major_paravalvular_leak_specify', e.target.value)} />
+
+                    
 
                     <hr />
                     {role.coordinator && <FormButton processing={processing} labelText='Update' type="submit" mode="warning" />}

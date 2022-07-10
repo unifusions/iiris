@@ -25,14 +25,27 @@ const Edit = () => {
           angina_class: symptom.angina_class !== null ? symptom.angina_class : null,
           angina_duration: symptom.angina_duration !== null ? symptom.angina_duration : null,
 
-          dyspnea: symptom.dyspnea !== null ? symptom.dyspnea ? '1' : '0' : null, dyspnea_class: '', dyspnea_duration: symptom.dyspnea_duration,
+          dyspnea: symptom.dyspnea !== null ? symptom.dyspnea ? '1' : '0' : null, 
+          dyspnea_class: '', 
+          dyspnea_duration: symptom.dyspnea_duration,
+
           syncope: symptom.syncope !== null ? symptom.syncope ? '1' : '0' : null,
           syncope_duration: symptom.syncope_duration,
-          palpitation: symptom.palpitation !== null ? symptom.palpitation ? '1' : '0' : null, palpitation_duration: symptom.palpitation_duration,
-          giddiness: symptom.giddiness !== null ? symptom.giddiness ? '1' : '0' : null, giddiness_duration: symptom.giddiness_duration,
-          fever: symptom.fever !== null ? symptom.fever ? '1' : '0' : null, fever_duration: symptom.fever_duration,
-          heart_failure_admission: symptom.heart_failure_admission !== null ? symptom.heart_failure_admission ? '1' : '0' : null, heart_failure_admission_duration: symptom.others_duration,
-          others: symptom.others !== null ? symptom.others ? '1' : '0' : null, others_text: symptom.others_text, others_duration: symptom.others_duration
+
+          palpitation: symptom.palpitation !== null ? symptom.palpitation ? '1' : '0' : null, 
+          palpitation_duration: symptom.palpitation_duration,
+          
+          giddiness: symptom.giddiness !== null ? symptom.giddiness ? '1' : '0' : null, 
+          giddiness_duration: symptom.giddiness_duration,
+          
+          fever: symptom.fever !== null ? symptom.fever ? '1' : '0' : null, 
+          fever_duration: symptom.fever_duration,
+
+          heart_failure_admission: symptom.heart_failure_admission !== null ? symptom.heart_failure_admission ? '1' : '0' : null, 
+          heart_failure_admission_duration: symptom.heart_failure_admission_duration,
+          others: symptom.others !== null ? symptom.others ? '1' : '0' : null, 
+          others_text: symptom.others_text || '', 
+          others_duration: symptom.others_duration 
      });
 
 
@@ -94,87 +107,87 @@ const Edit = () => {
 
      //Syncope
      function handleSyncopeDurationDays(e) {
-          const varDur = { ...data.dyspnea_duration, 'days': e.target.value };
+          const varDur = { ...data.syncope_duration, 'days': e.target.value };
           setData('syncope_duration', varDur)
      }
      function handleSyncopeDurationMonths(e) {
-          const varDur = { ...data.dyspnea_duration, 'months': e.target.value };
+          const varDur = { ...data.syncope_duration, 'months': e.target.value };
           setData('syncope_duration', varDur)
      }
 
      function handleSyncopeDurationYears(e) {
-          const varDur = { ...data.dyspnea_duration, 'years': e.target.value };
+          const varDur = { ...data.syncope_duration, 'years': e.target.value };
           setData('syncope_duration', varDur)
      }
 
      //Palpitation
      function handlePalpitationDurationDays(e) {
-          const varDur = { ...data.dyspnea_duration, 'days': e.target.value };
+          const varDur = { ...data.palpitation_duration, 'days': e.target.value };
           setData('palpitation_duration', varDur)
      }
      function handlePalpitationDurationMonths(e) {
-          const varDur = { ...data.dyspnea_duration, 'months': e.target.value };
+          const varDur = { ...data.palpitation_duration, 'months': e.target.value };
           setData('palpitation_duration', varDur)
      }
      function handlePalpitationDurationYears(e) {
-          const varDur = { ...data.dyspnea_duration, 'years': e.target.value };
+          const varDur = { ...data.palpitation_duration, 'years': e.target.value };
           setData('syncope_duration', varDur)
      }
 
-     // Giddiness
-     function handleGiddinessDurationDays(e) {
-          const varDur = { ...data.dyspnea_duration, 'days': e.target.value };
+      // Giddiness
+      function handleGiddinessDurationDays(e) {
+          const varDur = { ...data.giddiness_duration, 'days': e.target.value };
           setData('giddiness_duration', varDur)
      }
      function handleGiddinessDurationMonths(e) {
-          const varDur = { ...data.dyspnea_duration, 'months': e.target.value };
+          const varDur = { ...data.giddiness_duration, 'months': e.target.value };
           setData('giddiness_duration', varDur)
      }
      function handleGiddinessDurationYears(e) {
-          const varDur = { ...data.dyspnea_duration, 'years': e.target.value };
+          const varDur = { ...data.giddiness_duration, 'years': e.target.value };
           setData('giddiness_duration', varDur)
      }
 
      // Fever
      function handleFeverDurationDays(e) {
-          const varDur = { ...data.dyspnea_duration, 'days': e.target.value };
+          const varDur = { ...data.fever_duration, 'days': e.target.value };
           setData('fever_duration', varDur)
      }
      function handleFeverDurationMonths(e) {
-          const varDur = { ...data.dyspnea_duration, 'months': e.target.value };
+          const varDur = { ...data.fever_duration, 'months': e.target.value };
           setData('fever_duration', varDur)
      }
      function handleFeverDurationYears(e) {
-          const varDur = { ...data.dyspnea_duration, 'years': e.target.value };
+          const varDur = { ...data.fever_duration, 'years': e.target.value };
           setData('fever_duration', varDur)
      }
 
      // Heart Failure
      function handleHeartFailureDurationDays(e) {
-          const varDur = { ...data.dyspnea_duration, 'days': e.target.value };
+          const varDur = { ...data.heart_failure_admission_duration, 'days': e.target.value };
           setData('heart_failure_admission_duration', varDur)
      }
      function handleHeartFailureDurationMonths(e) {
-          const varDur = { ...data.dyspnea_duration, 'months': e.target.value };
+          const varDur = { ...data.heart_failure_admission_duration, 'months': e.target.value };
           setData('heart_failure_admission_duration', varDur)
      }
      function handleHeartFailureDurationYears(e) {
-          const varDur = { ...data.dyspnea_duration, 'years': e.target.value };
+          const varDur = { ...data.heart_failure_admission_duration, 'years': e.target.value };
           setData('heart_failure_admission_duration', varDur)
      }
 
      // Others
      function handleOthersDurationDays(e) {
-          const varDur = { ...data.dyspnea_duration, 'days': e.target.value };
+          const varDur = { ...data.others_duration, 'days': e.target.value };
           setData('others_duration', varDur)
      }
      function handleOthersDurationMonths(e) {
-          const varDur = { ...data.dyspnea_duration, 'months': e.target.value };
+          const varDur = { ...data.others_duration, 'months': e.target.value };
           setData('others_duration', varDur)
      }
 
      function handleOthersDurationYears(e) {
-          const varDur = { ...data.dyspnea_duration, 'years': e.target.value };
+          const varDur = { ...data.others_duration, 'years': e.target.value };
           setData('others_duration', varDur)
      }
 
@@ -197,7 +210,7 @@ const Edit = () => {
 
                <Head title="Create New Case Report Form" />
                <Container>
-                    <PageTitle backUrl={backUrl} pageTitle='Edit Symptoms' role={roles}/>
+                    <PageTitle backUrl={backUrl} pageTitle='Edit Symptoms' role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
@@ -238,29 +251,30 @@ const Edit = () => {
                                                   selectedValue={data.angina_class}
                                                   options={anginaClassRadios}
                                                   handleChange={e => setData('angina_class', e.target.value)}
-                                                  checked={data.angina_class !== '' && data.angina_class}
+
                                                   error={errors.angina_class}
                                                   className={`${errors.angina_class ? 'is-invalid' : ''}`}
                                              />
+
                                              <Row className="mb-3">
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.angina_duration.days}
+                                                            <input type="number" className="form-control with-units" value={data.angina_duration !== null ? data.angina_duration.days : ''}
                                                                  onChange={e => handleAnginaDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.angina_duration.months}
+                                                            <input type="number" className="form-control with-units" value={data.angina_duration !== null ? data.angina_duration.months : ''}
                                                                  onChange={e => handleAnginaDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.angina_duration.years}
+                                                            <input type="number" className="form-control with-units" value={data.angina_duration !== null ? data.angina_duration.years : ''}
                                                                  onChange={e => handleAnginaDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -278,7 +292,7 @@ const Edit = () => {
 
                                              options={boolRadios}
                                              handleChange={e => setData('dyspnea', e.target.value)}
-                                             checked={data.dyspnea !== '' && data.dyspnea}
+
                                              error={errors.dyspnea}
                                              className={`${errors.dyspnea ? 'is-invalid' : ''}`}
                                         />
@@ -289,7 +303,7 @@ const Edit = () => {
                                                   name="dyspnea_class"
                                                   options={anginaClassRadios}
                                                   handleChange={e => setData('dyspnea_class', e.target.value)}
-                                                  checked={data.dyspnea_class !== '' && data.dyspnea_class}
+                                                  selectedValue={data.dyspnea_class}
                                                   error={errors.dyspnea_class}
                                                   className={`${errors.dyspnea_class ? 'is-invalid' : ''}`}
                                              />
@@ -297,21 +311,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.dyspnea_duration.days}
+                                                            <input type="number" className="form-control with-units" value={data.dyspnea_duration !== null ? data.dyspnea_duration.days : ''}
                                                                  onChange={e => handleDyspneaDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.dyspnea_duration.months}
+                                                            <input type="number" className="form-control with-units" value={data.dyspnea_duration !== null ? data.dyspnea_duration.months : ''}
                                                                  onChange={e => handleDyspneaDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.dyspnea_duration.years}
+                                                            <input type="number" className="form-control with-units" value={data.dyspnea_duration !== null ? data.dyspnea_duration.years : ''}
                                                                  onChange={e => handleDyspneaDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -328,7 +342,7 @@ const Edit = () => {
                                              name="syncope"
                                              options={boolRadios}
                                              handleChange={e => setData('syncope', e.target.value)}
-                                             checked={data.syncope !== '' && data.syncope}
+
                                              error={errors.syncope}
                                              className={`${errors.syncope ? 'is-invalid' : ''}`}
                                         />
@@ -338,21 +352,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.syncope_duration.days}
+                                                            <input type="number" className="form-control with-units" value={data.syncope_duration !== null ? data.syncope_duration.days : ''}
                                                                  onChange={e => handleSyncopeDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.syncope_duration.months}
+                                                            <input type="number" className="form-control with-units" value={data.syncope_duration !== null ? data.syncope_duration.months : ''}
                                                                  onChange={e => handleSyncopeDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.syncope_duration.years}
+                                                            <input type="number" className="form-control with-units" value={data.syncope_duration !== null ? data.syncope_duration.years : ''}
                                                                  onChange={e => handleSyncopeDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -369,7 +383,6 @@ const Edit = () => {
                                              name="palpitation"
                                              options={boolRadios}
                                              handleChange={e => setData('palpitation', e.target.value)}
-                                             checked={data.palpitation !== '' && data.palpitation}
                                              error={errors.palpitation}
                                              className={`${errors.palpitation ? 'is-invalid' : ''}`}
                                         />
@@ -379,21 +392,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.palpitation_duration.days}
+                                                            <input type="number" className="form-control with-units" value={data.palpitation_duration !== null ? data.palpitation_duration.days : ''}
                                                                  onChange={e => handlePalpitationDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.palpitation_duration.months}
+                                                            <input type="number" className="form-control with-units" value={data.palpitation_duration !== null ? data.palpitation_duration.months : ''}
                                                                  onChange={e => handlePalpitationDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.palpitation_duration.years}
+                                                            <input type="number" className="form-control with-units" value={data.palpitation_duration !== null ? data.palpitation_duration.years : ''}
                                                                  onChange={e => handlePalpitationDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -410,7 +423,7 @@ const Edit = () => {
                                              name="giddiness"
                                              options={boolRadios}
                                              handleChange={e => setData('giddiness', e.target.value)}
-                                             checked={data.giddiness !== '' && data.giddiness}
+
                                              error={errors.giddiness}
                                              className={`${errors.giddiness ? 'is-invalid' : ''}`}
                                         />
@@ -420,21 +433,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.giddiness_duration.days}
+                                                            <input type="number" className="form-control with-units" value={data.giddiness_duration !== null ? data.giddiness_duration.days : ''}
                                                                  onChange={e => handleGiddinessDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.giddiness_duration.months}
+                                                            <input type="number" className="form-control with-units" value={data.giddiness_duration !== null ? data.giddiness_duration.months : ''}
                                                                  onChange={e => handleGiddinessDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.giddiness_duration.years}
+                                                            <input type="number" className="form-control with-units" value={data.giddiness_duration !== null ? data.giddiness_duration.years : ''}
                                                                  onChange={e => handleGiddinessDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -451,7 +464,6 @@ const Edit = () => {
                                              name="fever"
                                              options={boolRadios}
                                              handleChange={e => setData('fever', e.target.value)}
-                                             checked={data.fever !== '' && data.fever}
                                              error={errors.fever}
                                              className={`${errors.fever ? 'is-invalid' : ''}`}
                                         />
@@ -461,21 +473,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.fever_duration.days}
+                                                            <input type="number" className="form-control with-units" value={data.fever_duration !== null ? data.fever_duration.days : ''}
                                                                  onChange={e => handleFeverDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.fever_duration.months}
+                                                            <input type="number" className="form-control with-units" value={data.fever_duration !== null ? data.fever_duration.months : ''}
                                                                  onChange={e => handleFeverDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.fever_duration.years}
+                                                            <input type="number" className="form-control with-units" value={data.fever_duration !== null ? data.fever_duration.years : ''}
                                                                  onChange={e => handleFeverDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -492,7 +504,6 @@ const Edit = () => {
                                              selectedValue={data.heart_failure_admission}
                                              options={boolRadios}
                                              handleChange={e => setData('heart_failure_admission', e.target.value)}
-                                             checked={data.heart_failure_admission !== '' && data.palpitation}
                                              error={errors.heart_failure_admission}
                                              className={`${errors.heart_failure_admission ? 'is-invalid' : ''}`}
                                         />
@@ -502,21 +513,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.heart_failure_admission_duration.days}
+                                                            <input type="number" className="form-control with-units" value={data.heart_failure_admission_duration !== null ? data.heart_failure_admission_duration.days : ''}
                                                                  onChange={e => handleHeartFailureDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.heart_failure_admission_duration.months}
+                                                            <input type="number" className="form-control with-units" value={data.heart_failure_admission_duration !== null ? data.heart_failure_admission_duration.months : ''}
                                                                  onChange={e => handleHeartFailureDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.heart_failure_admission_duration.years}
+                                                            <input type="number" className="form-control with-units" value={data.heart_failure_admission_duration !== null ? data.heart_failure_admission_duration.years : ''}
                                                                  onChange={e => handleHeartFailureDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -533,7 +544,7 @@ const Edit = () => {
                                              name="others"
                                              options={boolRadios}
                                              handleChange={e => setData('others', e.target.value)}
-                                             checked={data.others !== '' && data.others}
+
                                              error={errors.others}
                                              className={`${errors.others ? 'is-invalid' : ''}`}
                                         />
@@ -550,21 +561,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.others_duration.days}
+                                                            <input type="number" className="form-control with-units" value={data.others_duration !== null ? data.others_duration.days : ''}
                                                                  onChange={e => handleOthersDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.others_duration.months}
+                                                            <input type="number" className="form-control with-units" value={data.others_duration !== null ? data.others_duration.months : ''}
                                                                  onChange={e => handleOthersDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.others_duration.years}
+                                                            <input type="number" className="form-control with-units" value={data.others_duration !== null ? data.others_duration.years : ''}
                                                                  onChange={e => handleOthersDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -576,12 +587,6 @@ const Edit = () => {
                                         <hr />
 
                                    </> : ''}
-
-
-
-
-
-
                                    <FormButton processing={processing} labelText='Update' type="submit" mode="primary" />
 
                               </form>

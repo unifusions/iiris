@@ -84,7 +84,9 @@ class IntraOperativeController extends Controller
         $intraoperative->acc_time = $request->acc_time;
         $intraoperative->concomitant_procedure = $request->concomitant_procedure;
         $intraoperative->all_paravalvular_leak = $request->all_paravalvular_leak;
+        $intraoperative->all_paravalvular_leak_specify = $request->all_paravalvular_leak_specify;
         $intraoperative->major_paravalvular_leak = $request->major_paravalvular_leak;
+        $intraoperative->major_paravalvular_leak_specify = $request->major_paravalvular_leak_specify;
         $intraoperative->save();
 
 

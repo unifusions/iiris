@@ -28,7 +28,9 @@ class IntraOperativeData extends Model
         'acc_time',
         'concomitant_procedure',
         'all_paravalvular_leak',
-        'major_paravalvular_leak'
+        'all_paravalvular_leak_specify',
+        'major_paravalvular_leak',
+        'major_paravalvular_leak_specify'
     ];
     protected $dates = ['date_of_procedure'];
 

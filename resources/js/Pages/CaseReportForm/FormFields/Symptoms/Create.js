@@ -89,87 +89,87 @@ const Create = () => {
 
      //Syncope
      function handleSyncopeDurationDays(e) {
-          const varDur = { ...data.dyspnea_duration, 'days': e.target.value };
+          const varDur = { ...data.syncope_duration, 'days': e.target.value };
           setData('syncope_duration', varDur)
      }
      function handleSyncopeDurationMonths(e) {
-          const varDur = { ...data.dyspnea_duration, 'months': e.target.value };
+          const varDur = { ...data.syncope_duration, 'months': e.target.value };
           setData('syncope_duration', varDur)
      }
 
      function handleSyncopeDurationYears(e) {
-          const varDur = { ...data.dyspnea_duration, 'years': e.target.value };
+          const varDur = { ...data.syncope_duration, 'years': e.target.value };
           setData('syncope_duration', varDur)
      }
 
      //Palpitation
      function handlePalpitationDurationDays(e) {
-          const varDur = { ...data.dyspnea_duration, 'days': e.target.value };
+          const varDur = { ...data.palpitation_duration, 'days': e.target.value };
           setData('palpitation_duration', varDur)
      }
      function handlePalpitationDurationMonths(e) {
-          const varDur = { ...data.dyspnea_duration, 'months': e.target.value };
+          const varDur = { ...data.palpitation_duration, 'months': e.target.value };
           setData('palpitation_duration', varDur)
      }
      function handlePalpitationDurationYears(e) {
-          const varDur = { ...data.dyspnea_duration, 'years': e.target.value };
+          const varDur = { ...data.palpitation_duration, 'years': e.target.value };
           setData('syncope_duration', varDur)
      }
 
       // Giddiness
       function handleGiddinessDurationDays(e) {
-          const varDur = { ...data.dyspnea_duration, 'days': e.target.value };
+          const varDur = { ...data.giddiness_duration, 'days': e.target.value };
           setData('giddiness_duration', varDur)
      }
      function handleGiddinessDurationMonths(e) {
-          const varDur = { ...data.dyspnea_duration, 'months': e.target.value };
+          const varDur = { ...data.giddiness_duration, 'months': e.target.value };
           setData('giddiness_duration', varDur)
      }
      function handleGiddinessDurationYears(e) {
-          const varDur = { ...data.dyspnea_duration, 'years': e.target.value };
+          const varDur = { ...data.giddiness_duration, 'years': e.target.value };
           setData('giddiness_duration', varDur)
      }
 
      // Fever
      function handleFeverDurationDays(e) {
-          const varDur = { ...data.dyspnea_duration, 'days': e.target.value };
+          const varDur = { ...data.fever_duration, 'days': e.target.value };
           setData('fever_duration', varDur)
      }
      function handleFeverDurationMonths(e) {
-          const varDur = { ...data.dyspnea_duration, 'months': e.target.value };
+          const varDur = { ...data.fever_duration, 'months': e.target.value };
           setData('fever_duration', varDur)
      }
      function handleFeverDurationYears(e) {
-          const varDur = { ...data.dyspnea_duration, 'years': e.target.value };
+          const varDur = { ...data.fever_duration, 'years': e.target.value };
           setData('fever_duration', varDur)
      }
 
      // Heart Failure
      function handleHeartFailureDurationDays(e) {
-          const varDur = { ...data.dyspnea_duration, 'days': e.target.value };
+          const varDur = { ...data.heart_failure_admission_duration, 'days': e.target.value };
           setData('heart_failure_admission_duration', varDur)
      }
      function handleHeartFailureDurationMonths(e) {
-          const varDur = { ...data.dyspnea_duration, 'months': e.target.value };
+          const varDur = { ...data.heart_failure_admission_duration, 'months': e.target.value };
           setData('heart_failure_admission_duration', varDur)
      }
      function handleHeartFailureDurationYears(e) {
-          const varDur = { ...data.dyspnea_duration, 'years': e.target.value };
+          const varDur = { ...data.heart_failure_admission_duration, 'years': e.target.value };
           setData('heart_failure_admission_duration', varDur)
      }
 
      // Others
      function handleOthersDurationDays(e) {
-          const varDur = { ...data.dyspnea_duration, 'days': e.target.value };
+          const varDur = { ...data.others_duration, 'days': e.target.value };
           setData('others_duration', varDur)
      }
      function handleOthersDurationMonths(e) {
-          const varDur = { ...data.dyspnea_duration, 'months': e.target.value };
+          const varDur = { ...data.others_duration, 'months': e.target.value };
           setData('others_duration', varDur)
      }
 
      function handleOthersDurationYears(e) {
-          const varDur = { ...data.dyspnea_duration, 'years': e.target.value };
+          const varDur = { ...data.others_duration, 'years': e.target.value };
           setData('others_duration', varDur)
      }
 
