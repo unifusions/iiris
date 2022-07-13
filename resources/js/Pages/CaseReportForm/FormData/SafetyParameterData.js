@@ -60,7 +60,7 @@ export default function SafetyParameterData({ safetyparameters, role, createUrl,
                               <RenderFieldDatas labelText='Sudden Unexplained Death' value={safetyparameters.sudden_unexplained_death} />
                               <RenderFieldDatas labelText='Cardiac Death' value={safetyparameters.cardiac_death} />
 
-                         </> : <span className="fw-normal text-secondary fst-italic">No Echocardiography data has been recorded. Go ahead and create one.</span>
+                         </> : <span className="fw-normal text-secondary fst-italic">No safety parameters data has been recorded. Go ahead and create one.</span>
 
                     }
 

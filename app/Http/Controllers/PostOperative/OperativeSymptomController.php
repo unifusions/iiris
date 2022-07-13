@@ -15,12 +15,9 @@ class OperativeSymptomController extends Controller
 {
     public function index(CaseReportForm $crf, PostOperativeData $postoperative)
     {
-
-
         if (!empty($postoperative->symptoms))
-            return $this->show($crf, $postoperative, $postoperative->symptoms);
-
-        return $this->create($crf, $postoperative);
+            return route('crf.postoperative.symptoms.show', [$crf, $postoperative, $postoperative->symptoms]);
+        return route('crf.postoperative.symptoms.create', [$crf, $postoperative]);
     }
 
 
@@ -32,14 +29,15 @@ class OperativeSymptomController extends Controller
             'crf' => $crf,
             'mode' => 'postoperative',
             'postoperative' => $postoperative,
-            'backUrl' => route('crf.postoperative.show', [$crf, $postoperative])
+            'backUrl' => route('crf.postoperative.show', [$crf, $postoperative]),
+            'title' => 'Post Operative'
         ]);
     }
 
 
     public function store(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, PostOperativeData $postoperative, OperativeSymptomsService $operativeSymptomsService)
     {
-        
+
         if ($operativeSymptomsService->createPostOperativeSymptoms($request))
             return redirect()->route('crf.postoperative.index', ['crf' => $crf, 'postoperative' => $postoperative]);
     }

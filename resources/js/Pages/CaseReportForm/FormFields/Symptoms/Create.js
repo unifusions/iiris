@@ -1,11 +1,10 @@
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Container, Card, Row, Col } from "react-bootstrap";
 
 import { Head, Link, usePage, useForm, } from "@inertiajs/inertia-react";
 import FormInput from "@/Pages/Shared/FormInput";
-import FormInputWithLabel from "@/Pages/Shared/FormInputWithLabel";
-import FormInputDuration from "@/Pages/Shared/FormInputDuration";
+
 
 import FormButton from "@/Pages/Shared/FormButton";
 import Authenticated from '@/Layouts/Authenticated';
@@ -14,7 +13,7 @@ import PageTitle from "@/Pages/Shared/PageTitle";
 
 
 const Create = () => {
-     const { auth, roles, postUrl, mode, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, backUrl } = usePage().props;
+     const { auth, roles, postUrl, mode, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, backUrl, title } = usePage().props;
      const { data, setData, errors, post, processing, hasErrors, transform } = useForm({
           case_report_form_id: crf.id,
           pre_operative_data_id: preoperative !== undefined ? preoperative.id : null,
@@ -202,7 +201,7 @@ const Create = () => {
 
                                    <FormRadio
                                         type="radio"
-                                        labelText="Symptoms"
+                                        labelText={`History of ${title} Symptoms ?`}
                                         name="symptoms"
                                         options={boolRadios}
                                         handleChange={e => setData('symptoms', e.target.value)}
@@ -248,14 +247,14 @@ const Create = () => {
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleAnginaDurationMonths(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleAnginaDurationYears(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
 
@@ -298,14 +297,14 @@ const Create = () => {
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleDyspneaDurationMonths(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleDyspneaDurationYears(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
 
@@ -338,14 +337,14 @@ const Create = () => {
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleSyncopeDurationMonths(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleSyncopeDurationYears(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
 
@@ -378,14 +377,14 @@ const Create = () => {
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handlePalpitationDurationMonths(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handlePalpitationDurationYears(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
 
@@ -418,14 +417,14 @@ const Create = () => {
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleGiddinessDurationMonths(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleGiddinessDurationYears(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
 
@@ -458,14 +457,14 @@ const Create = () => {
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleFeverDurationMonths(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleFeverDurationYears(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
 
@@ -498,14 +497,14 @@ const Create = () => {
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleHeartFailureDurationMonths(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleHeartFailureDurationYears(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
 
@@ -544,14 +543,14 @@ const Create = () => {
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleOthersDurationMonths(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleOthersDurationYears(e)} />
-                                                            <span className="input-group-text text-secondary input-units">days</span>
+                                                            <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
 
@@ -560,15 +559,7 @@ const Create = () => {
                                         </>}
                                         <hr />
 
-
-
-
                                    </>}
-
-
-
-
-
 
                                    <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />
 

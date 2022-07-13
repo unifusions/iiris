@@ -49,7 +49,8 @@ class PreOperativeSymptomsController extends Controller
             'crf' => $crf,
             'mode' => 'preoperative',
             'preoperative' => $preoperative,
-            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative])
+            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative]),
+            'title' => 'Pre Operative'
         ]);
     }
 
@@ -90,7 +91,8 @@ class PreOperativeSymptomsController extends Controller
             'mode' => 'preoperative',
             'preoperative' => $preoperative,
             'symptom' => $symptom,
-            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative])
+            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative]),
+            'title' => 'Pre Operative'
         ]);
 
         // return view('casereportforms.FormFields.OperativeSymptoms.edit', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf', 'symptom'));

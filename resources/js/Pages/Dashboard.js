@@ -86,7 +86,7 @@ export default function Dashboard(props) {
 
             <Head title="Dashboard" />
             <Row className='mb-3'>
-                {props.roles.coordinator || props.roles.investigator ? <CoordinatorDashboard dashboardData={props.data} facility={props.facility} /> : <AdminDashboard dashboardData={props.adminData} />}
+                {props.roles.coordinator || props.roles.investigator ? <CoordinatorDashboard dashboardData={props.data} facility={props.facility} /> : <AdminDashboard dashboardData={props.adminData} adminCards = {props.adminCards } />}
 
             </Row>
 

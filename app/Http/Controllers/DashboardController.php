@@ -21,7 +21,7 @@ class DashboardController extends Controller
             'allcrfcount' => count(CaseReportForm::withoutGlobalScope('facility_id')->get()),
             'scheduledVisitCount' => count(ScheduledVisit::all()),
             'unscheduledVisitCount' => count(UnscheduledVisit::all()),
-            
+
         ];
 
         $adminData = [
@@ -31,11 +31,19 @@ class DashboardController extends Controller
             'tickets' => count(Tickets::all()),
         ];
 
-        $adminTables = [
-            'crfs' => CaseReportForm::all()
+
+        $adminCards = [
+            'crfs' => CaseReportForm::all(),
+            'crfreg' => CaseReportForm::selectRaw('year(created_at) as year, monthname(created_at) as month,count(subject_id) as total')
+            ->groupBy('year', 'month')->get()
         ];
         // return view('dashboard')->with($data);
 
-        return Inertia::render('Dashboard', ['adminData' => $adminData, 'data' => $data,'facility' => auth()->user()->facility->name ?? '']);
+        return Inertia::render('Dashboard', [
+            'adminData' => $adminData,
+            'adminCards' => $adminCards,
+            'data' => $data,
+            'facility' => auth()->user()->facility->name ?? ''
+        ]);
     }
 }

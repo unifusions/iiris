@@ -139,7 +139,7 @@ export default function Authenticated(props) {
                                 </li>
 
                                 <li className="nav-item">
-                                    <Link className="nav-link" href="#">
+                                    <Link className="nav-link" href={route('tickets.index')}>
                                         <SupportIcon className='menu-arrow' style={iconStyle} />
                                         <span className="menu-title ms-1">Tickets</span>
                                     </Link>
@@ -161,8 +161,9 @@ export default function Authenticated(props) {
                             )}
 
                             {children}
-                            
-                            {flash.message && <ToastAlert showToast={showToast} onClose={() => setShowToast(false)} message = {flash.message}/>
+
+                            {flash.message &&
+                                <ToastAlert showToast={showToast} onClose={() => setShowToast(false)} message={flash.message} />
                             }
                         </div>
 

@@ -78,9 +78,7 @@ const Edit = () => {
                                         error={errors.height} labelText="Height"
                                         handleChange={e => setData('height', e.target.value)}
                                         units='cms'
-                                        step = '0.01'
-                                        min = {50}
-                                        max = {250}
+                                      
                                         onBlur={updateBsa} 
                                         value = {data.height}
                                         required />
@@ -91,9 +89,7 @@ const Edit = () => {
                                         error={errors.weight} labelText="Weight"
                                         handleChange={e => setData('weight', e.target.value)}
                                         onBlur={updateBsa}
-                                        step = '0.01'
-                                        min = {50}
-                                        max = {250}
+                                       
                                         units='kgs' 
                                         value = {data.weight}
 
@@ -118,8 +114,7 @@ const Edit = () => {
                                         required
                                    
                                         value={data.heart_rate}
-                                        min = {50}
-                                        max = {250}
+                                      
                                          />
 
                                    <FormInputWithLabel
@@ -129,8 +124,7 @@ const Edit = () => {
                                         labelText="Systolic BP"
                                         handleChange={e => setData('systolic_bp', e.target.value)}
                                         units='mmHg' 
-                                        min = {50}
-                                        max = {250}
+                                      
                                         value={data.systolic_bp}
                                         required
                                         />
@@ -141,8 +135,7 @@ const Edit = () => {
                                         error={errors.diastolic_bp} 
                                         labelText="Diastolic BP"
                                         handleChange={e => setData('diastolic_bp', e.target.value)}
-                                        min = {50}
-                                        max = {250}
+                                        
                                         required
                                         value={data.diastolic_bp}
                                         units='mmHg' />

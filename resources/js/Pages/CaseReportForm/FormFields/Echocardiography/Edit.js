@@ -83,7 +83,7 @@ const Create = () => {
                               <form onSubmit={handlesubmit}>
 
                                    <FormCalendar
-                                        labelText='Date'
+                                        labelText='Date of Investigation'
                                         value={data.echodate}
                                         handleChange={(date) => setData('echodate', new Date(date))}
                                         className={`${errors.ecg_date ? 'is-invalid' : ''}`}

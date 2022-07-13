@@ -39,21 +39,22 @@ export const options = {
 
 const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-export const data = {
-     labels,
-     datasets: [
-          {
-               label: 'CRF Registrations',
-               data: labels.map((label,index) => index+1),
-               borderColor: 'rgb(255, 99, 132)',
-               // backgroundColor: 'rgba(255, 99, 132, 0.5)',
-          },
-          
-     ],
-};
 
 const AdminDashboard = (props) => {
-     const { dashboardData, facility } = props;
+     const { dashboardData, facility, adminCards } = props;
+     const data = {
+          labels,
+          datasets: [
+               {
+                    label: 'CRF Registrations',
+                    data: adminCards.crfreg,
+                    borderColor: 'rgb(255, 99, 132)',
+                    // backgroundColor: 'rgba(255, 99, 132, 0.5)',
+               },
+
+          ],
+     };
+
      let colDivision = 12 / Object.keys(dashboardData).length;
 
      return (
@@ -115,12 +116,10 @@ const AdminDashboard = (props) => {
                     </Card>
                </Col>
 
-
-
-
+{/*               
                <Col lg={12} >
                     <Line options={options} data={data} />
-               </Col>
+               </Col> */}
 
           </>
      )

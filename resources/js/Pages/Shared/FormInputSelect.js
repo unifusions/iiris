@@ -24,11 +24,7 @@ const FormInputSelect = ({ name, selectedValue, options, className, autoComplete
                          <option value=''></option>
 
                          {options.map((item, index, arr) =>
-
                               <option key={index} value={item.value}>{item.optionText}</option>
-
-
-
                          )}
                     </select>
 

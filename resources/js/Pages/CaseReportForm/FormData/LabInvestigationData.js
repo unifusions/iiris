@@ -38,7 +38,7 @@ export default function LabInvestigationData({ labinvestigations, role, createUr
                     <hr />
                     {labinvestigations !== null ?
                          <>
-                              <RenderFieldDatas labelText='Date' value={new Date(labinvestigations.li_date).toLocaleString('en-in', options)} />
+                              <RenderFieldDatas labelText='Date of Investigation' value={new Date(labinvestigations.li_date).toLocaleString('en-in', options)} />
                               <RenderFieldDatas labelText='Red Blood Cell (RBC)' value={labinvestigations.rbc} units='cells/cu.mm' />
                               <RenderFieldDatas labelText='White Blood Cell (WBC)' value={labinvestigations.wbc} units='cells/cu.mm' />
                               <RenderFieldDatas labelText='Hemoglobin' value={labinvestigations.hemoglobin} units='g/dl' />

@@ -89,7 +89,7 @@ const Create = () => {
                               <form onSubmit={handlesubmit}>
                                 
                                    <FormCalendar
-                                        labelText='Date'
+                                        labelText='Date of Investigation'
 
                                         value={data.ecg_date}
                                         handleChange={(date) => setData('ecg_date', new Date(date))}

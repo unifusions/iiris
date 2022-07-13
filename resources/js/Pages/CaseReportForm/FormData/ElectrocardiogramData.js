@@ -37,7 +37,7 @@ export default function ElectrocardiogramData({ electrocardiograms, role, create
                     {electrocardiograms !== null ?
                          <>
 
-                              <RenderFieldDatas labelText='Date' value={new Date(electrocardiograms.ecg_date).toLocaleString('en-in', options)} />
+                              <RenderFieldDatas labelText='Date of Investigation' value={new Date(electrocardiograms.ecg_date).toLocaleString('en-in', options)} />
                               <RenderFieldDatas labelText='Rhythm' value={electrocardiograms.rhythm} />
                               {electrocardiograms.rhythm === "Others" &&
                                    <RenderFieldDatas labelText='' value={electrocardiograms.rhythm_others} />

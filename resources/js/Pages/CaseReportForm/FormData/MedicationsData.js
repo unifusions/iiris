@@ -12,7 +12,7 @@ export default function MedicationsData({ hasMedication, medications, role,linkU
                <Card.Body>
                <div className='d-flex justify-content-between align-items-center'>
                          <div className='fs-6 fw-bold'>
-                              Medications
+                              History of Medications
                          </div>
                          {!enableActions &&
                               <>

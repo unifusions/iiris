@@ -26,7 +26,7 @@ const Create = () => {
           diastolic_bp: '',
      });
 
- 
+
 
 
      function handlesubmit(e) {
@@ -48,7 +48,7 @@ const Create = () => {
           let bsa = Math.sqrt((data.height * data.weight) / 3600).toFixed(2)
           setData('bsa', bsa);
      }
-   
+
      return (
           <Authenticated
                auth={auth}
@@ -63,48 +63,49 @@ const Create = () => {
                     </li>
                </>
                }
-          > 
+          >
                <Head title="Create New Case Report Form" />
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle = 'Create Physical Examination' role={roles}/>
+                    <PageTitle backUrl={backUrl} pageTitle='Create Physical Examination' role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit} >
 
-                                   <FormInputWithLabel
-                                        type="number"
-                                        className={`${errors.height && 'is-invalid '}`}
-                                        error={errors.height} labelText="Height"
-                                        handleChange={e => setData('height', e.target.value.toString().split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
-                                        units='cms'
-                                        value={data.height}
-                                        step = '0.01'
-                                        min = {50}
-                                        max = {250}
-                                        onBlur={updateBsa} 
-                                        required />
+                                   {mode !== 'postoperative' && <>
+                                        <FormInputWithLabel
+                                             type="number"
+                                             className={`${errors.height && 'is-invalid '}`}
+                                             error={errors.height} labelText="Height"
+                                             handleChange={e => setData('height', e.target.value.toString().split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                             units='cms'
+                                             value={data.height}
+                                             
+                                             
+                                             onBlur={updateBsa}
+                                             required />
 
-                                   <FormInputWithLabel
-                                        type="number"
-                                        className={`${errors.weight && 'is-invalid '}`}
-                                        error={errors.weight} labelText="Weight"
-                                        handleChange={e => setData('weight', e.target.value.toString().split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
-                                        onBlur={updateBsa}
-                                        step = '0.01'
-                                        min = {50}
-                                        max = {250}
-                                        units='kgs' 
-                                        required/>
+                                        <FormInputWithLabel
+                                             type="number"
+                                             className={`${errors.weight && 'is-invalid '}`}
+                                             error={errors.weight} labelText="Weight"
+                                             handleChange={e => setData('weight', e.target.value.toString().split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                             onBlur={updateBsa}
+                                            
+                                             units='kgs'
+                                             required />
 
-                                   <FormInputWithLabel
-                                        type="number"
-                                        className={`${errors.bsa && 'is-invalid '}`}
-                                        error={errors.bsa} labelText="BSA"
-                                        value={data.bsa}
-                                        units='m<sup>2</sup>'
-                                        disabled
-                                   />
+                                        <FormInputWithLabel
+                                             type="number"
+                                             className={`${errors.bsa && 'is-invalid '}`}
+                                             error={errors.bsa} labelText="BSA"
+                                             value={data.bsa}
+                                             units='m<sup>2</sup>'
+                                             disabled
+                                        />
+                                   </>}
+
+
 
                                    <FormInputWithLabel
                                         type="number"
@@ -113,28 +114,25 @@ const Create = () => {
                                         handleChange={e => setData('heart_rate', e.target.value)}
                                         units='bpm'
                                         required
-                                        min = {50}
-                                        max = {250}
-                                         />
+                                      
+                                   />
 
                                    <FormInputWithLabel
                                         type="number"
                                         className={`${errors.systolic_bp && 'is-invalid '}`}
                                         error={errors.systolic_bp} labelText="Systolic BP"
                                         handleChange={e => setData('systolic_bp', e.target.value)}
-                                        units='mmHg' 
-                                        min = {50}
-                                        max = {250}
+                                        units='mmHg'
+                                       
                                         required
-                                        />
+                                   />
 
                                    <FormInputWithLabel
                                         type="number"
                                         className={`${errors.diastolic_bp && 'is-invalid '}`}
                                         error={errors.diastolic_bp} labelText="Diastolic BP"
                                         handleChange={e => setData('diastolic_bp', e.target.value)}
-                                        min = {50}
-                                        max = {250}
+                                      
                                         required
                                         units='mmHg' />
 
