@@ -22,7 +22,7 @@ export default function SurgicalHistoryData({ hasSurHis, surgicalhistories, role
                                    {role.coordinator &&
                                         <>
                                              {hasSurHis === null ?
-                                                  <div> <span className="text-secondary small">Medical History status is null. Update with Yes/No</span>
+                                                  <div> <span className="text-secondary small">Surgical History status is null. Update with Yes/No</span>
                                                        <RenderUpdateButton updateUrl={linkUrl} className='btn-sm ms-3' />
                                                   </div> : <>
                                                        {hasSurHis ?
