@@ -57,6 +57,31 @@ class LabInvestigationService
           return $labinvestiagtions;
      }
 
+     public function createSVLabInvestigation(Request $request): LabInvestigation
+     {
+          $labinvestiagtions = LabInvestigation::Create([
+               'case_report_form_id' => $request->crf->id,
+               'scheduled_visits_id' => $request->scheduledvisit->id,
+               'li_date'=> $request->li_date,
+               'rbc'=> $request->rbc,
+               'wbc'=> $request->wbc,
+               'hemoglobin'=> $request->hemoglobin,
+               'hematocrit'=> $request->hematocrit,
+               'platelet'=> $request->platelet,
+               'blood_urea'=> $request->blood_urea,
+               'serum_creatinine'=> $request->serum_creatinine,
+               'alt'=> $request->alt,
+               'ast'=> $request->ast,
+               'alp'=> $request->alp,
+               'albumin'=> $request->albumin,
+               'total_protein'=> $request->total_protein,
+               'bilirubin'=> $request->bilirubin,
+               'pt_inr'=> $request->pt_inr
+          ]);
+
+          return $labinvestiagtions;
+     }
+
 
      public function updatePreoperativeLabInvestigation(Request $request, LabInvestigation $labinvestigation): LabInvestigation
      {

@@ -16,29 +16,29 @@ const Edit = () => {
      const { data, setData, errors, put, processing, hasErrors, transform } = useForm({
           case_report_form_id: crf.id,
           pre_operative_data_id: physicalexamination.pre_operative_data_id || '',
-          post_operative_data_id: physicalexamination.post_operative_data_id||'',
-          scheduled_visits_id:physicalexamination.scheduled_visits_id || '',
-          unscheduled_visits_id:physicalexamination.unscheduled_visits_id || '',
+          post_operative_data_id: physicalexamination.post_operative_data_id || '',
+          scheduled_visits_id: physicalexamination.scheduled_visits_id || '',
+          unscheduled_visits_id: physicalexamination.unscheduled_visits_id || '',
           height: physicalexamination.height || '',
           weight: physicalexamination.weight || '',
           bsa: physicalexamination.bsa || '',
-          heart_rate: physicalexamination.heart_rate||'',
-          systolic_bp: physicalexamination.systolic_bp||'',
-          diastolic_bp: physicalexamination.diastolic_bp||'',
+          heart_rate: physicalexamination.heart_rate || '',
+          systolic_bp: physicalexamination.systolic_bp || '',
+          diastolic_bp: physicalexamination.diastolic_bp || '',
      });
 
-   
+
      function handlesubmit(e) {
           e.preventDefault();
           switch (mode) {
                case 'preoperative':
-                    return put(route(`${postUrl}`, { crf: crf, preoperative: preoperative, physicalexamination : physicalexamination }));
+                    return put(route(`${postUrl}`, { crf: crf, preoperative: preoperative, physicalexamination: physicalexamination }));
                case 'postoperative':
-                    return put(route(`${postUrl}`, { crf: crf, postoperative: postoperative, physicalexamination : physicalexamination }));;
+                    return put(route(`${postUrl}`, { crf: crf, postoperative: postoperative, physicalexamination: physicalexamination }));;
                case 'scheduledvisit':
-                    return put(route(`${postUrl}`, { crf: crf, scheduledvisit: scheduledvisit, physicalexamination : physicalexamination }));
+                    return put(route(`${postUrl}`, { crf: crf, scheduledvisit: scheduledvisit, physicalexamination: physicalexamination }));
                case 'unscheduledvisit':
-                    return put(route(`${postUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit, physicalexamination : physicalexamination }));
+                    return put(route(`${postUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit, physicalexamination: physicalexamination }));
 
           }
      }
@@ -47,7 +47,7 @@ const Edit = () => {
           let bsa = Math.sqrt((data.height * data.weight) / 3600).toFixed(2)
           setData('bsa', bsa);
      }
-   
+
      return (
           <Authenticated
                auth={auth}
@@ -63,10 +63,10 @@ const Edit = () => {
                </>
                }
           >
-              
+
                <Head title="Create New Case Report Form" />
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle = 'Edit Physical Examination' role={roles}/>
+                    <PageTitle backUrl={backUrl} pageTitle='Edit Physical Examination' role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
@@ -78,9 +78,9 @@ const Edit = () => {
                                         error={errors.height} labelText="Height"
                                         handleChange={e => setData('height', e.target.value)}
                                         units='cms'
-                                      
-                                        onBlur={updateBsa} 
-                                        value = {data.height}
+
+                                        onBlur={updateBsa}
+                                        value={data.height}
                                         required />
 
                                    <FormInputWithLabel
@@ -89,11 +89,9 @@ const Edit = () => {
                                         error={errors.weight} labelText="Weight"
                                         handleChange={e => setData('weight', e.target.value)}
                                         onBlur={updateBsa}
-                                       
-                                        units='kgs' 
-                                        value = {data.weight}
-
-                                        required/>
+                                        units='kgs'
+                                        value={data.weight}
+                                        required />
 
                                    <FormInputWithLabel
                                         type="number"
@@ -112,30 +110,30 @@ const Edit = () => {
                                         handleChange={e => setData('heart_rate', e.target.value)}
                                         units='bpm'
                                         required
-                                   
+
                                         value={data.heart_rate}
-                                      
-                                         />
+
+                                   />
 
                                    <FormInputWithLabel
                                         type="number"
                                         className={`${errors.systolic_bp && 'is-invalid '}`}
-                                        error={errors.systolic_bp} 
+                                        error={errors.systolic_bp}
                                         labelText="Systolic BP"
                                         handleChange={e => setData('systolic_bp', e.target.value)}
-                                        units='mmHg' 
-                                      
+                                        units='mmHg'
+
                                         value={data.systolic_bp}
                                         required
-                                        />
+                                   />
 
                                    <FormInputWithLabel
                                         type="number"
                                         className={`${errors.diastolic_bp && 'is-invalid '}`}
-                                        error={errors.diastolic_bp} 
+                                        error={errors.diastolic_bp}
                                         labelText="Diastolic BP"
                                         handleChange={e => setData('diastolic_bp', e.target.value)}
-                                        
+
                                         required
                                         value={data.diastolic_bp}
                                         units='mmHg' />

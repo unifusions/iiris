@@ -80,8 +80,8 @@ const Create = () => {
                                              handleChange={e => setData('height', e.target.value.toString().split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                              units='cms'
                                              value={data.height}
-                                             
-                                             
+
+
                                              onBlur={updateBsa}
                                              required />
 
@@ -91,7 +91,7 @@ const Create = () => {
                                              error={errors.weight} labelText="Weight"
                                              handleChange={e => setData('weight', e.target.value.toString().split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                              onBlur={updateBsa}
-                                            
+                                             value={data.weight}
                                              units='kgs'
                                              required />
 
@@ -114,7 +114,7 @@ const Create = () => {
                                         handleChange={e => setData('heart_rate', e.target.value)}
                                         units='bpm'
                                         required
-                                      
+
                                    />
 
                                    <FormInputWithLabel
@@ -123,7 +123,7 @@ const Create = () => {
                                         error={errors.systolic_bp} labelText="Systolic BP"
                                         handleChange={e => setData('systolic_bp', e.target.value)}
                                         units='mmHg'
-                                       
+
                                         required
                                    />
 
@@ -132,7 +132,7 @@ const Create = () => {
                                         className={`${errors.diastolic_bp && 'is-invalid '}`}
                                         error={errors.diastolic_bp} labelText="Diastolic BP"
                                         handleChange={e => setData('diastolic_bp', e.target.value)}
-                                      
+
                                         required
                                         units='mmHg' />
 

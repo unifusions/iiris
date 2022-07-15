@@ -25,21 +25,21 @@ class CaseReportForm extends Model
         'date_of_birth',
         
     ];
-    protected $appends = ['age', 'preoperative', 'intraoperative', 'postoperative', 'facility','unscheduledvisits', 'scheduledvisits', 'physicalexaminations'];
-    protected $dates = ['date_of_consent','date_of_birth'];
+    protected $appends = ['preoperative', 'intraoperative', 'postoperative', 'facility','unscheduledvisits', 'scheduledvisits', 'physicalexaminations'];
+    // protected $dates = ['date_of_consent','date_of_birth'];
 
     protected $casts = [
         'date_of_consent' => 'datetime:d/m/Y',
-        'date_of_birth' => 'datetime:d/m/Y',
+       // 'date_of_birth' => 'datetime:d/m/Y',
         'created_at' => 'datetime:d/m/Y',
     ];
    
    
     public function getAgeAttribute(){
-        $current = Carbon::now();
-        $subjectdoB = Carbon::createFromFormat('Y-m-d', $this->attributes['date_of_birth']);
-        $age = $subjectdoB->diffInYears($current);
-        return $age;
+        // $current = Carbon::now();
+        // $subjectdoB = Carbon::createFromFormat('Y-m-d', $this->attributes['date_of_birth']);
+        // $age = $subjectdoB->diffInYears($current);
+        // return $age;
     }
     
     public function facility(){

@@ -8,6 +8,7 @@ use App\Models\CaseReportForm;
 use App\Models\ScheduledVisit;
 use App\Services\OperativeSymptomsService;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ScheduledVisitSymptomController extends Controller
 {
@@ -26,13 +27,15 @@ class ScheduledVisitSymptomController extends Controller
             'crf' => $crf,
             'mode' => 'scheduledvisit',
             'scheduledvisit' => $scheduledvisit,
-            'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit])
+            'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit]),
+            'title' => 'Post Operative'
         ]);
     }
 
     public function store(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, ScheduledVisit $scheduledvisit, OperativeSymptomsService $operativeSymptomsService)
-    {
-        if ($operativeSymptomsService->createPostOperativeSymptoms($request))
+    {   
+        // dd($request->input());
+        if ($operativeSymptomsService->createScheduledVisitOperativeSymptoms($request))
             return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit]);
     }
     public function show($id)

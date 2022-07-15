@@ -20,6 +20,19 @@ class PhysicalActivityService
           return $physicalactivity;
      }
 
+     public function createScheduledVisitPhysicalActivity(Request $request): PhysicalActivity
+     {
+          $physicalactivity = PhysicalActivity::Create([
+
+               'scheduled_visits_id' => $request->scheduledvisit->id,
+               'activity_type' => $request->activity_type,
+               'duration' => $request->duration,
+
+          ]);
+
+          return $physicalactivity;
+     }
+
      public function updatePreoperativeLabInvestigation(Request $request, PhysicalActivity $physicalactivity): PhysicalActivity
      {
           $physicalactivity->activity_type = $request->activity_type;

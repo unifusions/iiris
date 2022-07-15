@@ -12,8 +12,8 @@ class OperativeSymptomsService
      {
 
           $preopsymptoms = OperativeSymptoms::Create([
-               'case_report_form_id' => $request->crf->id,
-               'pre_operative_data_id' => $request->preoperative->id,
+               'case_report_form_id' => $request->case_report_form_id,
+               'pre_operative_data_id' => $request->pre_operative_data_id,
                'symptoms' => $request->symptoms ? true : false,
                'angina' => $request->angina ? true : false,
                'angina_class' => $request->angina_class,
@@ -43,8 +43,8 @@ class OperativeSymptomsService
      {
 
           $preopsymptoms = OperativeSymptoms::Create([
-               'case_report_form_id' => $request->crf->id,
-               'post_operative_data_id' => $request->postoperative->id,
+               'case_report_form_id' => $request->case_report_form_id,
+               'post_operative_data_id' => $request->post_operative_data_id,
                'symptoms' => $request->symptoms ? true : false,
                'angina' => $request->angina ? true : false,
                'angina_class' => $request->angina_class,
@@ -73,9 +73,10 @@ class OperativeSymptomsService
      public function createScheduledVisitOperativeSymptoms(StoreOperativeSymptomsRequest $request): OperativeSymptoms
      {
 
+         
           $preopsymptoms = OperativeSymptoms::Create([
-               'case_report_form_id' => $request->crf->id,
-               'scheduled_visits_data' => $request->postoperative->id,
+               'case_report_form_id' => $request->case_report_form_id,
+               'scheduled_visit_id' => $request->scheduled_visit_id,
                'symptoms' => $request->symptoms ? true : false,
                'angina' => $request->angina ? true : false,
                'angina_class' => $request->angina_class,

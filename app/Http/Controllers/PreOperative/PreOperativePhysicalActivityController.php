@@ -12,25 +12,9 @@ use Inertia\Inertia;
 
 class PreOperativePhysicalActivityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(CaseReportForm $crf, PreOperativeData $preoperative)
     {
-        $storeUri = 'crf.preoperative.physicalactivity.store';
-        $destroyUri = 'crf.preoperative.physicalactivity.destroy';
-
-        $storeParameters = [
-            'crf' => $crf,
-            'preoperative' => $preoperative,
-        ];
-        $breadcrumb = [
-            'name' => 'Pre Operative Data',
-            'link' => 'crf.preoperative.index'
-        ];
-        // return view('casereportforms.FormFields.PhysicalActivity.index', compact('storeUri','destroyUri', 'storeParameters', 'breadcrumb', 'crf', 'preoperative'));
+       
         return Inertia::render('CaseReportForm/FormFields/PhysicalActivity/Index', [
             'postUrl' => 'crf.preoperative.physicalactivity.store',
             'updateUrl' => 'crf.preoperative.update',
@@ -42,21 +26,11 @@ class PreOperativePhysicalActivityController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, PhysicalActivityService $physicalActivityService)
     {
         $storeUri = 'crf.preoperative.physicalactivity.store';

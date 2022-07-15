@@ -11,11 +11,6 @@ use Inertia\Inertia;
 
 class PreOperativePersonalHistoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(CaseReportForm $crf, PreOperativeData $preoperative)
     {
         $storeUri = 'crf.preoperative.personalhistory.store';
@@ -31,11 +26,7 @@ class PreOperativePersonalHistoryController extends Controller
         return view('casereportforms.FormFields.PersonalHistory.index', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf', 'preoperative'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create(CaseReportForm $crf, PreOperativeData $preoperative)
     {
         return Inertia::render('CaseReportForm/FormFields/PersonalHistory/Create', [
@@ -48,12 +39,7 @@ class PreOperativePersonalHistoryController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative)
     {
         $storeUri = 'crf.preoperative.personalhistory.store';
@@ -72,7 +58,7 @@ class PreOperativePersonalHistoryController extends Controller
             'cigarettes' => $request->cigarettes,
             'smoking_since' => $request->smoking_since,
             'smoking_stopped' => $request->smoking_stopped,
-            'alchohol' => $request->alcohol,
+            'alchohol' => $request->alchohol,
             'quantity' => $request->quantity,
             'alchohol_since' => $request->alchohol_since,
             'alchohol_stopped' => $request->alchohol_stopped,
@@ -87,23 +73,12 @@ class PreOperativePersonalHistoryController extends Controller
         // return view('casereportforms.FormFields.PersonalHistory.index', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf', 'preoperative'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
-        //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(CaseReportForm $crf, PreOperativeData $preoperative, PersonalHistory $personalhistory)
     {
         return Inertia::render('CaseReportForm/FormFields/PersonalHistory/Edit', [
@@ -117,13 +92,7 @@ class PreOperativePersonalHistoryController extends Controller
         
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, PersonalHistory $personalhistory)
     {
         
@@ -132,7 +101,7 @@ class PreOperativePersonalHistoryController extends Controller
             $personalhistory->cigarettes = $request->cigarettes;
             $personalhistory->smoking_since = $request->smoking_since;
             $personalhistory->smoking_stopped = $request->smoking_stopped;
-            $personalhistory->alchohol = $request->alcohol;
+            $personalhistory->alchohol = $request->alchohol;
             $personalhistory->quantity = $request->quantity;
             $personalhistory->alchohol_since = $request->alchohol_since;
             $personalhistory->alchohol_stopped = $request->alchohol_stopped;
@@ -145,14 +114,9 @@ class PreOperativePersonalHistoryController extends Controller
             return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative])->with(['message'=>'Personal History Updated Successfully']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
-        //
+        
     }
 }

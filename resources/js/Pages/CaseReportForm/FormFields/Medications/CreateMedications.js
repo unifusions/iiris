@@ -8,12 +8,12 @@ import { Card, Col, Modal, Row } from "react-bootstrap";
 import RenderMedication from "./RenderMedication";
 
 
-export default function CreateMedications({ crf, preoperative, postoperative, medications, mode }) {
+export default function CreateMedications({ crf, preoperative, postoperative,scheduledvisit, unscheduledvisit, medications, mode }) {
 
      const { data, setData, processing, post, errors, reset } = useForm({
           pre_operative_data_id: preoperative !== undefined ? preoperative.id : null,
           post_operative_data_id: postoperative !== undefined ? postoperative.id : null,
-          scheduled_visits_id: '',
+          scheduled_visits_id: scheduledvisit !== undefined? scheduledvisit.id : null,
           unscheduled_visits_id: '',
           medication: '',
           indication: '',

@@ -1,57 +1,44 @@
 <?php
 
-namespace App\Http\Controllers\PostOperative;
+namespace App\Http\Controllers\ScheduledVisit;
 
 use App\Http\Controllers\Controller;
 use App\Models\CaseReportForm;
-use App\Models\PostOperativeData;
 use App\Models\SafetyParameter;
+use App\Models\ScheduledVisit;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class PostOperativeSafetyController extends Controller
+class SVSafetyParameterController extends Controller
 {
-    public function index(CaseReportForm $crf, PostOperativeData $postoperative)
+    public function index(CaseReportForm $crf, ScheduledVisit $scheduledvisit)
     {
-        $storeUri = 'crf.postoperative.safetyparameter.store';
-        $destroyUri = 'crf.postoperative.safetyparameter.destroy';
-        $opStoreUri = 'crf.postoperative.update';
-        $storeParameters = [
-            'crf' => $crf,
-            'postoperative' => $postoperative,
-
-        ];
-        $breadcrumb = [
-            'name' => 'Post Operative Data',
-            'link' => 'crf.postoperative.index',
-            'mode' => 'postoperative'
-        ];
-        return view('casereportforms.FormFields.SafetyParameter.index', compact('crf', 'storeUri', 'destroyUri', 'storeParameters', 'breadcrumb'));
+    
     }
 
    
-    public function create(CaseReportForm $crf, PostOperativeData $postoperative)
+    public function create(CaseReportForm $crf, ScheduledVisit $scheduledvisit)
     {
         return Inertia::render('CaseReportForm/FormFields/SafetyParameters/Create', [
-            'backUrl' => route('crf.postoperative.show', [$crf, $postoperative]),
-            'postUrl' => 'crf.postoperative.safetyparameter.store',
+            'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit]),
+            'postUrl' => 'crf.scheduledvisit.safetyparameter.store',
             'crf' => $crf,
-            'postoperative' => $postoperative,
-            'mode' => 'postoperative'
+            'scheduledvisit' => $scheduledvisit,
+            'mode' => 'scheduledvisit'
         ]);
     }
 
     
-    public function store(Request $request, CaseReportForm $crf, PostOperativeData $postoperative)
+    public function store(Request $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit)
     {
 
         $storeParameters = [
             'crf' => $crf,
-            'postoperative' => $postoperative,
+            'scheduledvisit' => $scheduledvisit,
 
         ];
         SafetyParameter::Create([
-            'post_operative_data_id' => $request->postoperative->id,
+            'scheduled_visits_id' => $request->scheduledvisit->id,
             'structural_value_deterioration' => $request->structural_value_deterioration,
             'valve_thrombosis' => $request->valve_thrombosis,
             'all_paravalvular_leak' => $request->all_paravalvular_leak,
@@ -72,33 +59,33 @@ class PostOperativeSafetyController extends Controller
 
 
         $message = "Safety Parameters has been saved successfully";
-        return redirect()->route('crf.postoperative.show', [$crf, $postoperative])->with(['message' => $message]);
+        return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit])->with(['message' => $message]);
     }
 
    
     public function show($id)
     {
-       
+        
     }
 
   
-    public function edit(CaseReportForm $crf, PostOperativeData $postoperative, SafetyParameter $safetyparameter)
+    public function edit(CaseReportForm $crf, ScheduledVisit $scheduledvisit, SafetyParameter $safetyparameter)
     {
         return Inertia::render('CaseReportForm/FormFields/SafetyParameters/Edit', [
-            'backUrl' => route('crf.postoperative.show', [$crf, $postoperative]),
-            'putUrl' => 'crf.postoperative.safetyparameter.update',
+            'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit]),
+            'putUrl' => 'crf.scheduledvisit.safetyparameter.update',
             'crf' => $crf,
-            'postoperative' => $postoperative,
+            'scheduledvisit' => $scheduledvisit,
             'safetyparameter' => $safetyparameter,
-            'mode' => 'postoperative'
+            'mode' => 'scheduledvisit'
         ]);
     }
 
     
-    public function update(Request $request, CaseReportForm $crf, PostOperativeData $postoperative, SafetyParameter $safetyparameter)
+    public function update(Request $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit, SafetyParameter $safetyparameter)
     {
 
-        $safetyparameter->post_operative_data_id = $request->postoperative->id;
+        $safetyparameter->scheduled_visits_id = $request->scheduledvisit->id;
         $safetyparameter->structural_value_deterioration = $request->structural_value_deterioration;
         $safetyparameter->valve_thrombosis = $request->valve_thrombosis;
         $safetyparameter->all_paravalvular_leak = $request->all_paravalvular_leak;
@@ -119,7 +106,7 @@ class PostOperativeSafetyController extends Controller
 
 
         $message = "Safety Parameters has been updated successfully";
-        return redirect()->route('crf.postoperative.show', [$crf, $postoperative])->with(['message' => $message]);
+        return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit])->with(['message' => $message]);
     }
 
     public function destroy($id)

@@ -3,8 +3,20 @@ import { Card, Row, Col } from "react-bootstrap";
 import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton } from "./FormDataHelper";
 
 
-
+const GetAge = ({birthDate}) => {
+     
+     var today = new Date();
+         var bd = new Date(birthDate);
+     var age = today.getFullYear() - bd.getFullYear();
+         var m = today.getMonth() - bd.getMonth();
+     if (m < 0 || (m === 0 && today.getDate() < bd.getDate())) {
+          age--;
+     }
+     
+     return( <>{age}</> );
+}
 export default function CaseReportFormData({ crf }) {
+
      return (
 
           <Card className="mb-3 rounded-5 shadow-sm">
@@ -43,7 +55,7 @@ export default function CaseReportFormData({ crf }) {
                          <Col md={4}>
                               <Row className='mb-3'>
                                    <Col md={6} className='text-secondary'>Date of Birth</Col>
-                                   <Col md={6}>{crf.date_of_birth}</Col>
+                                   <Col md={6}>{new Date(crf.date_of_birth).toLocaleDateString('en-IN',{ day: 'numeric',  month: 'numeric',year: 'numeric',  })}</Col>
                               </Row>
                               <Row className='mb-3'>
                                    <Col md={6} className='text-secondary'>Gender</Col>
@@ -51,7 +63,7 @@ export default function CaseReportFormData({ crf }) {
                               </Row>
                               <Row className='mb-3'>
                                    <Col md={6} className='text-secondary'>Age</Col>
-                                   <Col md={6}>{crf.age} years</Col>
+                                   <Col md={6}><GetAge birthDate = {crf.date_of_birth} /> years</Col>
                               </Row>
                          </Col>
 

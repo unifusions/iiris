@@ -34,7 +34,7 @@ class LabInvestigationController extends Controller
     {
         
        $labInvestigationService->createPostoperativeLabInvestigation($request);
-       return redirect()->route('crf.postoperative.show', ['crf' => $crf, 'postoperative' => $postoperative])->with(['message' => 'Lab Investigation created successfully']);
+       return redirect()->route('crf.postoperative.show', [$crf, $postoperative])->with(['message' => 'Lab Investigation created successfully']);
     }
 
    

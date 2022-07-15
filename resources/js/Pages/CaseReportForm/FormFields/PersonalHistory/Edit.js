@@ -55,6 +55,11 @@ const Edit = () => {
                     return put(route(`${putUrl}`, { crf: crf, preoperative: preoperative, personalhistory: personalhistories }));
                case 'postoperative':
                     return put(route(`${putUrl}`, { crf: crf, postoperative: postoperative, personalhistory: personalhistories }));;
+               case 'scheduledvisit':
+                    return put(route(`${putUrl}`, { crf: crf, scheduledvisit: scheduledvisit, personalhistory: personalhistories }));
+                    case 'unscheduledvisit':
+                         return put(route(`${putUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit, personalhistory: personalhistories }));
+
 
 
           }
@@ -79,9 +84,9 @@ const Edit = () => {
           >
 
                <Head title="Create Personal History" />
-               
+
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle = 'Edit Personal History' role={roles}/>
+                    <PageTitle backUrl={backUrl} pageTitle='Edit Personal History' role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>

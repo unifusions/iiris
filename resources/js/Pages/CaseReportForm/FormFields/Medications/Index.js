@@ -17,9 +17,10 @@ import PageTitle from "@/Pages/Shared/PageTitle";
 
 const Create = () => {
      const { auth, roles, postUrl, mode, medications, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, updateUrl, backUrl } = usePage().props;
-     const { data, setData, errors, post, put, processing, hasErrors, transform } = useForm({
+     const { data, setData, errors, post, put, processing, hasErrors } = useForm({
           hasMedications: preoperative !== undefined ? preoperative.hasMedications ? '1' : '0' : null,
-          postHasMedications: postoperative !== undefined ? postoperative.hasMedications ? '1' : '0' : null
+          postHasMedications: postoperative !== undefined ? postoperative.hasMedications ? '1' : '0' : null,
+          svHasMedications: scheduledvisit !== undefined ? scheduledvisit.hasMedications ? '1' : '0' : null
      });
 
      const boolRadios = [
@@ -63,8 +64,8 @@ const Create = () => {
           >
                <Head title="Medications" />
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle = 'History of Medications'  role={roles}/>
-                    
+                    <PageTitle backUrl={backUrl} pageTitle='History of Medications' role={roles} />
+
                     <Card className="mb-3 shadow-sm rounded-5">
                          <Card.Body>
                               <form onSubmit={handlesubmit}>
@@ -91,7 +92,16 @@ const Create = () => {
                                              className={`${errors.postHasMedications ? 'is-invalid' : ''}`}
                                         />}
 
-
+                                   {scheduledvisit !== undefined &&
+                                        <FormRadio
+                                             labelText='Has Medications?'
+                                             options={boolRadios}
+                                             name="svHasMedications"
+                                             handleChange={e => setData('svHasMedications', e.target.value)}
+                                             selectedValue={data.svHasMedications}
+                                             error={errors.svHasMedications}
+                                             className={`${errors.svHasMedications ? 'is-invalid' : ''}`}
+                                        />}
 
                                    <hr />
                                    <RenderBackButton backUrl={backUrl} className='me-3' />
@@ -117,7 +127,14 @@ const Create = () => {
 
                     {postoperative !== undefined && <>
                          {postoperative.hasMedications !== null && <>
-                              {postoperative.hasMedications? <CreateMedications crf={crf} postoperative={postoperative} medications={medications} mode={mode} /> : ''}
+                              {postoperative.hasMedications ? <CreateMedications crf={crf} postoperative={postoperative} medications={medications} mode={mode} /> : ''}
+                         </>
+                         }
+                    </>}
+
+                    {scheduledvisit !== undefined && <>
+                         {scheduledvisit.hasMedications !== null && <>
+                              {scheduledvisit.hasMedications ? <CreateMedications crf={crf} scheduledvisit={scheduledvisit} medications={medications} mode={mode} /> : ''}
                          </>
                          }
                     </>}

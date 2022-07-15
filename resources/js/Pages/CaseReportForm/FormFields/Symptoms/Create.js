@@ -18,6 +18,7 @@ const Create = () => {
           case_report_form_id: crf.id,
           pre_operative_data_id: preoperative !== undefined ? preoperative.id : null,
           post_operative_data_id: postoperative !== undefined ? postoperative.id : null,
+          scheduled_visit_id: scheduledvisit !== undefined ? scheduledvisit.id : null,
           symptoms: '',
           angina: '', angina_class: '', angina_duration: '',
           dyspnea: '', dyspnea_class: '', dyspnea_duration: '',
@@ -53,7 +54,8 @@ const Create = () => {
                     return post(route(`${postUrl}`, { crf: crf, preoperative: preoperative }));
                case 'postoperative':
                     return post(route(`${postUrl}`, { crf: crf, postoperative: postoperative }));;
-
+                    case 'scheduledvisit':
+                         return post(route(`${postUrl}`, { crf: crf, scheduledvisit: scheduledvisit }));
 
           }
      }

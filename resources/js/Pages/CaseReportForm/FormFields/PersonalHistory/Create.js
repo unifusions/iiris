@@ -54,8 +54,11 @@ const Create = () => {
                case 'preoperative':
                     return post(route(`${postUrl}`, { crf: crf, preoperative: preoperative }));
                case 'postoperative':
-                    return post(route(`${postUrl}`, { crf: crf, postoperative: postoperative }));;
-
+                    return post(route(`${postUrl}`, { crf: crf, postoperative: postoperative }));
+               case 'scheduledvisit':
+                    return post(route(`${postUrl}`, { crf: crf, scheduledvisit: scheduledvisit }));
+                    case 'unscheduledvisit':
+                         return post(route(`${postUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit }));
 
           }
      }
@@ -80,7 +83,7 @@ const Create = () => {
 
                <Head title="Create Personal History" />
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle = 'Create Personal History' role={roles}/>
+                    <PageTitle backUrl={backUrl} pageTitle='Create Personal History' role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
@@ -140,7 +143,7 @@ const Create = () => {
                                         selectedValue={data.alchohol}
                                         options={consumptionOptions}
                                         handleChange={e => setData('alchohol', e.target.value)}
-                                        checked={data.alchohol !== '' && data.alchohol}
+                                       
                                         error={errors.alchohol}
                                         className={`${errors.alchohol ? 'is-invalid' : ''}`}
                                         required
@@ -198,11 +201,11 @@ const Create = () => {
                                              <>
                                                   <FormInput
                                                        labelText='Type of Tobacco'
-                                                       
+
                                                        error={errors.tobacco_type}
                                                        handleChange={e => setData('quantity', e.target.value)}
                                                        className={`${errors.tobacco_type ? 'is-invalid' : ''}`}
-                                                       
+
                                                   />
 
                                                   <FormInput
