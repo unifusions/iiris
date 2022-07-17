@@ -49,6 +49,15 @@ use App\Http\Controllers\ScheduledVisit\SVMedicationsController;
 use App\Http\Controllers\ScheduledVisit\SVPhysicalActivity;
 use App\Http\Controllers\ScheduledVisit\SVSafetyParameterController;
 use App\Http\Controllers\TicketsController;
+use App\Http\Controllers\UnshceduledVisit\UVEchocardiographyController;
+use App\Http\Controllers\UnshceduledVisit\UVElectrocardiogramController;
+use App\Http\Controllers\UnshceduledVisit\UVLabInvestigationController;
+use App\Http\Controllers\UnshceduledVisit\UVMedicationController;
+use App\Http\Controllers\UnshceduledVisit\UVPersonalHistoryController;
+use App\Http\Controllers\UnshceduledVisit\UVPhysicalExaminationController;
+use App\Http\Controllers\UnshceduledVisit\UVSymptomController;
+use App\Http\Controllers\UnshceduledVisit\UVPhysicalActivityController;
+use App\Http\Controllers\UnshceduledVisit\UVSafetyParameterController;
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -106,6 +115,18 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.postoperative.safetyparameter', PostOperativeSafetyController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
         Route::resource('crf.postoperative.medication', MedicationsController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
 
+        Route::resource('crf.unscheduledvisit.physicalexamination', UVPhysicalExaminationController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
+        Route::resource('crf.unscheduledvisit.symptoms', UVSymptomController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
+        Route::resource('crf.unscheduledvisit.personalhistory', UVPersonalHistoryController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
+        Route::resource('crf.unscheduledvisit.physicalactivity', UVPhysicalActivityController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
+        Route::resource('crf.unscheduledvisit.labinvestigation', UVLabInvestigationController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
+        Route::resource('crf.unscheduledvisit.electrocardiogram', UVElectrocardiogramController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
+        Route::resource('crf.unscheduledvisit.echocardiography', UVEchocardiographyController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
+        Route::resource('crf.unscheduledvisit.safetyparameter', UVSafetyParameterController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
+        Route::resource('crf.unscheduledvisit.medication', UVMedicationController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
+
+        
+
         Route::resource('crf.scheduledvisit.physicalexamination', ScheduledVisitPhysicalExaminationController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
         Route::resource('crf.scheduledvisit.symptoms', ScheduledVisitSymptomController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
         Route::resource('crf.scheduledvisit.personalhistory', ScheduledVisitPersonalHistoryController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
@@ -115,7 +136,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.scheduledvisit.echocardiography', SVEchocardiographyController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
         Route::resource('crf.scheduledvisit.safetyparameter', SVSafetyParameterController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
         Route::resource('crf.scheduledvisit.medication', SVMedicationsController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
-
 
     });
 

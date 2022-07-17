@@ -9,7 +9,9 @@ import { Card, Col, Modal, Row } from "react-bootstrap";
 export default function CreatePhysicalActivity({ crf, mode, postUrl, preoperative, physicalactivities, postoperative, scheduledvisit, unscheduledvisit, modalTitle }) {
 
      const { data, setData, processing, post, errors, reset } = useForm({
-          pre_operative_data_id: preoperative.id,
+          pre_operative_data_id: preoperative !== undefined ? preoperative.id : '',
+          scheduled_visits_id: scheduledvisit !== undefined ? scheduledvisit.id : '',
+          unscheduled_visits_id: unscheduledvisit !== undefined ? unscheduledvisit.id : '',
           activity_type: '',
           duration: '',
 
@@ -63,9 +65,11 @@ export default function CreatePhysicalActivity({ crf, mode, postUrl, preoperativ
                               <Col>{physicalactivity.activity_type}</Col>
                               <Col>{physicalactivity.duration}</Col>
                               <Col>
-                                   <Link href={route('crf.preoperative.physicalactivity.destroy', { crf: crf, preoperative: preoperative, physicalactivity: physicalactivity })}
-                                        type="submit" method="delete" as="button"
-                                        className='btn btn-danger btn-sm'>Delete</Link>
+
+                                   {preoperative !== undefined && <Link href={route('crf.preoperative.physicalactivity.destroy', { crf: crf, preoperative: preoperative, physicalactivity: physicalactivity })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
+                                   {scheduledvisit !== undefined && <Link href={route('crf.scheduledvisit.physicalactivity.destroy', { crf: crf, scheduledvisit: scheduledvisit, physicalactivity: physicalactivity })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
+                                   {unscheduledvisit !== undefined && <Link href={route('crf.unscheduledvisit.physicalactivity.destroy', { crf: crf, unscheduledvisit: unscheduledvisit, physicalactivity: physicalactivity })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
+                                  
                               </Col>
                          </Row>)
 
@@ -77,52 +81,44 @@ export default function CreatePhysicalActivity({ crf, mode, postUrl, preoperativ
                     backdrop="static"
                     keyboard={false}
                >
-                    {
-                         preoperative.physical_activity !== null &&
-                         <>
-                              {preoperative.physical_activity ? <>
-                                   <Modal.Header closeButton>
-                                        <Modal.Title>{modalTitle}</Modal.Title>
-                                   </Modal.Header>
-                                   <form onSubmit={handlesubmit}>
-                                        <Modal.Body>
+
+                    <Modal.Header closeButton>
+                         <Modal.Title>{modalTitle}</Modal.Title>
+                    </Modal.Header>
+                    <form onSubmit={handlesubmit}>
+                         <Modal.Body>
+
+                              <FormInput
+                                   type="text"
+                                   className={`${errors.activity_type && 'is-invalid '}`}
+                                   error={errors.activity_type}
+                                   labelText='Activity Type'
+                                   value={data.activity_type}
+                                   handleChange={e => setData('activity_type', e.target.value)}
+                              />
+
+                              <FormInputWithLabel
+                                   type="number"
+                                   className={`${errors.duration && 'is-invalid '}`}
+                                   error={errors.duration} labelText="Duration"
+                                   handleChange={e => setData('duration', e.target.value)}
+                                   units='mins'
+                                   value={data.duration}
+                                   min={1}
+                                   max={60}
+
+                                   required />
 
 
 
-                                             <FormInput
-                                                  type="text"
-                                                  className={`${errors.activity_type && 'is-invalid '}`}
-                                                  error={errors.activity_type}
-                                                  labelText='Activity Type'
-                                                  value={data.activity_type}
-                                                  handleChange={e => setData('activity_type', e.target.value)}
-                                             />
-
-                                             <FormInputWithLabel
-                                                  type="number"
-                                                  className={`${errors.duration && 'is-invalid '}`}
-                                                  error={errors.duration} labelText="Duration"
-                                                  handleChange={e => setData('duration', e.target.value)}
-                                                  units='mins'
-                                                  value={data.duration}                                                 
-                                                  min={1}
-                                                  max={60}
-                                                  
-                                                  required />
+                         </Modal.Body>
+                         <Modal.Footer>
+                              <FormButton processing={processing} labelText='Add Physical Activity' type="submit" mode="primary" className="btn-sm" />
 
 
-                                           
-                                        </Modal.Body>
-                                        <Modal.Footer>
-                                             <FormButton processing={processing} labelText='Add Physical Activity' type="submit" mode="primary" className="btn-sm" />
+                         </Modal.Footer>
+                    </form>
 
-
-                                        </Modal.Footer>
-                                   </form>
-                              </> : 'No Physical Activity recorded'}
-                         </>
-
-                    }
                </Modal>
           </Card>
 

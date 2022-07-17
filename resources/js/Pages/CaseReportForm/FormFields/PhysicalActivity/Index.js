@@ -18,13 +18,13 @@ import PageTitle from "@/Pages/Shared/PageTitle";
 const Create = () => {
      const { auth, roles, postUrl, mode, physicalactivities, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, updateUrl, flash, backUrl } = usePage().props;
      const { data, setData, errors, post, put, processing, hasErrors, transform } = useForm({
-          physical_activity: preoperative.physical_activity !== null ? preoperative.physical_activity ? '1' : '0' : null,
-          sv_physical_activity: scheduledvisit.physical_activity !== null ? scheduledvisit.physical_activity ? '1' : '0' : null
-
+          physical_activity: preoperative !== undefined ? preoperative.physical_activity ? '1' : '0' : '',
+          sv_physical_activity: scheduledvisit !== undefined ? scheduledvisit.physical_activity ? '1' : '0' : '',
+          usv_physical_activity : unscheduledvisit !== undefined ? unscheduledvisit.physical_activity ? '1' : '0' : ''
 
      });
 
-     const boolRadios = [
+     const boolRadios = [     
           { labelText: 'Yes', value: '1' },
           { labelText: 'No', value: '0' }
      ];
@@ -103,7 +103,7 @@ const Create = () => {
                                              options={boolRadios}
                                              name="physicalactivity"
                                              handleChange={e => setData('sv_physical_activity', e.target.value)}
-                                             selectedValue={data.sv_physical_activity !== null && data.physical_activity}
+                                             selectedValue={data.sv_physical_activity !== null && data.sv_physical_activity}
                                              error={errors.sv_physical_activity}
                                              className={`${errors.sv_physical_activity ? 'is-invalid' : ''}`}
                                         />
@@ -125,7 +125,7 @@ const Create = () => {
 
 
 
-                    {preoperative.physical_activity !== null &&
+                    {preoperative !== undefined &&
                          <>
                               {preoperative.physical_activity ? <CreatePhysicalActivity
                                    mode={mode} postUrl={postUrl} preoperative={preoperative} crf={crf} physicalactivities={physicalactivities} modalTitle='Create Physical Activity' /> : ''}
@@ -134,7 +134,7 @@ const Create = () => {
                     }
 
 
-                    {scheduledvisit.physical_activity !== null &&
+                    {scheduledvisit !== undefined &&
                          <>
                               {scheduledvisit.physical_activity ? <CreatePhysicalActivity
                                    mode={mode} postUrl={postUrl} scheduledvisit={scheduledvisit} crf={crf} physicalactivities={physicalactivities} modalTitle='Create Physical Activity' /> : ''}

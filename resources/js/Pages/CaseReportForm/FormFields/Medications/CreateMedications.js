@@ -14,7 +14,7 @@ export default function CreateMedications({ crf, preoperative, postoperative,sch
           pre_operative_data_id: preoperative !== undefined ? preoperative.id : null,
           post_operative_data_id: postoperative !== undefined ? postoperative.id : null,
           scheduled_visits_id: scheduledvisit !== undefined? scheduledvisit.id : null,
-          unscheduled_visits_id: '',
+          unscheduled_visits_id: unscheduledvisit !== undefined? unscheduledvisit.id : null,
           medication: '',
           indication: '',
           status: '',

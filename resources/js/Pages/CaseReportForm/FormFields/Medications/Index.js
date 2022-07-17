@@ -20,7 +20,8 @@ const Create = () => {
      const { data, setData, errors, post, put, processing, hasErrors } = useForm({
           hasMedications: preoperative !== undefined ? preoperative.hasMedications ? '1' : '0' : null,
           postHasMedications: postoperative !== undefined ? postoperative.hasMedications ? '1' : '0' : null,
-          svHasMedications: scheduledvisit !== undefined ? scheduledvisit.hasMedications ? '1' : '0' : null
+          svHasMedications: scheduledvisit !== undefined ? scheduledvisit.hasMedications ? '1' : '0' : null,
+          usvHasMedications : unscheduledvisit !== undefined ? unscheduledvisit.hasMedications ? '1' : '0' : null,
      });
 
      const boolRadios = [

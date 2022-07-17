@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ScheduledVisit;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOperativeSymptomsRequest;
 use App\Models\CaseReportForm;
+use App\Models\OperativeSymptoms;
 use App\Models\ScheduledVisit;
 use App\Services\OperativeSymptomsService;
 use Illuminate\Http\Request;
@@ -42,12 +43,22 @@ class ScheduledVisitSymptomController extends Controller
     {
     }
 
-    public function edit($id)
+    public function edit(CaseReportForm $crf, ScheduledVisit $scheduledvisit, OperativeSymptoms $symptom)
     {
+        return Inertia::render('CaseReportForm/FormFields/Symptoms/Edit', [
+            'putUrl' => 'crf.scheduledvisit.symptoms.update',
+            'crf' => $crf,
+            'mode' => 'scheduledvisit',
+            'scheduledvisit' => $scheduledvisit,
+            'symptom' => $symptom,
+            'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit])
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, ScheduledVisit $scheduledvisit, OperativeSymptoms $symptom, OperativeSymptomsService $operativeSymptomsService)
     {
+        if ($operativeSymptomsService->updateOperativeSymptoms($request))
+        return redirect()->route('crf.scheduledvisit.show', [$crf,$scheduledvisit]);
     }
 
     public function destroy($id)

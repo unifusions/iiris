@@ -83,17 +83,8 @@ return (
                                                        Unscheduled Visits
                                                   </Link>
                                              </li>
-                                             {crf.unscheduledvisits.map((visit, index) => <li className="nav-item" key={index} >
-                                             <Link href={route('crf.unscheduledvisit.show', { crf: crf, scheduledvisit:visit })} className=''>
-                                                       <LinkIcon style={{ width: 20, height: 20 }} className="me-2" />
-                                                       Unscheduled Visit No. {visit.visit_no}
-                                                  </Link>
-
-                                                  
-                                             </li>)}
-                                             <li className="">
-                                                  <Link href="#" className='' ><LinkIcon style={{ width: 20, height: 20 }} className="me-2" /> Unscheduled Visit</Link>
-                                             </li>
+                                             
+                                            
                                         </ul>
                                    </div>
                                    <nav>

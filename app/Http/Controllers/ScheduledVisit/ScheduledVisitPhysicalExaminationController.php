@@ -13,21 +13,13 @@ use Inertia\Inertia;
 
 class ScheduledVisitPhysicalExaminationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create(CaseReportForm $crf, ScheduledVisit $scheduledvisit)
     {
         return Inertia::render('CaseReportForm/FormFields/PhysicalExamination/Create', [
@@ -41,35 +33,19 @@ class ScheduledVisitPhysicalExaminationController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(PhysicalExaminationStoreRequest $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit, PhysicalExaminationService $physicalExaminationService)
     {
         $physicalExaminationService->createScheduledVisitPhysicalExamination($request);
         return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(CaseReportForm $crf, ScheduledVisit $scheduledvisit, PhysicalExamination $physicalexamination)
     {
         return Inertia::render('CaseReportForm/FormFields/PhysicalExamination/Edit', [
@@ -81,25 +57,12 @@ class ScheduledVisitPhysicalExaminationController extends Controller
             'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit])
         ]);
     }
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit, PhysicalExamination $physicalexamination, PhysicalExaminationService $physicalExaminationService)
     {
         $physicalExaminationService->updatePreOperativePhysicalExamination($request, $physicalexamination);
-        return redirect()->route('crf.preoperative.show', [$crf, $scheduledvisit]);
+        return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

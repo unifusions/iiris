@@ -102,6 +102,38 @@ class OperativeSymptomsService
           return $preopsymptoms;
      }
 
+     public function createUnscheduledVisitOperativeSymptoms(StoreOperativeSymptomsRequest $request): OperativeSymptoms
+     {
+
+         
+          $preopsymptoms = OperativeSymptoms::Create([
+               'case_report_form_id' => $request->case_report_form_id,
+               'unscheduled_visit_id' => $request->unscheduled_visit_id,
+               'symptoms' => $request->symptoms ? true : false,
+               'angina' => $request->angina ? true : false,
+               'angina_class' => $request->angina_class,
+               'angina_duration' => $request->angina_duration,
+               'dyspnea' => $request->dyspnea ? true : false,
+               'dyspnea_class' => $request->dyspnea_class,
+               'dyspnea_duration' => $request->dyspnea_duration,
+               'syncope' => $request->syncope ? true : false,
+               'syncope_duration' => $request->syncope_duration,
+               'palpitation' => $request->palpitation ? true : false,
+               'palpitation_duration' => $request->palpitation_duration,
+               'giddiness' => $request->giddiness ? true : false,
+               'giddiness_duration' => $request->giddiness_duration,
+               'fever' => $request->fever ? true : false,
+               'fever_duration' => $request->fever_duration,
+               'heart_failure_admission' => $request->heart_failure_admission ? true : false,
+               'heart_failure_admission_duration' => $request->heart_failure_admission_duration,
+               'others' => $request->others ? true : false,
+               'others_text' => $request->others_text,
+               'others_duration' => $request->others_duration
+          ]);
+
+          return $preopsymptoms;
+     }
+
      public function updateOperativeSymptoms(StoreOperativeSymptomsRequest $request): OperativeSymptoms
      {
 

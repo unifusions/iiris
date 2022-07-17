@@ -1,8 +1,8 @@
 import Authenticated from "@/Layouts/Authenticated";
 import PageTitle from "@/Pages/Shared/PageTitle";
-import { usePage } from "@inertiajs/inertia-react";
+import { Link, usePage } from "@inertiajs/inertia-react";
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Card, Col, Row, Table } from "react-bootstrap";
 import CaseReportFormData from "../FormData/CaseReportFormData";
 import PhysicalExaminationData from "../FormData/PhysicalExaminationData";
 
@@ -11,9 +11,43 @@ export default function Show() {
      return (
           <Authenticated auth={auth} role={roles}>
                <PageTitle backUrl={backUrl} pageTitle='Unscheduled Visits' createUrl={createUrl} role={roles} />
-               {unscheduledvisits.length > 0 ? <>
-                    {unscheduledvisits.map((visit, index) => <>{visit}</>)}
-               </> : <>No unscheduled visits recorded for the subject :  {crf.subject_id}</>}
+
+               <Card className="card shadow-sm rounded-5">
+                    <Card.Body>
+                         {unscheduledvisits.length > 0 ? <>
+                              <Table hover responsive size="sm">
+                                   <thead>
+                                        <tr>
+                                             <th>POD</th>
+                                             <th>Visit No</th>
+                                             <th>Actions</th>
+                                             
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+
+                                        {unscheduledvisits.map((visit, index) => <tr key={index}>
+                                             <td> {new Date(visit.pod).toLocaleDateString('en-IN', { day: 'numeric', month: 'numeric', year: 'numeric', })}</td>
+                                             <td> {visit.visit_no} </td>
+                                             <td>
+                                                  <Link href={route('crf.unscheduledvisit.show', { crf: crf, unscheduledvisit : visit })} className='btn btn-primary btn-sm'> View </Link>
+                                             </td>
+                                        </tr>)}
+
+
+                                        
+                                   </tbody>
+                              </Table>
+
+                              <hr />
+                              </>
+                              : <>No unscheduled visits recorded for the subject :  {crf.subject_id}</>}
+                    </Card.Body>
+
+
+               </Card>
+
+
           </Authenticated>
      )
 }
