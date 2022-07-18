@@ -35,7 +35,8 @@ const Create = () => {
           pw_diastole: '',
           lvidend_systole: '',
           lvidend_diastole: '',
-          ejection_fraction: ''
+          ejection_fraction: '',
+          files: ''
 
      });
 
@@ -52,7 +53,7 @@ const Create = () => {
                case 'scheduledvisit':
                     return post(route(`${postUrl}`, { crf: crf, scheduledvisit: scheduledvisit }));
                case 'unscheduledvisit':
-                    return post(route(`${postUrl}`, { crf: crf, postoperative: unscheduledvisit }));
+                    return post(route(`${postUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit }));
 
           }
      }
@@ -77,7 +78,7 @@ const Create = () => {
 
                <Head title="Create Echocardiography" />
                <Container>
-                    <PageTitle backUrl={backUrl} pageTitle='Create Echocardiography' role={roles}/>
+                    <PageTitle backUrl={backUrl} pageTitle='Create Echocardiography' role={roles} />
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit}>
@@ -107,7 +108,7 @@ const Create = () => {
                                         value={data.velocity_time_integral}
                                         error={errors.velocity_time_integral}
                                         units='cm'
-                                        handleChange={e => setData('velocity_time_integral',e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        handleChange={e => setData('velocity_time_integral', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -252,6 +253,18 @@ const Create = () => {
                                         max='100'
                                         step='0.1'
                                    />
+
+                                   <Row>
+                                        <Col lg={3} >
+                                             Dicom Files
+                                        </Col>
+                                        <Col lg={9}>
+                                             <div className="input-group">
+                                                  <input type="file" className="form-control" name="echofiles" multiple onChange={e => setData('files', e.target.files)} />
+                                             </div>
+
+                                        </Col>
+                                   </Row>
 
 
 

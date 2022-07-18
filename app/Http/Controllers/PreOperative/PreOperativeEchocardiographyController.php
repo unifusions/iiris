@@ -31,17 +31,23 @@ class PreOperativeEchocardiographyController extends Controller
     }
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, EchocardiographyService $echocardiographyService)
     {
-        $echocardiography = $echocardiographyService->createPreoperativeEchocardiography($request);
+         $echocardiography = $echocardiographyService->createPreoperativeEchocardiography($request);
 
-        if (!isEmpty($request->echofiles)) {
-            $echodicomfilemodel = new EchoDicomFile;
-            $fileName = $request->echofiles->getClientOriginalName();
-            $uploadpath = 'uploads/' . $crf->subject_id . '/preoperative';
-            $filepath = $request->echofiles->storeAs($uploadpath, $fileName, 'public');
-            $echodicomfilemodel->echocardiography_id = $echocardiography->id;
-            $echodicomfilemodel->file_name = $fileName;
-            $echodicomfilemodel->file_path = $filepath;
-            $echodicomfilemodel->save();
+        if (isset($request->files)) {
+            
+            $files = $request->file('files');
+            foreach ($files as $file) {
+             
+                   
+                $echodicomfilemodel = new EchoDicomFile;
+                $fileName = $file->getClientOriginalName();
+                $uploadpath = 'uploads/' . $crf->subject_id . '/preoperative';
+                $filepath = $file->storeAs($uploadpath, $fileName, 'public');
+                $echodicomfilemodel->echocardiography_id = $echocardiography->id;
+                $echodicomfilemodel->file_name = $fileName;
+                $echodicomfilemodel->file_path = $filepath;
+                $echodicomfilemodel->save();
+            }
         }
 
 
@@ -51,7 +57,7 @@ class PreOperativeEchocardiographyController extends Controller
     {
         //
     }
-    public function edit(CaseReportForm $crf, PreOperativeData $preoperative,Echocardiography $echocardiography)
+    public function edit(CaseReportForm $crf, PreOperativeData $preoperative, Echocardiography $echocardiography)
     {
         return Inertia::render('CaseReportForm/FormFields/Echocardiography/Edit', [
             'crf' => $crf,
@@ -62,7 +68,7 @@ class PreOperativeEchocardiographyController extends Controller
             'backUrl' => route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative])
         ]);
     }
-    public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative,Echocardiography $echocardiography, EchocardiographyService $echocardiographyService)
+    public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, Echocardiography $echocardiography, EchocardiographyService $echocardiographyService)
     {
         $echocardiographyService->updatePreoperativeEchocardiography($request, $echocardiography);
         return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative])->with(['message' => 'Updated Successfully']);

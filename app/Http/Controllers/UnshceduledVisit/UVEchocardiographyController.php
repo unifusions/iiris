@@ -9,6 +9,7 @@ use App\Models\UnscheduledVisit;
 use App\Services\EchocardiographyService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\EchoDicomFile;
 
 class UVEchocardiographyController extends Controller
 {
@@ -29,7 +30,20 @@ class UVEchocardiographyController extends Controller
     }
     public function store(Request $request, CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, EchocardiographyService $echocardiographyService)
     {
-        $echocardiographyService->createUSVEchocardiography($request);
+        $echocardiography = $echocardiographyService->createUSVEchocardiography($request);
+        if (isset($request->files)) {
+            $files = $request->file('files');
+            foreach ($files as $file) {
+            $echodicomfilemodel = new EchoDicomFile;
+                $fileName = $file->getClientOriginalName();
+                $uploadpath = 'uploads/' . $crf->subject_id . '/scheduledvisit/' . $unscheduledvisit->visit_no . '/';
+                $filepath = $file->storeAs($uploadpath, $fileName, 'public');
+                $echodicomfilemodel->echocardiography_id = $echocardiography->id;
+                $echodicomfilemodel->file_name = $fileName;
+                $echodicomfilemodel->file_path = $filepath;
+                $echodicomfilemodel->save();
+            }
+        }
         return redirect()->route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]);
     }
     public function show($id)

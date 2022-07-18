@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PostOperative;
 use App\Http\Controllers\Controller;
 use App\Models\CaseReportForm;
 use App\Models\Echocardiography;
+use App\Models\EchoDicomFile;
 use App\Models\PostOperativeData;
 use App\Services\EchocardiographyService;
 use Illuminate\Http\Request;
@@ -29,7 +30,23 @@ class EchocardiographyController extends Controller
     }
     public function store(Request $request, CaseReportForm $crf, PostOperativeData $postoperative, EchocardiographyService $echocardiographyService)
     {
-        $echocardiographyService->createPostoperativeEchocardiography($request);
+        $echocardiography = $echocardiographyService->createPostoperativeEchocardiography($request);
+        if (isset($request->files)) {
+            
+            $files = $request->file('files');
+            foreach ($files as $file) {
+             
+                   
+                $echodicomfilemodel = new EchoDicomFile;
+                $fileName = $file->getClientOriginalName();
+                $uploadpath = 'uploads/' . $crf->subject_id . '/postoperative';
+                $filepath = $file->storeAs($uploadpath, $fileName, 'public');
+                $echodicomfilemodel->echocardiography_id = $echocardiography->id;
+                $echodicomfilemodel->file_name = $fileName;
+                $echodicomfilemodel->file_path = $filepath;
+                $echodicomfilemodel->save();
+            }
+        }
         return redirect()->route('crf.postoperative.show', ['crf' => $crf, 'postoperative' => $postoperative]);
     }
     public function show($id)

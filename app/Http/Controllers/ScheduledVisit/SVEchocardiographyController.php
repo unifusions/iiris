@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ScheduledVisit;
 use App\Http\Controllers\Controller;
 use App\Models\CaseReportForm;
 use App\Models\Echocardiography;
+use App\Models\EchoDicomFile;
 use App\Models\ScheduledVisit;
 use App\Services\EchocardiographyService;
 use Illuminate\Http\Request;
@@ -29,7 +30,20 @@ class SVEchocardiographyController extends Controller
     }
     public function store(Request $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit, EchocardiographyService $echocardiographyService)
     {
-        $echocardiographyService->createSVEchocardiography($request);
+        $echocardiography= $echocardiographyService->createSVEchocardiography($request);
+        if (isset($request->files)) {
+            $files = $request->file('files');
+            foreach ($files as $file) {
+            $echodicomfilemodel = new EchoDicomFile;
+                $fileName = $file->getClientOriginalName();
+                $uploadpath = 'uploads/' . $crf->subject_id . '/scheduledvisit/' . $scheduledvisit->visit_no . '/';
+                $filepath = $file->storeAs($uploadpath, $fileName, 'public');
+                $echodicomfilemodel->echocardiography_id = $echocardiography->id;
+                $echodicomfilemodel->file_name = $fileName;
+                $echodicomfilemodel->file_path = $filepath;
+                $echodicomfilemodel->save();
+            }
+        }
         return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit]);
     }
     public function show($id)
