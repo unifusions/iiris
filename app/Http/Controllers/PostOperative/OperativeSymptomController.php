@@ -39,7 +39,7 @@ class OperativeSymptomController extends Controller
     {
 
         if ($operativeSymptomsService->createPostOperativeSymptoms($request))
-            return redirect()->route('crf.postoperative.index', ['crf' => $crf, 'postoperative' => $postoperative]);
+            return redirect()->route('crf.postoperative.show', [$crf, $postoperative]);
     }
 
 
@@ -67,7 +67,7 @@ class OperativeSymptomController extends Controller
     {
 
         if ($operativeSymptomsService->updateOperativeSymptoms($request))
-            return redirect()->route('crf.postoperative.show', ['crf' => $crf, 'postoperative' => $postoperative]);
+            return redirect()->route('crf.postoperative.show', [$crf, $postoperative]);
     }
 
     public function destroy($id)

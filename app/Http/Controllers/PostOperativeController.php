@@ -12,9 +12,7 @@ class PostOperativeController extends Controller
    
     public function index(CaseReportForm $crf)
     {
-        if ($crf->postoperatives)
-            $postoperative = $crf->postoperatives;
-        return view('casereportforms.PostOperativeData.index', compact('crf', 'postoperative'));
+      
     }
 
    
