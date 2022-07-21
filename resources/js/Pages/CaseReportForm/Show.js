@@ -98,7 +98,7 @@ return (
                                         <Link href={backUrl} className="btn btn-secondary" method="get" type="button" as="button">Back</Link>
                                    </div>
                                   <CaseReportFormData crf= {crf} />
-                                   <Tab.Container id="left-tabs-example" defaultActiveKey="preoperative">
+                                   {/* <Tab.Container id="left-tabs-example" defaultActiveKey="preoperative">
                                         <Row className='align-items-stretch'>
                                              <Col md={3} lg={2}>
                                                   <div className='menu-bar'>
@@ -144,7 +144,7 @@ return (
                                                   </Tab.Content>
                                              </Col>
                                         </Row>
-                                   </Tab.Container>
+                                   </Tab.Container> */}
                                              
                                  
                                    
