@@ -5,7 +5,7 @@ import { Row, Col } from 'react-bootstrap';
 import { method } from 'lodash';
 
 export default function FormDataHelper() {
-     return( <></>)
+     return (<></>)
 }
 
 export function RenderUnits({ units }) {
@@ -19,10 +19,12 @@ export function RenderFieldDatas({ labelText, value, units }) {
                <Col md={4} className='text-secondary'>
                     {labelText}
                </Col>
-               <Col md={8}>{value} 
-                    {units !== 'undefined' &&
-                         <RenderUnits units={units} />
-                    }
+               <Col md={8}>
+                    {value !== null ? <>{value}
+                         {units !== 'undefined' &&
+                              <RenderUnits units={units} />
+                         }</> : <span className='fw-normal text-secondary fst-italic'>No data available</span>}
+
 
                </Col>
           </Row>
@@ -32,7 +34,7 @@ export function RenderFieldDatas({ labelText, value, units }) {
 export function RenderCreateButton({ createUrl, className }) {
 
      return (
-          <Link method='get' href={createUrl} type='button'className={`btn btn-primary ${className}`} >Create</Link>
+          <Link method='get' href={createUrl} type='button' className={`btn btn-primary ${className}`} >Create</Link>
      )
 }
 

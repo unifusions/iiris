@@ -31,14 +31,10 @@ class PreOperativeEchocardiographyController extends Controller
     }
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, EchocardiographyService $echocardiographyService)
     {
-         $echocardiography = $echocardiographyService->createPreoperativeEchocardiography($request);
-
-        if (isset($request->files)) {
-            
-            $files = $request->file('files');
+        $echocardiography = $echocardiographyService->createPreoperativeEchocardiography($request);
+        $files = $request->file('files');
+        if (!isEmpty($files)) {
             foreach ($files as $file) {
-             
-                   
                 $echodicomfilemodel = new EchoDicomFile;
                 $fileName = $file->getClientOriginalName();
                 $uploadpath = 'uploads/' . $crf->subject_id . '/preoperative';

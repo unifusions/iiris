@@ -54,8 +54,10 @@ const Create = () => {
                     return post(route(`${postUrl}`, { crf: crf, preoperative: preoperative }));
                case 'postoperative':
                     return post(route(`${postUrl}`, { crf: crf, postoperative: postoperative }));;
-                    case 'scheduledvisit':
-                         return post(route(`${postUrl}`, { crf: crf, scheduledvisit: scheduledvisit }));
+               case 'scheduledvisit':
+                    return post(route(`${postUrl}`, { crf: crf, scheduledvisit: scheduledvisit }));
+               case 'unscheduledvisit':
+                    return post(route(`${postUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit }));
 
           }
      }
@@ -114,11 +116,11 @@ const Create = () => {
      }
      function handlePalpitationDurationYears(e) {
           const varDur = { ...data.palpitation_duration, 'years': e.target.value };
-          setData('syncope_duration', varDur)
+          setData('palpitation_duration', varDur)
      }
 
-      // Giddiness
-      function handleGiddinessDurationDays(e) {
+     // Giddiness
+     function handleGiddinessDurationDays(e) {
           const varDur = { ...data.giddiness_duration, 'days': e.target.value };
           setData('giddiness_duration', varDur)
      }
@@ -190,10 +192,10 @@ const Create = () => {
                </>
                }
           >
-             
+
                <Head title="Create New Case Report Form" />
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle='Create Symptoms' role={roles} />
+                    <PageTitle backUrl={backUrl} pageTitle={`${title} Symptoms`} role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
@@ -480,7 +482,7 @@ const Create = () => {
                                              name="heart_failure_admission"
                                              options={boolRadios}
                                              handleChange={e => setData('heart_failure_admission', e.target.value)}
-                                             selectedValue={data.heart_failure_admission }
+                                             selectedValue={data.heart_failure_admission}
                                              error={errors.heart_failure_admission}
                                              className={`${errors.heart_failure_admission ? 'is-invalid' : ''}`}
                                         />

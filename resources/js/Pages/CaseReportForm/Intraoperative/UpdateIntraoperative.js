@@ -24,10 +24,10 @@ export default function UpdateIntraOperative({ crf, intraoperative, role }) {
           tcb_time: intraoperative.tcb_time || '',
           acc_time: intraoperative.acc_time || '',
           concomitant_procedure: intraoperative.concomitant_procedure || '',
-          all_paravalvular_leak: intraoperative.all_paravalvular_leak ===1 ? '1' : '0' || '',
+          all_paravalvular_leak: intraoperative.all_paravalvular_leak === 1 ? '1' : '0' || '',
           all_paravalvular_leak_specify: intraoperative.all_paravalvular_leak_specify || '',
 
-          major_paravalvular_leak: intraoperative.major_paravalvular_leak  ===1 ? '1' : '0'|| '',
+          major_paravalvular_leak: intraoperative.major_paravalvular_leak === 1 ? '1' : '0' || '',
           major_paravalvular_leak_specify: intraoperative.major_paravalvular_leak_specify || ''
      });
 
@@ -170,7 +170,7 @@ export default function UpdateIntraOperative({ crf, intraoperative, role }) {
 
                     </div>
                     <FormRadio
-                         type="radio" labelText="All paravalvular leak"
+                         type="radio" labelText="All Paravalvular Leak"
                          name="all_paravalvular_leak"
                          options={boolRadios}
                          selectedValue={data.all_paravalvular_leak}
@@ -178,12 +178,16 @@ export default function UpdateIntraOperative({ crf, intraoperative, role }) {
                          error={errors.all_paravalvular_leak}
                          className={`${errors.all_paravalvular_leak ? 'is-invalid' : ''}`} />
 
-                    <FormInput
+                    {data.all_paravalvular_leak === '0' ? <FormInput
                          type="text"
                          className={`${errors.all_paravalvular_leak_specify && 'is-invalid '}`}
                          value={data.all_paravalvular_leak_specify}
-                         error={errors.all_paravalvular_leak_specify} labelText="Specify"
-                         handleChange={e => setData('all_paravalvular_leak_specify', e.target.value)} />
+                         error={errors.all_paravalvular_leak_specify} labelText="If No, please Specify"
+                         handleChange={e => setData('all_paravalvular_leak_specify', e.target.value)}
+
+                    /> : ''
+                    }
+
 
                     <FormRadio
                          type="radio" labelText="Major Pravalvular Leak"
@@ -194,14 +198,15 @@ export default function UpdateIntraOperative({ crf, intraoperative, role }) {
                          error={errors.major_paravalvular_leak}
                          className={`${errors.major_paravalvular_leak ? 'is-invalid' : ''}`} />
 
-                    <FormInput
+
+                    {data.major_paravalvular_leak === '0' ? <FormInput
                          type="text"
                          className={`${errors.major_paravalvular_leak_specify && 'is-invalid '}`}
                          value={data.major_paravalvular_leak_specify}
                          error={errors.major_paravalvular_leak_specify} labelText="Specify"
-                         handleChange={e => setData('major_paravalvular_leak_specify', e.target.value)} />
+                         handleChange={e => setData('major_paravalvular_leak_specify', e.target.value)} /> : ''
+                    }
 
-                    
 
                     <hr />
                     {role.coordinator && <FormButton processing={processing} labelText='Update' type="submit" mode="warning" />}

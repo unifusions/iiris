@@ -48,7 +48,7 @@ const Create = () => {
                </>
                }
           >
-               <Head title="Medical History" />
+               <Head title="Family History" />
 
 
                <Container>

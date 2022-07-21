@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Row, Col } from "react-bootstrap";
-const FormInput = ({ type = 'text', name, value, className, autoComplete, required, isFocused, handleChange, labelText, error }) => {
+const FormInput = ({ type = 'text', name, value, className, autoComplete, required, isFocused, handleChange, labelText, error, disabled }) => {
 
      const input = useRef();
      useEffect(() => { if (isFocused) { input.current.focus(); } }, []);
@@ -18,7 +18,7 @@ const FormInput = ({ type = 'text', name, value, className, autoComplete, requir
                          autoComplete={autoComplete}
                          required={required}
                          onChange={(e) => handleChange(e)}
-                        
+                         disabled = {disabled}
                     />
                     {error && <div class="invalid-feedback">
                          {error}

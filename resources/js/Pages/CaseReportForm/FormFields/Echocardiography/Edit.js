@@ -75,9 +75,9 @@ const Create = () => {
                }
           >
 
-               <Head title="Create Personal History" />
+               <Head title="Edit Echocardiography" />
                <Container>
-                    <PageTitle backUrl={backUrl} pageTitle='Edit Echocardiography' role={roles}/>
+                    <PageTitle backUrl={backUrl} pageTitle='Echocardiography' role={roles}/>
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit}>

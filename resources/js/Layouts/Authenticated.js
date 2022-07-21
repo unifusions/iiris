@@ -131,12 +131,6 @@ export default function Authenticated(props) {
                                     </Link>
                                 </li>
 
-                                <li className="nav-item">
-                                    <Link className="nav-link" href="#">
-                                        <QuestionMarkCircleIcon className='menu-arrow' style={iconStyle} />
-                                        <span className="menu-title ms-1">Queries</span>
-                                    </Link>
-                                </li>
 
                                 <li className="nav-item">
                                     <Link className="nav-link" href={route('tickets.index')}>

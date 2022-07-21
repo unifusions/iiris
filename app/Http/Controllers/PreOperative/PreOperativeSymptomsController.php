@@ -103,7 +103,7 @@ class PreOperativeSymptomsController extends Controller
     {
 
         if ($operativeSymptomsService->updateOperativeSymptoms($request))
-            return redirect()->route('crf.preoperative.index', ['crf' => $crf, 'preoperative' => $preoperative]);
+            return redirect()->route('crf.preoperative.show', [$crf, $preoperative]);
     }
 
     public function destroy($id)

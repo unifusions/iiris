@@ -57,8 +57,8 @@ const Create = () => {
                     return post(route(`${postUrl}`, { crf: crf, postoperative: postoperative }));
                case 'scheduledvisit':
                     return post(route(`${postUrl}`, { crf: crf, scheduledvisit: scheduledvisit }));
-                    case 'unscheduledvisit':
-                         return post(route(`${postUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit }));
+               case 'unscheduledvisit':
+                    return post(route(`${postUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit }));
 
           }
      }
@@ -83,7 +83,7 @@ const Create = () => {
 
                <Head title="Create Personal History" />
                <Container>
-                    <PageTitle backUrl={backUrl} pageTitle='Create Personal History' role={roles} />
+                    <PageTitle backUrl={backUrl} pageTitle='Personal History' role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
@@ -106,7 +106,7 @@ const Create = () => {
                                         {data.smoking !== 'Never' &&
                                              <>
                                                   <FormInput
-                                                       labelText='No. of Cigaretters/day'
+                                                       labelText='No. of Cigarettes/day'
                                                        type="number"
                                                        error={errors.cigarettes}
                                                        handleChange={e => setData('cigarettes', e.target.value)}
@@ -143,7 +143,7 @@ const Create = () => {
                                         selectedValue={data.alchohol}
                                         options={consumptionOptions}
                                         handleChange={e => setData('alchohol', e.target.value)}
-                                       
+
                                         error={errors.alchohol}
                                         className={`${errors.alchohol ? 'is-invalid' : ''}`}
                                         required
@@ -174,6 +174,7 @@ const Create = () => {
                                                             value={data.alchohol_stopped}
                                                             handleChange={(date) => setData('alchohol_stopped', new Date(date))}
                                                             className={`${errors.alchohol_stopped ? 'is-invalid' : ''}`}
+                                                            
                                                        />
                                                   }
                                              </>

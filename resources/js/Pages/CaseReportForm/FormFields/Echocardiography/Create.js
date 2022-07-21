@@ -78,9 +78,12 @@ const Create = () => {
 
                <Head title="Create Echocardiography" />
                <Container>
-                    <PageTitle backUrl={backUrl} pageTitle='Create Echocardiography' role={roles} />
+                    <PageTitle backUrl={backUrl} pageTitle='Echocardiography' role={roles} />
+                  
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
+                         <h3 className="font-semibold text-l text-gray-800 leading-tight">Effectiveness</h3>
+                         <hr/>
                               <form onSubmit={handlesubmit}>
 
                                    <FormCalendar

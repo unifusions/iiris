@@ -66,7 +66,7 @@ const Create = () => {
           >
                <Head title="Create New Case Report Form" />
                <Container>
-                    <PageTitle backUrl={backUrl} pageTitle='Create Physical Examination' role={roles} />
+                    <PageTitle backUrl={backUrl} pageTitle='Physical Examination' role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
@@ -77,12 +77,13 @@ const Create = () => {
                                              type="number"
                                              className={`${errors.height && 'is-invalid '}`}
                                              error={errors.height} labelText="Height"
-                                             handleChange={e => setData('height', e.target.value.toString().split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
-                                             units='cms'
-                                             value={data.height}
+                                             // handleChange={e => setData('height', e.target.value.toString().split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                             handleChange={e => setData('height', e.target.value.toString().slice(0, 6).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join(".")) }
+                                        units='cms'
+                                        value={data.height}
 
 
-                                             onBlur={updateBsa}
+                                        onBlur={updateBsa}
                                              required />
 
                                         <FormInputWithLabel

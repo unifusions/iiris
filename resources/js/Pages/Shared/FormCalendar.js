@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { Row, Col } from "react-bootstrap";
-import Flatpickr from 'react-flatpickr';
+
 
 import ReactDatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-const FormCalendar = ({ type = 'text', name, value, className, minDate, autoComplete, required, isFocused, handleChange, labelText, error }) => {
+const FormCalendar = ({ type = 'text', name, value, className, minDate, autoComplete, required, isFocused, handleChange, labelText, error, showYearPicker }) => {
 
      const input = useRef(null);
      useEffect(() => { if (isFocused) { input.current.focus(); } }, []);
@@ -27,8 +27,9 @@ const FormCalendar = ({ type = 'text', name, value, className, minDate, autoComp
                          name={name}
                          selected={value !== '' && new Date(value)}
                          onChange={(date) => handleChange(date)}
-                         className={`form-control ` + className} />
-
+                         className={`form-control ` + className} 
+                         showYearPicker = {showYearPicker}/>
+                  
 
                     {error && <div class="invalid-feedback">
                          {error}

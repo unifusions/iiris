@@ -11,11 +11,12 @@ use App\Services\EchocardiographyService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+use function PHPUnit\Framework\isEmpty;
+
 class SVEchocardiographyController extends Controller
 {
     public function index(ScheduledVisit $scheduledvisit)
     {
-      
     }
     public function create(CaseReportForm $crf, ScheduledVisit $scheduledvisit)
     {
@@ -26,15 +27,16 @@ class SVEchocardiographyController extends Controller
             'postUrl' => 'crf.scheduledvisit.echocardiography.store',
             'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit])
         ]);
-
     }
     public function store(Request $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit, EchocardiographyService $echocardiographyService)
     {
-        $echocardiography= $echocardiographyService->createSVEchocardiography($request);
-        if (isset($request->files)) {
-            $files = $request->file('files');
+        $echocardiography = $echocardiographyService->createSVEchocardiography($request);
+
+        $files = $request->file('files');
+        if (!isEmpty($files)) {
+
             foreach ($files as $file) {
-            $echodicomfilemodel = new EchoDicomFile;
+                $echodicomfilemodel = new EchoDicomFile;
                 $fileName = $file->getClientOriginalName();
                 $uploadpath = 'uploads/' . $crf->subject_id . '/scheduledvisit/' . $scheduledvisit->visit_no . '/';
                 $filepath = $file->storeAs($uploadpath, $fileName, 'public');

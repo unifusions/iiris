@@ -11,6 +11,8 @@ use App\Services\EchocardiographyService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+use function PHPUnit\Framework\isEmpty;
+
 class EchocardiographyController extends Controller
 {
     public function index(PostOperativeData $postoperative)
@@ -26,17 +28,15 @@ class EchocardiographyController extends Controller
             'postUrl' => 'crf.postoperative.echocardiography.store',
             'backUrl' => route('crf.postoperative.show', ['crf' => $crf, 'postoperative' => $postoperative])
         ]);
-
     }
     public function store(Request $request, CaseReportForm $crf, PostOperativeData $postoperative, EchocardiographyService $echocardiographyService)
     {
         $echocardiography = $echocardiographyService->createPostoperativeEchocardiography($request);
-        if (isset($request->files)) {
-            
-            $files = $request->file('files');
+
+
+        $files = $request->file('files');
+        if (!isEmpty($files)) {
             foreach ($files as $file) {
-             
-                   
                 $echodicomfilemodel = new EchoDicomFile;
                 $fileName = $file->getClientOriginalName();
                 $uploadpath = 'uploads/' . $crf->subject_id . '/postoperative';
@@ -47,6 +47,7 @@ class EchocardiographyController extends Controller
                 $echodicomfilemodel->save();
             }
         }
+
         return redirect()->route('crf.postoperative.show', ['crf' => $crf, 'postoperative' => $postoperative]);
     }
     public function show($id)
@@ -71,6 +72,6 @@ class EchocardiographyController extends Controller
     }
     public function destroy($id)
     {
-        //
+        
     }
 }

@@ -14,7 +14,9 @@ import PageTitle from "@/Pages/Shared/PageTitle";
 
 
 const Edit = () => {
-     const { auth, roles, putUrl, mode, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, backUrl, symptom } = usePage().props;
+     const { auth, roles, putUrl, mode, crf, preoperative, postoperative, scheduledvisit,
+           unscheduledvisit, backUrl, symptom,
+           title  } = usePage().props;
      const { data, setData, errors, put, processing, hasErrors, transform } = useForm({
           case_report_form_id: crf.id,
           pre_operative_data_id: symptom.pre_operative_data_id,
@@ -23,29 +25,29 @@ const Edit = () => {
           symptoms: symptom.symptoms !== null ? symptom.symptoms ? '1' : '0' : null,
           angina: symptom.angina !== null ? symptom.angina ? '1' : '0' : null,
           angina_class: symptom.angina_class !== null ? symptom.angina_class : null,
-          angina_duration: symptom.angina_duration !== null ? symptom.angina_duration : null,
+          angina_duration: symptom.angina_duration !== null ? symptom.angina_duration : '',
 
-          dyspnea: symptom.dyspnea !== null ? symptom.dyspnea ? '1' : '0' : null, 
-          dyspnea_class: '', 
+          dyspnea: symptom.dyspnea !== null ? symptom.dyspnea ? '1' : '0' : null,
+          dyspnea_class: '',
           dyspnea_duration: symptom.dyspnea_duration,
 
           syncope: symptom.syncope !== null ? symptom.syncope ? '1' : '0' : null,
           syncope_duration: symptom.syncope_duration,
 
-          palpitation: symptom.palpitation !== null ? symptom.palpitation ? '1' : '0' : null, 
+          palpitation: symptom.palpitation !== null ? symptom.palpitation ? '1' : '0' : null,
           palpitation_duration: symptom.palpitation_duration,
-          
-          giddiness: symptom.giddiness !== null ? symptom.giddiness ? '1' : '0' : null, 
+
+          giddiness: symptom.giddiness !== null ? symptom.giddiness ? '1' : '0' : null,
           giddiness_duration: symptom.giddiness_duration,
-          
-          fever: symptom.fever !== null ? symptom.fever ? '1' : '0' : null, 
+
+          fever: symptom.fever !== null ? symptom.fever ? '1' : '0' : null,
           fever_duration: symptom.fever_duration,
 
-          heart_failure_admission: symptom.heart_failure_admission !== null ? symptom.heart_failure_admission ? '1' : '0' : null, 
+          heart_failure_admission: symptom.heart_failure_admission !== null ? symptom.heart_failure_admission ? '1' : '0' : null,
           heart_failure_admission_duration: symptom.heart_failure_admission_duration,
-          others: symptom.others !== null ? symptom.others ? '1' : '0' : null, 
-          others_text: symptom.others_text || '', 
-          others_duration: symptom.others_duration 
+          others: symptom.others !== null ? symptom.others ? '1' : '0' : null,
+          others_text: symptom.others_text || '',
+          others_duration: symptom.others_duration
      });
 
 
@@ -72,7 +74,10 @@ const Edit = () => {
                     return put(route(`${putUrl}`, { crf: crf, preoperative: preoperative, symptom: symptom }));
                case 'postoperative':
                     return put(route(`${putUrl}`, { crf: crf, postoperative: postoperative, symptom: symptom }));;
-
+               case 'scheduledvisit':
+                    return post(route(`${postUrl}`, { crf: crf, scheduledvisit: scheduledvisit }));
+               case 'unscheduledvisit':
+                    return post(route(`${postUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit }));
 
           }
      }
@@ -131,11 +136,11 @@ const Edit = () => {
      }
      function handlePalpitationDurationYears(e) {
           const varDur = { ...data.palpitation_duration, 'years': e.target.value };
-          setData('syncope_duration', varDur)
+          setData('palpitation_duration', varDur)
      }
 
-      // Giddiness
-      function handleGiddinessDurationDays(e) {
+     // Giddiness
+     function handleGiddinessDurationDays(e) {
           const varDur = { ...data.giddiness_duration, 'days': e.target.value };
           setData('giddiness_duration', varDur)
      }
@@ -191,7 +196,6 @@ const Edit = () => {
           setData('others_duration', varDur)
      }
 
-
      return (
           <Authenticated
                auth={auth}
@@ -210,36 +214,35 @@ const Edit = () => {
 
                <Head title="Create New Case Report Form" />
                <Container>
-                    <PageTitle backUrl={backUrl} pageTitle='Edit Symptoms' role={roles} />
+                    <PageTitle backUrl={backUrl} pageTitle={`${title} Symptoms`} role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
-                              <form onSubmit={handlesubmit}
+                         <form onSubmit={handlesubmit}
                               // className={hasErrors && 'was-validated'}
                               >
 
                                    <FormRadio
                                         type="radio"
-                                        labelText="Symptoms"
-                                        selectedValue={data.symptoms} name="symptoms"
+                                        labelText={`History of ${title} Symptoms ?`}
+                                        name="symptoms"
                                         options={boolRadios}
                                         handleChange={e => setData('symptoms', e.target.value)}
-                                        checked={data.symptoms !== '' && data.symptoms}
+                                        selectedValue={data.symptoms}
                                         error={errors.symptoms}
                                         className={`${errors.symptoms ? 'is-invalid' : ''}`}
                                    />
 
                                    <hr />
-
-                                   {data.symptoms === '1' ? <>
+                                   {data.symptoms === '1' && <>
                                         <FormRadio
                                              type="radio"
-                                             selectedValue={data.angina}
+
                                              labelText="Angina on Exertion"
                                              name="angina"
                                              options={boolRadios}
                                              handleChange={e => setData('angina', e.target.value)}
-                                             checked={data.angina !== '' && data.angina}
+                                             selectedValue={data.angina}
                                              error={errors.angina}
                                              className={`${errors.angina ? 'is-invalid' : ''}`}
                                         />
@@ -248,33 +251,31 @@ const Edit = () => {
                                                   type="radio"
                                                   labelText="Class"
                                                   name="angina_class"
-                                                  selectedValue={data.angina_class}
                                                   options={anginaClassRadios}
                                                   handleChange={e => setData('angina_class', e.target.value)}
-
+                                                  selectedValue={data.angina_class}
                                                   error={errors.angina_class}
                                                   className={`${errors.angina_class ? 'is-invalid' : ''}`}
                                              />
-
                                              <Row className="mb-3">
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.angina_duration !== null ? data.angina_duration.days : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleAnginaDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.angina_duration !== null ? data.angina_duration.months : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleAnginaDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.angina_duration !== null ? data.angina_duration.years : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleAnginaDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -285,14 +286,13 @@ const Edit = () => {
                                         </>}
                                         <hr />
 
-                                        <FormRadio type="radio"
+                                        <FormRadio
+                                             type="radio"
                                              labelText="Dyspnea on Exertion"
                                              name="dyspnea"
-                                             selectedValue={data.dyspnea}
-
                                              options={boolRadios}
                                              handleChange={e => setData('dyspnea', e.target.value)}
-
+                                             selectedValue={data.dyspnea}
                                              error={errors.dyspnea}
                                              className={`${errors.dyspnea ? 'is-invalid' : ''}`}
                                         />
@@ -311,21 +311,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.dyspnea_duration !== null ? data.dyspnea_duration.days : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleDyspneaDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.dyspnea_duration !== null ? data.dyspnea_duration.months : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleDyspneaDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.dyspnea_duration !== null ? data.dyspnea_duration.years : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleDyspneaDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -338,11 +338,10 @@ const Edit = () => {
 
                                         <FormRadio type="radio"
                                              labelText="Syncope"
-                                             selectedValue={data.syncope}
                                              name="syncope"
                                              options={boolRadios}
                                              handleChange={e => setData('syncope', e.target.value)}
-
+                                             selectedValue={data.syncope}
                                              error={errors.syncope}
                                              className={`${errors.syncope ? 'is-invalid' : ''}`}
                                         />
@@ -352,21 +351,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.syncope_duration !== null ? data.syncope_duration.days : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleSyncopeDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.syncope_duration !== null ? data.syncope_duration.months : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleSyncopeDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.syncope_duration !== null ? data.syncope_duration.years : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleSyncopeDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -379,10 +378,10 @@ const Edit = () => {
 
                                         <FormRadio type="radio"
                                              labelText="Palpitation"
-                                             selectedValue={data.palpitation}
                                              name="palpitation"
                                              options={boolRadios}
                                              handleChange={e => setData('palpitation', e.target.value)}
+                                             selectedValue={data.palpitation}
                                              error={errors.palpitation}
                                              className={`${errors.palpitation ? 'is-invalid' : ''}`}
                                         />
@@ -392,21 +391,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.palpitation_duration !== null ? data.palpitation_duration.days : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handlePalpitationDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.palpitation_duration !== null ? data.palpitation_duration.months : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handlePalpitationDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.palpitation_duration !== null ? data.palpitation_duration.years : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handlePalpitationDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -419,11 +418,10 @@ const Edit = () => {
 
                                         <FormRadio type="radio"
                                              labelText="Giddiness"
-                                             selectedValue={data.giddiness}
                                              name="giddiness"
                                              options={boolRadios}
                                              handleChange={e => setData('giddiness', e.target.value)}
-
+                                             selectedValue={data.giddiness}
                                              error={errors.giddiness}
                                              className={`${errors.giddiness ? 'is-invalid' : ''}`}
                                         />
@@ -433,21 +431,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.giddiness_duration !== null ? data.giddiness_duration.days : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleGiddinessDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.giddiness_duration !== null ? data.giddiness_duration.months : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleGiddinessDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.giddiness_duration !== null ? data.giddiness_duration.years : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleGiddinessDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -460,10 +458,10 @@ const Edit = () => {
 
                                         <FormRadio type="radio"
                                              labelText="Fever"
-                                             selectedValue={data.fever}
                                              name="fever"
                                              options={boolRadios}
                                              handleChange={e => setData('fever', e.target.value)}
+                                             selectedValue={data.fever}
                                              error={errors.fever}
                                              className={`${errors.fever ? 'is-invalid' : ''}`}
                                         />
@@ -473,21 +471,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.fever_duration !== null ? data.fever_duration.days : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleFeverDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.fever_duration !== null ? data.fever_duration.months : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleFeverDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.fever_duration !== null ? data.fever_duration.years : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleFeverDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -501,9 +499,9 @@ const Edit = () => {
                                         <FormRadio type="radio"
                                              labelText="Heart Failure Admission"
                                              name="heart_failure_admission"
-                                             selectedValue={data.heart_failure_admission}
                                              options={boolRadios}
                                              handleChange={e => setData('heart_failure_admission', e.target.value)}
+                                             selectedValue={data.heart_failure_admission}
                                              error={errors.heart_failure_admission}
                                              className={`${errors.heart_failure_admission ? 'is-invalid' : ''}`}
                                         />
@@ -513,21 +511,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.heart_failure_admission_duration !== null ? data.heart_failure_admission_duration.days : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleHeartFailureDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.heart_failure_admission_duration !== null ? data.heart_failure_admission_duration.months : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleHeartFailureDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.heart_failure_admission_duration !== null ? data.heart_failure_admission_duration.years : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleHeartFailureDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -540,11 +538,10 @@ const Edit = () => {
 
                                         <FormRadio type="radio"
                                              labelText="Others"
-                                             selectedValue={data.others}
                                              name="others"
                                              options={boolRadios}
                                              handleChange={e => setData('others', e.target.value)}
-
+                                             selectedValue={data.others}
                                              error={errors.others}
                                              className={`${errors.others ? 'is-invalid' : ''}`}
                                         />
@@ -552,7 +549,6 @@ const Edit = () => {
                                              <FormInput type="text"
                                                   name="others_text"
                                                   labelText="Others"
-                                                  value={data.others_text}
                                                   handleChange={e => setData('others_text', e.target.value)}
                                                   error={errors.others_text}
                                                   className={`${errors.others_text ? 'is-invalid' : ''}`}
@@ -561,21 +557,21 @@ const Edit = () => {
                                                   <Col md={3}><span className="text-secondary">Duration</span></Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.others_duration !== null ? data.others_duration.days : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleOthersDurationDays(e)} />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.others_duration !== null ? data.others_duration.months : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleOthersDurationMonths(e)} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
-                                                            <input type="number" className="form-control with-units" value={data.others_duration !== null ? data.others_duration.years : ''}
+                                                            <input type="number" className="form-control with-units"
                                                                  onChange={e => handleOthersDurationYears(e)} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
@@ -586,8 +582,9 @@ const Edit = () => {
                                         </>}
                                         <hr />
 
-                                   </> : ''}
-                                   <FormButton processing={processing} labelText='Update' type="submit" mode="primary" />
+                                   </>}
+
+                                   <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />
 
                               </form>
                          </Card.Body>

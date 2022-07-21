@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\EchoDicomFile;
 
+use function PHPUnit\Framework\isEmpty;
+
 class UVEchocardiographyController extends Controller
 {
     public function index(UnscheduledVisit $unscheduledvisit)
@@ -31,8 +33,9 @@ class UVEchocardiographyController extends Controller
     public function store(Request $request, CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, EchocardiographyService $echocardiographyService)
     {
         $echocardiography = $echocardiographyService->createUSVEchocardiography($request);
-        if (isset($request->files)) {
-            $files = $request->file('files');
+        $files = $request->file('files');
+        if (!isEmpty($files)) {
+           
             foreach ($files as $file) {
             $echodicomfilemodel = new EchoDicomFile;
                 $fileName = $file->getClientOriginalName();

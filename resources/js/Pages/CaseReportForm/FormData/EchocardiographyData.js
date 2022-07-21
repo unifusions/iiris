@@ -45,7 +45,7 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
                          <>
                               <RenderFieldDatas labelText='Date of Investigation' value={new Date(echocardiographies.echodate).toLocaleString('en-in', options)} />
                               <RenderFieldDatas labelText='Peak Velocity' value={echocardiographies.peak_velocity} units='mmHg' />
-                              <RenderFieldDatas labelText='Velocity Time Integral' value={echocardiographies.velocity_time_integral} units='cm' />
+                              <RenderFieldDatas labelText='Velocity Time Integral(Aortic Valve)' value={echocardiographies.velocity_time_integral} units='cm' />
                               <RenderFieldDatas labelText='Peak Gradient' value={echocardiographies.peak_gradient} units='mmHg' />
                               <RenderFieldDatas labelText='Mean Gradient' value={echocardiographies.mean_gradient} units='mmHg' />
                               <RenderFieldDatas labelText='Heart Rate' value={echocardiographies.heart_rate} units='bpm' />

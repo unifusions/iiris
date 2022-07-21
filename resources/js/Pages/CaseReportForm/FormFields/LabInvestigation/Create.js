@@ -72,12 +72,14 @@ const Create = () => {
                }
           >
 
-               <Head title="Create Personal History" />
+               <Head title="Create Lab Investigation" />
                <Container>
-                    <PageTitle backUrl={backUrl} pageTitle='Create Lab Investigation' role={roles} />
+                    <PageTitle backUrl={backUrl} pageTitle='Lab Investigation' role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
+                         <h3 className="font-semibold text-l text-gray-800 leading-tight">Blood Test</h3>
+                         <hr/>
                               <form onSubmit={handlesubmit}>
 
                                    <FormCalendar
