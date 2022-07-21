@@ -6,6 +6,7 @@ import MiniLogo from './MiniLogo';
 import BrandLogo from './BrandLogo';
 
 
+
 const iconStyle = {
      width: 24,
      height: 24
@@ -69,7 +70,7 @@ export default class NavBar extends React.Component {
                                              <a className="dropdown-item"><i className="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i> Activity</a>
                                              <a className="dropdown-item"><i className="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i> FAQ</a> */}
 
-                                        <Link href="/logout" className="dropdown-item" method="post" as="button" type="submit">
+                                        <Link href={route('logout')} className="dropdown-item" method="post" as="button" type="submit">
                                              <LogoutIcon style={{ width: 20, height: 20 }} className="me-3" />Sign Out
                                         </Link>
 
