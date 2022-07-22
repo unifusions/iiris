@@ -36,6 +36,7 @@ export default function Show() {
                               physicalexamination={physicalexamination}
                               enableActions={unscheduledvisit.is_submitted}
                               role={roles}
+                              showHWB = {true}
                               createUrl={route('crf.unscheduledvisit.physicalexamination.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
                               editUrl={physicalexamination !== null && route('crf.unscheduledvisit.physicalexamination.edit', { crf: crf, unscheduledvisit: unscheduledvisit, physicalexamination: physicalexamination })}
                          />

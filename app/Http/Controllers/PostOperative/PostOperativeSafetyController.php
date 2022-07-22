@@ -67,7 +67,24 @@ class PostOperativeSafetyController extends Controller
             'explant' => $request->explant,
             'haemolysis' => $request->haemolysis,
             'sudden_unexplained_death' => $request->sudden_unexplained_death,
-            'cardiac_death' => $request->cardiac_death
+            'cardiac_death' => $request->cardiac_death,
+
+            'has_structural_value_deterioration' => $request->has_structural_value_deterioration,
+            'has_valve_thrombosis'=> $request->has_valve_thrombosis,
+            'has_all_paravalvular_leak'=> $request->has_all_paravalvular_leak,
+            'has_major_paravalvular_leak'=> $request->has_major_paravalvular_leak,
+            'has_non_structural_value_deterioration'=> $request->has_non_structural_value_deterioration,
+            'has_thromboembolism'=> $request->has_thromboembolism,
+            'has_all_bleeding'=> $request->has_all_bleeding,
+            'has_major_bleeding'=> $request->has_major_bleeding,
+            'has_endocarditis'=> $request->has_endocarditis,
+            'has_all_mortality'=> $request->has_all_mortality,
+            'has_valve_mortality'=> $request->has_valve_mortality,
+            'has_valve_related_operation'=> $request->has_valve_related_operation,
+            'has_explant'=> $request->has_explant,
+            'has_haemolysis'=> $request->has_haemolysis,
+            'has_sudden_unexplained_death'=> $request->has_sudden_unexplained_death,
+            'has_cardiac_death'=> $request->has_cardiac_death
         ]);
 
 
@@ -115,6 +132,24 @@ class PostOperativeSafetyController extends Controller
         $safetyparameter->haemolysis = $request->haemolysis;
         $safetyparameter->sudden_unexplained_death = $request->sudden_unexplained_death;
         $safetyparameter->cardiac_death = $request->cardiac_death;
+
+        $safetyparameter->has_structural_value_deterioration = $request->has_structural_value_deterioration;
+        $safetyparameter->has_valve_thrombosis= $request->has_valve_thrombosis;
+        $safetyparameter->has_all_paravalvular_leak= $request->has_all_paravalvular_leak;
+        $safetyparameter->has_major_paravalvular_leak= $request->has_major_paravalvular_leak;
+        $safetyparameter->has_non_structural_value_deterioration= $request->has_non_structural_value_deterioration;
+        $safetyparameter->has_thromboembolism= $request->has_thromboembolism;
+        $safetyparameter->has_all_bleeding= $request->has_all_bleeding;
+        $safetyparameter->has_major_bleeding= $request->has_major_bleeding;
+        $safetyparameter->has_endocarditis= $request->has_endocarditis;
+        $safetyparameter->has_all_mortality= $request->has_all_mortality;
+        $safetyparameter->has_valve_mortality= $request->has_valve_mortality;
+        $safetyparameter->has_valve_related_operation= $request->has_valve_related_operation;
+        $safetyparameter->has_explant= $request->has_explant;
+        $safetyparameter->has_haemolysis= $request->has_haemolysis;
+        $safetyparameter->has_sudden_unexplained_death= $request->has_sudden_unexplained_death;
+        $safetyparameter->has_cardiac_death= $request->has_cardiac_death;
+
         $safetyparameter->save();
 
 

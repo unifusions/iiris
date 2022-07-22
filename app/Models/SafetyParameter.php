@@ -28,6 +28,23 @@ class SafetyParameter extends Model
         'explant',
         'haemolysis',
         'sudden_unexplained_death',
-        'cardiac_death'
+        'cardiac_death',
+
+        'has_structural_value_deterioration',
+        'has_valve_thrombosis',
+        'has_all_paravalvular_leak',
+        'has_major_paravalvular_leak',
+        'has_non_structural_value_deterioration',
+        'has_thromboembolism',
+        'has_all_bleeding',
+        'has_major_bleeding',
+        'has_endocarditis',
+        'has_all_mortality',
+        'has_valve_mortality',
+        'has_valve_related_operation',
+        'has_explant',
+        'has_haemolysis',
+        'has_sudden_unexplained_death',
+        'has_cardiac_death'
     ];
 }

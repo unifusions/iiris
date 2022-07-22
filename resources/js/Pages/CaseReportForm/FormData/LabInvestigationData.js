@@ -33,11 +33,12 @@ export default function LabInvestigationData({ labinvestigations, role, createUr
                               </>
                          }
 
-                        
+
                     </div>
                     <hr />
                     {labinvestigations !== null ?
                          <>
+                              <div className='fs-6  mb-3'>Blood test</div>
                               <RenderFieldDatas labelText='Date of Investigation' value={new Date(labinvestigations.li_date).toLocaleString('en-in', options)} />
                               <RenderFieldDatas labelText='Red Blood Cell (RBC)' value={labinvestigations.rbc} units='cells/cu.mm' />
                               <RenderFieldDatas labelText='White Blood Cell (WBC)' value={labinvestigations.wbc} units='cells/cu.mm' />
@@ -53,7 +54,7 @@ export default function LabInvestigationData({ labinvestigations, role, createUr
                               <RenderFieldDatas labelText='Total Protein' value={labinvestigations.total_protein} units='gm/dl' />
                               <RenderFieldDatas labelText='Bilirubin' value={labinvestigations.bilirubin} units='mg/dl' />
                               <RenderFieldDatas labelText='Prothrombin Time(PT) INR' value={labinvestigations.pt_inr} units='seconds' />
-                              
+
 
 
                          </> : <span className="fw-normal text-secondary fst-italic">No Lab Investigation data has been recorded. Go ahead and create one.</span>

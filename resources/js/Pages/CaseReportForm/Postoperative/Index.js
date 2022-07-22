@@ -64,6 +64,7 @@ export default class Index extends React.Component {
                                              physicalexamination={physicalexamination}
                                              enableActions={postoperative.is_submitted}
                                              role={roles}
+                                             showHWB = {false}
                                              createUrl={route('crf.postoperative.physicalexamination.create', { crf: crf, postoperative: postoperative })}
                                              editUrl={physicalexamination !== null && route('crf.postoperative.physicalexamination.edit', { crf: crf, postoperative: postoperative, physicalexamination: physicalexamination })}
                                         />
@@ -71,7 +72,7 @@ export default class Index extends React.Component {
                                              symptoms={symptoms}
                                              enableActions={postoperative.is_submitted}
                                              role={roles}
-                                             title = "Post Operative"
+                                             title="Post Operative"
                                              createUrl={route('crf.postoperative.symptoms.create', { crf: crf, postoperative: postoperative })}
                                              editUrl={symptoms !== null && route('crf.postoperative.symptoms.edit', { crf: crf, postoperative: postoperative, symptom: symptoms })}
                                         />

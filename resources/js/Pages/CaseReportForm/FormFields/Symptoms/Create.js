@@ -205,7 +205,7 @@ const Create = () => {
 
                                    <FormRadio
                                         type="radio"
-                                        labelText={`History of ${title} Symptoms ?`}
+                                        labelText={`History of any ${title} Symptoms ?`}
                                         name="symptoms"
                                         options={boolRadios}
                                         handleChange={e => setData('symptoms', e.target.value)}

@@ -16,9 +16,10 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Tickets/Index',[
-            'tickets' => Tickets::all(),
-        ]);
+        return redirect()->route('underconstruction');
+        // return Inertia::render('Tickets/Index',[
+        //     'tickets' => Tickets::all(),
+        // ]);
     }
 
     /**
@@ -28,14 +29,15 @@ class TicketsController extends Controller
      */
     public function create()
     {   
-        return Inertia::render('Tickets/Create',[
-            'crf' => CaseReportForm::pluck('subject_id')->map(function ($crf){
-                return [ 
-                    'label' => $crf,
-                    'value' => $crf
-                ];
-            }),
-        ]);
+        return redirect()->route('underconstruction');
+        // return Inertia::render('Tickets/Create',[
+        //     'crf' => CaseReportForm::pluck('subject_id')->map(function ($crf){
+        //         return [ 
+        //             'label' => $crf,
+        //             'value' => $crf
+        //         ];
+        //     }),
+        // ]);
     }
 
     /**

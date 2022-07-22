@@ -37,12 +37,14 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
                          }
 
 
-                      
+
 
                     </div>
                     <hr />
                     {echocardiographies !== null ?
                          <>
+                              <div className='fs-6  mb-3'>Effectiveness</div>
+                              
                               <RenderFieldDatas labelText='Date of Investigation' value={new Date(echocardiographies.echodate).toLocaleString('en-in', options)} />
                               <RenderFieldDatas labelText='Peak Velocity' value={echocardiographies.peak_velocity} units='mmHg' />
                               <RenderFieldDatas labelText='Velocity Time Integral(Aortic Valve)' value={echocardiographies.velocity_time_integral} units='cm' />

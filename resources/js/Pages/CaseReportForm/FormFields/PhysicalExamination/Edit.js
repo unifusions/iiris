@@ -71,38 +71,38 @@ const Edit = () => {
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit} >
+                                   {mode !== 'postoperative' && <>
+                                        <FormInputWithLabel
+                                             type="number"
+                                             className={`${errors.height && 'is-invalid '}`}
+                                             error={errors.height} labelText="Height"
+                                             handleChange={e => setData('height', e.target.value)}
+                                             units='cms'
 
-                                   <FormInputWithLabel
-                                        type="number"
-                                        className={`${errors.height && 'is-invalid '}`}
-                                        error={errors.height} labelText="Height"
-                                        handleChange={e => setData('height', e.target.value)}
-                                        units='cms'
+                                             onBlur={updateBsa}
+                                             value={data.height}
+                                             required />
 
-                                        onBlur={updateBsa}
-                                        value={data.height}
-                                        required />
+                                        <FormInputWithLabel
+                                             type="number"
+                                             className={`${errors.weight && 'is-invalid '}`}
+                                             error={errors.weight} labelText="Weight"
+                                             handleChange={e => setData('weight', e.target.value)}
+                                             onBlur={updateBsa}
+                                             units='kgs'
+                                             value={data.weight}
+                                             required />
 
-                                   <FormInputWithLabel
-                                        type="number"
-                                        className={`${errors.weight && 'is-invalid '}`}
-                                        error={errors.weight} labelText="Weight"
-                                        handleChange={e => setData('weight', e.target.value)}
-                                        onBlur={updateBsa}
-                                        units='kgs'
-                                        value={data.weight}
-                                        required />
-
-                                   <FormInputWithLabel
-                                        type="number"
-                                        className={`${errors.bsa && 'is-invalid '}`}
-                                        error={errors.bsa} labelText="BSA"
-                                        value={data.bsa}
-                                        // handleChange={e => setData('bsa', Math.sqrt((state.height * state.weight) / 3000).toFixed(2))}
-                                        units='m<sup>2</sup>'
-                                        disabled
-                                   />
-
+                                        <FormInputWithLabel
+                                             type="number"
+                                             className={`${errors.bsa && 'is-invalid '}`}
+                                             error={errors.bsa} labelText="BSA"
+                                             value={data.bsa}
+                                             // handleChange={e => setData('bsa', Math.sqrt((state.height * state.weight) / 3000).toFixed(2))}
+                                             units='m<sup>2</sup>'
+                                             disabled
+                                        />
+                                   </>}
                                    <FormInputWithLabel
                                         type="number"
                                         className={`${errors.heart_rate && 'is-invalid '}`}

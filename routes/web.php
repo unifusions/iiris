@@ -146,6 +146,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::get('/underconstruction', function () {
-        return view('underconstruction');
+        return 'Feature under developement';
     })->middleware(['auth'])->name('underconstruction');
 });

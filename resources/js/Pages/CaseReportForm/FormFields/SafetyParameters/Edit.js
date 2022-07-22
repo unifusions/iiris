@@ -8,6 +8,7 @@ import FormInputWithLabel from "@/Pages/Shared/FormInputWithLabel";
 import FormButton from "@/Pages/Shared/FormButton";
 import Authenticated from '@/Layouts/Authenticated';
 import PageTitle from "@/Pages/Shared/PageTitle";
+import FormRadio from "@/Pages/Shared/FormRadio";
 
 
 const Create = () => {
@@ -15,24 +16,45 @@ const Create = () => {
      const { data, setData, errors, put, processing, hasErrors, transform } = useForm({
 
           post_operative_data_id: postoperative !== undefined ? postoperative.id : null,
-          structural_value_deterioration: safetyparameter.structural_value_deterioration||'',
-          valve_thrombosis: safetyparameter.valve_thrombosis||'',
-          all_paravalvular_leak: safetyparameter.all_paravalvular_leak||'',
-          major_paravalvular_leak: safetyparameter.major_paravalvular_leak||'',
-          non_structural_value_deterioration: safetyparameter.non_structural_value_deterioration||'',
-          thromboembolism: safetyparameter.thromboembolism||'',
-          all_bleeding: safetyparameter.all_bleeding||'',
-          major_bleeding: safetyparameter.major_bleeding||'',
-          endocarditis: safetyparameter.endocarditis||'',
-          all_mortality: safetyparameter.all_mortality||'',
-          valve_mortality: safetyparameter.valve_mortality||'',
-          valve_related_operation: safetyparameter.valve_related_operation||'',
-          explant: safetyparameter.explant||'',
-          haemolysis: safetyparameter.haemolysis||'',
-          sudden_unexplained_death: safetyparameter.sudden_unexplained_death||'',
-          cardiac_death: safetyparameter.cardiac_death||''
+          structural_value_deterioration: safetyparameter.structural_value_deterioration || '',
+          valve_thrombosis: safetyparameter.valve_thrombosis || '',
+          all_paravalvular_leak: safetyparameter.all_paravalvular_leak || '',
+          major_paravalvular_leak: safetyparameter.major_paravalvular_leak || '',
+          non_structural_value_deterioration: safetyparameter.non_structural_value_deterioration || '',
+          thromboembolism: safetyparameter.thromboembolism || '',
+          all_bleeding: safetyparameter.all_bleeding || '',
+          major_bleeding: safetyparameter.major_bleeding || '',
+          endocarditis: safetyparameter.endocarditis || '',
+          all_mortality: safetyparameter.all_mortality || '',
+          valve_mortality: safetyparameter.valve_mortality || '',
+          valve_related_operation: safetyparameter.valve_related_operation || '',
+          explant: safetyparameter.explant || '',
+          haemolysis: safetyparameter.haemolysis || '',
+          sudden_unexplained_death: safetyparameter.sudden_unexplained_death || '',
+          cardiac_death: safetyparameter.cardiac_death || '',
+
+          has_structural_value_deterioration: safetyparameter.has_structural_value_deterioration !==null ? safetyparameter.has_structural_value_deterioration ? '1' : '0' : '',
+          has_valve_thrombosis: safetyparameter.has_valve_thrombosis || '',
+          has_all_paravalvular_leak: safetyparameter.has_all_paravalvular_leak || '',
+          has_major_paravalvular_leak: safetyparameter.has_major_paravalvular_leak || '',
+          has_non_structural_value_deterioration: safetyparameter.has_non_structural_value_deterioration || '',
+          has_thromboembolism: safetyparameter.has_thromboembolism || '',
+          has_all_bleeding: safetyparameter.has_all_bleeding || '',
+          has_major_bleeding: safetyparameter.has_major_bleeding || '',
+          has_endocarditis: safetyparameter.has_endocarditis || '',
+          has_all_mortality: safetyparameter.has_all_mortality || '',
+          has_valve_mortality: safetyparameter.has_valve_mortality || '',
+          has_valve_related_operation: safetyparameter.has_valve_related_operation || '',
+          has_explant: safetyparameter.has_explant || '',
+          has_haemolysis: safetyparameter.has_haemolysis || '',
+          has_sudden_unexplained_death: safetyparameter.has_sudden_unexplained_death || '',
+          has_cardiac_death: safetyparameter.has_cardiac_death || ''
      });
 
+     const boolRadios = [
+          { labelText: 'Yes', value: '1' },
+          { labelText: 'No', value: '0' }
+     ];
 
 
 
@@ -41,11 +63,11 @@ const Create = () => {
           switch (mode) {
 
                case 'postoperative':
-                    return put(route(`${putUrl}`, { crf: crf, postoperative: postoperative, safetyparameter:safetyparameter }));;
+                    return put(route(`${putUrl}`, { crf: crf, postoperative: postoperative, safetyparameter: safetyparameter }));;
                case 'scheduledvisit':
-                    return put(route(`${putUrl}`, { crf: crf, scheduledvisit: scheduledvisit,safetyparameter:safetyparameter }));
+                    return put(route(`${putUrl}`, { crf: crf, scheduledvisit: scheduledvisit, safetyparameter: safetyparameter }));
                case 'unscheduledvisit':
-                    return put(route(`${putUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit,safetyparameter:safetyparameter }));
+                    return put(route(`${putUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit, safetyparameter: safetyparameter }));
 
           }
      }
@@ -67,7 +89,7 @@ const Create = () => {
           >
                <Head title="Create New Case Report Form" />
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle='Safety Parameters' role={roles}/>
+                    <PageTitle backUrl={backUrl} pageTitle='Safety Parameters' role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
@@ -75,122 +97,294 @@ const Create = () => {
                               // className={hasErrors && 'was-validated'}
                               >
 
+                                   <FormRadio
+                                        labelText="Structural Value Deterioration"
+                                        options={boolRadios}
+                                        name="has_structural_value_deterioration"
+                                        handleChange={e => setData('has_structural_value_deterioration', e.target.value)}
+                                        selectedValue={data.has_structural_value_deterioration !== null && data.has_structural_value_deterioration}
+                                        error={errors.has_structural_value_deterioration}
+                                        className={`${errors.has_structural_value_deterioration ? 'is-invalid' : ''}`}
+                                   />
+                                   {data.has_structural_value_deterioration === '1' &&
+                                        <FormInput
+                                             value={data.structural_value_deterioration}
+                                             className={`${errors.structural_value_deterioration && 'is-invalid '}`}
+                                             error={errors.structural_value_deterioration}
+                                             handleChange={e => setData('structural_value_deterioration', e.target.value)}
+                                        />
+                                   }
+
+                                   <FormRadio
+                                        labelText="Valve Thrombosis"
+                                        options={boolRadios}
+                                        name="has_valve_thrombosis"
+                                        handleChange={e => setData('has_valve_thrombosis', e.target.value)}
+                                        selectedValue={data.has_valve_thrombosis !== null && data.has_valve_thrombosis}
+                                        error={errors.has_valve_thrombosis}
+                                        className={`${errors.has_valve_thrombosis ? 'is-invalid' : ''}`}
+                                   />
+                                   {data.has_valve_thrombosis === '1' &&
+                                        <FormInput
+                                             value={data.valve_thrombosis}
+                                             className={`${errors.valve_thrombosis && 'is-invalid '}`}
+                                             error={errors.valve_thrombosis}
+                                             handleChange={e => setData('valve_thrombosis', e.target.value)}
+                                        />
+                                   }
 
 
-                                   <FormInput
-                                        value={data.structural_value_deterioration}
-                                        className={`${errors.structural_value_deterioration && 'is-invalid '}`}
-                                        error={errors.structural_value_deterioration} labelText="Structural Value Deterioration"
-                                        handleChange={e => setData('structural_value_deterioration', e.target.value)}
+                                   <FormRadio
+                                        labelText="All Paravalvular Leak"
+                                        options={boolRadios}
+                                        name="has_all_paravalvular_leak"
+                                        handleChange={e => setData('has_all_paravalvular_leak', e.target.value)}
+                                        selectedValue={data.has_all_paravalvular_leak !== null && data.has_all_paravalvular_leak}
+                                        error={errors.has_all_paravalvular_leak}
+                                        className={`${errors.has_all_paravalvular_leak ? 'is-invalid' : ''}`}
                                    />
 
-                                   <FormInput
-                                        value={data.valve_thrombosis}
-                                        className={`${errors.valve_thrombosis && 'is-invalid '}`}
-                                        error={errors.valve_thrombosis} labelText="Valve Thrombosis"
-                                        handleChange={e => setData('valve_thrombosis', e.target.value)}
-                                   />
+                                   {data.has_all_paravalvular_leak === '1' &&
+                                        <FormInput
+                                             value={data.all_paravalvular_leak}
+                                             className={`${errors.all_paravalvular_leak && 'is-invalid '}`}
+                                             error={errors.all_paravalvular_leak}
+                                             handleChange={e => setData('all_paravalvular_leak', e.target.value)}
+                                        />
+                                   }
 
+                                   <FormRadio
+                                        labelText="Valve Thrombosis"
+                                        options={boolRadios}
+                                        name="has_major_paravalvular_leak"
+                                        handleChange={e => setData('has_major_paravalvular_leak', e.target.value)}
+                                        selectedValue={data.has_major_paravalvular_leak !== null && data.has_major_paravalvular_leak}
+                                        error={errors.has_major_paravalvular_leak}
+                                        className={`${errors.has_major_paravalvular_leak ? 'is-invalid' : ''}`}
+                                   />
+                                   {data.has_major_paravalvular_leak === '1' &&
+                                        <FormInput
+                                             value={data.major_paravalvular_leak}
+                                             className={`${errors.major_paravalvular_leak && 'is-invalid '}`}
+                                             error={errors.major_paravalvular_leak} labelText="Major Paravalvular Leak"
+                                             handleChange={e => setData('major_paravalvular_leak', e.target.value)}
+                                        />
+                                   }
 
-
-                                   <FormInput
-                                        value={data.all_paravalvular_leak}
-                                        className={`${errors.all_paravalvular_leak && 'is-invalid '}`}
-                                        error={errors.all_paravalvular_leak} labelText="All Paravalvular Leak"
-                                        handleChange={e => setData('all_paravalvular_leak', e.target.value)}
+                                   <FormRadio
+                                        labelText="Valve Thrombosis"
+                                        options={boolRadios}
+                                        name="has_non_structural_value_deterioration"
+                                        handleChange={e => setData('has_non_structural_value_deterioration', e.target.value)}
+                                        selectedValue={data.has_non_structural_value_deterioration !== null && data.has_non_structural_value_deterioration}
+                                        error={errors.has_non_structural_value_deterioration}
+                                        className={`${errors.has_non_structural_value_deterioration ? 'is-invalid' : ''}`}
                                    />
-                                   <FormInput
-                                        value={data.major_paravalvular_leak}
-                                        className={`${errors.major_paravalvular_leak && 'is-invalid '}`}
-                                        error={errors.major_paravalvular_leak} labelText="Major Paravalvular Leak"
-                                        handleChange={e => setData('major_paravalvular_leak', e.target.value)}
-                                   />
-                                   <FormInput
-                                        value={data.non_structural_value_deterioration}
-                                        className={`${errors.non_structural_value_deterioration && 'is-invalid '}`}
-                                        error={errors.non_structural_value_deterioration} labelText="Non-structural Valve Deterioration "
-                                        handleChange={e => setData('non_structural_value_deterioration', e.target.value)}
-                                   />
+                                   {data.has_non_structural_value_deterioration === '1' &&
+                                        <FormInput
+                                             value={data.non_structural_value_deterioration}
+                                             className={`${errors.non_structural_value_deterioration && 'is-invalid '}`}
+                                             error={errors.non_structural_value_deterioration} labelText="Non-structural Valve Deterioration "
+                                             handleChange={e => setData('non_structural_value_deterioration', e.target.value)}
+                                        />}
                                    <hr />
                                    <div className="fs-6 fw-bold mb-3">Clinical Safety Parameters</div>
-                                   <FormInput
+
+                                   <FormRadio
+                                        labelText="Thromboembolism"
+                                        options={boolRadios}
+                                        name="has_thromboembolism"
+                                        handleChange={e => setData('has_thromboembolism', e.target.value)}
+                                        selectedValue={data.has_thromboembolism !== null && data.has_thromboembolism}
+                                        error={errors.has_thromboembolism}
+                                        className={`${errors.has_thromboembolism ? 'is-invalid' : ''}`}
+                                   />
+                                   {data.has_thromboembolism === '1' && <FormInput
                                         value={data.thromboembolism}
                                         className={`${errors.thromboembolism && 'is-invalid '}`}
-                                        error={errors.thromboembolism} labelText="Thromboembolism"
+                                        error={errors.thromboembolism}
                                         handleChange={e => setData('thromboembolism', e.target.value)}
                                    />
+                                   }
 
-                                   <FormInput
-                                        value={data.all_bleeding}
-                                        className={`${errors.all_bleeding && 'is-invalid '}`}
-                                        error={errors.all_bleeding} labelText="All Bleeding/Hemorrhage"
-                                        handleChange={e => setData('all_bleeding', e.target.value)}
+                                   <FormRadio
+                                        labelText="All Bleeding/Hemorrhage"
+                                        options={boolRadios}
+                                        name="has_all_bleeding"
+                                        handleChange={e => setData('has_all_bleeding', e.target.value)}
+                                        selectedValue={data.has_all_bleeding !== null && data.has_all_bleeding}
+                                        error={errors.has_all_bleeding}
+                                        className={`${errors.has_all_bleeding ? 'is-invalid' : ''}`}
                                    />
+                                   {data.has_all_bleeding === '1' &&
+                                        <FormInput
+                                             value={data.all_bleeding}
+                                             className={`${errors.all_bleeding && 'is-invalid '}`}
+                                             error={errors.all_bleeding}
+                                             handleChange={e => setData('all_bleeding', e.target.value)}
+                                        />
+                                   }
 
-                                   <FormInput
-                                        value={data.major_bleeding}
-                                        className={`${errors.major_bleeding && 'is-invalid '}`}
-                                        error={errors.major_bleeding} labelText="Major Bleeding/Hemorrhage"
-                                        handleChange={e => setData('major_bleeding', e.target.value)}
+                                   <FormRadio
+                                        labelText="Major Bleeding/Hemorrhage"
+                                        options={boolRadios}
+                                        name="has_major_bleeding"
+                                        handleChange={e => setData('has_major_bleeding', e.target.value)}
+                                        selectedValue={data.has_major_bleeding !== null && data.has_major_bleeding}
+                                        error={errors.has_major_bleeding}
+                                        className={`${errors.has_major_bleeding ? 'is-invalid' : ''}`}
                                    />
+                                   {data.has_major_bleeding === '1' &&
+                                        <FormInput
+                                             value={data.major_bleeding}
+                                             className={`${errors.major_bleeding && 'is-invalid '}`}
+                                             error={errors.major_bleeding}
+                                             handleChange={e => setData('major_bleeding', e.target.value)}
+                                        />}
 
-                                   <FormInput
-                                        value={data.endocarditis}
-                                        className={`${errors.endocarditis && 'is-invalid '}`}
-                                        error={errors.endocarditis} labelText="Endocarditis"
-                                        handleChange={e => setData('endocarditis', e.target.value)}
-                                   />
 
-                                   <FormInput
-                                        value={data.all_mortality}
-                                        className={`${errors.all_mortality && 'is-invalid '}`}
-                                        error={errors.all_mortality} labelText="All-cause Mortality"
-                                        handleChange={e => setData('all_mortality', e.target.value)}
+                                   <FormRadio
+                                        labelText="Endocarditis"
+                                        options={boolRadios}
+                                        name="has_endocarditis"
+                                        handleChange={e => setData('has_endocarditis', e.target.value)}
+                                        selectedValue={data.has_endocarditis !== null && data.has_endocarditis}
+                                        error={errors.has_endocarditis}
+                                        className={`${errors.has_endocarditis ? 'is-invalid' : ''}`}
                                    />
+                                   {data.has_endocarditis === '1' &&
+                                        <FormInput
+                                             value={data.endocarditis}
+                                             className={`${errors.endocarditis && 'is-invalid '}`}
+                                             error={errors.endocarditis}
+                                             handleChange={e => setData('endocarditis', e.target.value)}
+                                        />}
 
-                                   <FormInput
-                                        value={data.valve_mortality}
-                                        className={`${errors.valve_mortality && 'is-invalid '}`}
-                                        error={errors.valve_mortality} labelText="Valve-related Mortality"
-                                        handleChange={e => setData('valve_mortality', e.target.value)}
-                                   />
 
-                                   <FormInput
-                                        value={data.valve_related_operation}
-                                        className={`${errors.valve_related_operation && 'is-invalid '}`}
-                                        error={errors.valve_related_operation} labelText="Valve-related reoperation"
-                                        handleChange={e => setData('valve_related_operation', e.target.value)}
+                                   <FormRadio
+                                        labelText="All-cause Mortality"
+                                        options={boolRadios}
+                                        name="has_all_mortality"
+                                        handleChange={e => setData('has_all_mortality', e.target.value)}
+                                        selectedValue={data.has_all_mortality !== null && data.has_all_mortality}
+                                        error={errors.has_all_mortality}
+                                        className={`${errors.has_all_mortality ? 'is-invalid' : ''}`}
                                    />
+                                   {data.has_all_mortality === '1' &&
+                                        <FormInput
+                                             value={data.all_mortality}
+                                             className={`${errors.all_mortality && 'is-invalid '}`}
+                                             error={errors.all_mortality}
+                                             handleChange={e => setData('all_mortality', e.target.value)}
+                                        />}
 
-                                   <FormInput
-                                        value={data.explant}
-                                        className={`${errors.explant && 'is-invalid '}`}
-                                        error={errors.explant} labelText="Explant"
-                                        handleChange={e => setData('explant', e.target.value)}
-                                   />
 
-                                   <FormInput
-                                        value={data.haemolysis}
-                                        className={`${errors.haemolysis && 'is-invalid '}`}
-                                        error={errors.haemolysis} labelText="Haemolysis"
-                                        handleChange={e => setData('haemolysis', e.target.value)}
+                                   <FormRadio
+                                        labelText="Valve-related Mortality"
+                                        options={boolRadios}
+                                        name="has_valve_mortality"
+                                        handleChange={e => setData('has_valve_mortality', e.target.value)}
+                                        selectedValue={data.has_valve_mortality !== null && data.has_valve_mortality}
+                                        error={errors.has_valve_mortality}
+                                        className={`${errors.has_valve_mortality ? 'is-invalid' : ''}`}
                                    />
+                                   {data.has_valve_mortality === '1' &&
+                                        <FormInput
+                                             value={data.valve_mortality}
+                                             className={`${errors.valve_mortality && 'is-invalid '}`}
+                                             error={errors.valve_mortality}
+                                             handleChange={e => setData('valve_mortality', e.target.value)}
+                                        />}
 
-                                   <FormInput
-                                        value={data.sudden_unexplained_death}
-                                        className={`${errors.sudden_unexplained_death && 'is-invalid '}`}
-                                        error={errors.sudden_unexplained_death} labelText="Sudden Unexplained
-                                        Death"
-                                        handleChange={e => setData('sudden_unexplained_death', e.target.value)}
-                                   />
 
-                                   <FormInput
-                                        value={data.cardiac_death}
-                                        className={`${errors.cardiac_death && 'is-invalid '}`}
-                                        error={errors.cardiac_death} labelText="Cardiac
-                                        Death"
-                                        handleChange={e => setData('cardiac_death', e.target.value)}
+                                   <FormRadio
+                                        labelText="Valve-related reoperation"
+                                        options={boolRadios}
+                                        name="has_valve_related_operation"
+                                        handleChange={e => setData('has_valve_related_operation', e.target.value)}
+                                        selectedValue={data.has_valve_related_operation !== null && data.has_valve_related_operation}
+                                        error={errors.has_valve_related_operation}
+                                        className={`${errors.has_valve_related_operation ? 'is-invalid' : ''}`}
                                    />
+                                   {data.has_valve_related_operation === '1' &&
+                                        <FormInput
+                                             value={data.valve_related_operation}
+                                             className={`${errors.valve_related_operation && 'is-invalid '}`}
+                                             error={errors.valve_related_operation}
+                                             handleChange={e => setData('valve_related_operation', e.target.value)}
+                                        />
+                                   }
+
+                                   <FormRadio
+                                        labelText="Explant"
+                                        options={boolRadios}
+                                        name="has_explant"
+                                        handleChange={e => setData('has_explant', e.target.value)}
+                                        selectedValue={data.has_explant !== null && data.has_explant}
+                                        error={errors.has_explant}
+                                        className={`${errors.has_explant ? 'is-invalid' : ''}`}
+                                   />
+                                   {data.has_explant === '1' &&
+                                        <FormInput
+                                             value={data.explant}
+                                             className={`${errors.explant && 'is-invalid '}`}
+                                             error={errors.explant}
+                                             handleChange={e => setData('explant', e.target.value)}
+                                        />}
+
+
+                                   <FormRadio
+                                        labelText="Haemolysis"
+                                        options={boolRadios}
+                                        name="has_haemolysis"
+                                        handleChange={e => setData('has_haemolysis', e.target.value)}
+                                        selectedValue={data.has_haemolysis !== null && data.has_haemolysis}
+                                        error={errors.has_haemolysis}
+                                        className={`${errors.has_haemolysis ? 'is-invalid' : ''}`}
+                                   />
+                                   {data.has_haemolysis === '1' &&
+                                        <FormInput
+                                             value={data.haemolysis}
+                                             className={`${errors.haemolysis && 'is-invalid '}`}
+                                             error={errors.haemolysis}
+                                             handleChange={e => setData('haemolysis', e.target.value)}
+                                        />}
+
+
+                                   <FormRadio
+                                        labelText="Sudden Unexplained Death"
+                                        options={boolRadios}
+                                        name="has_sudden_unexplained_death"
+                                        handleChange={e => setData('has_sudden_unexplained_death', e.target.value)}
+                                        selectedValue={data.has_sudden_unexplained_death !== null && data.has_sudden_unexplained_death}
+                                        error={errors.has_sudden_unexplained_death}
+                                        className={`${errors.has_sudden_unexplained_death ? 'is-invalid' : ''}`}
+                                   />
+                                   {data.has_sudden_unexplained_death === '1' &&
+                                        <FormInput
+                                             value={data.sudden_unexplained_death}
+                                             className={`${errors.sudden_unexplained_death && 'is-invalid '}`}
+                                             error={errors.sudden_unexplained_death}
+                                             handleChange={e => setData('sudden_unexplained_death', e.target.value)}
+                                        />}
+
+
+                                   <FormRadio
+                                        labelText="Cardiac Death"
+                                        options={boolRadios}
+                                        name="has_cardiac_death"
+                                        handleChange={e => setData('has_cardiac_death', e.target.value)}
+                                        selectedValue={data.has_cardiac_death !== null && data.has_cardiac_death}
+                                        error={errors.has_cardiac_death}
+                                        className={`${errors.has_cardiac_death ? 'is-invalid' : ''}`}
+                                   />
+                                   {data.has_cardiac_death === '1' &&
+                                        <FormInput
+                                             value={data.cardiac_death}
+                                             className={`${errors.cardiac_death && 'is-invalid '}`}
+                                             error={errors.cardiac_death}
+                                             handleChange={e => setData('cardiac_death', e.target.value)}
+                                        />}
 
 
                                    <hr />

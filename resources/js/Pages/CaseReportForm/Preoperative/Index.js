@@ -4,7 +4,7 @@ import React from 'react';
 import Authenticated from '@/Layouts/Authenticated';
 import { Link } from '@inertiajs/inertia-react';
 
-import { Row, Col, Card, Container } from 'react-bootstrap';
+import { Row, Col, Card, Container, Alert } from 'react-bootstrap';
 import PhysicalExaminationData from '../FormData/PhysicalExaminationData';
 import SymptomsData from '../FormData/SymptomsData';
 import MedicationsData from '../FormData/MedicationsData';
@@ -64,7 +64,7 @@ export default class Index extends React.Component {
                                         {preoperative.is_submitted ? <>
                                              <ApprovalActionsDisapprove role={roles} crf={crf} preoperative={preoperative} />
                                              <ApprovalActionsApprove role={roles} crf={crf} preoperative={preoperative} />
-                                             </> : ''
+                                        </> : ''
                                         }
 
 
@@ -73,6 +73,22 @@ export default class Index extends React.Component {
 
 
                               </div>
+                              {preoperative.is_submitted ? <> {preoperative.visit_status ?
+                                   <>
+                                   <div className='bg-success text-white p-3 mb-3 rounded-5'>
+                                   Pre Operative Data has been submitted & approved. To modify data, please raise a <Link href={route('tickets.index')} className = "fw-bold text-white" style={{ textDecoration: 'none' }}>
+                                       
+                                        ticket
+                                    </Link>
+                                   </div>
+                                </> : <Alert variant="warning" >
+                                        <Alert.Heading>Pre Operative Data Submitted</Alert.Heading>
+                                        <p>
+                                             This form has been submitted for approval
+                                        </p>
+                                   </Alert>}
+
+                              </> : ''}
 
                               <CaseReportFormData crf={crf} />
 
@@ -86,6 +102,7 @@ export default class Index extends React.Component {
                                              physicalexamination={physicalexamination}
                                              role={roles}
                                              enableActions={preoperative.is_submitted}
+                                             showHWB = {true}
                                              createUrl={route('crf.preoperative.physicalexamination.create', { crf: crf, preoperative: preoperative })}
                                              editUrl={physicalexamination !== null && route('crf.preoperative.physicalexamination.edit', { crf: crf, preoperative: preoperative, physicalexamination: physicalexamination })}
                                         />

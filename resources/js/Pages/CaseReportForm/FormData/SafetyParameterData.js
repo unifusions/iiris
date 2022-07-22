@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Modal, Button } from "react-bootstrap";
 
 
-import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton } from "./FormDataHelper";
+import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton, RenderFieldBoolDatas } from "./FormDataHelper";
 
 
 export default function SafetyParameterData({ safetyparameters, role, createUrl, editUrl,enableActions }) {
@@ -37,28 +37,28 @@ export default function SafetyParameterData({ safetyparameters, role, createUrl,
                     <hr />
                     {safetyparameters !== null ?
                          <>
-                              <RenderFieldDatas labelText='Structural Value Deterioration' value={safetyparameters.structural_value_deterioration} />
-                              <RenderFieldDatas labelText='Valve Thrombosis' value={safetyparameters.valve_thrombosis} />
-                              <RenderFieldDatas labelText='All Paravalvular Leak' value={safetyparameters.all_paravalvular_leak} />
-                              <RenderFieldDatas labelText='Major Paravalvular Leak' value={safetyparameters.major_paravalvular_leak} />
-                              <RenderFieldDatas labelText='Non-structural Valve Deterioration ' value={safetyparameters.non_structural_value_deterioration} />
+                              <RenderFieldBoolDatas labelText='Structural valve deterioration' boolValue={safetyparameters.has_structural_value_deterioration} value={safetyparameters.structural_value_deterioration} />
+                              <RenderFieldBoolDatas labelText='Valve Thrombosis' boolValue={safetyparameters.has_} value={safetyparameters.valve_thrombosis} />
+                              <RenderFieldBoolDatas labelText='All Paravalvular Leak' boolValue={safetyparameters.has_} value={safetyparameters.all_paravalvular_leak} />
+                              <RenderFieldBoolDatas labelText='Major Paravalvular Leak' boolValue={safetyparameters.has_} value={safetyparameters.major_paravalvular_leak} />
+                              <RenderFieldBoolDatas labelText='Non-structural Valve Deterioration ' boolValue={safetyparameters.has_} value={safetyparameters.non_structural_value_deterioration} />
                               <hr/>
                               <div className="row mb-3">
                                    <div className="col-sm-12">
                                         <span className="fs-6 fw-bold">Clinical Safety Parameters</span>
                                    </div>
                               </div>
-                              <RenderFieldDatas labelText='Thromboembolism' value={safetyparameters.thromboembolism} />
-                              <RenderFieldDatas labelText='All Bleeding/Hemorrhage' value={safetyparameters.all_bleeding} />
-                              <RenderFieldDatas labelText='Major Bleeding/Hemorrhage ' value={safetyparameters.major_bleeding} />
-                              <RenderFieldDatas labelText='Endocarditis' value={safetyparameters.endocarditis} />
-                              <RenderFieldDatas labelText='All-cause Mortality' value={safetyparameters.all_mortality} />
-                              <RenderFieldDatas labelText='Valve-related Mortality ' value={safetyparameters.valve_mortality} />
-                              <RenderFieldDatas labelText='Valve-related reoperation' value={safetyparameters.valve_related_operation} />
-                              <RenderFieldDatas labelText='Explant' value={safetyparameters.explant} />
-                              <RenderFieldDatas labelText='Haemolysis' value={safetyparameters.haemolysis} />
-                              <RenderFieldDatas labelText='Sudden Unexplained Death' value={safetyparameters.sudden_unexplained_death} />
-                              <RenderFieldDatas labelText='Cardiac Death' value={safetyparameters.cardiac_death} />
+                              <RenderFieldBoolDatas labelText='Thromboembolism' boolValue={safetyparameters.has_thromboembolism} value={safetyparameters.thromboembolism} />
+                              <RenderFieldBoolDatas labelText='All Bleeding/Hemorrhage' boolValue={safetyparameters.has_all_bleeding} value={safetyparameters.all_bleeding} />
+                              <RenderFieldBoolDatas labelText='Major Bleeding/Hemorrhage ' boolValue={safetyparameters.has_major_bleeding}  value={safetyparameters.major_bleeding} />
+                              <RenderFieldBoolDatas labelText='Endocarditis' boolValue={safetyparameters.has_endocarditis} value={safetyparameters.endocarditis} />
+                              <RenderFieldBoolDatas labelText='All-cause Mortality' boolValue={safetyparameters.has_all_mortality}  value={safetyparameters.all_mortality} />
+                              <RenderFieldBoolDatas labelText='Valve-related Mortality ' boolValue={safetyparameters.has_valve_mortality} value={safetyparameters.valve_mortality} />
+                              <RenderFieldBoolDatas labelText='Valve-related reoperation' boolValue={safetyparameters.has_valve_related_operation}  value={safetyparameters.valve_related_operation} />
+                              <RenderFieldBoolDatas labelText='Explant' boolValue={safetyparameters.has_explant} value={safetyparameters.explant} />
+                              <RenderFieldBoolDatas labelText='Haemolysis' boolValue={safetyparameters.has_haemolysis} value={safetyparameters.haemolysis} />
+                              <RenderFieldBoolDatas labelText='Sudden Unexplained Death' boolValue={safetyparameters.has_sudden_unexplained_death} value={safetyparameters.sudden_unexplained_death} />
+                              <RenderFieldBoolDatas labelText='Cardiac Death' boolValue={safetyparameters.has_cardiac_death} value={safetyparameters.cardiac_death} />
 
                          </> : <span className="fw-normal text-secondary fst-italic">No safety parameters data has been recorded. Go ahead and create one.</span>
 

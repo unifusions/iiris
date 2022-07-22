@@ -4,6 +4,11 @@ import { Link } from '@inertiajs/inertia-react';
 import { Row, Col } from 'react-bootstrap';
 import { method } from 'lodash';
 
+const NotAvailable = () => {
+     return (
+          <span className='fw-normal text-secondary fst-italic'>No data available</span>
+     )
+}
 export default function FormDataHelper() {
      return (<></>)
 }
@@ -23,10 +28,38 @@ export function RenderFieldDatas({ labelText, value, units }) {
                     {value !== null ? <>{value}
                          {units !== 'undefined' &&
                               <RenderUnits units={units} />
-                         }</> : <span className='fw-normal text-secondary fst-italic'>No data available</span>}
+                         }</> : <NotAvailable />}
 
 
                </Col>
+          </Row>
+     )
+}
+
+export function RenderFieldBoolDatas({ labelText, value, boolValue, units }) {
+     return (
+          <Row className='mb-3'>
+               <Col md={4} className='text-secondary'>
+                    {labelText}
+               </Col>
+               
+               {boolValue !== null ?
+                    <>
+                         <Col md={1}>{boolValue === 1 ? 'Yes' : 'No'}</Col>
+                         <Col md={7}>{boolValue !== 0 && <>
+                              {value !== null ?
+                                   <> {value}
+                                        {units !== 'undefined' && <RenderUnits units={units} />}
+                                   </> : <span className='fw-normal text-secondary fst-italic'>No data available</span>}
+                         </>}
+                         </Col>
+                    </>
+
+
+
+
+                    : <Col md={8}><NotAvailable /></Col> 
+               }
           </Row>
      )
 }

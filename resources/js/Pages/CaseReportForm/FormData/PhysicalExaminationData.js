@@ -4,7 +4,7 @@ import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton 
 
 
 
-export default function PhysicalExaminationData({ physicalexamination, role, createUrl, editUrl, enableActions }) {
+export default function PhysicalExaminationData({ physicalexamination, role, createUrl, editUrl, enableActions, showHWB }) {
      return (
 
           <Card className="mb-3 shadow-sm rounded-5">
@@ -31,10 +31,13 @@ export default function PhysicalExaminationData({ physicalexamination, role, cre
                     </div> <hr />
                     {physicalexamination !== null ?
                          <>
+                              {showHWB && <>  <RenderFieldDatas labelText="Height" value={physicalexamination.height} units='cms' />
+                                   <RenderFieldDatas labelText="Weight" value={physicalexamination.weight} units='kgs' />
+                                   <RenderFieldDatas labelText="BSA " value={physicalexamination.bsa} units='m<sup>2</sup>  Formula : &#8730(height * weight)/3600' />
+                              </>
 
-                              <RenderFieldDatas labelText="Height" value={physicalexamination.height} units='cms' />
-                              <RenderFieldDatas labelText="Weight" value={physicalexamination.weight} units='kgs' />
-                              <RenderFieldDatas labelText="BSA " value={physicalexamination.bsa} units='m<sup>2</sup>  Formula : &#8730(height * weight)/3600' />
+
+                              }
                               <RenderFieldDatas labelText="Heart Rate" value={physicalexamination.heart_rate} units='bpm' />
                               <RenderFieldDatas labelText="Systolic BP" value={physicalexamination.systolic_bp} units='mmHg' />
                               <RenderFieldDatas labelText="Diastolic BP" value={physicalexamination.diastolic_bp} units='mmHg' />
