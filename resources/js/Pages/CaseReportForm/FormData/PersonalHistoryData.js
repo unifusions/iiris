@@ -7,8 +7,7 @@ import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton 
 
 export default function PersonalHistoryData({ personalhistories, role, createUrl, editUrl, enableActions }) {
      const options = {
-          day: 'numeric',
-          month: 'numeric',
+         
           year: 'numeric'
      }
      return (

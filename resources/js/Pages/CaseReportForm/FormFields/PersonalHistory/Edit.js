@@ -57,8 +57,8 @@ const Edit = () => {
                     return put(route(`${putUrl}`, { crf: crf, postoperative: postoperative, personalhistory: personalhistories }));;
                case 'scheduledvisit':
                     return put(route(`${putUrl}`, { crf: crf, scheduledvisit: scheduledvisit, personalhistory: personalhistories }));
-                    case 'unscheduledvisit':
-                         return put(route(`${putUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit, personalhistory: personalhistories }));
+               case 'unscheduledvisit':
+                    return put(route(`${putUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit, personalhistory: personalhistories }));
 
 
 
@@ -122,6 +122,8 @@ const Edit = () => {
                                                        value={data.smoking_since}
                                                        handleChange={(date) => setData('smoking_since', new Date(date))}
                                                        className={`${errors.smoking_since ? 'is-invalid' : ''}`}
+                                                       showYearPicker
+                                                       dateFormat='Y'
                                                   />
                                                   {data.smoking === 'Used to consume in the past' &&
                                                        <FormCalendar
@@ -131,6 +133,8 @@ const Edit = () => {
                                                             value={data.smoking_stopped}
                                                             handleChange={(date) => setData('smoking_stopped', new Date(date))}
                                                             className={`${errors.smoking_stopped ? 'is-invalid' : ''}`}
+                                                            showYearPicker
+                                                            dateFormat='Y'
                                                        />
                                                   }
                                              </>
@@ -168,6 +172,8 @@ const Edit = () => {
                                                        value={data.alchohol_since}
                                                        handleChange={(date) => setData('alchohol_since', new Date(date))}
                                                        className={`${errors.alchohol_since ? 'is-invalid' : ''}`}
+                                                       showYearPicker
+                                                       dateFormat='Y'
                                                   />
                                                   {data.alchohol === 'Used to consume in the past' &&
                                                        <FormCalendar
@@ -177,6 +183,8 @@ const Edit = () => {
                                                             value={data.alchohol_stopped}
                                                             handleChange={(date) => setData('alchohol_stopped', new Date(date))}
                                                             className={`${errors.alchohol_stopped ? 'is-invalid' : ''}`}
+                                                            showYearPicker
+                                                            dateFormat='Y'
                                                        />
                                                   }
                                              </>
@@ -207,6 +215,7 @@ const Edit = () => {
                                                        error={errors.tobacco_type}
                                                        handleChange={e => setData('tobacco_type', e.target.value)}
                                                        className={`${errors.tobacco_type ? 'is-invalid' : ''}`}
+
                                                   />
 
                                                   <FormInput
@@ -223,6 +232,8 @@ const Edit = () => {
                                                        value={data.tobacco_since}
                                                        handleChange={(date) => setData('tobacco_since', new Date(date))}
                                                        className={`${errors.tobacco_since ? 'is-invalid' : ''}`}
+                                                       showYearPicker
+                                                       dateFormat='Y'
                                                   />
                                                   {data.tobacco === 'Used to consume in the past' &&
                                                        <FormCalendar
@@ -232,6 +243,8 @@ const Edit = () => {
                                                             value={data.tobacco_stopped}
                                                             handleChange={(date) => setData('tobacco_stopped', new Date(date))}
                                                             className={`${errors.tobacco_stopped ? 'is-invalid' : ''}`}
+                                                            showYearPicker
+                                                            dateFormat='Y'
                                                        />
                                                   }
                                              </>

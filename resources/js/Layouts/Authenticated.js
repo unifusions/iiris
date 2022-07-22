@@ -125,7 +125,7 @@ export default function Authenticated(props) {
                                 </li>
 
                                 <li className="nav-item">
-                                    <Link className="nav-link" href="#">
+                                    <Link className="nav-link" href={route('underconstruction')}>
                                         <ViewListIcon className='menu-arrow' style={iconStyle} />
                                         <span className="menu-title ms-1">Logs</span>
                                     </Link>

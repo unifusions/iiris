@@ -5,7 +5,7 @@ import { Row, Col } from "react-bootstrap";
 import ReactDatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-const FormCalendar = ({ type = 'text', name, value, className, minDate, autoComplete, required, isFocused, handleChange, labelText, error, showYearPicker }) => {
+const FormCalendar = ({ type = 'text', name, value, className, minDate, autoComplete, required, isFocused, handleChange, labelText, error, showYearPicker, dateFormat }) => {
 
      const input = useRef(null);
      useEffect(() => { if (isFocused) { input.current.focus(); } }, []);
@@ -17,7 +17,7 @@ const FormCalendar = ({ type = 'text', name, value, className, minDate, autoComp
 
                     <ReactDatePicker
                          minDate={minDate ? new Date(minDate) : null}
-                         dateFormat="dd/M/Y"
+                         dateFormat={dateFormat!== undefined ? dateFormat : 'dd/M/Y'}
                          maxDate={new Date()}
                          showYearDropdown
                          showMonthDropdown
