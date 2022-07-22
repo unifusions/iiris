@@ -63,14 +63,14 @@ class PostOperativeController extends Controller
             $postoperative->is_submitted = $request->is_submitted;
             $postoperative->save();
             $message = 'Postoperative Data successfully submitted for approval';
-            return redirect()->route('crf.postoperative.show', [$crf, $postoperative])->with(['message' => $message]);
+            return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
 
         if (isset($request->approve)) {
             $postoperative->visit_status = $request->approve;
             $postoperative->save();
             $message = 'Postoperative Data has been approved';
-            return redirect()->route('crf.postoperative.show',[$crf, $postoperative])->with(['message' => $message]);
+            return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
 
         if (isset($request->disapprove)) {

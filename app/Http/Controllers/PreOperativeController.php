@@ -37,23 +37,11 @@ class PreOperativeController extends Controller
             $preoperative = $crf->preoperatives;
         return view('casereportforms.PreOperativeData.show', compact('crf', 'preoperative'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
@@ -86,27 +74,14 @@ class PreOperativeController extends Controller
             'medications' => $preoperative->medications,
             // 'echoFiles' => $preoperative->echocardiographies->echodicomfiles 
         ]);
-        // return view('casereportforms.PreOperativeData.show', compact('crf', 'preoperative'));
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative)
     {
 
@@ -155,8 +130,7 @@ class PreOperativeController extends Controller
             $preoperative->is_submitted = $request->is_submitted;
             $preoperative->save();
             $message = 'Preoperative Data successfully submitted for approval';
-
-            return redirect()->route('crf.preoperative.show', [$crf, $preoperative])->with(['message' => $message]);
+            return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
 
 
@@ -164,7 +138,7 @@ class PreOperativeController extends Controller
             $preoperative->visit_status = $request->approve;
             $preoperative->save();
             $message = 'Preoperative Data has been approved';
-            return redirect()->route('crf.preoperative.index', [$crf, $preoperative])->with(['message' => $message]);
+            return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
 
         if (isset($request->disapprove)) {
@@ -173,18 +147,13 @@ class PreOperativeController extends Controller
             $preoperative->save();
             $message = 'Preoperative Data has been disapproved';
 
-            return redirect()->route('crf.preoperative.index', [$crf, $preoperative])->with(['message' => $message]);
+            return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
-        //
+        
     }
 }
