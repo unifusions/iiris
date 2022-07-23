@@ -17,7 +17,7 @@ const CoordinatorDashboard = (props) => {
                     <Card.Body>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-column">
-                                <span className="fw-normal fs-1 text-primary">{dashboardData.crfcount}</span>
+                                <span className="fw-normal fs-1 text-primary">{dashboardData.allcrfcount}</span>
                                 <span className="fw-light fs-5 text-secondary">Case Report Forms</span>
                                 <span className="fs-6 text-muted">Overall Enrollments</span>
                             </div>
@@ -31,7 +31,7 @@ const CoordinatorDashboard = (props) => {
                     <Card.Body>
                         <div className="d-flex justify-content-stretch align-items-center">
                             <div className="d-flex flex-column">
-                                <span className="fw-normal fs-1 text-primary">{dashboardData.allcrfcount}</span>
+                                <span className="fw-normal fs-1 text-primary">{dashboardData.crfcount}</span>
                                 <span className="fw-light fs-5 text-secondary">Case Report Forms</span>
                                 <span className="fs-6 text-muted">from {facility}</span>
                             </div>
