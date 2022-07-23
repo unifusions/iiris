@@ -58,6 +58,7 @@ use App\Http\Controllers\UnshceduledVisit\UVPhysicalExaminationController;
 use App\Http\Controllers\UnshceduledVisit\UVSymptomController;
 use App\Http\Controllers\UnshceduledVisit\UVPhysicalActivityController;
 use App\Http\Controllers\UnshceduledVisit\UVSafetyParameterController;
+use App\Http\Controllers\UserController;
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -81,8 +82,9 @@ Route::group(['middleware' => 'auth'], function () {
     
     //Admin Specific ROutes
     
-    Route::resource('facility', FacilityController::class)->middleware(['admin']);
+    Route::resource('facility', FacilityController::class)->parameters(['facility' => 'facility:uid']);
     Route::resource('tickets', TicketsController::class);
+    Route::resource('users', UserController::class);
     Route::resource('crf', CaseReportFormController::class)->parameters(['crf' => 'crf:subject_id']);
 
     Route::scopeBindings()->group(function () {

@@ -1,44 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import Button from '@/Components/Button';
 import { Link, usePage } from '@inertiajs/inertia-react';
 
 import NavBar from './NavBar';
-import Footer from './Footer';
-import { CollectionIcon, DocumentTextIcon, ViewGridIcon, SupportIcon, OfficeBuildingIcon, QuestionMarkCircleIcon, UserGroupIcon, ViewListIcon, CheckCircleIcon } from '@heroicons/react/outline';
 
-import Container from 'react-bootstrap/Container'
-import { Card, Toast, ToastContainer } from 'react-bootstrap';
-import CardHeader from 'react-bootstrap/esm/CardHeader';
-import ToastAlert from '@/Pages/Shared/ToastAlert';
+import { DocumentTextIcon, ViewGridIcon, SupportIcon, OfficeBuildingIcon, UserGroupIcon, ViewListIcon } from '@heroicons/react/outline';
 
 
-// import route from 'vendor/tightenco/ziggy/src/js';
+import MainPanel from './MainPanel';
 
-
-// @if (session('message'))
-//     <x-toast-notification>
-//         <x-slot name="type"> {{ session('type') }}</x-slot>
-//         {{ session('message') }}
-
-//     </x-toast-notification>
-// @endif
-// const [showToast, setShowToast] = useState(false);
-
-// useEffect(()=> {
-//     setTimeout(()=>{
-//         setShowToast(false)
-//     }, 5000)
-// },[showToast])
 
 const AdminNavigation = () => {
     const iconStyle = {
         width: 24,
         height: 24,
     };
+
     return (
         <>
 
@@ -63,16 +39,6 @@ const AdminNavigation = () => {
 
 export default function Authenticated(props) {
 
-    // constructor(props) {
-    //     super(props)
-    //     this.state = { showNav: true }
-    //     this.toggleNav = this.toggleNav.bind(this);
-    //     this.menuExpand = this.menuExpand.bind(this);
-    //     this.menuCollape = this.menuCollape.bind(this);
-
-    // }
-
-
     const [showNav, setShowNav] = useState(true);
     const [showToast, setShowToast] = useState(true);
     const iconStyle = { width: 24, height: 24, };
@@ -94,8 +60,6 @@ export default function Authenticated(props) {
     const menuCollape = () => {
         setShowNav(true)
     }
-
-
 
     return (
         <div className={showNav ? 'sidebar-icon-only' : ''} >
@@ -146,30 +110,12 @@ export default function Authenticated(props) {
                             </ul>
                         </nav>
                     </div>
-                    <div className="main-panel" >
-                        <div className="content-wrapper">
-                            {header && (
-                                <header >
-                                    <div>{header}</div>
-                                </header>
-                            )}
 
-                            {children}
-
-                            {flash.message &&
-                                <ToastAlert showToast={showToast} onClose={() => setShowToast(false)} message={flash.message} />
-                            }
-                        </div>
-
-                        <Footer />
-
-                    </div>
-
+                    <MainPanel flash={flash} header = {header} children = {children}/>
                 </div>
             </div>
         </div>
 
     )
-
 }
 

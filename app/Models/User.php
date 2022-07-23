@@ -51,4 +51,6 @@ class User extends Authenticatable
     public function casereportforms(){
         return $this->hasMany(CaseReportForm::class);
     }
+
+    
 }

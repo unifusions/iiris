@@ -26,7 +26,7 @@ class CaseReportFormController extends Controller
     public function create()
     {
        
-        return Inertia::render('CaseReportForm/Create', ['facility' => auth()->user()->facility->name]);
+        return Inertia::render('CaseReportForm/Create', ['facility' => auth()->user()->facility->name ?? '']);
     }
     
     public function store(CaseReportFormStoreRequest $request, CaseReportForm $crf)

@@ -20,18 +20,26 @@ class FacilityController extends Controller
         // return view('facility.index', compact('facilities'));
 
         return Inertia::render('Facility/Index', [
-            'facilities' => $facilities
+            'facilities' => $facilities->map(function ($facility) {
+                return [
+                    'uid' => $facility->uid,
+                    'name' => $facility->name,
+                    'userCount' => $facility->users()->count(),
+                    'city' => $facility->city,
+                    'pin_code' => $facility->pin_code,
+                ];
+            }),
+
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('facility.create');
+        $facilityCount = Facility::withTrashed()->count();
+        return Inertia::render('Facility/Create', [
+
+            'nextUid' => str_pad($facilityCount + 1, 3, '0', STR_PAD_LEFT),
+        ]);
     }
 
     /**
@@ -43,14 +51,16 @@ class FacilityController extends Controller
     public function store(Request $request)
     {
         Facility::Create([
-            'name' => $request->facilityName,
+            'name' => $request->name,
+            'uid' => $request->uid,
             'address_line_1' => $request->address_line_1,
             'address_line_2' => $request->address_line_2,
             'city' => $request->city,
             'pin_code' => $request->pin_code,
             'state' => $request->state,
         ]);
-        return redirect()->route('facility.index');
+        $message = 'Facility ' . $request->name . ' added successfully';
+        return redirect()->route('facility.index')->with(['message' => $message]);
     }
 
     /**
@@ -59,9 +69,9 @@ class FacilityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Facility $facility)
     {
-        //
+        // return $facility;
     }
 
     /**

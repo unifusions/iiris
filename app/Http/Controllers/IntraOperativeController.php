@@ -57,7 +57,7 @@ class IntraOperativeController extends Controller
             $intraoperative->visit_status = $request->approve;
             $intraoperative->save();
             $message = 'Intraoperative Data has been approved';
-            return redirect()->route('crf.intraoperative.show', [$crf, $intraoperative])->with(['message' => $message]);
+            return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
 
         if (isset($request->disapprove)) {
@@ -65,8 +65,7 @@ class IntraOperativeController extends Controller
             $intraoperative->visit_status = !$request->disapprove;
             $intraoperative->save();
             $message = 'Intraoperative Data has been disapproved';
-
-            return redirect()->route('crf.intraoperative.show', [$crf, $intraoperative])->with(['message' => $message]);
+            return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
 
 

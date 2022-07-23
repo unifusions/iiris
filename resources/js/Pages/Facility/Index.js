@@ -20,7 +20,7 @@ export default class Index extends React.Component {
                     header={
                          <div className='d-flex justify-content-between align-items-center mb-3'>
                               <h2 className="font-semibold text-xl text-gray-800 leading-tight">Facility</h2>
-                              <Link href={route('crf.create')} className="btn btn-primary" method="get" type="button" as="button" >Create</Link>
+                              <Link href={route('facility.create')} className="btn btn-primary" method="get" type="button" as="button" >Create</Link>
                          </div>
 
                     }
@@ -35,16 +35,18 @@ export default class Index extends React.Component {
                                              <th>Facility ID</th>
                                              <th>Facility Name</th>
                                              <th>Location</th>
-                                             <th>Actions</th>
+                                             <th>Users</th>
+                                             {/* <th>Actions</th> */}
                                              
                                         </tr>
                                    </thead>
                                    <tbody>
-                                        {this.props.facilities.data.map((facility) => <tr key={facility.id} >
-                                             <td>{facility.id}</td>
+                                        {this.props.facilities.map((facility) => <tr key={facility.id} >
+                                             <td>{facility.uid}</td>
                                              <td>{facility.name}</td>
-                                             <td>{facility.address_line_1} <br/> {facility.address_line_2}  <br/> {facility.city} - {facility.pin_code}</td>
-                                             <td><Link href={route('facility.show', { facility: facility })} className='btn btn-primary btn-sm'> View </Link></td>
+                                             <td>{facility.city} - {facility.pin_code}</td>
+                                             <td>{facility.userCount}</td>
+                                             {/* <td><Link href={route('facility.edit', { facility: facility })} className='btn btn-warning btn-sm'> Edit </Link></td> */}
                                         </tr>)}
                                    </tbody>
                               </Table>
