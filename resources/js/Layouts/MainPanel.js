@@ -1,7 +1,7 @@
-import ToastAlert from "@/Pages/Shared/ToastAlert";
+
 import React from "react";
 import Footer from './Footer';
-
+import ToastAlert from "@/Pages/Shared/ToastAlert";
 export default function MainPanel({ flash, header, children }) {
      return (
           <div className="main-panel" >
