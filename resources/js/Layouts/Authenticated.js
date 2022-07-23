@@ -40,14 +40,11 @@ const AdminNavigation = () => {
 export default function Authenticated(props) {
 
     const [showNav, setShowNav] = useState(true);
-    const [showToast, setShowToast] = useState(true);
+    
     const iconStyle = { width: 24, height: 24, };
     const { auth, breadcrumb, header, children, role } = props;
     const { flash } = usePage().props;
 
-    useEffect(() => {
-        setShowToast(true)
-    }, [flash.message])
 
     const toggleNav = () => {
         setShowNav(!showNav)

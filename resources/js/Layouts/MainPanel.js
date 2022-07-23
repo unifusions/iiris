@@ -1,8 +1,14 @@
 
-import React from "react";
+import React, { useState } from "react";
 import Footer from './Footer';
 import ToastAlert from "@/Pages/Shared/ToastAlert";
 export default function MainPanel({ flash, header, children }) {
+
+
+     const [showToast, setShowToast] = useState(true);
+     useEffect(() => {
+          setShowToast(true)
+     }, [flash.message])
      return (
           <div className="main-panel" >
                <div className="content-wrapper">
