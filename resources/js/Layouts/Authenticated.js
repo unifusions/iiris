@@ -26,7 +26,7 @@ const AdminNavigation = () => {
             </li>
 
             <li className="nav-item">
-                <Link className="nav-link" href="#">
+                <Link className="nav-link" href={route('users.index')}>
                     <UserGroupIcon className='menu-arrow' style={iconStyle} />
                     <span className="menu-title ms-1">Users</span>
                 </Link>
