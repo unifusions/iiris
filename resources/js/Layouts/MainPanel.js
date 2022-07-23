@@ -1,3 +1,4 @@
+import ToastAlert from "@/Pages/Shared/ToastAlert";
 import React from "react";
 import Footer from './Footer';
 
