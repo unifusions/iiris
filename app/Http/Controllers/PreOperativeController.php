@@ -72,11 +72,12 @@ class PreOperativeController extends Controller
             'electrocardiograms' => $preoperative->electrocardiograms,
             'labinvestigations' => $preoperative->labinvestigations,
             'medications' => $preoperative->medications,
-            'echodicomfiles' => EchoDicomFile::where('echocardiography_id', $preoperative->echocardiographies->id)->get()->map(fn ($file) => [
+            'echodicomfiles' => count($preoperative->echocardiographies) > 0 ? 
+            EchoDicomFile::where('echocardiography_id', $preoperative->echocardiographies->id)->get()->map(fn ($file) => [
                 'id' => $file->id,
                 'file_name' => $file->file_name,
                 'download_url' => storage_path('app/public/' . $file->file_path)
-            ])
+            ]) : null
         ]);
     }
 
