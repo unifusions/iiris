@@ -40,7 +40,6 @@ class PreOperativeController extends Controller
     }
     public function create()
     {
-
     }
 
     public function store(Request $request)
@@ -56,8 +55,9 @@ class PreOperativeController extends Controller
      */
     public function show(CaseReportForm $crf, PreOperativeData $preoperative)
     {
-        
-        $echodicomfiles = $preoperative->echocardiographies->echodicomfiles;
+        $echodicomfiles = '';
+        if ($preoperative->echocardiographies !== null)
+            $echodicomfiles = $preoperative->echocardiographies->echodicomfiles;
         // $preop = CaseReportFormVisitMode::find($id);
         // return view('casereportforms.visits.preoperative.show', compact('preop'));
         return Inertia::render('CaseReportForm/Preoperative/Index', [
@@ -74,18 +74,16 @@ class PreOperativeController extends Controller
             'electrocardiograms' => $preoperative->electrocardiograms,
             'labinvestigations' => $preoperative->labinvestigations,
             'medications' => $preoperative->medications,
-            'echodicomfiles' => EchoDicomFile::where('echocardiography_id', $preoperative->echocardiographies->id)->get()->map(fn($file)=> [
+            'echodicomfiles' => EchoDicomFile::where('echocardiography_id', $preoperative->echocardiographies->id)->get()->map(fn ($file) => [
                 'id' => $file->id,
                 'file_name' => $file->file_name,
-                'download_url' => storage_path('app/public/'. $file->file_path)
+                'download_url' => storage_path('app/public/' . $file->file_path)
             ])
         ]);
-
     }
 
     public function edit($id)
     {
-
     }
 
     public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative)
@@ -157,9 +155,8 @@ class PreOperativeController extends Controller
         }
     }
 
-    
+
     public function destroy($id)
     {
-        
     }
 }
