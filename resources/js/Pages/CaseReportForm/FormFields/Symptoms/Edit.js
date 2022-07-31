@@ -262,21 +262,27 @@ const Edit = () => {
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleAnginaDurationDays(e)} />
+                                                                 onChange={e => handleAnginaDurationDays(e)} 
+                                                                 value = {data.angina_duration.days}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleAnginaDurationMonths(e)} />
+                                                                 onChange={e => handleAnginaDurationMonths(e)} 
+                                                                 value = {data.angina_duration.months}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleAnginaDurationYears(e)} />
+                                                                 onChange={e => handleAnginaDurationYears(e)} 
+                                                                 value = {data.angina_duration.years}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
@@ -312,21 +318,26 @@ const Edit = () => {
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleDyspneaDurationDays(e)} />
+                                                                 onChange={e => handleDyspneaDurationDays(e)} 
+                                                                 value = {data.dyspnea_duration.days}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleDyspneaDurationMonths(e)} />
+                                                                 onChange={e => handleDyspneaDurationMonths(e)} 
+                                                                 value = {data.dyspnea_duration.months}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleDyspneaDurationYears(e)} />
+                                                                 onChange={e => handleDyspneaDurationYears(e)} 
+                                                                 value = {data.dyspnea_duration.years}/>
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
@@ -352,21 +363,25 @@ const Edit = () => {
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleSyncopeDurationDays(e)} />
+                                                                 onChange={e => handleSyncopeDurationDays(e)} 
+                                                                 value = {data.syncope_duration.days}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleSyncopeDurationMonths(e)} />
+                                                                 onChange={e => handleSyncopeDurationMonths(e)} 
+                                                                 value = {data.syncope_duration.months}/>
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleSyncopeDurationYears(e)} />
+                                                                 onChange={e => handleSyncopeDurationYears(e)} 
+                                                                 value = {data.syncope_duration.years}/>
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
@@ -392,21 +407,25 @@ const Edit = () => {
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handlePalpitationDurationDays(e)} />
+                                                                 onChange={e => handlePalpitationDurationDays(e)}
+                                                                 value = {data.palpitation_duration.days}
+                                                                  />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handlePalpitationDurationMonths(e)} />
+                                                                 onChange={e => handlePalpitationDurationMonths(e)}
+                                                                 value = {data.palpitation_duration.months} />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handlePalpitationDurationYears(e)} />
+                                                                 onChange={e => handlePalpitationDurationYears(e)} 
+                                                                 value = {data.palpitation_duration.years}/>
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
@@ -432,21 +451,25 @@ const Edit = () => {
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleGiddinessDurationDays(e)} />
+                                                                 onChange={e => handleGiddinessDurationDays(e)}
+                                                                 value = {data.giddiness_duration.days}/>
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleGiddinessDurationMonths(e)} />
+                                                                 onChange={e => handleGiddinessDurationMonths(e)} 
+                                                                 value = {data.giddiness_duration.months}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleGiddinessDurationYears(e)} />
+                                                                 onChange={e => handleGiddinessDurationYears(e)} 
+                                                                 value = {data.giddiness_duration.years}/>
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
@@ -472,21 +495,26 @@ const Edit = () => {
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleFeverDurationDays(e)} />
+                                                                 onChange={e => handleFeverDurationDays(e)} 
+                                                                 value = {data.fever_duration.days}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleFeverDurationMonths(e)} />
+                                                                 onChange={e => handleFeverDurationMonths(e)} 
+                                                                 value = {data.fever_duration.months}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleFeverDurationYears(e)} />
+                                                                 onChange={e => handleFeverDurationYears(e)} 
+                                                                 value = {data.fever_duration.years} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
@@ -512,21 +540,26 @@ const Edit = () => {
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleHeartFailureDurationDays(e)} />
+                                                                 onChange={e => handleHeartFailureDurationDays(e)} 
+                                                                 value = {data.heart_failure_admission_duration.days}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleHeartFailureDurationMonths(e)} />
+                                                                 onChange={e => handleHeartFailureDurationMonths(e)} 
+                                                                 value = {data.heart_failure_admission_duration.months}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleHeartFailureDurationYears(e)} />
+                                                                 onChange={e => handleHeartFailureDurationYears(e)} 
+                                                                 value = {data.heart_failure_admission_duration.years} />
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
@@ -558,21 +591,26 @@ const Edit = () => {
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleOthersDurationDays(e)} />
+                                                                 onChange={e => handleOthersDurationDays(e)} 
+                                                                 value = {data.others_duration.days}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleOthersDurationMonths(e)} />
+                                                                 onChange={e => handleOthersDurationMonths(e)} 
+                                                                 value = {data.others_duration.months}
+                                                                 />
                                                             <span className="input-group-text text-secondary input-units">months</span>
                                                        </div>
                                                   </Col>
                                                   <Col md={3}>
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
-                                                                 onChange={e => handleOthersDurationYears(e)} />
+                                                                 onChange={e => handleOthersDurationYears(e)} 
+                                                                 value = {data.others_duration.years}/>
                                                             <span className="input-group-text text-secondary input-units">years</span>
                                                        </div>
                                                   </Col>
