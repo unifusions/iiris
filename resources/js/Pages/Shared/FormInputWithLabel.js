@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { Row, Col } from "react-bootstrap";
 
-const FormInputWithLabel = ({ type = 'text', name,  onBlur, min, max,step, value, units, className, autoComplete, required, isFocused, handleChange, labelText, error, disabled }) => {
+const FormInputWithLabel = ({ type = 'text', name,  
+onBlur, min, max,step, value, units, className, autoComplete, required, isFocused, handleChange, labelText, error, disabled,
+remarks }) => {
 
      const input = useRef();
      useEffect(() => { if (isFocused) { input.current.focus(); } }, []);
@@ -33,6 +35,9 @@ const FormInputWithLabel = ({ type = 'text', name,  onBlur, min, max,step, value
                               {error}
                          </div>}
                     </div>
+               </Col>
+               <Col md={3} className='fw-normal text-secondary fst-italic'>
+                    {remarks && remarks}
                </Col>
           </Row>
 

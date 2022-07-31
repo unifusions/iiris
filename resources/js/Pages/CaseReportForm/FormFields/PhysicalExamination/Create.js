@@ -102,6 +102,7 @@ const Create = () => {
                                              error={errors.bsa} labelText="BSA"
                                              value={data.bsa}
                                              units='m<sup>2</sup>'
+                                             remarks = 'BSA will be calculated automatically from the given height & weight'
                                              disabled
                                         />
                                    </>}
@@ -115,6 +116,7 @@ const Create = () => {
                                         handleChange={e => setData('heart_rate', e.target.value)}
                                         units='bpm'
                                         required
+                                        
 
                                    />
 

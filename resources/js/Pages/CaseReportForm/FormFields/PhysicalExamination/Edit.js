@@ -25,6 +25,7 @@ const Edit = () => {
           heart_rate: physicalexamination.heart_rate || '',
           systolic_bp: physicalexamination.systolic_bp || '',
           diastolic_bp: physicalexamination.diastolic_bp || '',
+          subject: crf.subject_id
      });
 
 
@@ -110,7 +111,7 @@ const Edit = () => {
                                         handleChange={e => setData('heart_rate', e.target.value)}
                                         units='bpm'
                                         required
-
+                                        remarks = 'BSA will be calculated automatically from the given height & weight'
                                         value={data.heart_rate}
 
                                    />

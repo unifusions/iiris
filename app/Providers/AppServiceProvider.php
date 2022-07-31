@@ -4,9 +4,15 @@ namespace App\Providers;
 
 use App\Models\CaseReportForm;
 use App\Models\CaseReportFormVisit;
+use App\Models\OperativeSymptoms;
+use App\Models\PhysicalExamination;
+use App\Models\PreOperativeData;
 use App\Models\Roles;
 use App\Observers\CaseReportFormObserver;
 use App\Observers\CaseReportFormVisitObserver;
+use App\Observers\PhysicalExaminationObserver;
+use App\Observers\PreOperativeDataObserver;
+use App\Observers\SymptomsObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +43,9 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         CaseReportForm::observe(CaseReportFormObserver::class);
+       // PreOperativeData::observe(PreOperativeDataObserver::class);
+       // PhysicalExamination::observe(PhysicalExaminationObserver::class);
+       // OperativeSymptoms::observe(SymptomsObserver::class);
     }
 
     public function registerRolePolicy()

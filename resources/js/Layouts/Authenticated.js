@@ -40,7 +40,7 @@ const AdminNavigation = () => {
 export default function Authenticated(props) {
 
     const [showNav, setShowNav] = useState(true);
-    
+
     const iconStyle = { width: 24, height: 24, };
     const { auth, breadcrumb, header, children, role } = props;
     const { flash } = usePage().props;
@@ -86,7 +86,10 @@ export default function Authenticated(props) {
                                 </li>
 
                                 <li className="nav-item">
-                                    <Link className="nav-link" href={route('underconstruction')}>
+                                    <Link className="nav-link"
+                                    href={route('underconstruction')}
+                                        // href={route('logs.index')}
+                                    >
                                         <ViewListIcon className='menu-arrow' style={iconStyle} />
                                         <span className="menu-title ms-1">Logs</span>
                                     </Link>
@@ -108,7 +111,7 @@ export default function Authenticated(props) {
                         </nav>
                     </div>
 
-                    <MainPanel flash={flash} header = {header} children = {children}/>
+                    <MainPanel flash={flash} header={header} children={children} />
                 </div>
             </div>
         </div>

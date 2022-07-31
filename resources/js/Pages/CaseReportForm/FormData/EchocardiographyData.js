@@ -1,7 +1,7 @@
 
 
 import React, { useEffect, useState } from "react";
-import { Card, Modal, Button } from "react-bootstrap";
+import { Card, Modal, Button, Row, Col } from "react-bootstrap";
 
 
 import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton } from "./FormDataHelper";
@@ -17,7 +17,7 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
      return (
 
           <Card className="mb-3 rounded-5 shadow-sm">
-
+               {console.log(echodicomfiles)}
                <Card.Body>
                     <div className='d-flex justify-content-between align-items-center'>
                          <div className='fs-6 fw-bold'>
@@ -44,7 +44,7 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
                     {echocardiographies !== null ?
                          <>
                               <div className='fs-6  mb-3'>Effectiveness</div>
-                              
+
                               <RenderFieldDatas labelText='Date of Investigation' value={new Date(echocardiographies.echodate).toLocaleString('en-in', options)} />
                               <RenderFieldDatas labelText='Peak Velocity' value={echocardiographies.peak_velocity} units='mmHg' />
                               <RenderFieldDatas labelText='Velocity Time Integral(Aortic Valve)' value={echocardiographies.velocity_time_integral} units='cm' />
@@ -63,6 +63,19 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
                               <RenderFieldDatas labelText='LVID-End Diastole' value={echocardiographies.lvidend_diastole} units='cm' />
                               <RenderFieldDatas labelText='Ejection Fraction' value={echocardiographies.ejection_fraction} units='%' />
 
+
+                              {echodicomfiles !== null &&
+                                   <Row>
+                                        <Col md={4} className='text-secondary'>Related Dicom Files</Col>
+                                        <Col md={8} >
+                                             <ul className="list-style-none">
+                                                  {echodicomfiles.map((file) => <li key={file.id}>
+                                                       <a href={route('dicomdownload', {echodicomfile: file})} >{file.file_name} </a>
+                                                       </li>)}
+                                             </ul></Col>
+                                   </Row>
+
+                              }
 
                          </> : <span className="fw-normal text-secondary fst-italic">No Echocardiography data has been recorded. Go ahead and create one.</span>
 

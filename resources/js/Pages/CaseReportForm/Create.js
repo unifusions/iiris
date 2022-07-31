@@ -30,8 +30,9 @@ const LabelData = ({ labelKey, labelValue }) => {
 }
 
 const Create = () => {
-     const { auth, facility, roles } = usePage().props;
+     const { auth, facility, roles, subject_id } = usePage().props;
      const { data, setData, errors, post, processing, hasErrors } = useForm({
+          subject_id : subject_id,
           date_of_consent: '',
           uhid: '',
           gender: '',
@@ -66,14 +67,15 @@ const Create = () => {
           >
                <Head title="Create New Case Report Form" />
                <Container>
-                    <PageTitle backUrl={route('crf.index')}  role={roles} pageTitle='Create Case Report Forms'/>
-                    
+                    <PageTitle backUrl={route('crf.index')} role={roles} pageTitle='Create Case Report Forms' />
+
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit}
                               // className={hasErrors && 'was-validated'}
                               >
-
+                                 
+                                   <LabelData labelKey='Subject ID' labelValue={data.subject_id} />
                                    <LabelData labelKey='Protocol Number' labelValue='2021-04' />
                                    <LabelData labelKey='Facility' labelValue={facility} />
 
@@ -86,7 +88,7 @@ const Create = () => {
                                         handleChange={(date) => setData('date_of_consent', date)}
                                         className={`${errors.date_of_consent && 'is-invalid'}`}
                                    />
-                                 
+
 
                                    <FormInput
                                         type="text"
@@ -111,8 +113,8 @@ const Create = () => {
                                         handleChange={(date) => setData('date_of_birth', date)}
                                         className={`${errors.date_of_birth && 'is-invalid'}`}
                                    />
-<hr/>
-                                   <FormButton processing={processing} labelText = 'Create' type="submit" mode="primary"/>
+                                   <hr />
+                                   <FormButton processing={processing} labelText='Create' type="submit" mode="primary" />
 
                               </form>
                          </Card.Body>

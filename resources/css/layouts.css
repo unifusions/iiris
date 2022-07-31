@@ -265,8 +265,9 @@ button:focus {
 }
 
 textarea {
-  resize: none;
-  overflow-x: hidden;
+  height: 280px;
+  /* resize: none;
+  overflow-x: hidden; */
 }
 
 .btn, .ajax-upload-dragdrop .ajax-file-upload, .swal2-modal .swal2-buttonswrapper .swal2-styled, .swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-confirm, .swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-cancel,

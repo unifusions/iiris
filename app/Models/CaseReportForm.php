@@ -25,7 +25,11 @@ class CaseReportForm extends Model
         'date_of_birth',
         
     ];
-    protected $appends = ['preoperative', 'intraoperative', 'postoperative', 'facility','unscheduledvisits', 'scheduledvisits', 'physicalexaminations'];
+   protected $appends = [
+    'preoperative', 'intraoperative', 'postoperative',  'unscheduledvisits', 'scheduledvisits', 
+    // 'physicalexaminations',
+   'facility',
+  ];
     // protected $dates = ['date_of_consent','date_of_birth'];
 
     protected $casts = [

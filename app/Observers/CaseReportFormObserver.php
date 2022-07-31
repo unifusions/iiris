@@ -29,19 +29,9 @@ class CaseReportFormObserver
 
     public function created(CaseReportForm $caseReportForm)
     {
-        $user = auth()->user();
-
-        $crf_count = CaseReportForm::withTrashed()->where('facility_id', '=', $user->facility_id)->count();
-
-        $caseReportForm->subject_id = str_pad($user->facility_id, 3, '0', STR_PAD_LEFT) . '-' . str_pad($crf_count++, 3, '0', STR_PAD_LEFT);
-
-        $caseReportForm->save();
-
         $preoperative = array();
         $postoperative = array();
         $intraoperative = array();
-        $scheduledvisit = array();
-
         $preoperative = new PreOperativeData(
             array(
                 'case_report_form_id' => $caseReportForm->id,
@@ -54,15 +44,16 @@ class CaseReportFormObserver
                 'case_report_form_id' => $caseReportForm->id,
                 'visit_no' => 1,
                 'form_status' => true
-              
+
             )
         );
 
-        $postoperative = new PostOperativeData([
+        $postoperative = new PostOperativeData(
+            [
                 'case_report_form_id' => $caseReportForm->id,
                 'visit_no' => 1,
                 'form_status' => true
-        ]
+            ]
         );
 
         for ($i = 2; $i <= 7; $i++) {
@@ -72,7 +63,7 @@ class CaseReportFormObserver
                 [
                     'case_report_form_id' => $caseReportForm->id,
                     'visit_no' => $i,
-                    
+
                 ]
             );
         }

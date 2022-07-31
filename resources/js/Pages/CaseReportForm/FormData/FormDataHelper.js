@@ -4,6 +4,7 @@ import { Link } from '@inertiajs/inertia-react';
 import { Row, Col } from 'react-bootstrap';
 import { method } from 'lodash';
 
+
 const NotAvailable = () => {
      return (
           <span className='fw-normal text-secondary fst-italic'>No data available</span>
@@ -17,16 +18,41 @@ export function RenderUnits({ units }) {
      return (<span
           className="text-secondary small ms-1" dangerouslySetInnerHTML={{ __html: units }}></span>)
 }
+export function RenderDuration  ({ duration }) {
+     return (
+          <div className="ms-4">
+               <span className="text-secondary">Duration </span>
+               {duration.day !== undefined && <>
+                    {duration.days !== null && <>{duration.days} days </>}
+               </>
+               }
 
-export function RenderFieldDatas({ labelText, value, units }) {
+               {duration.months !== undefined && <>
+                    {duration.months !== null && <>{duration.months} months </>}
+
+               </>
+               }
+               {duration.years !== undefined && <>
+                    {duration.years !== null && <>{duration.years} years</>}
+
+               </>
+               }
+          </div>
+     )
+}
+
+export function RenderFieldDatas({ labelText, value, units, status }) {
      return (
           <Row className='mb-3'>
                <Col md={4} className='text-secondary'>
                     {labelText}
                </Col>
                <Col md={8}>
+                    {status !== undefined && 
+                         <span className={`dot bg-${status} me-1`}></span>
+                    }
                     {value !== null ? <>{value}
-                         {units !== 'undefined' &&
+                         {units !== undefined &&
                               <RenderUnits units={units} />
                          }</> : <NotAvailable />}
 
@@ -47,6 +73,35 @@ export function RenderFieldBoolDatas({ labelText, value, boolValue, units }) {
                     <>
                          <Col md={1}>{boolValue === 1 ? 'Yes' : 'No'}</Col>
                          <Col md={7}>{boolValue !== 0 && <>
+                              {value !== null ?
+                                   <> {value}
+                                        {units !== 'undefined' && <RenderUnits units={units} />}
+                                   </> : <span className='fw-normal text-secondary fst-italic'>No data available</span>}
+                         </>}
+                         </Col>
+                    </>
+
+
+
+
+                    : <Col md={8}><NotAvailable /></Col> 
+               }
+          </Row>
+     )
+}
+
+
+export function RenderFieldBoolNoDatas({ labelText, value, boolValue, units }) {
+     return (
+          <Row className='mb-3'>
+               <Col md={4} className='text-secondary'>
+                    {labelText}
+               </Col>
+               
+               {boolValue !== null ?
+                    <>
+                         <Col md={1}>{boolValue === 1 ? 'Yes' : 'No'}</Col>
+                         <Col md={7}>{boolValue !== 1 && <>
                               {value !== null ?
                                    <> {value}
                                         {units !== 'undefined' && <RenderUnits units={units} />}

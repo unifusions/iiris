@@ -218,12 +218,13 @@ const Edit = () => {
 
                                                   />
 
-                                                  <FormInput
+                                                  <FormInputWithLabel
                                                        labelText='Quantity'
                                                        type="number"
                                                        error={errors.tobacco_quantity}
                                                        handleChange={e => setData('tobacco_quantity', e.target.value)}
                                                        className={`${errors.tobacco_quantity ? 'is-invalid' : ''}`}
+                                                       units='gms'
                                                   />
 
                                                   <FormCalendar

@@ -6,7 +6,7 @@ import { Link } from '@inertiajs/inertia-react';
 import { LinkIcon } from '@heroicons/react/outline';
 import { Row, Col, Card, Container } from 'react-bootstrap';
 import CaseReportFormData from '../FormData/CaseReportFormData';
-import { RenderFieldDatas } from '../FormData/FormDataHelper';
+import { RenderFieldBoolDatas, RenderFieldBoolNoDatas, RenderFieldDatas } from '../FormData/FormDataHelper';
 import UpdateIntraOperative from './UpdateIntraoperative';
 import ApprovalActionsDisapprove from './ApprovalActionsDisapprove';
 import ApprovalSubmit from './ApprovalSubmit';
@@ -20,20 +20,28 @@ function SubmittedIntraOperative({ intraoperative }) {
           year: 'numeric'
      }
      return (<>
-     
+
           <RenderFieldDatas labelText='Date of Procedure' value={new Date(intraoperative.date_of_procedure).toLocaleString('en-in', options)} />
           <RenderFieldDatas labelText='Arterial Cannulation' value={intraoperative.arterial_cannulation} />
           <RenderFieldDatas labelText='Venous Cannulation' value={intraoperative.venous_cannulation} />
           <RenderFieldDatas labelText='Cardioplegia' value={intraoperative.cardioplegia} />
           <RenderFieldDatas labelText='Aortotomy' value={intraoperative.aortotomy} />
-          <RenderFieldDatas labelText='' value={intraoperative.aortotomy_others} />
+          {intraoperative.aortotomy === 'Others' &&
+               <RenderFieldDatas labelText='' value={intraoperative.aortotomy_others} />
+          }
+
           <RenderFieldDatas labelText='Annular Suturing Technique' value={intraoperative.annular_suturing_technique} />
-          <RenderFieldDatas labelText='' value={intraoperative.annular_suturing_others} />
+
+          {intraoperative.annular_suturing_technique === 'Others' &&
+               <RenderFieldDatas labelText='' value={intraoperative.annular_suturing_others} />
+          }
+
+
           <RenderFieldDatas labelText='Total Cardiopulmonary Bypass Time' value={intraoperative.tcb_time} />
           <RenderFieldDatas labelText='Aortic Cross Clamp Time' value={intraoperative.acc_time} />
           <RenderFieldDatas labelText='Concomitant Procedure' value={intraoperative.concomitant_procedure} />
-          <RenderFieldDatas labelText='All paravalvular leak' value={intraoperative.all_paravalvular_leak} />
-          <RenderFieldDatas labelText='Major Pravalvular Leak' value={intraoperative.major_paravalvular_leak} />
+          <RenderFieldBoolNoDatas labelText='All paravalvular leak' boolValue={intraoperative.all_paravalvular_leak} value={intraoperative.all_paravalvular_leak_specify} />
+          <RenderFieldBoolNoDatas labelText='Major Pravalvular Leak' boolValue={intraoperative.major_paravalvular_leak} value={intraoperative.major_paravalvular_leak_specify} />
 
 
      </>

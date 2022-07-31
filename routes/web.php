@@ -15,6 +15,7 @@ use App\Http\Controllers\PostOperativeController;
 
 
 use App\Http\Controllers\IntraOperativeController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\PostOperative\EchocardiographyController;
 use App\Http\Controllers\PostOperative\ElectrocardiogramController;
 use App\Http\Controllers\PostOperative\LabInvestigationController;
@@ -48,6 +49,7 @@ use App\Http\Controllers\ScheduledVisit\SVLabInvestigation;
 use App\Http\Controllers\ScheduledVisit\SVMedicationsController;
 use App\Http\Controllers\ScheduledVisit\SVPhysicalActivity;
 use App\Http\Controllers\ScheduledVisit\SVSafetyParameterController;
+use App\Http\Controllers\Tickets\TicketCommentController;
 use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\UnshceduledVisit\UVEchocardiographyController;
 use App\Http\Controllers\UnshceduledVisit\UVElectrocardiogramController;
@@ -59,6 +61,7 @@ use App\Http\Controllers\UnshceduledVisit\UVSymptomController;
 use App\Http\Controllers\UnshceduledVisit\UVPhysicalActivityController;
 use App\Http\Controllers\UnshceduledVisit\UVSafetyParameterController;
 use App\Http\Controllers\UserController;
+use App\Models\EchoDicomFile;
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -84,6 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
     
     Route::resource('facility', FacilityController::class)->parameters(['facility' => 'facility:uid']);
     Route::resource('tickets', TicketsController::class);
+    Route::resource('logs', LogController::class);
     Route::resource('users', UserController::class);
     Route::resource('crf', CaseReportFormController::class)->parameters(['crf' => 'crf:subject_id']);
 
@@ -139,10 +143,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.scheduledvisit.safetyparameter', SVSafetyParameterController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
         Route::resource('crf.scheduledvisit.medication', SVMedicationsController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
 
+
+        Route::post('interactions', TicketCommentController::class)->name('interactions');
     });
 
     Route::get('/dicomviewer/{echodicomfile}', [EchoDicomFilesController::class, 'viewer'] )->name('dicomviewer');
     Route::post('/dicomupload', [EchoDicomFilesController::class, 'uploaded'] )->name('dicomuploader');
+    Route::get('/download/{echodicomfile}', [EchoDicomFilesController::class, 'download'])->name('dicomdownload');
 
 
 

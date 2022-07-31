@@ -45,7 +45,7 @@ export default class Index extends React.Component {
                electrocardiograms,
                echocardiographies, echodicomfiles,
                medications,
-               echoFiles
+               
           } = this.props;
 
 
@@ -170,10 +170,13 @@ export default class Index extends React.Component {
                                              createUrl={route('crf.preoperative.electrocardiogram.create', { crf: crf, preoperative: preoperative })}
                                              editUrl={electrocardiograms !== null && route('crf.preoperative.electrocardiogram.edit', { crf: crf, preoperative: preoperative, electrocardiogram: electrocardiograms })}
                                         />
+                                        
+                                       
 
                                         <EchocardiographyData
                                              echocardiographies={echocardiographies}
                                              enableActions={preoperative.is_submitted}
+                                             echodicomfiles = {echodicomfiles}
                                              role={roles}
                                              createUrl={route('crf.preoperative.echocardiography.create', { crf: crf, preoperative: preoperative })}
                                              editUrl={echocardiographies !== null && route('crf.preoperative.echocardiography.edit', { crf: crf, preoperative: preoperative, echocardiography: echocardiographies })}

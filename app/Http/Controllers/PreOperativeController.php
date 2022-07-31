@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CaseReportForm;
 use App\Models\CaseReportFormVisit;
 use App\Models\CaseReportFormVisitMode;
+use App\Models\EchoDicomFile;
 use App\Models\PreOperative;
 use App\Models\PreOperativeData;
 use Illuminate\Http\Request;
@@ -55,7 +56,8 @@ class PreOperativeController extends Controller
      */
     public function show(CaseReportForm $crf, PreOperativeData $preoperative)
     {
-
+        
+        $echodicomfiles = $preoperative->echocardiographies->echodicomfiles;
         // $preop = CaseReportFormVisitMode::find($id);
         // return view('casereportforms.visits.preoperative.show', compact('preop'));
         return Inertia::render('CaseReportForm/Preoperative/Index', [
@@ -72,7 +74,11 @@ class PreOperativeController extends Controller
             'electrocardiograms' => $preoperative->electrocardiograms,
             'labinvestigations' => $preoperative->labinvestigations,
             'medications' => $preoperative->medications,
-            // 'echoFiles' => $preoperative->echocardiographies->echodicomfiles 
+            'echodicomfiles' => EchoDicomFile::where('echocardiography_id', $preoperative->echocardiographies->id)->get()->map(fn($file)=> [
+                'id' => $file->id,
+                'file_name' => $file->file_name,
+                'download_url' => storage_path('app/public/'. $file->file_path)
+            ])
         ]);
 
     }

@@ -211,19 +211,20 @@ const Create = () => {
                                              <>
                                                   <FormInput
                                                        labelText='Type of Tobacco'
-
+                                                       
                                                        error={errors.tobacco_type}
                                                        handleChange={e => setData('quantity', e.target.value)}
                                                        className={`${errors.tobacco_type ? 'is-invalid' : ''}`}
-
+                                                      
                                                   />
 
-                                                  <FormInput
+                                                  <FormInputWithLabel
                                                        labelText='Quantity'
                                                        type="number"
                                                        error={errors.quantity}
                                                        handleChange={e => setData('quantity', e.target.value)}
                                                        className={`${errors.quantity ? 'is-invalid' : ''}`}
+                                                       units='gms'
                                                   />
 
                                                   <FormCalendar

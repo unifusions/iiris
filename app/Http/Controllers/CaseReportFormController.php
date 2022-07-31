@@ -22,16 +22,23 @@ class CaseReportFormController extends Controller
         ]);
     }
 
-   
+
     public function create()
     {
-       
-        return Inertia::render('CaseReportForm/Create', ['facility' => auth()->user()->facility->name ?? '']);
+        $user = auth()->user();
+        $crf_count = CaseReportForm::withTrashed()->where('facility_id', $user->facility_id)->count();
+        return Inertia::render('CaseReportForm/Create', [
+            'facility' => auth()->user()->facility->name ?? '',
+            'subject_id' =>  $user->facility->uid . '-' . str_pad($crf_count+1, 3, '0', STR_PAD_LEFT)
+        ]);
     }
-    
+
     public function store(CaseReportFormStoreRequest $request, CaseReportForm $crf)
     {
+
         $request->validated();
+
+        $crf->subject_id = $request->subject_id;
         $crf->date_of_consent =  Carbon::parse($request->date_of_consent)->addHours(5)->addMinutes(30);
         $crf->uhid = $request->uhid;
         $crf->gender = $request->gender;
@@ -39,12 +46,11 @@ class CaseReportFormController extends Controller
         $crf->save();
 
         $message = 'Case Report Form with ' . $crf->subject_id . ' created succesfully';
-        
-        return redirect()->route('crf.show', $crf)->with(['message' => $message]);
 
+        return redirect()->route('crf.show', $crf)->with(['message' => $message]);
     }
 
-  
+
     public function show(CaseReportForm $crf)
     {
         return Inertia::render('CaseReportForm/Show', [
@@ -56,20 +62,20 @@ class CaseReportFormController extends Controller
         // return view('casereportforms.show', compact('crf'));
     }
 
-    
+
     public function edit(CaseReportForm $caseReportForm)
     {
         //
         return 'edit';
     }
 
-   
+
     public function update(Request $request, CaseReportForm $caseReportForm)
     {
         return 'update';
     }
 
-    
+
     public function destroy(CaseReportForm $crf)
     {
         $crf->delete();

@@ -6,91 +6,114 @@ use App\Models\CaseReportForm;
 use App\Models\Tickets;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\User;
 
 class TicketsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return redirect()->route('underconstruction');
-        // return Inertia::render('Tickets/Index',[
-        //     'tickets' => Tickets::all(),
-        // ]);
+        // return redirect()->route('underconstruction');
+
+
+        return Inertia::render('Tickets/Index', [
+
+            'filters' => request()->all('status'),
+            'tickets' => Tickets::orderBy('created_at', 'desc')
+                ->filter(request()->only('status'))
+                ->paginate(10)
+                ->through(function ($ticket) {
+                    return [
+                        'id' => $ticket->id,
+                        'form_data' => $ticket->form_data,
+                        'from_user' => User::where('id', $ticket->from_user_id)->pluck('name'),
+                        'to_user' => User::where('id', $ticket->to_user_id)->pluck('name'),
+                        'facility' => $ticket->facility->name,
+                        'subject' => $ticket->subject,
+                        'status' => $ticket->status,
+                        'isAdminQuery' => User::where('id', $ticket->from_user_id)->where('role_id', '2')->orWhere('role_id', '1')->exists(),
+                        'ticketUrl' => route('tickets.show', [$ticket]),
+                        'links' => $ticket->links
+                    ];
+                }),
+
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {   
-        return redirect()->route('underconstruction');
-        // return Inertia::render('Tickets/Create',[
-        //     'crf' => CaseReportForm::pluck('subject_id')->map(function ($crf){
-        //         return [ 
-        //             'label' => $crf,
-        //             'value' => $crf
-        //         ];
-        //     }),
-        // ]);
+    public function create(Request $request)
+    {
+        // return redirect()->route('underconstruction');
+        return Inertia::render('Tickets/Create', [
+            'crf' => CaseReportForm::pluck('subject_id')->map(function ($crf) {
+                return [
+                    'label' => $crf,
+                    'value' => $crf
+                ];
+            }),
+            'selectedCrf' => Inertia::lazy(
+                fn () =>
+                CaseReportForm::query()
+                    ->when(
+                        $request->input('subject'),
+                        function ($query, $subjectId) {
+                            $query->where('subject_id', $subjectId);
+                        }
+                    )->first(),
+            )
+
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        // dd($request->input());
+        Tickets::Create([
+            'subject' => $request->subject,
+            'from_user_id' => $request->from_user_id,
+            'to_user_id' => $request->to_user_id,
+            'facility_id' => $request->facility_id,
+            'status' => $request->status
+        ]);
+        return redirect()->route('tickets.index')->with(['message' => 'Ticket has been raised']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Tickets $ticket)
     {
-        //
+
+        return Inertia::render(
+            'Tickets/Show',
+            [
+                'ticket' => $ticket,
+                'backUrl' => route('tickets.index'),
+                'comments' => $ticket->comments->map(function ($comment) {
+                    return [
+                        'id' =>  $comment->id,
+                        'content' => $comment->content,
+                        'user_id' => $comment->user_id,
+                        'comment_user' => $comment->user->name,
+                        'replied_on' => $comment->created_at
+                    ];
+                }),
+            ]
+        );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tickets $ticket)
     {
-        //
+        if (isset($request->status)) {
+            $ticket->status = $request->status;
+            $ticket->save();
+            return redirect()->route('tickets.index')->with(['message' => 'Ticket has been closed successfully']);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //

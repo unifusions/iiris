@@ -29,7 +29,7 @@ class PreOperativeData extends Model
 
     public function crf()
     {
-        return $this->belongsTo(CaseReportForm::class);
+        return $this->belongsTo(CaseReportForm::class, 'case_report_form_id', 'id');
     }
     public function physicalexaminations()
     {

@@ -19,7 +19,6 @@ export default function Create() {
           name: '',
           email: '',
           password: '',
-          
           role_id: '',
           facility_id: '',
 

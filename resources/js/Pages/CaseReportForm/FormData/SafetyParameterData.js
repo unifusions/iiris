@@ -38,10 +38,10 @@ export default function SafetyParameterData({ safetyparameters, role, createUrl,
                     {safetyparameters !== null ?
                          <>
                               <RenderFieldBoolDatas labelText='Structural valve deterioration' boolValue={safetyparameters.has_structural_value_deterioration} value={safetyparameters.structural_value_deterioration} />
-                              <RenderFieldBoolDatas labelText='Valve Thrombosis' boolValue={safetyparameters.has_} value={safetyparameters.valve_thrombosis} />
-                              <RenderFieldBoolDatas labelText='All Paravalvular Leak' boolValue={safetyparameters.has_} value={safetyparameters.all_paravalvular_leak} />
-                              <RenderFieldBoolDatas labelText='Major Paravalvular Leak' boolValue={safetyparameters.has_} value={safetyparameters.major_paravalvular_leak} />
-                              <RenderFieldBoolDatas labelText='Non-structural Valve Deterioration ' boolValue={safetyparameters.has_} value={safetyparameters.non_structural_value_deterioration} />
+                              <RenderFieldBoolDatas labelText='Valve Thrombosis' boolValue={safetyparameters.has_valve_thrombosis} value={safetyparameters.valve_thrombosis} />
+                              <RenderFieldBoolDatas labelText='All Paravalvular Leak' boolValue={safetyparameters.has_all_paravalvular_leak} value={safetyparameters.all_paravalvular_leak} />
+                              <RenderFieldBoolDatas labelText='Major Paravalvular Leak' boolValue={safetyparameters.has_major_paravalvular_leak} value={safetyparameters.major_paravalvular_leak} />
+                              <RenderFieldBoolDatas labelText='Non-structural Valve Deterioration ' boolValue={safetyparameters.has_non_structural_value_deterioration} value={safetyparameters.non_structural_value_deterioration} />
                               <hr/>
                               <div className="row mb-3">
                                    <div className="col-sm-12">

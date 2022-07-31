@@ -27,6 +27,6 @@ class EchoDicomFilesController extends Controller
     public function download(EchoDicomFile $echodicomfile){
 
         $pathToFile = storage_path('app/public/'. $echodicomfile->file_path);
-        return view('casereportforms.EchoDicom.index',compact('pathToFile'));
+       return response()->download($pathToFile);
     }
 }

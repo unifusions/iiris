@@ -11,6 +11,9 @@
 @import url('canvasSidebar.css');
 
 /* @import url('sidebar.css'); */
+
+@import url('tableCss.css');
+
 body {
   font-family: 'Inter';
   color: #000;
@@ -19,6 +22,16 @@ body {
   font-size: 0.875rem;
 }
 
+textarea.form-control {
+  min-height: calc(8em + 0.75rem + 2px);
+}
+.dot{
+  height: 7px;
+  width: 7px;
+  
+  border-radius: 50%;
+  display: inline-block;
+}
 
 @media (min-width: 992px) {
   main {

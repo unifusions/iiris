@@ -334,8 +334,9 @@ button:focus {
 }
 
 textarea {
-  resize: none;
-  overflow-x: hidden;
+  height: 280px;
+  /* resize: none;
+  overflow-x: hidden; */
 }
 
 .btn, .ajax-upload-dragdrop .ajax-file-upload, .swal2-modal .swal2-buttonswrapper .swal2-styled, .swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-confirm, .swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-cancel,
@@ -10478,12 +10479,62 @@ div.tagsinput span.tag a {
      background-color: darkgrey;
      outline: 1px solid slategrey;
    }
+.dropDownToggleMenu {
+     color: #000;
+     text-decoration: none;
+     cursor: pointer;
+}
+
+.dropDownMenu {
+     padding: 5px;
+     width: 100%;
+
+}
+
+.dropDownToggleMenuItemList {
+     padding: 0;
+     list-style: none;
+     text-align: left;
+     width: 100%;
+}
+
+.dropDownToggleMenuItemList li {
+     padding: 5px;
+     list-style: none;
+     text-align: left;
+     width: 100%;
+     cursor: pointer;
+}
+
+.dropDownToggleMenuItemList li a{
+     text-decoration: none;
+     width: 100%;
+     padding:10px;
+    
+     
+}
+
+.dropDownToggleMenuItem {
+     padding: 5px 10px 10px 10px;
+     color: #000;
+     width: 100%;
+     background: none;
+     border: none;
+}
+
+.dropDownToggleMenuItemList li:hover {
+     font-weight: bold;
+     width: 100%;
+     background-color: #f7f7f7;
+     transition: ease 1s;
+}
 /* @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
  */
 
 /* @import url('sidebar.css'); */
+
 body {
   font-family: 'Inter';
   color: #000;
@@ -10492,6 +10543,16 @@ body {
   font-size: 0.875rem;
 }
 
+textarea.form-control {
+  min-height: calc(8em + 0.75rem + 2px);
+}
+.dot{
+  height: 7px;
+  width: 7px;
+  
+  border-radius: 50%;
+  display: inline-block;
+}
 
 @media (min-width: 992px) {
   main {
