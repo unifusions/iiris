@@ -18,26 +18,32 @@ export function RenderUnits({ units }) {
      return (<span
           className="text-secondary small ms-1" dangerouslySetInnerHTML={{ __html: units }}></span>)
 }
-export function RenderDuration  ({ duration }) {
+export function RenderDuration({ duration }) {
      return (
-          <div className="ms-4">
-               <span className="text-secondary">Duration </span>
-               {duration.day !== undefined && <>
-                    {duration.days !== null && <>{duration.days} days </>}
-               </>
-               }
+          <>
+               {duration !== undefined ?
+                    <div className="ms-4">
+                         <span className="text-secondary">Duration </span>
+                         {duration.day !== undefined && <>
+                              {duration.days !== null && <>{duration.days} days </>}
+                         </>
+                         }
 
-               {duration.months !== undefined && <>
-                    {duration.months !== null && <>{duration.months} months </>}
+                         {duration.months !== undefined && <>
+                              {duration.months !== null && <>{duration.months} months </>}
 
-               </>
-               }
-               {duration.years !== undefined && <>
-                    {duration.years !== null && <>{duration.years} years</>}
+                         </>
+                         }
+                         {duration.years !== undefined && <>
+                              {duration.years !== null && <>{duration.years} years</>}
 
-               </>
-               }
-          </div>
+                         </>
+                         }
+                    </div> : <NotAvailable />
+}
+
+
+          </>
      )
 }
 
@@ -48,7 +54,7 @@ export function RenderFieldDatas({ labelText, value, units, status }) {
                     {labelText}
                </Col>
                <Col md={8}>
-                    {status !== undefined && 
+                    {status !== undefined &&
                          <span className={`dot bg-${status} me-1`}></span>
                     }
                     {value !== null ? <>{value}
@@ -68,7 +74,7 @@ export function RenderFieldBoolDatas({ labelText, value, boolValue, units }) {
                <Col md={4} className='text-secondary'>
                     {labelText}
                </Col>
-               
+
                {boolValue !== null ?
                     <>
                          <Col md={1}>{boolValue === 1 ? 'Yes' : 'No'}</Col>
@@ -84,7 +90,7 @@ export function RenderFieldBoolDatas({ labelText, value, boolValue, units }) {
 
 
 
-                    : <Col md={8}><NotAvailable /></Col> 
+                    : <Col md={8}><NotAvailable /></Col>
                }
           </Row>
      )
@@ -97,7 +103,7 @@ export function RenderFieldBoolNoDatas({ labelText, value, boolValue, units }) {
                <Col md={4} className='text-secondary'>
                     {labelText}
                </Col>
-               
+
                {boolValue !== null ?
                     <>
                          <Col md={1}>{boolValue === 1 ? 'Yes' : 'No'}</Col>
@@ -113,7 +119,7 @@ export function RenderFieldBoolNoDatas({ labelText, value, boolValue, units }) {
 
 
 
-                    : <Col md={8}><NotAvailable /></Col> 
+                    : <Col md={8}><NotAvailable /></Col>
                }
           </Row>
      )
