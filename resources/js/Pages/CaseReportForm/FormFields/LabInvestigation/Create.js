@@ -101,7 +101,7 @@ const Create = () => {
                                    />
 
                                    <FormInputWithLabel
-                                        labelText='White  Blood Cell (RBC)'
+                                        labelText='White  Blood Cell (WBC)'
                                         type='number'
                                         name='wbc'
                                         value={data.wbc}

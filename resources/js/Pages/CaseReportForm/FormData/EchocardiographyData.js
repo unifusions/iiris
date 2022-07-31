@@ -17,7 +17,7 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
      return (
 
           <Card className="mb-3 rounded-5 shadow-sm">
-               {console.log(echodicomfiles)}
+
                <Card.Body>
                     <div className='d-flex justify-content-between align-items-center'>
                          <div className='fs-6 fw-bold'>
@@ -63,19 +63,22 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
                               <RenderFieldDatas labelText='LVID-End Diastole' value={echocardiographies.lvidend_diastole} units='cm' />
                               <RenderFieldDatas labelText='Ejection Fraction' value={echocardiographies.ejection_fraction} units='%' />
 
+                              {(role.admin || role.sudo) && <>
 
-                              {echodicomfiles !== null &&
-                                   <Row>
-                                        <Col md={4} className='text-secondary'>Related Dicom Files</Col>
-                                        <Col md={8} >
-                                             <ul className="list-style-none">
-                                                  {echodicomfiles.map((file) => <li key={file.id}>
-                                                       <a href={route('dicomdownload', {echodicomfile: file})} >{file.file_name} </a>
+                                   {echodicomfiles !== null &&
+                                        <Row>
+                                             <Col md={4} className='text-secondary'>Related Dicom Files</Col>
+                                             <Col md={8} >
+                                                  <ul className="list-style-none">
+                                                       {echodicomfiles.map((file) => <li key={file.id}>
+                                                            <a href={route('dicomdownload', { echodicomfile: file })} >{file.file_name} </a>
                                                        </li>)}
-                                             </ul></Col>
-                                   </Row>
+                                                  </ul></Col>
+                                        </Row>
 
-                              }
+                                   }
+                              </>}
+
 
                          </> : <span className="fw-normal text-secondary fst-italic">No Echocardiography data has been recorded. Go ahead and create one.</span>
 
