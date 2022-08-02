@@ -27,6 +27,7 @@ export default function Show() {
           echocardiographies,
           safetyparameters,
           medications,
+          echodicomfiles,
           
      } = usePage().props;
 
@@ -90,6 +91,7 @@ export default function Show() {
                               <EchocardiographyData
                                    echocardiographies={echocardiographies}
                                    enableActions={scheduledvisit.is_submitted}
+                                   echodicomfiles = {echodicomfiles}
                                    role={roles}
                                    createUrl={route('crf.scheduledvisit.echocardiography.create', { crf: crf, scheduledvisit: scheduledvisit })}
                                    editUrl={echocardiographies !== null && route('crf.scheduledvisit.echocardiography.edit', { crf: crf, scheduledvisit: scheduledvisit, echocardiography: echocardiographies })}

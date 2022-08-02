@@ -32,7 +32,8 @@ export default class Index extends React.Component {
                echocardiographies,
                electrocardiograms,
                safetyparameters,
-               medications
+               medications,
+               echodicomfiles
           } = this.props;
           return (
                <Authenticated auth={auth} role={roles}>
@@ -96,6 +97,7 @@ export default class Index extends React.Component {
                                         <EchocardiographyData
                                              echocardiographies={echocardiographies}
                                              enableActions={postoperative.is_submitted}
+                                             echodicomfiles = {echodicomfiles}
                                              role={roles}
                                              createUrl={route('crf.postoperative.echocardiography.create', { crf: crf, postoperative: postoperative })}
                                              editUrl={echocardiographies !== null && route('crf.postoperative.echocardiography.edit', { crf: crf, postoperative: postoperative, echocardiography: echocardiographies })}
