@@ -24,7 +24,7 @@ export function RenderDuration({ duration }) {
                {duration !== undefined ?
                     <div className="ms-4">
                          <span className="text-secondary">Duration </span>
-                         {duration.day !== undefined && <>
+                         {duration.days !== undefined && <>
                               {duration.days !== null && <>{duration.days} days </>}
                          </>
                          }

@@ -63,8 +63,6 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
                               <RenderFieldDatas labelText='LVID-End Diastole' value={echocardiographies.lvidend_diastole} units='cm' />
                               <RenderFieldDatas labelText='Ejection Fraction' value={echocardiographies.ejection_fraction} units='%' />
 
-                              {(role.admin || role.sudo) && <>
-
                                    {echodicomfiles !== null &&
                                         <Row>
                                              <Col md={4} className='text-secondary'>Related Dicom Files</Col>
@@ -77,7 +75,7 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
                                         </Row>
 
                                    }
-                              </>}
+                            
 
 
                          </> : <span className="fw-normal text-secondary fst-italic">No Echocardiography data has been recorded. Go ahead and create one.</span>
