@@ -31,19 +31,20 @@ class SVEchocardiographyController extends Controller
     public function store(Request $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit, EchocardiographyService $echocardiographyService)
     {
         $echocardiography = $echocardiographyService->createSVEchocardiography($request);
-
         $files = $request->file('files');
-        if (!isEmpty($files)) {
-
+       
+        if (isset($files)) {
+         
             foreach ($files as $file) {
-                $echodicomfilemodel = new EchoDicomFile;
                 $fileName = $file->getClientOriginalName();
-                $uploadpath = 'uploads/' . $crf->subject_id . '/scheduledvisit/' . $scheduledvisit->visit_no . '/';
+                $uploadpath = 'uploads/' . $crf->subject_id . '/scheduledvisit';
                 $filepath = $file->storeAs($uploadpath, $fileName, 'public');
-                $echodicomfilemodel->echocardiography_id = $echocardiography->id;
-                $echodicomfilemodel->file_name = $fileName;
-                $echodicomfilemodel->file_path = $filepath;
-                $echodicomfilemodel->save();
+                
+                EchoDicomFile::Create([
+                    'echocardiography_id' => $echocardiography->id,
+                    'file_name' => $fileName,
+                    'file_path' => $filepath,
+                ]);
             }
         }
         return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit]);

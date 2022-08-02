@@ -32,19 +32,20 @@ class EchocardiographyController extends Controller
     public function store(Request $request, CaseReportForm $crf, PostOperativeData $postoperative, EchocardiographyService $echocardiographyService)
     {
         $echocardiography = $echocardiographyService->createPostoperativeEchocardiography($request);
-
-
         $files = $request->file('files');
-        if (!isEmpty($files)) {
+
+        if (isset($files)) {
+
             foreach ($files as $file) {
-                $echodicomfilemodel = new EchoDicomFile;
                 $fileName = $file->getClientOriginalName();
                 $uploadpath = 'uploads/' . $crf->subject_id . '/postoperative';
                 $filepath = $file->storeAs($uploadpath, $fileName, 'public');
-                $echodicomfilemodel->echocardiography_id = $echocardiography->id;
-                $echodicomfilemodel->file_name = $fileName;
-                $echodicomfilemodel->file_path = $filepath;
-                $echodicomfilemodel->save();
+
+                EchoDicomFile::Create([
+                    'echocardiography_id' => $echocardiography->id,
+                    'file_name' => $fileName,
+                    'file_path' => $filepath,
+                ]);
             }
         }
 
@@ -72,6 +73,5 @@ class EchocardiographyController extends Controller
     }
     public function destroy($id)
     {
-        
     }
 }
