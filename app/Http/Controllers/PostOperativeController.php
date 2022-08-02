@@ -3,31 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\CaseReportForm;
+use App\Models\EchoDicomFile;
 use App\Models\PostOperativeData;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class PostOperativeController extends Controller
 {
-   
+
     public function index(CaseReportForm $crf)
     {
-      
     }
 
-   
+
     public function create()
     {
         //
     }
 
-  
+
     public function store(Request $request)
     {
         //
     }
 
-  
+
     public function show(CaseReportForm $crf, PostOperativeData $postoperative)
     {
         return Inertia::render('CaseReportForm/Postoperative/Index', [
@@ -39,14 +39,18 @@ class PostOperativeController extends Controller
             'echocardiographies' => $postoperative->echocardiographies,
             'electrocardiograms' => $postoperative->electrocardiograms,
             'safetyparameters' => $postoperative->safetyparameters,
-            'medications' => $postoperative->medications,
-            // 'echoFiles' => $preoperative->echocardiographies->echodicomfiles 
+
+            'echodicomfiles' => $postoperative->echocardiographies ?
+                EchoDicomFile::where('echocardiography_id', $postoperative->echocardiographies->id)->get()->map(fn ($file) => [
+                    'id' => $file->id,
+                    'file_name' => $file->file_name,
+                    'download_url' => storage_path('app/public/' . $file->file_path)
+                ]) : null            // 'echoFiles' => $preoperative->echocardiographies->echodicomfiles 
         ]);
     }
 
     public function edit($id)
     {
-       
     }
 
     public function update(Request $request, CaseReportForm $crf, PostOperativeData $postoperative)
@@ -83,9 +87,8 @@ class PostOperativeController extends Controller
         }
     }
 
- 
+
     public function destroy($id)
     {
-        
     }
 }

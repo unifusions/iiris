@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CaseReportForm;
+use App\Models\EchoDicomFile;
 use App\Models\UnscheduledVisit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -58,6 +59,12 @@ class UnscheduledvisitController extends Controller
             'electrocardiograms'=>$unscheduledvisit->electrocardiograms,
             'safetyparameters'=>$unscheduledvisit->safetyparameters,
             'medications'=>$unscheduledvisit->medications,
+            'echodicomfiles' => $unscheduledvisit->echocardiographies ? 
+            EchoDicomFile::where('echocardiography_id', $unscheduledvisit->echocardiographies->id)->get()->map(fn ($file) => [
+                'id' => $file->id,
+                'file_name' => $file->file_name,
+                'download_url' => storage_path('app/public/' . $file->file_path)
+            ]) : null,
             'backUrl' => route('crf.unscheduledvisit.index', [$crf])
             
         ]);
