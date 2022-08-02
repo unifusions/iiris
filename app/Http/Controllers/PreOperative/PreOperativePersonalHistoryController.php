@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CaseReportForm;
 use App\Models\PersonalHistory;
 use App\Models\PreOperativeData;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -56,7 +57,7 @@ class PreOperativePersonalHistoryController extends Controller
             'pre_operative_data_id' => $preoperative->id,
             'smoking' => $request->smoking,
             'cigarettes' => $request->cigarettes,
-            'smoking_since' => $request->smoking_since,
+            'smoking_since' => Carbon::parse($request->smoking_since)->addHours(5)->addMinutes(30),
             'smoking_stopped' => $request->smoking_stopped,
             'alchohol' => $request->alchohol,
             'quantity' => $request->quantity,
@@ -99,7 +100,7 @@ class PreOperativePersonalHistoryController extends Controller
             
             $personalhistory->smoking = $request->smoking;
             $personalhistory->cigarettes = $request->cigarettes;
-            $personalhistory->smoking_since = $request->smoking_since;
+            $personalhistory->smoking_since =  Carbon::parse($request->smoking_since)->addHours(5)->addMinutes(30);
             $personalhistory->smoking_stopped = $request->smoking_stopped;
             $personalhistory->alchohol = $request->alchohol;
             $personalhistory->quantity = $request->quantity;
