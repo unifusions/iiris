@@ -56,6 +56,23 @@ export default class Index extends React.Component {
 
 
                               </div>
+                              {postoperative.is_submitted ? <> {postoperative.visit_status ?
+                                   <>
+                                        <div className='bg-success text-white p-3 mb-3 rounded-5'>
+                                             Post Operative Data has been submitted & approved. To modify data, please raise a <Link href={route('tickets.index')} className="fw-bold text-white" style={{ textDecoration: 'none' }}>
+
+                                                  ticket
+                                             </Link>
+                                        </div>
+                                   </> : <Alert variant="warning" >
+                                        <Alert.Heading>Pre Operative Data Submitted</Alert.Heading>
+                                        <p>
+                                             This form has been submitted for approval
+                                        </p>
+                                   </Alert>}
+
+                              </> : ''}
+
                               <CaseReportFormData crf={crf} />
 
 
@@ -65,7 +82,7 @@ export default class Index extends React.Component {
                                              physicalexamination={physicalexamination}
                                              enableActions={postoperative.is_submitted}
                                              role={roles}
-                                             showHWB = {false}
+                                             showHWB={false}
                                              createUrl={route('crf.postoperative.physicalexamination.create', { crf: crf, postoperative: postoperative })}
                                              editUrl={physicalexamination !== null && route('crf.postoperative.physicalexamination.edit', { crf: crf, postoperative: postoperative, physicalexamination: physicalexamination })}
                                         />
@@ -97,7 +114,7 @@ export default class Index extends React.Component {
                                         <EchocardiographyData
                                              echocardiographies={echocardiographies}
                                              enableActions={postoperative.is_submitted}
-                                             echodicomfiles = {echodicomfiles}
+                                             echodicomfiles={echodicomfiles}
                                              role={roles}
                                              createUrl={route('crf.postoperative.echocardiography.create', { crf: crf, postoperative: postoperative })}
                                              editUrl={echocardiographies !== null && route('crf.postoperative.echocardiography.edit', { crf: crf, postoperative: postoperative, echocardiography: echocardiographies })}

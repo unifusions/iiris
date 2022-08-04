@@ -83,7 +83,22 @@ export default class Index extends React.Component {
 
 
                               </div>
+                              {intraoperative.is_submitted ? <> {intraoperative.visit_status ?
+                                   <>
+                                        <div className='bg-success text-white p-3 mb-3 rounded-5'>
+                                            Intra Operative Data has been submitted & approved. To modify data, please raise a <Link href={route('tickets.index')} className="fw-bold text-white" style={{ textDecoration: 'none' }}>
 
+                                                  ticket
+                                             </Link>
+                                        </div>
+                                   </> : <Alert variant="warning" >
+                                        <Alert.Heading>Pre Operative Data Submitted</Alert.Heading>
+                                        <p>
+                                             This form has been submitted for approval
+                                        </p>
+                                   </Alert>}
+
+                              </> : ''}
                               <CaseReportFormData crf={crf} />
 
                               <Card className='shadow-sm rounded-t'>
