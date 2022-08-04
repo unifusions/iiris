@@ -36,14 +36,25 @@ export default function CreateMedicalHistory({ crf, preoperative, medicalhistori
                     <button onClick={handleShow} className='btn btn-primary'>Add New Medical History</button>
                     <hr />
                     {medicalhistories.length > 0 &&
-                         medicalhistories.map((medicalhistory, index) => <Row className="mb-2" key={index}>
-                              <Col>{index + 1}</Col>
-                              <Col>{medicalhistory.diagnosis}</Col>
-                              <Col>{medicalhistory.duration}</Col>
-                              <Col>{medicalhistory.treatment}</Col>
-                              <Col> <Link href={route('crf.preoperative.medicalhistory.destroy', { crf: crf, preoperative: preoperative, medicalhistory: medicalhistory })} type="submit" method="delete" className='btn btn-danger btn-sm'>Delete</Link>
-                              </Col>
-                         </Row>)
+                         <>
+                              <Row className="fw-bold">
+                                   <Col>#</Col>
+                                   <Col>Diagnosis</Col>
+                                   <Col>Duration</Col>
+                                   <Col>Treatment</Col>
+                                   <Col>Actions</Col>
+                              </Row>
+                              <hr />
+                              {medicalhistories.map((medicalhistory, index) => <Row className="mb-2" key={index}>
+                                   <Col>{index + 1}</Col>
+                                   <Col>{medicalhistory.diagnosis}</Col>
+                                   <Col>{medicalhistory.duration}</Col>
+                                   <Col>{medicalhistory.treatment}</Col>
+                                   <Col> <Link href={route('crf.preoperative.medicalhistory.destroy', { crf: crf, preoperative: preoperative, medicalhistory: medicalhistory })} type="submit" method="delete" className='btn btn-danger btn-sm'>Delete</Link>
+                                   </Col>
+                              </Row>)}
+                         </>
+
 
                     }
                </Card.Body>

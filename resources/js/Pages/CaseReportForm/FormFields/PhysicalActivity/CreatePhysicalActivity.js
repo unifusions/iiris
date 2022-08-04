@@ -59,19 +59,27 @@ export default function CreatePhysicalActivity({ crf, mode, postUrl, preoperativ
                     <button onClick={handleShow} className='btn btn-primary'>Add New Physical Activity</button>
                     <hr />
                     {physicalactivities.length > 0 &&
-                         physicalactivities.map((physicalactivity, index) => <Row className="mb-2" key={index}>
-                              <Col>{index + 1}</Col>
+                         <>
+                              <Row className="fw-bold">
+                                   <Col>#</Col>
+                                   <Col>Activity Type</Col>
+                                   <Col>Duration</Col>
+                                   <Col>Actions</Col>
+                              </Row>
 
-                              <Col>{physicalactivity.activity_type}</Col>
-                              <Col>{physicalactivity.duration}</Col>
-                              <Col>
+                              <hr />
+                              {physicalactivities.map((physicalactivity, index) => <Row className="mb-2" key={index}>
+                                   <Col>{index + 1}</Col>
+                                   <Col>{physicalactivity.activity_type}</Col>
+                                   <Col>{physicalactivity.duration}</Col>
+                                   <Col>
+                                        {preoperative !== undefined && <Link href={route('crf.preoperative.physicalactivity.destroy', { crf: crf, preoperative: preoperative, physicalactivity: physicalactivity })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
+                                        {scheduledvisit !== undefined && <Link href={route('crf.scheduledvisit.physicalactivity.destroy', { crf: crf, scheduledvisit: scheduledvisit, physicalactivity: physicalactivity })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
+                                        {unscheduledvisit !== undefined && <Link href={route('crf.unscheduledvisit.physicalactivity.destroy', { crf: crf, unscheduledvisit: unscheduledvisit, physicalactivity: physicalactivity })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
+                                   </Col>
+                              </Row>)}
+                         </>
 
-                                   {preoperative !== undefined && <Link href={route('crf.preoperative.physicalactivity.destroy', { crf: crf, preoperative: preoperative, physicalactivity: physicalactivity })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
-                                   {scheduledvisit !== undefined && <Link href={route('crf.scheduledvisit.physicalactivity.destroy', { crf: crf, scheduledvisit: scheduledvisit, physicalactivity: physicalactivity })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
-                                   {unscheduledvisit !== undefined && <Link href={route('crf.unscheduledvisit.physicalactivity.destroy', { crf: crf, unscheduledvisit: unscheduledvisit, physicalactivity: physicalactivity })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
-                                  
-                              </Col>
-                         </Row>)
 
                     }
                </Card.Body>
@@ -104,8 +112,8 @@ export default function CreatePhysicalActivity({ crf, mode, postUrl, preoperativ
                                    handleChange={e => setData('duration', e.target.value)}
                                    units='mins'
                                    value={data.duration}
-                                   min={1}
-                                   max={60}
+                                   // min={1}
+                                   // max={60}
 
                                    required />
 

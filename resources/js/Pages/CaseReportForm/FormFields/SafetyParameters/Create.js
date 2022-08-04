@@ -155,7 +155,7 @@ const Create = () => {
                                    }
 
                                    <FormRadio
-                                        labelText="Valve Thrombosis"
+                                        labelText="Major Paravalvular Leak"
                                         options={boolRadios}
                                         name="has_major_paravalvular_leak"
                                         handleChange={e => setData('has_major_paravalvular_leak', e.target.value)}
@@ -167,13 +167,13 @@ const Create = () => {
                                         <FormInput
                                              value={data.major_paravalvular_leak}
                                              className={`${errors.major_paravalvular_leak && 'is-invalid '}`}
-                                             error={errors.major_paravalvular_leak} labelText="Major Paravalvular Leak"
+                                             error={errors.major_paravalvular_leak} 
                                              handleChange={e => setData('major_paravalvular_leak', e.target.value)}
                                         />
                                    }
 
                                    <FormRadio
-                                        labelText="Valve Thrombosis"
+                                        labelText="Non-structural Valve Deterioration "
                                         options={boolRadios}
                                         name="has_non_structural_value_deterioration"
                                         handleChange={e => setData('has_non_structural_value_deterioration', e.target.value)}
@@ -185,7 +185,7 @@ const Create = () => {
                                         <FormInput
                                              value={data.non_structural_value_deterioration}
                                              className={`${errors.non_structural_value_deterioration && 'is-invalid '}`}
-                                             error={errors.non_structural_value_deterioration} labelText="Non-structural Valve Deterioration "
+                                             error={errors.non_structural_value_deterioration} 
                                              handleChange={e => setData('non_structural_value_deterioration', e.target.value)}
                                         />}
                                    <hr />

@@ -144,6 +144,7 @@ class PreOperativeController extends Controller
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
 
+        // dd($request->disapprove);
         if (isset($request->disapprove)) {
             $preoperative->is_submitted = !$request->disapprove;
             $preoperative->visit_status = !$request->disapprove;

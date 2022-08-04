@@ -39,12 +39,21 @@ export default function FamilyHistoryData({ isFamHis, familyhistories, role, lin
                     <hr />
                     {isFamHis ? <>
                          {familyhistories.length > 0 &&
-                              familyhistories.map((familyhistory, index) => <Row className="mb-2" key={index}>
-                                   <Col>{index + 1}</Col>
-                                   <Col>{familyhistory.diagnosis}</Col>
-                                   <Col>{familyhistory.relation}</Col>
+                              <>
+                                   <Row className="fw-bold">
+                                        <Col>#</Col>
+                                        <Col>Diagnosis</Col>
+                                        <Col>Relation</Col>
+                                   </Row>
+                                   <hr />
+                                   {familyhistories.map((familyhistory, index) => <Row className="mb-2" key={index}>
+                                        <Col>{index + 1}</Col>
+                                        <Col>{familyhistory.diagnosis}</Col>
+                                        <Col>{familyhistory.relation}</Col>
 
-                              </Row>)
+                                   </Row>)}
+                              </>
+
 
                          }
                     </> : 'No previous family history recorded'}

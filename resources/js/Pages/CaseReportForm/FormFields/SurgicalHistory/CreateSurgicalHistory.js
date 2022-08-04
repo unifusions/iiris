@@ -36,17 +36,29 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
                     <button onClick={handleShow} className='btn btn-primary'>Add New Surgical History</button>
                     <hr />
                     {surgicalhistories.length > 0 &&
-                         surgicalhistories.map((surgicalhistory, index) => <Row className="mb-2" key={index}>
-                              <Col>{index + 1}</Col>
-                              <Col>{surgicalhistory.sh_date}</Col>
-                              <Col>{surgicalhistory.diagnosis}</Col>
-                              <Col>{surgicalhistory.treatment}</Col>
-                              <Col>
-                                   <Link href={route('crf.preoperative.surgicalhistory.destroy', { crf: crf, preoperative: preoperative, surgicalhistory: surgicalhistory })}
-                                        type="submit" method="delete" as="button"
-                                        className='btn btn-danger btn-sm'>Delete</Link>
-                              </Col>
-                         </Row>)
+                         <>
+
+                              <Row className="fw-bold">
+                                   <Col>#</Col>
+                                   <Col>Date</Col>
+                                   <Col>Diagnosis</Col>
+                                   <Col>Treatment</Col>
+                         <Col>Actions</Col>
+                              </Row>
+                              <hr />
+                              {surgicalhistories.map((surgicalhistory, index) => <Row className="mb-2" key={index}>
+                                   <Col>{index + 1}</Col>
+                                   <Col>{surgicalhistory.sh_date}</Col>
+                                   <Col>{surgicalhistory.diagnosis}</Col>
+                                   <Col>{surgicalhistory.treatment}</Col>
+                                   <Col>
+                                        <Link href={route('crf.preoperative.surgicalhistory.destroy', { crf: crf, preoperative: preoperative, surgicalhistory: surgicalhistory })}
+                                             type="submit" method="delete" as="button"
+                                             className='btn btn-danger btn-sm'>Delete</Link>
+                                   </Col>
+                              </Row>)}
+                         </>
+
 
                     }
                </Card.Body>

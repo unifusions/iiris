@@ -35,18 +35,31 @@ export default function SurgicalHistoryData({ hasSurHis, surgicalhistories, role
                               </>
                          }
 
-                       
+
                     </div>
                     <hr />
                     {hasSurHis ? <>
                          {surgicalhistories.length > 0 &&
-                              surgicalhistories.map((surgicalhistory, index) => <Row className="mb-2" key={index}>
+
+                              <> 
+                              
+                              
+                              <Row className="fw-bold">
+                                   <Col>#</Col>
+                                   <Col>Date</Col>
+                                   <Col>Diagnosis</Col>
+                                   <Col>Treatment</Col>
+
+                              </Row>
+                              <hr/>
+                              {surgicalhistories.map((surgicalhistory, index) => <Row className="mb-2" key={index}>
                                    <Col>{index + 1}</Col>
                                    <Col>{surgicalhistory.sh_date}</Col>
                                    <Col>{surgicalhistory.diagnosis}</Col>
                                    <Col>{surgicalhistory.treatment}</Col>
 
-                              </Row>)
+                              </Row>)}</>
+
 
                          }
                     </> : 'No previous surgical history recorded'}

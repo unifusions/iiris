@@ -8,13 +8,13 @@ import { Card, Col, Modal, Row } from "react-bootstrap";
 import RenderMedication from "./RenderMedication";
 
 
-export default function CreateMedications({ crf, preoperative, postoperative,scheduledvisit, unscheduledvisit, medications, mode }) {
+export default function CreateMedications({ crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, medications, mode }) {
 
      const { data, setData, processing, post, errors, reset } = useForm({
           pre_operative_data_id: preoperative !== undefined ? preoperative.id : null,
           post_operative_data_id: postoperative !== undefined ? postoperative.id : null,
-          scheduled_visits_id: scheduledvisit !== undefined? scheduledvisit.id : null,
-          unscheduled_visits_id: unscheduledvisit !== undefined? unscheduledvisit.id : null,
+          scheduled_visits_id: scheduledvisit !== undefined ? scheduledvisit.id : null,
+          unscheduled_visits_id: unscheduledvisit !== undefined ? unscheduledvisit.id : null,
           medication: '',
           indication: '',
           status: '',
@@ -62,21 +62,36 @@ export default function CreateMedications({ crf, preoperative, postoperative,sch
                          <button onClick={handleShow} className='btn btn-primary'>Add New Medication</button>
                          <hr />
                          {medications.length > 0 &&
-                              medications.map((medication, index) => <Row className="mb-2" key={index}>
-                                   <Col>{index + 1}</Col>
-                                   <Col>{medication.medication}</Col>
-                                   <Col>{medication.indication}</Col>
-                                   <Col>{medication.status}</Col>
-                                   <Col>{medication.start_date}</Col>
-                                   <Col>{medication.stop_date}</Col>
-                                   <Col>{medication.dosage}</Col>
-                                   <Col>{medication.reason}</Col>
-                                   <Col><>
-                                        {preoperative !== undefined && <Link href={route('crf.preoperative.medication.destroy', { crf: crf, preoperative: preoperative, medication: medication })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
-                                        {postoperative !== undefined && <Link href={route('crf.postoperative.medication.destroy', { crf: crf, postoperative: postoperative, medication: medication })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
-</>
-                                   </Col>
-                              </Row>)
+                              <>
+                                   <Row className="fw-bold">
+                                        <Col>#</Col>
+                                        <Col>Medication</Col>
+                                        <Col>Indication</Col>
+                                        <Col>Status</Col>
+                                        <Col>Start Date</Col>
+                                        <Col>Stop Date</Col>
+                                        <Col>Dosage</Col>
+                                        <Col>Reason</Col>
+                                        <Col>Actions</Col>
+                                   </Row>
+                                   <hr />
+                                   {medications.map((medication, index) => <Row className="mb-2" key={index}>
+                                        <Col>{index + 1}</Col>
+                                        <Col>{medication.medication}</Col>
+                                        <Col>{medication.indication}</Col>
+                                        <Col>{medication.status}</Col>
+                                        <Col>{medication.start_date}</Col>
+                                        <Col>{medication.stop_date}</Col>
+                                        <Col>{medication.dosage}</Col>
+                                        <Col>{medication.reason}</Col>
+                                        <Col><>
+                                             {preoperative !== undefined && <Link href={route('crf.preoperative.medication.destroy', { crf: crf, preoperative: preoperative, medication: medication })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
+                                             {postoperative !== undefined && <Link href={route('crf.postoperative.medication.destroy', { crf: crf, postoperative: postoperative, medication: medication })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
+                                        </>
+                                        </Col>
+                                   </Row>)}
+                              </>
+
 
                          }
                     </Card.Body>

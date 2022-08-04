@@ -5,7 +5,7 @@ import React from "react"
 export default function ApprovalActionsDisapprove({ role, crf, postoperative }) {
 
      const { data, setData, errors, put, processing, hasErrors } = useForm({
-          disapprove: '0'
+          disapprove: '1'
      });
 
      function handlesubmit(e) {
