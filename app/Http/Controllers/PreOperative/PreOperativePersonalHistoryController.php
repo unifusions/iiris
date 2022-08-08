@@ -70,6 +70,7 @@ class PreOperativePersonalHistoryController extends Controller
             'tobacco_stopped' =>  Carbon::parse($request->tobacco_stopped)->addHours(5)->addMinutes(30),
         ]);
 
+
         return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative]);
         // return view('casereportforms.FormFields.PersonalHistory.index', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf', 'preoperative'));
     }

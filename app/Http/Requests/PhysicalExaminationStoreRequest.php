@@ -24,7 +24,7 @@ class PhysicalExaminationStoreRequest extends FormRequest
     public function rules()
     {
         return [
-           
+           'height' => 'numeric|max:999.99'
         ];
     }
 }

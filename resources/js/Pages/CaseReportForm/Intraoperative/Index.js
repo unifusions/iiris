@@ -4,7 +4,7 @@ import { useForm, usePage } from '@inertiajs/inertia-react';
 import Authenticated from '@/Layouts/Authenticated';
 import { Link } from '@inertiajs/inertia-react';
 import { LinkIcon } from '@heroicons/react/outline';
-import { Row, Col, Card, Container } from 'react-bootstrap';
+import { Row, Col, Card, Container, Alert } from 'react-bootstrap';
 import CaseReportFormData from '../FormData/CaseReportFormData';
 import { RenderFieldBoolDatas, RenderFieldBoolNoDatas, RenderFieldDatas } from '../FormData/FormDataHelper';
 import UpdateIntraOperative from './UpdateIntraoperative';

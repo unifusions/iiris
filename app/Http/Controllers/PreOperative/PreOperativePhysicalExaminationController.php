@@ -8,9 +8,11 @@ use App\Models\CaseReportForm;
 use App\Models\PhysicalExamination;
 use App\Models\PreOperativeData;
 use App\Services\PhysicalExaminationService;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Inertia\Inertia;
+use Throwable;
 
 class PreOperativePhysicalExaminationController extends Controller
 {
@@ -24,16 +26,7 @@ class PreOperativePhysicalExaminationController extends Controller
     public function create(CaseReportForm $crf, PreOperativeData $preoperative)
     {
 
-        $storeUri = 'crf.preoperative.physicalexamination.store';
-        $storeParameters = [
-            'crf' => $crf,
-            'preoperative' => $preoperative
-        ];
-
-        $breadcrumb = [
-            'name' => 'Pre Operative Data',
-            'link' => 'crf.preoperative.index'
-        ];
+  
 
         return Inertia::render('CaseReportForm/FormFields/PhysicalExamination/Create', [
             'postUrl' => 'crf.preoperative.physicalexamination.store',
@@ -44,24 +37,21 @@ class PreOperativePhysicalExaminationController extends Controller
 
 
         ]);
-        // return view('casereportforms.FormFields.PhysicalExamination.create', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf'));
-    }
-
-      public function store(PhysicalExaminationStoreRequest $request, CaseReportForm $crf, PreOperativeData $preoperative, PhysicalExaminationService $physicalExaminationService)
-    {
-
        
-        $physicalExaminationService->createPreOperativePhysicalExamination($request);
-        return redirect()->route('crf.preoperative.show', [$crf, $preoperative])->with(['crf' => $crf]);
-        //return view('casereportforms.PreOperativeData.show', compact('crf', 'preoperative'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function store(PhysicalExaminationStoreRequest $request, CaseReportForm $crf, PreOperativeData $preoperative, PhysicalExaminationService $physicalExaminationService)
+    {
+        try {
+            $physicalExaminationService->createPreOperativePhysicalExamination($request);
+            return redirect()->route('crf.preoperative.show', [$crf, $preoperative])->with(['crf' => $crf]);
+        } catch (Throwable $e) {
+
+            return redirect()->back()->withErrors($e);
+        }
+    }
+
+    
     public function show(CaseReportForm $crf, PreOperativeData $preoperative, PhysicalExamination $physicalexamination)
     {
         //

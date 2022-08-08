@@ -44,6 +44,14 @@ const Create = () => {
           }
      }
 
+     useEffect(
+          () => {
+               let bsa = Math.sqrt((data.height * data.weight) / 3600).toFixed(2)
+               setData('bsa', bsa);
+          },
+          [data.height, data.weight],
+     );
+
      function updateBsa(e) {
           let bsa = Math.sqrt((data.height * data.weight) / 3600).toFixed(2)
           setData('bsa', bsa);
@@ -71,27 +79,35 @@ const Create = () => {
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit} >
-
+               {console.log(data.height)}
                                    {mode !== 'postoperative' && <>
                                         <FormInputWithLabel
                                              type="number"
                                              className={`${errors.height && 'is-invalid '}`}
                                              error={errors.height} labelText="Height"
                                              // handleChange={e => setData('height', e.target.value.toString().split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
-                                             handleChange={e => setData('height', e.target.value.toString().slice(0, 6).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join(".")) }
-                                        units='cms'
-                                        value={data.height}
+                                             // handleChange={e => setData('height', e.target.value.toString().slice(0, 6).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join(".")) }
+                                             handleChange={e =>
+                                                  // alert(e.target.value)
+                                                  setData('height', e.target.value)
+                                             }
+                                             units='cms'
+                                             value={data.height}
+                                             onBlur={e => setData('height', Number.parseFloat(data.height).toFixed(2))}
 
-
-                                        onBlur={updateBsa}
+                                             // onBlur={updateBsa}
                                              required />
 
                                         <FormInputWithLabel
                                              type="number"
                                              className={`${errors.weight && 'is-invalid '}`}
                                              error={errors.weight} labelText="Weight"
-                                             handleChange={e => setData('weight', e.target.value.toString().split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
-                                             onBlur={updateBsa}
+                                             handleChange={e =>
+                                                  setData('weight', e.target.value)
+                                                  // setData('weight', e.target.value.toString().split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))
+                                             }
+                                             // onBlur={updateBsa}
+                                             onBlur={e => setData('weight', Number.parseFloat(data.weight).toFixed(2))}
                                              value={data.weight}
                                              units='kgs'
                                              required />
@@ -102,7 +118,7 @@ const Create = () => {
                                              error={errors.bsa} labelText="BSA"
                                              value={data.bsa}
                                              units='m<sup>2</sup>'
-                                             remarks = 'BSA will be calculated automatically from the given height & weight'
+                                             remarks='BSA will be calculated automatically from the given height & weight'
                                              disabled
                                         />
                                    </>}
@@ -116,7 +132,7 @@ const Create = () => {
                                         handleChange={e => setData('heart_rate', e.target.value)}
                                         units='bpm'
                                         required
-                                        
+
 
                                    />
 

@@ -213,7 +213,7 @@ const Create = () => {
                                                        labelText='Type of Tobacco'
                                                        
                                                        error={errors.tobacco_type}
-                                                       handleChange={e => setData('quantity', e.target.value)}
+                                                       handleChange={e => setData('tobacco_type', e.target.value)}
                                                        className={`${errors.tobacco_type ? 'is-invalid' : ''}`}
                                                       
                                                   />
@@ -222,7 +222,7 @@ const Create = () => {
                                                        labelText='Quantity'
                                                        type="number"
                                                        error={errors.quantity}
-                                                       handleChange={e => setData('quantity', e.target.value)}
+                                                       handleChange={e => setData('tobacco_quantity', e.target.value)}
                                                        className={`${errors.quantity ? 'is-invalid' : ''}`}
                                                        units='gms'
                                                   />
