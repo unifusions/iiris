@@ -87,7 +87,7 @@ class UserController extends Controller
             'facility_id' => $request->facility_id
         ]);
 
-        Mail::to(['siyamkumar@gmail.com'])->send(new UserRegisteredMail());
+        Mail::to($request->user())->send(new UserRegisteredMail());
         return redirect()->route('users.index');
     }
 
