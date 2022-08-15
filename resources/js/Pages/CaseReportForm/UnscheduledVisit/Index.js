@@ -18,7 +18,7 @@ export default function Show() {
                               <Table hover responsive size="sm">
                                    <thead>
                                         <tr>
-                                             <th>POD</th>
+                                             <th>Date of Investigation</th>
                                              <th>Visit No</th>
                                              <th>Actions</th>
                                              

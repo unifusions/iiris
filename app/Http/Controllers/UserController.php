@@ -6,12 +6,16 @@ use App\Mail\UserRegisteredMail;
 use App\Models\Facility;
 use App\Models\Roles;
 use App\Models\User;
-
+use Carbon\Carbon;
+use Illuminate\Auth\Passwords\PasswordBroker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 use Inertia\Inertia;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Str;
 class UserController extends Controller
 {
     /**
@@ -86,7 +90,14 @@ class UserController extends Controller
             'role_id' => $request->role_id,
             'facility_id' => $request->facility_id
         ]);
-
+        $token = Str::random(60);
+        DB::table('password_resets')->insert([
+          'email' => $user->email,
+          'token' => bcrypt($token),
+          'created_at' => Carbon::now()
+        ]);
+        $user['password_reset'] = route('password.reset', ['token'=>$token, 'email'=>$user->email]);
+      
         Mail::to($request->user())->send(new UserRegisteredMail($user));
         return redirect()->route('users.index');
     }

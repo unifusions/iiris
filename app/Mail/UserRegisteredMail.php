@@ -18,13 +18,11 @@ class UserRegisteredMail extends Mailable
         $this->user = $user;
         
     }
-
+    
 
     public function build()
     {
-        return $this->view('mails.userregistered')
-        ->with([
-            'name'=>$this->user->name,
-        ]);
+       
+        return $this->view('mails.userregistered');
     }
 }

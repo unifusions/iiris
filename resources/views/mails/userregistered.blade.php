@@ -12,7 +12,7 @@
     <style type="text/css" rel="stylesheet" media="all">
         /* Base ------------------------------ */
 
-        @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,700&display=swap");
+        @import url("https://fonts.googleapis.com/css?family=Inter:wght@300;400;500;700&display=swap");
 
         body {
             width: 100% !important;
@@ -50,7 +50,7 @@
         body,
         td,
         th {
-            font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+            font-family: "Inter", Helvetica, Arial, sans-serif;
         }
 
         h1 {
@@ -58,7 +58,7 @@
             color: #333333;
             font-size: 22px;
             font-weight: bold;
-            text-align: left;
+            text-align: center;
         }
 
         h2 {
@@ -457,15 +457,16 @@
 </head>
 
 <body>
-    
+
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
         <tr>
             <td align="center">
                 <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                     <tr>
                         <td class="email-masthead">
-                            <a href="https://example.com" class="f-fallback email-masthead_name">
-                                [Product Name]
+                            <a href="https://cliniquest.in" class="f-fallback email-masthead_name">
+                                <img src="{{ asset('images/iiris-logo.png') }}" height="100px" alt=""
+                                    class="img p-4">
                             </a>
                         </td>
                     </tr>
@@ -478,10 +479,6 @@
                                 <tr>
                                     <td class="content-cell">
                                         <div class="f-fallback">
-                                            <h1>Welcome, {{ name }}!</h1>
-                                            <p>Greetings from Cliniquest! We are happy to share you the login
-                                                credentials to access our IIRIS Application,
-                                            </p>
 
 
                                             <table class="attributes" width="100%" cellpadding="0" cellspacing="0"
@@ -490,26 +487,23 @@
                                                     <td class="attributes_content">
                                                         <table width="100%" cellpadding="0" cellspacing="0"
                                                             role="presentation">
-                                                            <tr>
-                                                                <td class="attributes_item">
-                                                                    <span class="f-fallback">
-                                                                        <strong>Login Page:</strong>
-                                                                        https://cliniquest.in/research/login
-                                                                    </span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="attributes_item">
-                                                                    <span class="f-fallback">
-                                                                        <strong>Username:</strong> {username}
-                                                                    </span>
-                                                                </td>
-                                                            </tr>
+
 
                                                             <tr>
-                                                                <td class="attributes_item">
+                                                                <td class="attributes_item" align="center">
+                                                                    <h1>Welcome, 
+                                                                        {{ $user->name }}!
+                                                                    </h1>
+                                                                    <p>Greetings from Cliniquest! We are happy to share
+                                                                        you the login
+                                                                        credentials to access our IIRIS Application,
+                                                                    </p>
+
                                                                     <span class="f-fallback">
-                                                                        <strong>Password:</strong> {password}
+
+                                                                        <a href={{ $user->password_reset }}
+                                                                         class="f-fallback button"
+                                                                            target="_blank">Reset Your Password</a>
                                                                     </span>
                                                                 </td>
                                                             </tr>
@@ -517,7 +511,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                          
+
 
                                         </div>
                                     </td>
@@ -525,18 +519,19 @@
                             </table>
                         </td>
                     </tr>
-                   
-                    <tr >
+
+                    <tr>
                         <td>
-                          
+
                             <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0"
                                 role="presentation">
                                 <tr>
                                     <td class="content-cell" align="center">
                                         <p class="f-fallback sub align-center">
                                             Cliniquest
-                                            <br>1234 Street Rd.
-                                            <br>Suite 1234
+                                            <br>No.54, Velachery - Tambaram Main Rd, Vijaya Nagar, Velachery, Chennai,
+                                            Tamil Nadu 600042
+
                                         </p>
                                     </td>
                                 </tr>
