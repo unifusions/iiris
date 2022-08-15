@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { useForm, usePage } from '@inertiajs/inertia-react';
+import { Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { Row, Col, Card, Container } from 'react-bootstrap';
 import FormCalendar from '@/Pages/Shared/FormCalendar';
 import FormButton from '@/Pages/Shared/FormButton';
@@ -8,11 +8,11 @@ import FormInput from '@/Pages/Shared/FormInput';
 import FormRadio from '@/Pages/Shared/FormRadio';
 import FormInputWithLabel from '@/Pages/Shared/FormInputWithLabel';
 
-export default function UpdateIntraOperative({ crf, intraoperative, role }) {
+export default function UpdateIntraOperative({ crf, intraoperative, role, intradicomfiles }) {
 
      const { data, setData, errors, put, processing, hasErrors } = useForm({
           case_report_form_id: intraoperative.case_report_form_id,
-          date_of_procedure: intraoperative.date_of_procedure || '',
+          date_of_procedure: intraoperative.date_of_procedure !== null ? intraoperative.date_of_procedure : '',
           is_submitted: intraoperative.is_submitted || 0,
           arterial_cannulation: intraoperative.arterial_cannulation || '',
           venous_cannulation: intraoperative.venous_cannulation || '',
@@ -28,7 +28,8 @@ export default function UpdateIntraOperative({ crf, intraoperative, role }) {
           all_paravalvular_leak_specify: intraoperative.all_paravalvular_leak_specify || '',
 
           major_paravalvular_leak: intraoperative.major_paravalvular_leak === 1 ? '1' : '0' || '',
-          major_paravalvular_leak_specify: intraoperative.major_paravalvular_leak_specify || ''
+          major_paravalvular_leak_specify: intraoperative.major_paravalvular_leak_specify || '',
+          difiles: ''
      });
 
      const [isAortotomyOthers, setAortotomyOthers] = useState(false);
@@ -45,6 +46,7 @@ export default function UpdateIntraOperative({ crf, intraoperative, role }) {
 
      function handlesubmit(e) {
           e.preventDefault();
+
           put(route('crf.intraoperative.update', { crf: crf, intraoperative: intraoperative }));
      }
 
@@ -207,8 +209,30 @@ export default function UpdateIntraOperative({ crf, intraoperative, role }) {
                          handleChange={e => setData('major_paravalvular_leak_specify', e.target.value)} /> : ''
                     }
 
+                    <hr />
+
+                    {intradicomfiles !== undefined &&
+                         <Row>
+                              <Col md={3} className='text-secondary'>Related Dicom Files</Col>
+                              <Col md={6} >
+                                   <ul className="list-style-none">
+                                        {intradicomfiles.map((file) =>
+                                             <li key={file.id}>
+                                                  <a href={route('crf.intraoperative.fileupload.show', { crf: crf, intraoperative: intraoperative, fileupload: file })} >{file.file_name} </a>
+                                             </li>)}
+                                   </ul>
+                              </Col>
+                              <Col md={3}>
+                                   <Link href={route('crf.intraoperative.fileupload.index', { crf: crf, intraoperative: intraoperative })} className="btn btn-sm btn-secondary"> Upload Files</Link>
+                              </Col>
+                         </Row>
+
+                    }
 
                     <hr />
+
+
+
                     {role.coordinator && <FormButton processing={processing} labelText='Update' type="submit" mode="warning" />}
 
 

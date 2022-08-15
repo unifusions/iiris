@@ -36,7 +36,8 @@ const Edit = () => {
           albumin: labinvestigation.albumin,
           total_protein: labinvestigation.total_protein,
           bilirubin: labinvestigation.bilirubin,
-          pt_inr: labinvestigation.pt_inr
+          pt_inr: labinvestigation.pt_inr,
+          subject: crf.subject_id
      });
 
      function handlesubmit(e) {

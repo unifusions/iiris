@@ -17,7 +17,7 @@ export default function ApprovalSubmit({ role, crf, preoperative }) {
                <>{preoperative.is_submitted !== null &&
                     <>
                          {preoperative.is_submitted ? '' :
-                              <form onSubmit={handlesubmit}>
+                              <form onSubmit={handlesubmit} >
 
                                    <FormButton processing={processing} labelText='Submit for Approval' type="submit" mode="primary" />
 

@@ -102,8 +102,8 @@ class PreOperativeSymptomsController extends Controller
     public function update(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, PreOperativeData $preoperative, OperativeSymptoms $symptom, OperativeSymptomsService $operativeSymptomsService)
     {
 
-        if ($operativeSymptomsService->updateOperativeSymptoms($request))
-            return redirect()->route('crf.preoperative.show', [$crf, $preoperative]);
+        $operativeSymptomsService->updateOperativeSymptoms($request);
+        return redirect()->route('crf.preoperative.show', [$crf, $preoperative]);
     }
 
     public function destroy($id)

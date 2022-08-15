@@ -62,6 +62,7 @@ use App\Http\Controllers\UnshceduledVisit\UVPhysicalActivityController;
 use App\Http\Controllers\UnshceduledVisit\UVSafetyParameterController;
 use App\Http\Controllers\UserController;
 use App\Models\EchoDicomFile;
+use App\Http\Controllers\IntrafileUploadController;
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -112,6 +113,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.preoperative.medication', PreOperativeMedicationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         
         Route::resource('crf.intraoperative', IntraOperativeController::class)->parameters(['crf' => 'crf:subject_id', 'intraoperative' => 'intraoperative:visit_no']);
+        Route::resource('crf.intraoperative.fileupload', IntrafileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'intraoperative' => 'intraoperative:visit_no']); 
+
     
         Route::resource('crf.postoperative.physicalexamination', PostOperativePhysicalExaminationController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
         Route::resource('crf.postoperative.symptoms', OperativeSymptomController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
@@ -152,7 +155,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/download/{echodicomfile}', [EchoDicomFilesController::class, 'download'])->name('dicomdownload');
 
 
-
+  
 
     Route::get('/underconstruction', function () {
         return 'Feature under developement';

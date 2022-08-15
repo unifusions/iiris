@@ -11,7 +11,7 @@ class IntraOperativeData extends Model
     use HasFactory;
 
     protected $fillable = [
-        'case_report_form_id' ,
+        'case_report_form_id',
         'visit_no',
         'form_status',
         'is_submitted',
@@ -34,10 +34,14 @@ class IntraOperativeData extends Model
     ];
     protected $dates = ['date_of_procedure'];
 
-    
-   
-    public function casereportform(){
+
+
+    public function casereportform()
+    {
         return $this->belongsTo(CaseReportForm::class);
     }
-
+    public function fileuploads()
+    {
+        return $this->hasMany(IntraoperativeDicomFile::class);
+    }
 }

@@ -7,37 +7,44 @@ use App\Models\OperativeSymptoms;
 
 class SymptomsObserver
 {
+    private function getFormType($data)
+    {
+
+        if (array_key_exists('pre_operative_data_id', $data)) {
+            if ($data['pre_operative_data_id'] !== null)
+                return  'Pre Operative';
+        } elseif (array_key_exists('post_operative_data_id', $data)) {
+            if ($data['post_operative_data_id'] !== null)
+                return 'Post Operative';
+        } elseif (array_key_exists('scheduled_visits_id', $data)) {
+            if ($data['scheduled_visits_id'] !== null)
+                return 'Scheduled Visit';
+        } elseif (array_key_exists('unscheduled_visits_id', $data)) {
+            if ($data['unscheduled_visits_id'] !== null)
+                return 'Unscheduled Visit';
+        } else {
+            return 'default';
+        }
+    }
     public function updating(OperativeSymptoms $operativeSymptoms)
     {
-        $formType = '';
+       
         $original_data = $operativeSymptoms->getOriginal();
         $log_data = array();
-
-        if ($original_data['pre_operative_data_id'] !== null)
-            $formType = 'Pre Operative';
-        elseif ($original_data->post_operative_data_id !== null)
-            $formType = 'Post Operative';
-        elseif ($original_data->scheduled_visits_id !== null)
-            $formType = 'Scheduled Visit';
-        elseif ($original_data->unscheduled_visits_id !== null)
-            $formType = 'Unscheduled Visit';
-
-
         $log_data['data'] = array(
             'subject' => request()->input('subject'),
-            'form' => $formType,
+            'form' => $this->getFormType($original_data),
             'sub_form' => 'Symptoms'
         );
-
+dd(request()->input());
         $log_data['type'] = 'Edit/Update';
         foreach (request()->input() as $key => $value) {
             if (array_key_exists($key, $original_data)) {
-             
-                
-                if (strval($value) !== strval($original_data[$key])  ) {
-                    // dd(strval($original_data[$key]));
-                    dd($value);
-                    dd(strval($value));
+
+
+                if (strval($value) !== strval($original_data[$key])) {
+               
+                   
                     $log_data['fields'][] = array(
                         'field_name' => $key,
                         'new_value' => $value,

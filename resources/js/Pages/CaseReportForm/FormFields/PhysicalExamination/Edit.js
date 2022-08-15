@@ -43,6 +43,13 @@ const Edit = () => {
 
           }
      }
+     useEffect(
+          () => {
+               let bsa = Math.sqrt((data.height * data.weight) / 3600).toFixed(2)
+               setData('bsa', bsa);
+          },
+          [data.height, data.weight],
+     );
 
      function updateBsa(e) {
           let bsa = Math.sqrt((data.height * data.weight) / 3600).toFixed(2)
@@ -80,7 +87,8 @@ const Edit = () => {
                                              handleChange={e => setData('height', e.target.value)}
                                              units='cms'
 
-                                             onBlur={updateBsa}
+                                             onBlur={e => setData('height', Number.parseFloat(data.height).toFixed(2))}
+                                             //  onBlur={updateBsa}
                                              value={data.height}
                                              required />
 
@@ -89,7 +97,8 @@ const Edit = () => {
                                              className={`${errors.weight && 'is-invalid '}`}
                                              error={errors.weight} labelText="Weight"
                                              handleChange={e => setData('weight', e.target.value)}
-                                             onBlur={updateBsa}
+                                             // onBlur={updateBsa}
+                                             onBlur={e => setData('weight', Number.parseFloat(data.weight).toFixed(2))}
                                              units='kgs'
                                              value={data.weight}
                                              required />
@@ -111,7 +120,7 @@ const Edit = () => {
                                         handleChange={e => setData('heart_rate', e.target.value)}
                                         units='bpm'
                                         required
-                                        remarks = 'BSA will be calculated automatically from the given height & weight'
+                                        remarks='BSA will be calculated automatically from the given height & weight'
                                         value={data.heart_rate}
 
                                    />

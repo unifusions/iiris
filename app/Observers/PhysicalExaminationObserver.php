@@ -8,22 +8,45 @@ use App\Models\PhysicalExamination;
 
 class PhysicalExaminationObserver
 {
+    private function getFormType($data)
+    {
+
+        if (array_key_exists('pre_operative_data_id', $data)) {
+            if ($data['pre_operative_data_id'] !== null)
+                return  'Pre Operative';
+        } elseif (array_key_exists('post_operative_data_id', $data)) {
+            if ($data['post_operative_data_id'] !== null)
+                return 'Post Operative';
+        } elseif (array_key_exists('scheduled_visits_id', $data)) {
+            if ($data['scheduled_visits_id'] !== null)
+                return 'Scheduled Visit';
+        } elseif (array_key_exists('unscheduled_visits_id', $data)) {
+            if ($data['unscheduled_visits_id'] !== null)
+                return 'Unscheduled Visit';
+        } else {
+            return 'default';
+        }
+    }
+    public function created(PhysicalExamination $physicalexamination)
+    {
+        $log_data = array();
+        $formType = $this->getFormType($physicalexamination->getAttributes());
+        $log_data['data'] = array(
+            'subject' => request()->input('subject'),
+            'form' => $formType,
+            'sub_form' => 'Physical Examination'
+        );
+        $log_data['type'] = 'Create';
+        Log::Create(['logdata' => $log_data]);
+    }
+
     public function updating(PhysicalExamination $physicalexamination)
     {
-        $formType = '';
+
         $original_data = $physicalexamination->getOriginal();
         $log_data = array();
-        
-        if ($original_data['pre_operative_data_id'] !== null)
-            $formType = 'Pre Operative';
-        elseif ($original_data->post_operative_data_id !== null)
-            $formType = 'Post Operative';
-        elseif ($original_data->scheduled_visits_id !== null)
-            $formType = 'Scheduled Visit';
-        elseif ($original_data->unscheduled_visits_id !== null)
-            $formType = 'Unscheduled Visit';
+        $formType = $this->getFormType($original_data);
 
-       
         $log_data['data'] = array(
             'subject' => request()->input('subject'),
             'form' => $formType,

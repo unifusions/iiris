@@ -58,7 +58,7 @@ export default class Index extends React.Component {
 
 
      render() {
-          const { auth, roles, crf, intraoperative, updateUrl } = this.props;
+          const { auth, roles, crf, intraoperative, updateUrl, intradicomfiles } = this.props;
 
 
           return (
@@ -106,7 +106,7 @@ export default class Index extends React.Component {
                                         {intraoperative.is_submitted ? <>
                                              <SubmittedIntraOperative intraoperative={intraoperative} />
 
-                                        </> : <> <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} /> </>}
+                                        </> : <> <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles = {intradicomfiles}/> </>}
                                    </Card.Body>
                               </Card>
 

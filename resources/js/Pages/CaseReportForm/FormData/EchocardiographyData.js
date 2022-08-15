@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Card, Modal, Button, Row, Col } from "react-bootstrap";
-import CornerstoneElement from "./CornerstoneElement";
+
 
 
 import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton } from "./FormDataHelper";
@@ -69,15 +69,15 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
                                         <Col md={4} className='text-secondary'>Related Dicom Files</Col>
                                         <Col md={8} >
                                              <ul className="list-style-none">
-                                                  {echodicomfiles.map((file) => <li key={file.id}>
-                                                       <CornerstoneElement url={file.download_url} />
-                                                       <a href={route('dicomdownload', { echodicomfile: file })} >{file.file_name} </a>
-                                                  </li>)}
+                                                  {echodicomfiles.map((file) =>
+                                                       <li key={file.id}>
+                                                            <a href={route('dicomdownload', { echodicomfile: file })} >{file.file_name} </a>
+                                                       </li>)}
                                              </ul></Col>
                                    </Row>
 
                               }
-                          
+
 
 
                          </> : <span className="fw-normal text-secondary fst-italic">No Echocardiography data has been recorded. Go ahead and create one.</span>

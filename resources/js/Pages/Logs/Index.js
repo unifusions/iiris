@@ -14,7 +14,7 @@ function RenderDurationEditlog({ duration }) {
 function RenderSymptomsEditLog({ fields }) {
      return (
           <>
-          {console.log(fields)}</>
+               {console.log(fields)}</>
           // <Table size="sm">
           //      <thead>
           //           <tr>
@@ -36,23 +36,29 @@ function RenderSymptomsEditLog({ fields }) {
 }
 
 function RenderPhysicalExaminationEditLog({ fields }) {
-     return (<Table size="sm">
-          <thead>
-               <tr>
-                    <th>Field Name</th>
-                    <th>Old Value</th>
-                    <th>New Value</th>
-               </tr>
-          </thead>
-          <tbody>
-               {fields.map((field, index) =>
-                    <tr key={index}>
-                         <td style={{ padding: '0.25rem 1.375rem' }}>{field.field_name}</td>
-                         <td style={{ padding: '0.25rem 1.375rem' }}>{field.old_value}</td>
-                         <td style={{ padding: '0.25rem 1.375rem' }}>{field.new_value}</td>
-                    </tr>
-               )}</tbody>
-     </Table>
+     return (<>
+          {
+               fields !== undefined ? <Table size="sm">
+                    <thead>
+                         <tr>
+                              <th>Field Name</th>
+                              <th>Old Value</th>
+                              <th>New Value</th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                         {fields.map((field, index) =>
+                              <tr key={index}>
+                                   <td style={{ padding: '0.25rem 1.375rem' }}>{field.field_name}</td>
+                                   <td style={{ padding: '0.25rem 1.375rem' }}>{field.old_value}</td>
+                                   <td style={{ padding: '0.25rem 1.375rem' }}>{field.new_value}</td>
+                              </tr>
+                         )}</tbody>
+               </Table> : 'No data'
+          }
+
+     </>
+
      )
 
 }
@@ -68,9 +74,9 @@ export default function Index() {
                          <td>{item.logdata.data.subject}</td>
                          <td>{item.logdata.data.form}</td>
                          <td>{item.logdata.data.sub_form}</td>
-
+                         <td>{item.logdata.type}</td>
                          <td>
-                              {item.logdata.data.sub_form === 'Physical Examination' && <RenderPhysicalExaminationEditLog fields={item.logdata.fields} />}
+                              {item.logdata.data.sub_form !== 'Symptoms' && <RenderPhysicalExaminationEditLog fields={item.logdata.fields} />}
                               {item.logdata.data.sub_form === 'Symptoms' && <RenderSymptomsEditLog fields={item.logdata.fields} />}
                          </td>
                     </tr>

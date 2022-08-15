@@ -79,7 +79,7 @@ const Create = () => {
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit} >
-               {console.log(data.height)}
+               
                                    {mode !== 'postoperative' && <>
                                         <FormInputWithLabel
                                              type="number"

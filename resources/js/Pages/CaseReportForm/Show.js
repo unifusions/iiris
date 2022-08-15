@@ -48,7 +48,7 @@ return (
                                    <div className='menu-bar'>
                                         <ul className='menu-items'>
                                              <li className="active">
-                                                  <Link href={preoperativeUrl} className=''>
+                                                  <Link href={route('crf.preoperative.show', { crf: crf, preoperative: crf.preoperative })} className=''>
                                                        <LinkIcon style={{ width: 20, height: 20 }} className="me-2" />
                                                        Pre-Operative
                                                   </Link>
@@ -160,9 +160,3 @@ return (
           )
      }
 }
-
-// const Show = () => {
-    
-// }
-
-// export default Show;

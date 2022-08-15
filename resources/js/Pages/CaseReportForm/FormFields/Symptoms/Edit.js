@@ -29,25 +29,27 @@ const Edit = () => {
 
           dyspnea: symptom.dyspnea !== null ? symptom.dyspnea ? '1' : '0' : null,
           dyspnea_class: '',
-          dyspnea_duration: symptom.dyspnea_duration,
+          dyspnea_duration: symptom.dyspnea_duration !== null ? symptom.dyspnea_duration : '',
+         
 
           syncope: symptom.syncope !== null ? symptom.syncope ? '1' : '0' : null,
-          syncope_duration: symptom.syncope_duration,
+          syncope_duration: symptom.syncope_duration !== null? symptom.syncope_duration :'',
 
           palpitation: symptom.palpitation !== null ? symptom.palpitation ? '1' : '0' : null,
-          palpitation_duration: symptom.palpitation_duration,
+          palpitation_duration: symptom.palpitation_duration !== null ? symptom.palpitation_duration : '',
 
           giddiness: symptom.giddiness !== null ? symptom.giddiness ? '1' : '0' : null,
-          giddiness_duration: symptom.giddiness_duration,
+          giddiness_duration: symptom.giddiness_duration !== null ? symptom.giddiness_duration : '',
 
           fever: symptom.fever !== null ? symptom.fever ? '1' : '0' : null,
-          fever_duration: symptom.fever_duration,
+          fever_duration: symptom.fever_duration !== null ? symptom.fever_duration:'',
 
           heart_failure_admission: symptom.heart_failure_admission !== null ? symptom.heart_failure_admission ? '1' : '0' : null,
-          heart_failure_admission_duration: symptom.heart_failure_admission_duration,
+          heart_failure_admission_duration: symptom.heart_failure_admission_duration !== null ? symptom.heart_failure_admission_duration : '',
+
           others: symptom.others !== null ? symptom.others ? '1' : '0' : null,
           others_text: symptom.others_text || '',
-          others_duration: symptom.others_duration
+          others_duration: symptom.others_duration  !== null ? symptom.others_duration: ''
      });
 
 
@@ -263,7 +265,7 @@ const Edit = () => {
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handleAnginaDurationDays(e)} 
-                                                                 value = {data.angina_duration.days}
+                                                                 value = {data.angina_duration.days !== undefined && data.angina_duration.days }
                                                                  />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>
@@ -408,7 +410,7 @@ const Edit = () => {
                                                        <div className="input-group">
                                                             <input type="number" className="form-control with-units"
                                                                  onChange={e => handlePalpitationDurationDays(e)}
-                                                                 value = {data.palpitation_duration.days}
+                                                                 value = {data.palpitation_duration.days !== undefined && data.palpitation_duration.days}
                                                                   />
                                                             <span className="input-group-text text-secondary input-units">days</span>
                                                        </div>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\CaseReportForm;
+
 use App\Models\IntraOperativeData;
+use App\Models\IntraoperativeDicomFile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -28,9 +30,16 @@ class IntraOperativeController extends Controller
     public function show(CaseReportForm $crf, IntraOperativeData $intraoperative)
     {
 
+        // dd($intraoperative->fileuploads);
         return Inertia::render('CaseReportForm/Intraoperative/Index', [
             'crf' => $crf,
             'intraoperative' => $intraoperative,
+            'intradicomfiles' => $intraoperative->fileuploads  ?
+                IntraoperativeDicomFile::where('intra_operative_data_id', $intraoperative->id)->get()->map(fn ($file) => [
+                    'id' => $file->id,
+                    'file_name' => $file->file_name,
+                    'download_url' => storage_path('app/public/' . $file->file_path)
+                ]) : null,
             'updateUrl' => route('crf.intraoperative.update', ['crf' => $crf, 'intraoperative' => $intraoperative]),
         ]);
 
@@ -44,6 +53,7 @@ class IntraOperativeController extends Controller
 
     public function update(Request $request, CaseReportForm $crf, IntraOperativeData $intraoperative)
     {
+
 
         if ($request->is_submitted) {
             $intraoperative->is_submitted = $request->is_submitted;
@@ -86,7 +96,9 @@ class IntraOperativeController extends Controller
         $intraoperative->all_paravalvular_leak_specify = $request->all_paravalvular_leak_specify;
         $intraoperative->major_paravalvular_leak = $request->major_paravalvular_leak;
         $intraoperative->major_paravalvular_leak_specify = $request->major_paravalvular_leak_specify;
+
         $intraoperative->save();
+
 
 
 

@@ -4,12 +4,14 @@ namespace App\Providers;
 
 use App\Models\CaseReportForm;
 use App\Models\CaseReportFormVisit;
+use App\Models\LabInvestigation;
 use App\Models\OperativeSymptoms;
 use App\Models\PhysicalExamination;
 use App\Models\PreOperativeData;
 use App\Models\Roles;
 use App\Observers\CaseReportFormObserver;
 use App\Observers\CaseReportFormVisitObserver;
+use App\Observers\LabInvestigationObserver;
 use App\Observers\PhysicalExaminationObserver;
 use App\Observers\PreOperativeDataObserver;
 use App\Observers\SymptomsObserver;
@@ -43,9 +45,10 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         CaseReportForm::observe(CaseReportFormObserver::class);
-       // PreOperativeData::observe(PreOperativeDataObserver::class);
-       // PhysicalExamination::observe(PhysicalExaminationObserver::class);
-       // OperativeSymptoms::observe(SymptomsObserver::class);
+        // PreOperativeData::observe(PreOperativeDataObserver::class);
+        PhysicalExamination::observe(PhysicalExaminationObserver::class);
+        //    OperativeSymptoms::observe(SymptomsObserver::class);
+        LabInvestigation::observe(LabInvestigationObserver::class);
     }
 
     public function registerRolePolicy()
@@ -61,14 +64,14 @@ class AppServiceProvider extends ServiceProvider
         Inertia::share([
             'roles' => function () {
                 $user = auth()->user();
-                return $user ? 
+                return $user ?
                     [
                         'admin' => $user->can('admin'),
                         'investigator' => $user->can('investigator'),
                         'coordinator' => $user->can('coordinator'),
                         'sudo' => $user->can('sudo')
                     ]
-                
+
                     : null;
             }
         ]);
