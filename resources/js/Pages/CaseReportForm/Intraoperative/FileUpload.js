@@ -44,7 +44,7 @@ export default function FileUpload() {
 
 
                     <Container>
-                         <PageTitle backUrl={route('crf.intraoperative.show', {crf:crf, intraoperative: intraoperative})} pageTitle='Family History' role={roles} />
+                         <PageTitle backUrl={route('crf.intraoperative.show', {crf:crf, intraoperative: intraoperative})} pageTitle='Intraoperative File Uploads' role={roles} />
 
                          <Card className="mb-3 shadow-sm rounded-5">
                               <Card.Body>
