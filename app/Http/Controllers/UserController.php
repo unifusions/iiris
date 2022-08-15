@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserRegisteredMail;
 use App\Models\Facility;
 use App\Models\Roles;
 use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Illuminate\Validation\Rules;
 class UserController extends Controller
@@ -84,6 +86,8 @@ class UserController extends Controller
             'role_id' => $request->role_id,
             'facility_id' => $request->facility_id
         ]);
+
+        Mail::to($request->user())->send(new UserRegisteredMail());
         return redirect()->route('users.index');
     }
 
