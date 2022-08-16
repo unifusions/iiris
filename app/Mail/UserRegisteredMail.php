@@ -23,6 +23,9 @@ class UserRegisteredMail extends Mailable
     public function build()
     {
        
-        return $this->view('mails.userregistered');
+        $subject = "User Created : " .  $this->user->name;
+        return $this->view('mails.userregistered')
+        ->subject($subject)
+        ->from('no-reply@cliniquest.in', 'IIRIS Admin Team');
     }
 }

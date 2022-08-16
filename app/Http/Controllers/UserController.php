@@ -98,7 +98,7 @@ class UserController extends Controller
         ]);
         $user['password_reset'] = route('password.reset', ['token'=>$token, 'email'=>$user->email]);
       
-        Mail::to($request->user())->send(new UserRegisteredMail($user));
+        Mail::to($user->email)->send(new UserRegisteredMail($user));
         return redirect()->route('users.index');
     }
 

@@ -495,8 +495,7 @@
                                                                         {{ $user->name }}!
                                                                     </h1>
                                                                     <p>Greetings from Cliniquest! We are happy to share
-                                                                        you the login
-                                                                        credentials to access our IIRIS Application,
+                                                                        you the login credentials to access our IIRIS Application,
                                                                     </p>
 
                                                                     <span class="f-fallback">
