@@ -25,7 +25,7 @@ class UserRegisteredMail extends Mailable
        
         $subject = "User Created : " .  $this->user->name;
         return $this->view('mails.userregistered')
-        ->subject($subject)
-        ->from('no-reply@cliniquest.in', 'IIRIS Admin Team');
+        ->subject($subject);
+        // ->from('no-reply@cliniquest.in', 'IIRIS Admin Team');
     }
 }
