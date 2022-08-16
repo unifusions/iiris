@@ -122,7 +122,7 @@
             border-bottom: 10px solid #3869D4;
             border-left: 18px solid #3869D4;
             display: inline-block;
-            color: #FFF;
+            color: #FFF!important;
             text-decoration: none;
             border-radius: 3px;
             box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
@@ -360,7 +360,7 @@
             -premailer-width: 570px;
             -premailer-cellpadding: 0;
             -premailer-cellspacing: 0;
-            background-color: #223234;
+            background-color: #f7f7f7;
         }
 
         .email-footer {
@@ -492,7 +492,7 @@
                                                             <tr>
                                                                 <td class="attributes_item" align="center">
                                                                     <h1>Welcome, 
-                                                                        {{ $user->name }}!
+                                                                        {{-- {{ $user->name }}! --}}
                                                                     </h1>
                                                                     <p>Greetings from Cliniquest! We are happy to share
                                                                         you the login credentials to access our IIRIS Application,
@@ -500,7 +500,8 @@
 
                                                                     <span class="f-fallback">
 
-                                                                        <a href={{ $user->password_reset }}
+                                                                        <a href= ""
+                                                                        {{-- {{ $user->password_reset }} --}}
                                                                          class="f-fallback button"
                                                                             target="_blank">Reset Your Password</a>
                                                                     </span>
