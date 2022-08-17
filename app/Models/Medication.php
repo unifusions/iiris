@@ -28,11 +28,23 @@ class Medication extends Model
         'stop_date'
     ];
 
-    protected $casts = [
-        'start_date' => 'datetime:d/m/Y',
-        'stop_date' => 'datetime:d/m/Y',
-    ];
-    public function preoperative(){
-        return $this->belongsTo(PreOperativeData::class);
+    // protected $casts = [
+    //     'start_date' => 'datetime:d/m/Y',
+    //     'stop_date' => 'datetime:d/m/Y',
+    // ];
+    public function preoperatives(){
+        return $this->belongsTo(PreOperativeData::class, 'pre_operative_data_id', 'id');
+    }
+
+    public function postoperatives(){
+        return $this->belongsTo(PostOperativeData::class, 'post_operative_data_id', 'id');
+    }
+
+    public function scheduledvisit(){
+        return $this->belongsTo(ScheduledVisit::class, 'scheduled_visits_id', 'id');
+    }
+
+    public function unscheduledvisit(){
+        return $this->belongsTo(UnscheduledVisit::class, 'unscheduled_visits_id', 'id');
     }
 }

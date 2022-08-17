@@ -48,6 +48,10 @@ class User extends Authenticatable
         return $this->belongsTo(Facility::class);
     }
 
+    public function role(){
+        return $this->belongsTo(Roles::class);
+    }
+
     public function casereportforms(){
         return $this->hasMany(CaseReportForm::class);
     }

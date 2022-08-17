@@ -36,7 +36,7 @@ export default function MedicationsData({ hasMedication, medications, role, link
                     </div>
                     <hr />
                     {hasMedication ? <>
-
+                         
                          {medications.length > 0 &&
                               <>
                                    <Row className="fw-bold">

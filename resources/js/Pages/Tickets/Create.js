@@ -2,7 +2,7 @@
 import Authenticated from "@/Layouts/Authenticated";
 import { Inertia } from "@inertiajs/inertia";
 import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Table } from "react-bootstrap";
 import Select from "react-select";
 import FormButton from "../Shared/FormButton";
@@ -19,17 +19,30 @@ export default function Create() {
           from_user_id: auth.user.id || '',
           to_user_id: '',
           facility_id: '',
-          status: 'Open'
+          status: 'Open',
+          isAdminQuery: '',
+          message: ''
+
      })
+     const [listUsers, setListUsers] = useState([]);
+
      useEffect(() => {
           if (selectedCrf !== undefined) {
-               setData(data => ({ ...data, to_user_id: selectedCrf.user_id }))
-               setData(data => ({ ...data, facility_id: selectedCrf.facility_id }))
+               setData('to_user_id', selectedCrf.user_id);
+               setData('facility_id', selectedCrf.facility_id);
+               setListUsers([]);
+               if (!roles.admin) { setListUsers(list => [...list, { 'label': 'IIRIS Admin Team', 'value': true }]) }
+               selectedCrf.facility.users.filter(user => user.id !== auth.user.id).map((filteredUser) =>
+                    setListUsers(list => [...list, { 'label': filteredUser.name + '(' + filteredUser.role.name + ')', 'value': filteredUser.id }])
+
+               )
+
+
           }
+
      }, [selectedCrf]);
 
      function selectCrf(value) {
-          // const varDur = { ...data.form_query, 'subject_id': value.value };
           setData('subject', value.value)
           Inertia.reload({ only: ['selectedCrf'], data: { subject: value.value } })
 
@@ -37,6 +50,15 @@ export default function Create() {
      function handleSubmit(e) {
           e.preventDefault();
           post(route('tickets.store'));
+     }
+     function adminQueryFunction(){
+          setData('isAdminQuery', true)
+          setData('to_user_id', '')
+     }
+
+     function userQueryFunction(value){
+          setData('to_user_id', value)
+          setData('isAdminQuery', false)
      }
 
      return (
@@ -56,7 +78,7 @@ export default function Create() {
 
 
                <Head title="Tickets" />
-
+               {console.log(listUsers)}
                <Card className="shadow-sm rounded-5">
                     <Card.Body>
                          <form onSubmit={handleSubmit}>
@@ -69,6 +91,7 @@ export default function Create() {
                                    </Col>
                               </Row>
 
+                              {/* {selectedCrf !== undefined && console.log(selectedCrf)} */}
                               {/* {selectedCrf !== undefined &&
                               <>
                                    <Row>
@@ -81,6 +104,18 @@ export default function Create() {
                                    </Row>
                               </>
                          } */}
+
+                              <Row className="mb-3">
+                                   <Col md={3}>
+                                        Raise Ticket
+                                   </Col>
+                                   <Col md={6}>
+                                        <Select options={listUsers}
+                                             onChange={(value) => value.value === true ? adminQueryFunction() : userQueryFunction(value.value)}
+                                             isDisabled={data.subject === ''}
+                                        />
+                                   </Col>
+                              </Row>
 
                               <Row className="mb-3">
                                    <Col md={3}>

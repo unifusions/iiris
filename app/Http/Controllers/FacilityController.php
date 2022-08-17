@@ -16,7 +16,7 @@ class FacilityController extends Controller
 
     public function index()
     {
-        $facilities = Facility::orderBy('id', 'asc')->paginate(15);
+        $facilities = Facility::orderBy('id', 'asc')->paginate(25);
         // return view('facility.index', compact('facilities'));
 
         return Inertia::render('Facility/Index', [

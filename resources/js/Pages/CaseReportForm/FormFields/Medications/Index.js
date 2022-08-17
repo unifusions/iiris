@@ -10,18 +10,19 @@ import FormRadio from "@/Pages/Shared/FormRadio";
 import { RenderBackButton, RenderCreateButton, RenderUpdateButton } from "../../FormData/FormDataHelper";
 import CreateMedications from "./CreateMedications";
 import PageTitle from "@/Pages/Shared/PageTitle";
+import RenderMedication from "./RenderMedication";
 
 
 
 
 
 const Create = () => {
-     const { auth, roles, postUrl, mode, medications, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, updateUrl, backUrl } = usePage().props;
+     const { auth, roles, postUrl, mode, createUrl, medications, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, updateUrl, backUrl,postopmedications, preopmedications } = usePage().props;
      const { data, setData, errors, post, put, processing, hasErrors } = useForm({
           hasMedications: preoperative !== undefined ? preoperative.hasMedications ? '1' : '0' : null,
           postHasMedications: postoperative !== undefined ? postoperative.hasMedications ? '1' : '0' : null,
           svHasMedications: scheduledvisit !== undefined ? scheduledvisit.hasMedications ? '1' : '0' : null,
-          usvHasMedications : unscheduledvisit !== undefined ? unscheduledvisit.hasMedications ? '1' : '0' : null,
+          usvHasMedications: unscheduledvisit !== undefined ? unscheduledvisit.hasMedications ? '1' : '0' : null,
      });
 
      const boolRadios = [
@@ -117,28 +118,47 @@ const Create = () => {
 
 
                     </Card>
+                    
+                    <RenderMedication
+                         crf={crf}
+                         preoperative={preoperative}
+                         postoperative={postoperative}
+                         scheduledvisit={scheduledvisit}
+                         unscheduledvisit={unscheduledvisit}
+                         medications={medications !== undefined ? medications : ''}
+                         postopmedications = {postopmedications !==undefined ? postopmedications : ''}
+                         preopmedications = {preopmedications !== undefined ? preopmedications : ''}
+                         createUrl = {createUrl}
+                    />
 
-                    {preoperative !== undefined &&
+                    {/* {preoperative !== undefined &&
                          <>
                               {preoperative.hasMedications !== null && <>
-                                   {preoperative.hasMedications ? <CreateMedications crf={crf} preoperative={preoperative} medications={medications} mode={mode} /> : ''}
+                                   {preoperative.hasMedications ? <RenderMedication crf={crf} preoperative={preoperative} medications={medications} mode={mode} /> : ''}
                               </>}
                          </>
                     }
 
                     {postoperative !== undefined && <>
                          {postoperative.hasMedications !== null && <>
-                              {postoperative.hasMedications ? <CreateMedications crf={crf} postoperative={postoperative} medications={medications} mode={mode} /> : ''}
+                              {postoperative.hasMedications ? <RenderMedication crf={crf} postoperative={postoperative} medications={medications} mode={mode} /> : ''}
                          </>
                          }
                     </>}
 
                     {scheduledvisit !== undefined && <>
                          {scheduledvisit.hasMedications !== null && <>
-                              {scheduledvisit.hasMedications ? <CreateMedications crf={crf} scheduledvisit={scheduledvisit} medications={medications} mode={mode} /> : ''}
+                              {scheduledvisit.hasMedications ? <RenderMedication crf={crf} scheduledvisit={scheduledvisit} medications={medications} mode={mode} /> : ''}
                          </>
                          }
                     </>}
+
+                    {unscheduledvisit !== undefined && <>
+                         {unscheduledvisit.hasMedications !== null && <>
+                              {unscheduledvisit.hasMedications ? <RenderMedication crf={crf} unscheduledvisit={unscheduledvisit} medications={medications} mode={mode} /> : ''}
+                         </>
+                         }
+                    </>} */}
                </Container>
 
 

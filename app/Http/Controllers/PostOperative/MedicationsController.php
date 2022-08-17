@@ -14,25 +14,50 @@ class MedicationsController extends Controller
 {
     public function index(CaseReportForm $crf, PostOperativeData $postoperative)
     {
+
         return Inertia::render('CaseReportForm/FormFields/Medications/Index', [
             'crf' => $crf,
             'mode' => 'postoperative',
+            'createUrl' => route('crf.postoperative.medication.create', [$crf,$postoperative]),
             'postoperative' => $postoperative,
-            'medications' => $postoperative->medications,
+            'preopmedications' => $crf->preoperatives->medications->map(function ($medication) {
+                return [
+                    'medication' => $medication,
+                    'editUrl' => route('crf.preoperative.medication.edit', [$medication->preoperatives->casereportform, $medication->preoperatives, $medication]),
+                    'updateUrl' => route('crf.preoperative.medication.update', [$medication->preoperatives->casereportform, $medication->preoperatives, $medication]),
+                    'deleteUrl' => route('crf.preoperative.medication.destroy', [$medication->preoperatives->casereportform, $medication->preoperatives, $medication]),
+                ];
+            }),
+            'medications' => $postoperative->medications->map(function ($medication) {
+                return [
+                    'medication' => $medication,
+                    'editUrl' => route('crf.postoperative.medication.edit', [$medication->postoperatives->casereportform, $medication->postoperatives, $medication]),
+                    'updateUrl' => route('crf.postoperative.medication.update', [$medication->postoperatives->casereportform, $medication->postoperatives, $medication]),
+                    'deleteUrl' => route('crf.postoperative.medication.destroy', [$medication->postoperatives->casereportform, $medication->postoperatives, $medication]),
+                ];
+            }),
+            
             'updateUrl' => 'crf.postoperative.update',
             'backUrl' => route('crf.postoperative.show', [$crf, $postoperative])
         ]);
     }
 
-    public function create()
+    public function create(CaseReportForm $crf, PostOperativeData $postoperative)
     {
-        //
+        return Inertia::render('CaseReportForm/FormFields/Medications/CreateMedications', [
+            'crf' => $crf,
+            'mode' => 'postoperative',
+            'preoperative' => $postoperative,
+            'storeUrl' => route('crf.postoperative.medication.store', [$crf, $postoperative]),
+            'backUrl' => route('crf.postoperative.medication.index', [$crf, $postoperative])
+        ]);
+        
     }
 
-    
+
     public function store(Request $request, CaseReportForm $crf, PostOperativeData $postoperative)
     {
-        
+
 
         Medication::create([
             'post_operative_data_id' => $request->postoperative->id,
@@ -45,7 +70,7 @@ class MedicationsController extends Controller
             'stop_date' => $request->stop_date
         ]);
 
-        return redirect()->back()->with(['message' => 'Medication Added successfully']);
+        return redirect()->route('crf.postoperative.medication.index', [$crf,$postoperative])->with(['message' => 'Medication Added successfully']);
     }
 
     public function show($id)
@@ -64,9 +89,8 @@ class MedicationsController extends Controller
     }
     public function destroy(CaseReportForm $crf, PostOperativeData $postoperative, Medication $medication)
     {
-         
-        $medication->delete();
-        return redirect()->back()->with(['message' => 'Medication '. $medication->id .' Deleted successfully']);
 
+        $medication->delete();
+        return redirect()->back()->with(['message' => 'Medication ' . $medication->id . ' Deleted successfully']);
     }
 }

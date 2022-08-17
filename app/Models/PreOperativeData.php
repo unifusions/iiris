@@ -27,7 +27,7 @@ class PreOperativeData extends Model
         'medical_history' => 'boolean'
     ];
 
-    public function crf()
+    public function casereportform()
     {
         return $this->belongsTo(CaseReportForm::class, 'case_report_form_id', 'id');
     }

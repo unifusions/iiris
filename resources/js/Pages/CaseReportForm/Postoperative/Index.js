@@ -131,7 +131,7 @@ export default class Index extends React.Component {
                                         <MedicationsData
                                              hasMedication={postoperative.hasMedications}
                                              enableActions={postoperative.is_submitted}
-                                             medications={medications}
+                                             medications={medications !== undefined ? medications : ''}
                                              role={roles}
                                              linkUrl={route('crf.postoperative.medication.index', { crf: crf, postoperative: postoperative })}
                                         />

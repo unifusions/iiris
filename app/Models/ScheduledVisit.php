@@ -17,7 +17,9 @@ class ScheduledVisit extends Model
     ];
 
 
-
+    public function casereportform(){
+        return $this->belongsTo(CaseReportForm::class, 'case_report_form_id', 'id');
+    }
     public function physicalexaminations()
     {
         return $this->hasOne(PhysicalExamination::class, 'scheduled_visits_id', 'id');

@@ -49,6 +49,7 @@ class TicketsController extends Controller
                     'value' => $crf
                 ];
             }),
+           
             'selectedCrf' => Inertia::lazy(
                 fn () =>
                 CaseReportForm::query()
@@ -57,8 +58,16 @@ class TicketsController extends Controller
                         function ($query, $subjectId) {
                             $query->where('subject_id', $subjectId);
                         }
-                    )->first(),
-            )
+                    )
+                    ->with('facility')
+                    ->with('facility.users')
+                    ->with('facility.users.role')
+                    
+                    ->first(),
+                    
+            ),
+            
+            
 
         ]);
     }
@@ -66,9 +75,10 @@ class TicketsController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->input());
+        dd($request->input());
         Tickets::Create([
-            'subject' => $request->subject,
+            'form_data' => $request->subject,
+            'subject' => $request->message,
             'from_user_id' => $request->from_user_id,
             'to_user_id' => $request->to_user_id,
             'facility_id' => $request->facility_id,
