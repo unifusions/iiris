@@ -500,8 +500,7 @@
 
                                                                     <span class="f-fallback">
 
-                                                                        <a href= ""
-                                                                        {{-- {{ $user->password_reset }} --}}
+                                                                        <a href= {{ $user->password_reset }} 
                                                                          class="f-fallback button"
                                                                             target="_blank">Reset Your Password</a>
                                                                     </span>
