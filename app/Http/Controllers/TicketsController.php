@@ -75,7 +75,7 @@ class TicketsController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->input());
+        
         Tickets::Create([
             'form_data' => $request->subject,
             'subject' => $request->message,
@@ -90,10 +90,12 @@ class TicketsController extends Controller
     public function show(Tickets $ticket)
     {
 
+        $user = User::find($ticket->closedby_user_id);
         return Inertia::render(
             'Tickets/Show',
             [
                 'ticket' => $ticket,
+                'closedByUser' => $user !== null ? ($user->role) : null,
                 'backUrl' => route('tickets.index'),
                 'comments' => $ticket->comments->map(function ($comment) {
                     return [
@@ -118,6 +120,7 @@ class TicketsController extends Controller
     {
         if (isset($request->status)) {
             $ticket->status = $request->status;
+            $ticket->closedby_user_id = $request->closedByUser;
             $ticket->save();
             return redirect()->route('tickets.index')->with(['message' => 'Ticket has been closed successfully']);
         }

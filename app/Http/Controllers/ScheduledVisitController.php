@@ -64,7 +64,7 @@ class ScheduledVisitController extends Controller
             $scheduledvisit->save();
             if ($scheduledvisit->hasMedications)
                 return redirect()->route('crf.scheduledvisit.medication.index', [$crf, $scheduledvisit]);
-            return redirect()->route('crf.scheduledvisit.index', compact('crf', 'scheduledvisit'));
+            return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit]);
         }
 
         if (isset($request->sv_physical_activity)) {

@@ -40,7 +40,7 @@ export function RenderDuration({ duration }) {
                          </>
                          }
                     </div> : <NotAvailable />
-}
+               }
 
 
           </>
@@ -61,6 +61,38 @@ export function RenderFieldDatas({ labelText, value, units, status }) {
                          {units !== undefined &&
                               <RenderUnits units={units} />
                          }</> : <NotAvailable />}
+
+
+               </Col>
+          </Row>
+     )
+}
+
+
+export function RenderTicketStatus({ labelText, value, units, status, closedByUser }) {
+     return (
+          <Row className='mb-3'>
+               <Col md={4} className='text-secondary'>
+                    {labelText}
+               </Col>
+               <Col md={8}>
+                    {status !== undefined &&
+                         <>
+                              <span className={`dot bg-${status} me-1`}></span>
+                              {value !== null ? <>{value}
+                                   {units !== undefined &&
+                                        <RenderUnits units={units} />
+                                   }</> : <NotAvailable />}
+                              {value === 'Closed' && <>
+                            
+                                   {closedByUser !== null && <> by {closedByUser.name}</>}
+                              </>
+                              }
+                         </>
+
+                    }
+
+
 
 
                </Col>

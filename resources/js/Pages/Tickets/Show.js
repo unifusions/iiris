@@ -5,7 +5,7 @@ import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
 import React, { useEffect } from "react";
 import { Row, Col, Card, Table } from "react-bootstrap";
 import Select from "react-select";
-import { RenderFieldDatas } from "../CaseReportForm/FormData/FormDataHelper";
+import { RenderFieldDatas, RenderTicketStatus } from "../CaseReportForm/FormData/FormDataHelper";
 import FormButton from "../Shared/FormButton";
 import PageTitle from "../Shared/PageTitle";
 import CreateComment from "./CreateComment";
@@ -14,7 +14,7 @@ export default function Show() {
 
 
 
-     const { auth, errors, roles, ticket, comments, backUrl } = usePage().props;
+     const { auth, errors, roles, ticket, comments, backUrl, closedByUser } = usePage().props;
 
      return (
           <Authenticated
@@ -39,15 +39,15 @@ export default function Show() {
                                    <RenderFieldDatas labelText='Ticket ID' value={ticket.id} />
                                    <RenderFieldDatas labelText='Ticket Subject' value={ticket.subject} />
                                    <RenderFieldDatas labelText='Ticket Created On' value={new Date(ticket.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })} />
-                                   <RenderFieldDatas labelText='Ticket Status' value={ticket.status} status={ticket.status === 'Open' ? 'success' : 'danger'} />
+                                   <RenderTicketStatus labelText='Ticket Status' value={ticket.status} status={ticket.status === 'Open' ? 'success' : 'danger'} closedByUser = {closedByUser}/>
+                                   
                                    {roles.admin && <>
                                         {ticket.status !== 'Closed' && <Row>
                                              <Col md={4}></Col>
                                              <Col md={8}>
                                                   <Link href={route('tickets.update', { ticket: ticket })}
-                                                       data={{ status: 'Closed' }}
+                                                       data={{ status: 'Closed', closedByUser : auth.user.id }}
                                                        className="btn btn-danger" method="patch" type="button" as="button" >Close Ticket</Link>
-
                                              </Col>
                                         </Row>}
                                    </>}

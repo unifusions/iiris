@@ -17,12 +17,12 @@ import RenderMedication from "./RenderMedication";
 
 
 const Create = () => {
-     const { auth, roles, postUrl, mode, createUrl, medications, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, updateUrl, backUrl,postopmedications, preopmedications } = usePage().props;
+     const { auth, roles, postUrl, mode, createUrl, medications, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, updateUrl, backUrl, postopmedications, preopmedications } = usePage().props;
      const { data, setData, errors, post, put, processing, hasErrors } = useForm({
-          hasMedications: preoperative !== undefined ? preoperative.hasMedications ? '1' : '0' : null,
-          postHasMedications: postoperative !== undefined ? postoperative.hasMedications ? '1' : '0' : null,
-          svHasMedications: scheduledvisit !== undefined ? scheduledvisit.hasMedications ? '1' : '0' : null,
-          usvHasMedications: unscheduledvisit !== undefined ? unscheduledvisit.hasMedications ? '1' : '0' : null,
+          hasMedications: preoperative !== undefined ? preoperative.hasMedications !== null  ? preoperative.hasMedications ? '1' : '0' : null : null,
+          postHasMedications: postoperative !== undefined ?postoperative.hasMedications !== null  ? postoperative.hasMedications ? '1' : '0' : null : null,
+          svHasMedications: scheduledvisit !== undefined ? scheduledvisit.hasMedications !== null  ? scheduledvisit.hasMedications ? '1' : '0' : null : null,
+          usvHasMedications: unscheduledvisit !== undefined ?unscheduledvisit.hasMedications !== null  ? unscheduledvisit.hasMedications ? '1' : '0' : null : null,
      });
 
      const boolRadios = [
@@ -70,6 +70,7 @@ const Create = () => {
 
                     <Card className="mb-3 shadow-sm rounded-5">
                          <Card.Body>
+                              
                               <form onSubmit={handlesubmit}>
                                    {preoperative !== undefined &&
                                         <FormRadio
@@ -112,53 +113,62 @@ const Create = () => {
 
                               </form>
 
-
                          </Card.Body>
 
 
 
                     </Card>
-                    
-                    <RenderMedication
+
+                    {/* <RenderMedication
                          crf={crf}
                          preoperative={preoperative}
                          postoperative={postoperative}
                          scheduledvisit={scheduledvisit}
                          unscheduledvisit={unscheduledvisit}
                          medications={medications !== undefined ? medications : ''}
-                         postopmedications = {postopmedications !==undefined ? postopmedications : ''}
-                         preopmedications = {preopmedications !== undefined ? preopmedications : ''}
-                         createUrl = {createUrl}
-                    />
+                         postopmedications={postopmedications !== undefined ? postopmedications : ''}
+                         preopmedications={preopmedications !== undefined ? preopmedications : ''}
+                         createUrl={createUrl}
+                    /> */}
 
-                    {/* {preoperative !== undefined &&
+                    {preoperative !== undefined &&
                          <>
                               {preoperative.hasMedications !== null && <>
-                                   {preoperative.hasMedications ? <RenderMedication crf={crf} preoperative={preoperative} medications={medications} mode={mode} /> : ''}
+                                   {preoperative.hasMedications ? <RenderMedication crf={crf} preoperative={preoperative}
+                                        medications={medications !== undefined ? medications : ''}
+                                        postopmedications={postopmedications !== undefined ? postopmedications : ''} mode={mode} 
+                                        createUrl={createUrl}
+                                        /> : ''}
                               </>}
                          </>
                     }
 
                     {postoperative !== undefined && <>
                          {postoperative.hasMedications !== null && <>
-                              {postoperative.hasMedications ? <RenderMedication crf={crf} postoperative={postoperative} medications={medications} mode={mode} /> : ''}
+                              {postoperative.hasMedications ? <RenderMedication crf={crf} postoperative={postoperative} preopmedications={preopmedications !== undefined ? preopmedications : ''}
+                                   medications={medications !== undefined ? medications : ''}
+                                   mode={mode}  createUrl={createUrl}
+                                   /> : ''}
                          </>
                          }
                     </>}
 
                     {scheduledvisit !== undefined && <>
                          {scheduledvisit.hasMedications !== null && <>
-                              {scheduledvisit.hasMedications ? <RenderMedication crf={crf} scheduledvisit={scheduledvisit} medications={medications} mode={mode} /> : ''}
+                              {scheduledvisit.hasMedications ? <RenderMedication crf={crf} scheduledvisit={scheduledvisit} medications={medications !== undefined ? medications : ''}
+                                   mode={mode}  createUrl={createUrl}
+                                    /> : ''}
                          </>
                          }
                     </>}
 
                     {unscheduledvisit !== undefined && <>
                          {unscheduledvisit.hasMedications !== null && <>
-                              {unscheduledvisit.hasMedications ? <RenderMedication crf={crf} unscheduledvisit={unscheduledvisit} medications={medications} mode={mode} /> : ''}
+                              {unscheduledvisit.hasMedications ? <RenderMedication crf={crf} unscheduledvisit={unscheduledvisit} medications={medications !== undefined ? medications : ''}
+                                   mode={mode}  createUrl={createUrl} /> : ''}
                          </>
                          }
-                    </>} */}
+                    </>}
                </Container>
 
 

@@ -38,7 +38,7 @@ export default function CreateMedications({ crf, preoperative, postoperative, sc
 
           switch (mode) {
                case 'preoperative':
-                    return put(route('crf.preoperative.medication.update', { crf: crf, preoperative: postoperative, medication:medication }));
+                    return put(route('crf.preoperative.medication.update', { crf: crf, preoperative: preoperative, medication:medication }));
                case 'postoperative':
                     return put(route('crf.postoperative.medication.update', { crf: crf, postoperative: postoperative, medication:medication }));
                case 'scheduledvisit':

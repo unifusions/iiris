@@ -20,7 +20,7 @@ export default function Create() {
           to_user_id: '',
           facility_id: '',
           status: 'Open',
-          isAdminQuery: '',
+          isAdminQuery: roles.admin,
           message: ''
 
      })
@@ -28,10 +28,10 @@ export default function Create() {
 
      useEffect(() => {
           if (selectedCrf !== undefined) {
-               setData('to_user_id', selectedCrf.user_id);
+               //setData('to_user_id', selectedCrf.user_id);
                setData('facility_id', selectedCrf.facility_id);
                setListUsers([]);
-               if (!roles.admin) { setListUsers(list => [...list, { 'label': 'IIRIS Admin Team', 'value': true }]) }
+               if (!roles.admin) { setListUsers(list => [...list, { 'label': 'IIRIS Admin Team', 'value': '0' }]) }
                selectedCrf.facility.users.filter(user => user.id !== auth.user.id).map((filteredUser) =>
                     setListUsers(list => [...list, { 'label': filteredUser.name + '(' + filteredUser.role.name + ')', 'value': filteredUser.id }])
 
@@ -51,14 +51,13 @@ export default function Create() {
           e.preventDefault();
           post(route('tickets.store'));
      }
-     function adminQueryFunction(){
-          setData('isAdminQuery', true)
-          setData('to_user_id', '')
-     }
+     
 
      function userQueryFunction(value){
-          setData('to_user_id', value)
-          setData('isAdminQuery', false)
+          if(value!== '0')  {
+               setData('to_user_id', value)
+          }
+          
      }
 
      return (
@@ -78,7 +77,7 @@ export default function Create() {
 
 
                <Head title="Tickets" />
-               {console.log(listUsers)}
+               
                <Card className="shadow-sm rounded-5">
                     <Card.Body>
                          <form onSubmit={handleSubmit}>
@@ -91,19 +90,7 @@ export default function Create() {
                                    </Col>
                               </Row>
 
-                              {/* {selectedCrf !== undefined && console.log(selectedCrf)} */}
-                              {/* {selectedCrf !== undefined &&
-                              <>
-                                   <Row>
-                                        <Col md={3}>
-                                            Form
-                                        </Col>
-                                        <Col md={6}>
-                                             {console.log(selectedCrf)}
-                                        </Col>
-                                   </Row>
-                              </>
-                         } */}
+                             
 
                               <Row className="mb-3">
                                    <Col md={3}>
@@ -111,7 +98,7 @@ export default function Create() {
                                    </Col>
                                    <Col md={6}>
                                         <Select options={listUsers}
-                                             onChange={(value) => value.value === true ? adminQueryFunction() : userQueryFunction(value.value)}
+                                             onChange={(value) => userQueryFunction(value.value)}
                                              isDisabled={data.subject === ''}
                                         />
                                    </Col>

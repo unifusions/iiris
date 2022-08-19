@@ -79,9 +79,14 @@ export default function RenderMedication({ crf, preoperative, postoperative, sch
                               <Col>Actions</Col>
                          </Row>
                          <hr />
+                         
                          <RenderMedTable meds={medications} mode={preoperative} />
-                         <RenderMedTable meds={preopmedications} />
-                         <RenderMedTable meds={postopmedications} />
+                         {preopmedications !== undefined && <RenderMedTable meds={preopmedications} />
+                         }
+                          {postopmedications !== undefined && <RenderMedTable meds={postopmedications} />
+                         }
+                         
+                         
                     </Card.Body>
 
                     <Modal show={show} onHide={() => setShow(false)} backdrop="static" keyboard={false}>
