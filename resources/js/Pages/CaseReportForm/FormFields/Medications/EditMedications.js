@@ -61,7 +61,7 @@ export default function CreateMedications({ crf, preoperative, postoperative, sc
                     role={roles}
                     breadcrumb={<>
                          <li className='breadcrumb-item'>
-                              <Link href={route('crf.index')} className="breadcrumb-item"> Case Report Form</Link>
+                              <Link href={route('crf.index')} className="breadcrumb-item">Case Report Form</Link>
                          </li>
                          <li className='breadcrumb-item'>
                               <span className="Active">Create</span>
