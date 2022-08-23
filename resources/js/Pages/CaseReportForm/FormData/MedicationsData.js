@@ -54,9 +54,9 @@ export default function MedicationsData({ hasMedication, medications, role, link
                                         <Col>{index + 1}</Col>
                                         <Col>{medication.medication}</Col>
                                         <Col>{medication.indication}</Col>
-                                        <Col>{medication.status}</Col>
-                                        <Col>{medication.start_date}</Col>
-                                        <Col>{medication.stop_date}</Col>
+                                        <Col>{medication.status} </Col>
+                                        <Col>{medication.start_date !== null && new Date(medication.start_date).toLocaleDateString('en-IN',{ day: 'numeric',  month: 'numeric',year: 'numeric',  })}</Col>
+                                        <Col>{medication.stop_date !== null && new Date(medication.stop_date).toLocaleDateString('en-IN',{ day: 'numeric',  month: 'numeric',year: 'numeric',  })}</Col>
                                         <Col>{medication.dosage}</Col>
                                         <Col>{medication.reason}</Col>
 
