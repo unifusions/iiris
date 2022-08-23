@@ -26,9 +26,10 @@ export default function RenderMedication({ crf, preoperative, postoperative, sch
                                         <Col>{med.medication.indication}</Col>
                                         <Col>{med.medication.status}</Col>
                                         <Col>
-                                        {new Date(med.medication.start_date).toLocaleDateString('en-IN',{ day: 'numeric',  month: 'numeric',year: 'numeric',  })}
+                                        {med.medication.start_date !== null && new Date(med.medication.start_date).toLocaleDateString('en-IN',{ day: 'numeric',  month: 'numeric',year: 'numeric',  })}
                                         </Col>
-                                        <Col>{new Date(med.medication.stop_date).toLocaleDateString('en-IN',{ day: 'numeric',  month: 'numeric',year: 'numeric',  })}
+                                        <Col>{med.medication.stop_date !== null &&
+                                        new Date(med.medication.stop_date).toLocaleDateString('en-IN',{ day: 'numeric',  month: 'numeric',year: 'numeric',  })}
                                         </Col>
                                         <Col>{med.medication.dosage}</Col>
                                         <Col>{med.medication.reason}</Col>

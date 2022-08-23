@@ -87,8 +87,8 @@ export default function Authenticated(props) {
 
                                 <li className="nav-item">
                                     <Link className="nav-link"
-                                    // href={route('underconstruction')}
-                                        href={route('logs.index')}
+                                    href={route('underconstruction')}
+                                        // href={route('logs.index')}
                                     >
                                         <ViewListIcon className='menu-arrow' style={iconStyle} />
                                         <span className="menu-title ms-1">Logs</span>
