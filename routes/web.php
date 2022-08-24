@@ -78,9 +78,7 @@ use App\Http\Controllers\IntrafileUploadController;
 // })->middleware(['auth', 'verified'])->name('rd');
 
 require __DIR__.'/auth.php';
-Route::get('/mails', function(){
-    return view('mails.userregistered');
-        });
+
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', DashboardController::class)->name('home');

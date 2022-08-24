@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UnscheduledVisitApprovalMail;
 use App\Models\CaseReportForm;
 use App\Models\EchoDicomFile;
 use App\Models\UnscheduledVisit;
+use App\Models\UnscheduledVisitApprovalRemark;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class UnscheduledvisitController extends Controller
@@ -24,12 +28,11 @@ class UnscheduledvisitController extends Controller
     public function create(CaseReportForm $crf)
     {
         return Inertia::render('CaseReportForm/UnscheduledVisit/Create', [
-            'backUrl' => route('crf.unscheduledvisit.index',[$crf]),
+            'backUrl' => route('crf.unscheduledvisit.index', [$crf]),
             'crf' => $crf,
-            'usvcount'=>count($crf->unscheduledvisits)
-            
+            'usvcount' => count($crf->unscheduledvisits)
+
         ]);
-        
     }
 
     public function store(Request $request, CaseReportForm $crf)
@@ -40,7 +43,7 @@ class UnscheduledvisitController extends Controller
             'visit_no' => $request->visit_no
         ]);
 
-        return redirect()->route('crf.unscheduledvisit.show',[$crf,$unscheduledvisit]);
+        return redirect()->route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]);
     }
 
 
@@ -51,50 +54,97 @@ class UnscheduledvisitController extends Controller
             'crf' => $crf,
             'unscheduledvisit' => $unscheduledvisit,
             'physicalexamination' => $unscheduledvisit->physicalexaminations,
-            'symptoms' => $unscheduledvisit->symptoms, 
+            'symptoms' => $unscheduledvisit->symptoms,
             'personalhistories' => $unscheduledvisit->personalhistories,
             'labinvestigations' => $unscheduledvisit->labinvestigations,
             'physicalactivities' => $unscheduledvisit->physicalactivities,
             'echocardiographies' => $unscheduledvisit->echocardiographies,
-            'electrocardiograms'=>$unscheduledvisit->electrocardiograms,
-            'safetyparameters'=>$unscheduledvisit->safetyparameters,
-            'medications'=>$unscheduledvisit->medications,
-            'echodicomfiles' => $unscheduledvisit->echocardiographies ? 
-            EchoDicomFile::where('echocardiography_id', $unscheduledvisit->echocardiographies->id)->get()->map(fn ($file) => [
-                'id' => $file->id,
-                'file_name' => $file->file_name,
-                'download_url' => storage_path('app/public/' . $file->file_path)
-            ]) : null,
+            'electrocardiograms' => $unscheduledvisit->electrocardiograms,
+            'safetyparameters' => $unscheduledvisit->safetyparameters,
+            'medications' => $unscheduledvisit->medications,
+            'echodicomfiles' => $unscheduledvisit->echocardiographies ?
+                EchoDicomFile::where('echocardiography_id', $unscheduledvisit->echocardiographies->id)->get()->map(fn ($file) => [
+                    'id' => $file->id,
+                    'file_name' => $file->file_name,
+                    'download_url' => storage_path('app/public/' . $file->file_path)
+                ]) : null,
             'backUrl' => route('crf.unscheduledvisit.index', [$crf])
-            
+
         ]);
     }
 
     public function edit(UnscheduledVisit $unscheduledVisit)
     {
-
     }
 
-    public function update(Request $request, CaseReportForm $crf, UnscheduledVisit $unscheduledVisit)
+    public function update(Request $request, CaseReportForm $crf, UnscheduledVisit $unscheduledvisit)
     {
+
         if (isset($request->usvHasMedications)) {
-            $unscheduledVisit->hasMedications = $request->usvHasMedications;
-            $unscheduledVisit->save();
-            if ($unscheduledVisit->hasMedications)
-                return redirect()->route('crf.scheduledvisit.medication.index', [$crf, $unscheduledVisit]);
-            return redirect()->route('crf.scheduledvisit.index', compact('crf', 'scheduledvisit'));
+            $unscheduledvisit->hasMedications = $request->usvHasMedications;
+            $unscheduledvisit->save();
+            if ($unscheduledvisit->hasMedications)
+                return redirect()->route('crf.unscheduledvisit.medication.index', [$crf, $unscheduledvisit]);
+            return redirect()->route('crf.unscheduledvisit.index', compact('crf', 'scheduledvisit'));
         }
 
         if (isset($request->usv_physical_activity)) {
-            $unscheduledVisit->physical_activity = $request->usv_physical_activity;
-            $unscheduledVisit->save();
-            if ($unscheduledVisit->physical_activity)
-                return redirect()->route('crf.scheduledvisit.physicalactivity.index', [$crf, $unscheduledVisit]);
-            return redirect()->route('crf.scheduledvisit.show', [$crf,$unscheduledVisit]);
+            $unscheduledvisit->physical_activity = $request->usv_physical_activity;
+            $unscheduledvisit->save();
+            if ($unscheduledvisit->physical_activity)
+                return redirect()->route('crf.unscheduledvisit.physicalactivity.index', [$crf, $unscheduledvisit]);
+            return redirect()->route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]);
+        }
+        $investigators = User::where('facility_id', $crf->facility->id)->where('role_id', '3')->pluck('email');
+
+        if ($request->is_submitted) {
+
+            $unscheduledvisit->is_submitted = $request->is_submitted;
+            $unscheduledvisit->save();
+            $remarks = UnscheduledVisitApprovalRemark::Create([
+                'pre_operative_data_id' => $unscheduledvisit->id,
+                'user_id' => auth()->user()->id,
+                'action' => $request->action,
+                'remarks' => $request->remarks,
+            ]);
+            Mail::to($investigators)->send(new UnscheduledVisitApprovalMail($crf, $unscheduledvisit, $remarks));
+
+            $message = 'Unscheduled Visit Data for Subject: ' . $crf->subject_id . ' submitted Successfully';
+            return redirect()->route('crf.show', [$crf])->with(['message' => $message]);
+        }
+
+
+        if (isset($request->approve)) {
+            $unscheduledvisit->visit_status = $request->approve;
+            $unscheduledvisit->save();
+            $remarks = UnscheduledVisitApprovalRemark::Create([
+                'post_operative_data_id' => $unscheduledvisit->id,
+                'user_id' => auth()->user()->id,
+                'action' => $request->action,
+                'remarks' => $request->remarks,
+            ]);
+            Mail::to($crf->user->email)->send(new UnscheduledVisitApprovalMail($crf, $unscheduledvisit, $remarks));
+            $message = 'Unscheduled Data has been approved';
+            return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+        }
+
+        if (isset($request->disapprove)) {
+            $unscheduledvisit->is_submitted = !$request->disapprove;
+            $unscheduledvisit->visit_status = !$request->disapprove;
+            $unscheduledvisit->save();
+            $remarks = UnscheduledVisitApprovalRemark::Create([
+                'post_operative_data_id' => $unscheduledvisit->id,
+                'user_id' => auth()->user()->id,
+                'action' => $request->action,
+                'remarks' => $request->remarks,
+            ]);
+            Mail::to($crf->user->email)->send(new UnscheduledVisitApprovalMail($crf, $unscheduledvisit, $remarks));
+            $message = 'Unscheduled Data has been disapproved';
+            return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
     }
 
-    public function destroy(UnscheduledVisit $unscheduledVisit)
+    public function destroy(UnscheduledVisit $unscheduledvisit)
     {
     }
 }

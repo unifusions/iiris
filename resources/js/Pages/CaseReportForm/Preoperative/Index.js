@@ -20,6 +20,7 @@ import CaseReportFormData from '../FormData/CaseReportFormData';
 import ApprovalSubmit from './ApprovalSubmit';
 import ApprovalActionsApprove from './ApprovalActionsApprove';
 import ApprovalActionsDisapprove from './ApprovalActionsDisapprove';
+import { RenderFormStatus } from '../FormData/FormDataHelper';
 
 
 
@@ -73,22 +74,11 @@ export default class Index extends React.Component {
 
 
                               </div>
-                              {preoperative.is_submitted ? <> {preoperative.visit_status ?
-                                   <>
-                                   <div className='bg-success text-white p-3 mb-3 rounded-5'>
-                                   Pre Operative Data has been submitted & approved. To modify data, please raise a <Link href={route('tickets.index')} className = "fw-bold text-white" style={{ textDecoration: 'none' }}>
-                                       
-                                        ticket
-                                    </Link>
-                                   </div>
-                                </> : <Alert variant="warning" >
-                                        <Alert.Heading>Pre Operative Data Submitted</Alert.Heading>
-                                        <p>
-                                             This form has been submitted for approval
-                                        </p>
-                                   </Alert>}
-
-                              </> : ''}
+                              <RenderFormStatus
+                                   isSubmitted={preoperative.is_submitted}
+                                   visitStatus={preoperative.visit_status}
+                                   visitNo=''
+                                   formTitle="Preoperative " />
 
                               <CaseReportFormData crf={crf} />
 

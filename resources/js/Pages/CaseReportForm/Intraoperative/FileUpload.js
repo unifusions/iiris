@@ -11,19 +11,19 @@ import { RenderBackButton } from "../FormData/FormDataHelper";
 export default function FileUpload() {
 
      const { auth, roles, errors, crf, intraoperative } = usePage().props;
-     const { data, setData,  post, processing, hasErrors, transform } = useForm({
+     const { data, setData, post, processing, hasErrors, transform } = useForm({
           intra_operative_data_id: intraoperative.id,
-       
+
           files: ''
 
      });
 
      function handlesubmit(e) {
           e.preventDefault();
-          return post(route('crf.intraoperative.fileupload.store', { crf: crf, intraoperative: intraoperative }));       
+          return post(route('crf.intraoperative.fileupload.store', { crf: crf, intraoperative: intraoperative }));
 
      }
-     
+
      return (
           <>
                <Authenticated
@@ -44,48 +44,46 @@ export default function FileUpload() {
 
 
                     <Container>
-                         <PageTitle backUrl={route('crf.intraoperative.show', {crf:crf, intraoperative: intraoperative})} pageTitle='Intraoperative File Uploads' role={roles} />
+                         <PageTitle backUrl={route('crf.intraoperative.show', { crf: crf, intraoperative: intraoperative })} pageTitle='Intraoperative File Uploads' role={roles} />
 
                          <Card className="mb-3 shadow-sm rounded-5">
                               <Card.Body>
-                                   <form onSubmit={handlesubmit}>
+                                   {!intraoperative.is_submitted ? <>
+                                        <form onSubmit={handlesubmit}>
 
-                                        <Row>
-                                             <Col lg={3} >
-                                                  Dicom Files
-                                             </Col>
-                                             <Col lg={9}>
-                                                  <div className="input-group">
-                                                       <input type="file" className="form-control" name="echofiles" multiple onChange={e => setData('files', e.target.files)} />
-                                                  </div>
+                                             <Row>
+                                                  <Col lg={3} >
+                                                       Dicom Files
+                                                  </Col>
+                                                  <Col lg={9}>
+                                                       <div className="input-group">
+                                                            <input type="file" className="form-control" name="echofiles" multiple onChange={e => setData('files', e.target.files)} />
+                                                       </div>
 
-                                             </Col>
-                                        </Row>
+                                                  </Col>
+                                             </Row>
 
-                                        <hr />
-                                        <RenderBackButton backUrl={route('crf.intraoperative.show', {crf:crf, intraoperative: intraoperative})} className='me-3' />
-                                        <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />
-
-
-                                   </form>
+                                             <hr />
+                                             <RenderBackButton backUrl={route('crf.intraoperative.show', { crf: crf, intraoperative: intraoperative })} className='me-3' />
+                                             <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />
 
 
+                                        </form>
+
+                                   </> : 'You cannot upload files to submitted forms'
+
+                                   }
                               </Card.Body>
 
 
 
                          </Card>
 
-                         {/* {preoperative.family_history !== null &&
-                              <>
-                                   {preoperative.family_history ? <CreateFamilyHistory preoperative={preoperative} crf={crf} familyhistories={familyhistories} /> : ''}
-                              </>
-
-                         } */}
-
 
 
                     </Container>
+
+
                </Authenticated>
           </>
      )

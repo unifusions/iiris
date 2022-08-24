@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CrfApproval;
+use App\Mail\PreoperativeApprovalMail;
 use App\Models\CaseReportForm;
 use App\Models\CaseReportFormVisit;
 use App\Models\CaseReportFormVisitMode;
 use App\Models\EchoDicomFile;
 use App\Models\PreOperative;
+use App\Models\PreoperativeApprovalRemark;
 use App\Models\PreOperativeData;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class PreOperativeController extends Controller
@@ -87,7 +92,8 @@ class PreOperativeController extends Controller
 
     public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative)
     {
-
+        $investigators = User::where('facility_id',$crf->facility->id)->where('role_id', '3')->pluck('email');
+        // dd($investigators);
 
         if (isset($request->medical_history)) {
             $preoperative->medical_history = $request->medical_history;
@@ -131,16 +137,30 @@ class PreOperativeController extends Controller
 
         if (isset($request->is_submitted)) {
             $preoperative->is_submitted = $request->is_submitted;
+            $remarks = PreoperativeApprovalRemark::Create([
+                'pre_operative_data_id' => $preoperative->id,
+                'user_id' => auth()->user()->id,
+                'action' => $request->action,
+                'remarks' => $request->remarks,
+            ]);
             $preoperative->save();
             $message = 'Preoperative Data successfully submitted for approval';
+            Mail::to($investigators)->send(new PreoperativeApprovalMail($crf, $preoperative, $remarks ));
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
 
 
         if (isset($request->approve)) {
             $preoperative->visit_status = $request->approve;
+            $remarks = PreoperativeApprovalRemark::Create([
+                'pre_operative_data_id' => $preoperative->id,
+                'user_id' => auth()->user()->id,
+                'action' => $request->action,
+                'remarks' => $request->remarks,
+            ]);
             $preoperative->save();
             $message = 'Preoperative Data has been approved';
+            Mail::to($crf->user->email)->send(new PreoperativeApprovalMail($crf, $preoperative, $remarks ));
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
 
@@ -148,9 +168,15 @@ class PreOperativeController extends Controller
         if (isset($request->disapprove)) {
             $preoperative->is_submitted = !$request->disapprove;
             $preoperative->visit_status = !$request->disapprove;
+            $remarks = PreoperativeApprovalRemark::Create([
+                'pre_operative_data_id' => $preoperative->id,
+                'user_id' => auth()->user()->id,
+                'action' => $request->action,
+                'remarks' => $request->remarks,
+            ]);
             $preoperative->save();
             $message = 'Preoperative Data has been disapproved';
-
+            Mail::to($crf->user->email)->send(new PreoperativeApprovalMail($crf, $preoperative, $remarks ));
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
     }

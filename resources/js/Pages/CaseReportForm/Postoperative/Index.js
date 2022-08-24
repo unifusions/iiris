@@ -16,6 +16,7 @@ import MedicationsData from '../FormData/MedicationsData';
 import ApprovalSubmit from './ApprovalSubmit';
 import ApprovalActionsDisapprove from './ApprovalActionsDisapprove';
 import ApprovalActionsApprove from './ApprovalActionsApprove';
+import { RenderFormStatus } from '../FormData/FormDataHelper';
 
 export default class Index extends React.Component {
 
@@ -56,22 +57,11 @@ export default class Index extends React.Component {
 
 
                               </div>
-                              {postoperative.is_submitted ? <> {postoperative.visit_status ?
-                                   <>
-                                        <div className='bg-success text-white p-3 mb-3 rounded-5'>
-                                             Post Operative Data has been submitted & approved. To modify data, please raise a <Link href={route('tickets.index')} className="fw-bold text-white" style={{ textDecoration: 'none' }}>
-
-                                                  ticket
-                                             </Link>
-                                        </div>
-                                   </> : <Alert variant="warning" >
-                                        <Alert.Heading>Pre Operative Data Submitted</Alert.Heading>
-                                        <p>
-                                             This form has been submitted for approval
-                                        </p>
-                                   </Alert>}
-
-                              </> : ''}
+                              <RenderFormStatus
+                                   isSubmitted={postoperative.is_submitted}
+                                   visitStatus={postoperative.visit_status}
+                                   visitNo=''
+                                   formTitle="Postoperative " />
 
                               <CaseReportFormData crf={crf} />
 

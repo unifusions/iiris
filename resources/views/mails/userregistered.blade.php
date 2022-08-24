@@ -492,7 +492,7 @@
                                                             <tr>
                                                                 <td class="attributes_item" align="center">
                                                                     <h1>Welcome, 
-                                                                        {{-- {{ $user->name }}! --}}
+                                                                        {{ $user->name }}!
                                                                     </h1>
                                                                     <p>Greetings from Cliniquest! We are happy to share
                                                                         you the login credentials to access our IIRIS Application,

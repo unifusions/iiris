@@ -36,6 +36,10 @@ class PreOperativeData extends Model
         return $this->hasOne(PhysicalExamination::class);
     }
 
+    public function approvalremarks(){
+        return $this->hasOne(PreoperativeApprovalRemark::class);
+    }
+
 
     public function symptoms()
     {

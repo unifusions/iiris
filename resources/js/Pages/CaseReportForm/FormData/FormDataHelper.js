@@ -99,6 +99,27 @@ export function RenderTicketStatus({ labelText, value, units, status, closedByUs
           </Row>
      )
 }
+export function RenderFormStatus({isSubmitted, visitStatus, formTitle, visitNo}) {
+     return (
+          <>
+          
+               {isSubmitted ? <> {visitStatus ?
+                    <>
+                         <div className='bg-success text-white p-3 mb-3 rounded-5 shadow-sm'>
+                              {formTitle} Data has been submitted & approved. To modify data, please raise a
+                              <Link href={route('tickets.index')} className="fw-bold text-white" style={{ textDecoration: 'none' }}> ticket</Link>
+                         </div>
+                    </> : <div className='bg-warning text-dark p-3 mb-3 rounded-5'>
+                              {formTitle} {visitNo} Data has been submitted. Please wait until your investigator approves/disapproves
+                              {/* <Link href={route('tickets.index')} className="fw-bold text-dark" style={{ textDecoration: 'none' }}> ticket</Link> */}
+                         </div>
+                      
+                    }
+
+               </> : ''}
+          </>
+     )
+}
 
 export function RenderFieldBoolDatas({ labelText, value, boolValue, units }) {
      return (

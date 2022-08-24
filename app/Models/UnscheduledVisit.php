@@ -16,9 +16,14 @@ class UnscheduledVisit extends Model
     ];
 
     public function casereportform(){
+
         return $this->belongsTo(CaseReportForm::class, 'case_report_form_id', 'id');
     }
     
+    public function approvalremarks(){
+        return $this->hasOne(UnscheduledVisitApprovalRemark::class);
+    }
+
     public function physicalexaminations()
     {
         return $this->hasOne(PhysicalExamination::class, 'unscheduled_visits_id', 'id');

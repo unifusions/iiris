@@ -1,11 +1,13 @@
 import Authenticated from "@/Layouts/Authenticated";
+import FormButton from "@/Pages/Shared/FormButton";
 import PageTitle from "@/Pages/Shared/PageTitle";
-import { usePage } from "@inertiajs/inertia-react";
-import React from "react";
-import { Col, Row } from "react-bootstrap";
+import { Link, useForm, usePage } from "@inertiajs/inertia-react";
+import React, { useState } from "react";
+import { Alert, Button, Col, Modal, Row } from "react-bootstrap";
 import CaseReportFormData from "../FormData/CaseReportFormData";
 import EchocardiographyData from "../FormData/EchocardiographyData";
 import ElectrocardiogramData from "../FormData/ElectrocardiogramData";
+import { RenderFormStatus } from "../FormData/FormDataHelper";
 import LabInvestigationData from "../FormData/LabInvestigationData";
 import MedicationsData from "../FormData/MedicationsData";
 import PersonalHistoryData from "../FormData/PersonalHistoryData";
@@ -14,8 +16,142 @@ import PhysicalExaminationData from "../FormData/PhysicalExaminationData";
 import SafetyParameterData from "../FormData/SafetyParameterData";
 import SymptomsData from "../FormData/SymptomsData";
 
+function ApprovalActionsApprove({ role, crf, unscheduledvisit }) {
+
+     const { data, put, setData, processing } = useForm({
+          approve: '1',
+          remarks: '',
+          action: 'Approved'
+     });
+     const [show, setShow] = useState(false);
+
+     const handleClose = () => setShow(false);
+     const handleShow = () => setShow(true);
+     function handlesubmit(e) {
+          e.preventDefault();
+          put(route('crf.unscheduledvisit.update', { crf: crf, unscheduledvisit: unscheduledvisit }));
+     }
+     return (
+          <>{role.investigator &&
+               <>{unscheduledvisit.visit_status !== null &&
+                    <>
+                         {unscheduledvisit.visit_status ? '' :
+                              <Button variant="success" onClick={handleShow}> Approve </Button>
+
+                         }
+
+                         <Modal show={show} onHide={handleClose}>
+                              <form onSubmit={handlesubmit}>
+                                   <Modal.Header closeButton>
+                                        <Modal.Title>Remarks/Reason</Modal.Title>
+                                   </Modal.Header>
+                                   <Modal.Body>    <textarea onChange={(e) => setData('remarks', e.target.value)} className="form-control" rows="5"></textarea></Modal.Body>
+                                   <Modal.Footer>
+                                        <FormButton processing={processing} labelText='Approve' type="submit" mode="success" />
+
+                                   </Modal.Footer>
+                              </form>
+                         </Modal>
+                    </>
+               }</>
+          }  </>
+
+
+     )
+}
+
+function ApprovalActionsDisapprove({ role, crf, unscheduledvisit }) {
+
+     const { data, setData, errors, put, processing, hasErrors } = useForm({
+          disapprove: '1',
+          remarks: '',
+          action: 'Disapproved'
+     });
+     const [show, setShow] = useState(false);
+     const handleClose = () => setShow(false);
+     const handleShow = () => setShow(true);
+
+     function handlesubmit(e) {
+          e.preventDefault();
+          put(route('crf.unscheduledvisit.update', { crf: crf, unscheduledvisit: unscheduledvisit }));
+     }
+     return (
+          <>{role.investigator &&
+               <>{unscheduledvisit.visit_status !== null &&
+                    <>
+                         {unscheduledvisit.visit_status ? '' :
+                              <Button variant="danger" onClick={handleShow} className='me-2'> Disapprove </Button>
+                         }
+
+                         <Modal show={show} onHide={handleClose}>
+                              <form onSubmit={handlesubmit}>
+                                   <Modal.Header closeButton>
+                                        <Modal.Title>Remarks/Reason</Modal.Title>
+                                   </Modal.Header>
+                                   <Modal.Body>    <textarea onChange={(e) => setData('remarks', e.target.value)} className="form-control" rows="5"></textarea></Modal.Body>
+                                   <Modal.Footer>
+                                        <FormButton processing={processing} labelText='Disapprove' type="submit" mode="danger" />
+
+                                   </Modal.Footer>
+                              </form>
+                         </Modal>
+                    </>
+               }</>
+          }  </>
+
+
+     )
+}
+
+function ApprovalSubmit({ role, crf, unscheduledvisit }) {
+
+     const { data, setData, errors, put, processing, hasErrors } = useForm({
+          is_submitted: '1',
+          remarks: '',
+          action: 'Submitted'
+     });
+     const [show, setShow] = useState(false);
+     const handleClose = () => setShow(false);
+     const handleShow = () => setShow(true);
+
+     function handlesubmit(e) {
+          e.preventDefault();
+          put(route('crf.unscheduledvisit.update', { crf: crf, unscheduledvisit: unscheduledvisit }));
+     }
+     return (
+          <>{role.coordinator &&
+               <>{unscheduledvisit.is_submitted !== null &&
+                    <>
+                          {unscheduledvisit.is_submitted ? '' :
+                              <form onSubmit={handlesubmit} >
+                                   <Button variant="primary" onClick={handleShow}> Submit </Button>
+                              </form>
+                         }
+
+                         <Modal show={show} onHide={handleClose}>
+                              <form onSubmit={handlesubmit}>
+                                   <Modal.Header closeButton>
+                                        <Modal.Title>Remarks/Reason</Modal.Title>
+                                   </Modal.Header>
+                                   <Modal.Body>    <textarea onChange={(e) => setData('remarks', e.target.value)} className="form-control" rows="5"></textarea></Modal.Body>
+                                   <Modal.Footer>
+                                        <FormButton processing={processing} labelText='Submit for Approval' type="submit" mode="primary" />
+
+                                   </Modal.Footer>
+                              </form>
+                         </Modal>
+                    </>
+               }</>
+          }  </>
+
+
+     )
+}
+
+
+
 export default function Show() {
-     const { auth, facility, roles, crf, backUrl, unscheduledvisit, 
+     const { auth, facility, roles, crf, backUrl, unscheduledvisit,
           physicalexamination,
           symptoms,
           personalhistories,
@@ -27,16 +163,45 @@ export default function Show() {
           medications, } = usePage().props;
      return (
           <Authenticated auth={auth} role={roles}>
-               <PageTitle backUrl={backUrl} pageTitle={`Unscheduled Visit No: ${unscheduledvisit.visit_no}`} role={roles} />
-               <CaseReportFormData crf={crf} />
+               <div className='d-flex justify-content-between align-items-center mb-3'>
 
+                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">Unscheduled Visit No: {unscheduledvisit.visit_no}</h2>
+                    <div className='d-flex'>
+                         <Link href={backUrl} className="btn btn-secondary me-2" method="get" type="button" as="button">Back</Link>
+
+                         <ApprovalSubmit role={roles} crf={crf} unscheduledvisit={unscheduledvisit} />
+
+
+
+
+                         {unscheduledvisit.is_submitted ? <>
+                              <ApprovalActionsDisapprove role={roles} crf={crf} unscheduledvisit={unscheduledvisit} />
+                              <ApprovalActionsApprove role={roles} crf={crf} unscheduledvisit={unscheduledvisit} />
+                         </> : ''
+                         }
+
+
+                    </div>
+
+               </div>
+
+               {/* <PageTitle backUrl={backUrl} pageTitle={`Unscheduled Visit No: ${unscheduledvisit.visit_no}`} role={roles} /> */}
+
+               <RenderFormStatus
+                    isSubmitted={unscheduledvisit.is_submitted}
+                    visitStatus={unscheduledvisit.visit_status}
+                    visitNo={unscheduledvisit.visit_no}
+                    formTitle="Unscheduled Visit" />
+
+
+               <CaseReportFormData crf={crf} />
                <Row className='align-items-stretch'>
                     <Col md={12} lg={12} className="mail-view d-none d-md-block">
                          <PhysicalExaminationData
                               physicalexamination={physicalexamination}
                               enableActions={unscheduledvisit.is_submitted}
                               role={roles}
-                              showHWB = {true}
+                              showHWB={true}
                               createUrl={route('crf.unscheduledvisit.physicalexamination.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
                               editUrl={physicalexamination !== null && route('crf.unscheduledvisit.physicalexamination.edit', { crf: crf, unscheduledvisit: unscheduledvisit, physicalexamination: physicalexamination })}
                          />
@@ -85,7 +250,7 @@ export default function Show() {
                          <EchocardiographyData
                               echocardiographies={echocardiographies}
                               enableActions={unscheduledvisit.is_submitted}
-                              echodicomfiles = {echodicomfiles}
+                              echodicomfiles={echodicomfiles}
                               role={roles}
                               createUrl={route('crf.unscheduledvisit.echocardiography.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
                               editUrl={echocardiographies !== null && route('crf.unscheduledvisit.echocardiography.edit', { crf: crf, unscheduledvisit: unscheduledvisit, echocardiography: echocardiographies })}

@@ -10,3 +10,14 @@
 .fs-icon {
      font-size: 1rem !important;
 }
+
+.file-list{
+     list-style: none!important;
+     margin:0 !important;
+     padding: 0 !important;
+}
+
+.file-list li a{
+     text-decoration: none;
+     display: inline-block;
+}

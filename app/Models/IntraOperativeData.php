@@ -40,6 +40,10 @@ class IntraOperativeData extends Model
     {
         return $this->belongsTo(CaseReportForm::class);
     }
+    public function approvalremarks(){
+        return $this->hasOne(IntraoperativeApprovalRemark::class);
+    }
+
     public function fileuploads()
     {
         return $this->hasMany(IntraoperativeDicomFile::class);

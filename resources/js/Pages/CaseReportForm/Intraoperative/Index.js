@@ -6,19 +6,22 @@ import { Link } from '@inertiajs/inertia-react';
 import { LinkIcon } from '@heroicons/react/outline';
 import { Row, Col, Card, Container, Alert } from 'react-bootstrap';
 import CaseReportFormData from '../FormData/CaseReportFormData';
-import { RenderFieldBoolDatas, RenderFieldBoolNoDatas, RenderFieldDatas } from '../FormData/FormDataHelper';
+import { RenderFieldBoolDatas, RenderFieldBoolNoDatas, RenderFieldDatas, RenderFormStatus } from '../FormData/FormDataHelper';
 import UpdateIntraOperative from './UpdateIntraoperative';
 import ApprovalActionsDisapprove from './ApprovalActionsDisapprove';
 import ApprovalSubmit from './ApprovalSubmit';
 import ApprovalActionsApprove from './ApprovalActionsApprove';
+import { DocumentDownloadIcon } from '@heroicons/react/outline';
 
 
-function SubmittedIntraOperative({ intraoperative }) {
+function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles }) {
      const options = {
           day: 'numeric',
           month: 'numeric',
           year: 'numeric'
      }
+     const iconStyle = { width: 15, height: 15, };
+
      return (<>
 
           <RenderFieldDatas labelText='Date of Procedure' value={new Date(intraoperative.date_of_procedure).toLocaleString('en-in', options)} />
@@ -43,7 +46,23 @@ function SubmittedIntraOperative({ intraoperative }) {
           <RenderFieldBoolNoDatas labelText='All paravalvular leak' boolValue={intraoperative.all_paravalvular_leak} value={intraoperative.all_paravalvular_leak_specify} />
           <RenderFieldBoolNoDatas labelText='Major Pravalvular Leak' boolValue={intraoperative.major_paravalvular_leak} value={intraoperative.major_paravalvular_leak_specify} />
 
+          {intradicomfiles !== undefined &&
+               <Row>
+                    <Col md={4} className='text-secondary'>Related Dicom Files</Col>
+                    <Col md={8} >
 
+                         <ul className="file-list">
+                              {intradicomfiles.map((file) =>
+                                   <li key={file.id} className='col-6'>
+
+                                        <a href={route('crf.intraoperative.fileupload.show', { crf: crf, intraoperative: intraoperative, fileupload: file })} ><DocumentDownloadIcon style={iconStyle} /> {file.file_name} </a>
+                                   </li>)}
+                         </ul>
+                    </Col>
+
+               </Row>
+
+          }
      </>
      )
 }
@@ -83,30 +102,22 @@ export default class Index extends React.Component {
 
 
                               </div>
-                              {intraoperative.is_submitted ? <> {intraoperative.visit_status ?
-                                   <>
-                                        <div className='bg-success text-white p-3 mb-3 rounded-5'>
-                                            Intra Operative Data has been submitted & approved. To modify data, please raise a <Link href={route('tickets.index')} className="fw-bold text-white" style={{ textDecoration: 'none' }}>
+                             
 
-                                                  ticket
-                                             </Link>
-                                        </div>
-                                   </> : <Alert variant="warning" >
-                                        <Alert.Heading>Pre Operative Data Submitted</Alert.Heading>
-                                        <p>
-                                             This form has been submitted for approval
-                                        </p>
-                                   </Alert>}
+                              <RenderFormStatus
+                                   isSubmitted={intraoperative.is_submitted}
+                                   visitStatus={intraoperative.visit_status}
+                                   visitNo=''
+                                   formTitle="Intraoperative " />
 
-                              </> : ''}
                               <CaseReportFormData crf={crf} />
 
                               <Card className='shadow-sm rounded-t'>
                                    <Card.Body>
                                         {intraoperative.is_submitted ? <>
-                                             <SubmittedIntraOperative intraoperative={intraoperative} />
+                                             <SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} />
 
-                                        </> : <> <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles = {intradicomfiles}/> </>}
+                                        </> : <> <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} /> </>}
                                    </Card.Body>
                               </Card>
 
