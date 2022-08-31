@@ -8,10 +8,11 @@ import Authenticated from '@/Layouts/Authenticated';
 import FormCalendar from "@/Pages/Shared/FormCalendar";
 import FormInput from "@/Pages/Shared/FormInput";
 import PageTitle from "@/Pages/Shared/PageTitle";
+import FileUpload from "./FileUpload";
 
 
 const Create = () => {
-     const { auth, roles, putUrl, mode, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, backUrl, echocardiography } = usePage().props;
+     const { auth, roles, putUrl, mode, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, backUrl, echocardiography, echodicomfiles } = usePage().props;
      const { data, setData, errors, put, processing, hasErrors, transform } = useForm({
           case_report_form_id: crf.id,
           pre_operative_data_id: preoperative !== undefined ? preoperative.id : null,
@@ -77,7 +78,7 @@ const Create = () => {
 
                <Head title="Edit Echocardiography" />
                <Container>
-                    <PageTitle backUrl={backUrl} pageTitle='Echocardiography' role={roles}/>
+                    <PageTitle backUrl={backUrl} pageTitle='Echocardiography' role={roles} />
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit}>
@@ -137,7 +138,7 @@ const Create = () => {
                                         value={data.heart_rate}
                                         error={errors.heart_rate}
                                         units='bpm'
-                                        handleChange={e => setData('heart_rate',e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        handleChange={e => setData('heart_rate', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 
                                    <FormInputWithLabel
@@ -252,7 +253,22 @@ const Create = () => {
                                         max='100'
                                         step='0.1'
                                    />
+                                   {echodicomfiles !== null &&
+                                        <Row>
+                                             <Col md={3} className='text-secondary'>Related Dicom Files</Col>
+                                             <Col md={6} >
+                                                  <ul className="list-style-none">
+                                                       {echodicomfiles.map((file) =>
+                                                            <li key={file.id}>
+                                                                 <a href={route('dicomdownload', { echodicomfile: file })} >{file.file_name} </a>
+                                                            </li>)}
+                                                  </ul></Col>
+                                             {/* <Col md={3} >
+                                                  <FileUpload />
+                                             </Col> */}
+                                        </Row>
 
+                                   }
                                    <hr />
 
                                    <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />

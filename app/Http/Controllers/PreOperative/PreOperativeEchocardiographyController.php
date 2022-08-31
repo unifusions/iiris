@@ -64,7 +64,13 @@ class PreOperativeEchocardiographyController extends Controller
             'echocardiography' => $echocardiography,
             'mode' => 'preoperative',
             'putUrl' => 'crf.preoperative.echocardiography.update',
-            'backUrl' => route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative])
+            'backUrl' => route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative]),
+            'echodicomfiles' => $preoperative->echocardiographies ? 
+            EchoDicomFile::where('echocardiography_id', $echocardiography->id)->get()->map(fn ($file) => [
+                'id' => $file->id,
+                'file_name' => $file->file_name,
+                'download_url' => storage_path('app/public/' . $file->file_path)
+            ]) : null
         ]);
     }
     public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, Echocardiography $echocardiography, EchocardiographyService $echocardiographyService)

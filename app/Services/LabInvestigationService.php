@@ -10,10 +10,11 @@ class LabInvestigationService
 {
      public function createPreoperativeLabInvestigation(Request $request): LabInvestigation
      {
+          
           $labinvestiagtions = LabInvestigation::Create([
                'case_report_form_id' => $request->case_report_form_id,
                'pre_operative_data_id' => $request->pre_operative_data_id,
-               'li_date' =>  Carbon::parse($request->li_date)->addHours(5)->addMinutes(30),
+               'li_date' =>  $request->li_date !== null ? Carbon::parse($request->li_date)->addHours(5)->addMinutes(30) : null,
                'rbc' => $request->rbc,
                'wbc' => $request->wbc,
                'hemoglobin' => $request->hemoglobin,
@@ -38,7 +39,7 @@ class LabInvestigationService
           $labinvestiagtions = LabInvestigation::Create([
                'case_report_form_id' => $request->crf->id,
                'post_operative_data_id' => $request->postoperative->id,
-               'li_date' =>  Carbon::parse($request->li_date)->addHours(5)->addMinutes(30),
+               'li_date' =>  $request->li_date !== null ? Carbon::parse($request->li_date)->addHours(5)->addMinutes(30) : null,
                'rbc' => $request->rbc,
                'wbc' => $request->wbc,
                'hemoglobin' => $request->hemoglobin,
@@ -63,7 +64,7 @@ class LabInvestigationService
           $labinvestiagtions = LabInvestigation::Create([
                'case_report_form_id' => $request->crf->id,
                'scheduled_visits_id' => $request->scheduledvisit->id,
-               'li_date' =>  Carbon::parse($request->li_date)->addHours(5)->addMinutes(30),
+               'li_date' =>  $request->li_date !== null ? Carbon::parse($request->li_date)->addHours(5)->addMinutes(30) : null,
                'rbc' => $request->rbc,
                'wbc' => $request->wbc,
                'hemoglobin' => $request->hemoglobin,
@@ -88,7 +89,7 @@ class LabInvestigationService
           $labinvestiagtions = LabInvestigation::Create([
                'case_report_form_id' => $request->crf->id,
                'unscheduled_visits_id' => $request->unscheduledvisit->id,
-               'li_date' =>  Carbon::parse($request->li_date)->addHours(5)->addMinutes(30),
+               'li_date' =>  $request->li_date !== null ? Carbon::parse($request->li_date)->addHours(5)->addMinutes(30) : null,
                'rbc' => $request->rbc,
                'wbc' => $request->wbc,
                'hemoglobin' => $request->hemoglobin,
@@ -111,7 +112,7 @@ class LabInvestigationService
 
      public function updatePreoperativeLabInvestigation(Request $request, LabInvestigation $labinvestigation): LabInvestigation
      {
-          $labinvestigation->li_date = Carbon::parse($request->li_date)->addHours(5)->addMinutes(30);
+          $labinvestigation->li_date = $request->li_date !== null ? Carbon::parse($request->li_date)->addHours(5)->addMinutes(30) : null;
           $labinvestigation->rbc = $request->rbc;
           $labinvestigation->wbc = $request->wbc;
           $labinvestigation->hemoglobin = $request->hemoglobin;

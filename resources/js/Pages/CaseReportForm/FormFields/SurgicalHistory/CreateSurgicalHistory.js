@@ -84,6 +84,7 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
                                                   value={data.sh_date}
                                                   handleChange={(date) => setData('sh_date', new Date(date))}
                                                   className={`${errors.sh_date && 'is-invalid'}`}
+                                                  required 
                                              />
 
                                              <FormInput

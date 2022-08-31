@@ -84,7 +84,7 @@ const Edit = () => {
                                    <FormCalendar
                                         labelText='Date'
 
-                                        value={data.li_date}
+                                        value={data.li_date !== null ? data.li_date : ''}
                                         handleChange={(date) => setData('li_date', new Date(date))}
                                         className={`${errors.li_date ? 'is-invalid' : ''}`}
                                    />
