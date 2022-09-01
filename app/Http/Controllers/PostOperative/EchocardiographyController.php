@@ -63,7 +63,13 @@ class EchocardiographyController extends Controller
             'echocardiography' => $echocardiography,
             'mode' => 'postoperative',
             'putUrl' => 'crf.postoperative.echocardiography.update',
-            'backUrl' => route('crf.postoperative.show', ['crf' => $crf, 'postoperative' => $postoperative])
+            'backUrl' => route('crf.postoperative.show', ['crf' => $crf, 'postoperative' => $postoperative]),
+            'echodicomfiles' => $postoperative->echocardiographies ? 
+            EchoDicomFile::where('echocardiography_id', $echocardiography->id)->get()->map(fn ($file) => [
+                'id' => $file->id,
+                'file_name' => $file->file_name,
+                'download_url' => storage_path('app/public/' . $file->file_path)
+            ]) : null
         ]);
     }
     public function update(Request $request, CaseReportForm $crf, PostOperativeData $postoperative, Echocardiography $echocardiography, EchocardiographyService  $echocardiographyService)

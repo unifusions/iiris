@@ -25,7 +25,8 @@ class UVEchocardiographyController extends Controller
             'unscheduledvisit' => $unscheduledvisit,
             'mode' => 'unscheduledvisit',
             'postUrl' => 'crf.unscheduledvisit.echocardiography.store',
-            'backUrl' => route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit])
+            'backUrl' => route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]),
+            
         ]);
     }
     public function store(Request $request, CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, EchocardiographyService $echocardiographyService)
@@ -65,7 +66,13 @@ class UVEchocardiographyController extends Controller
             'echocardiography' => $echocardiography,
             'mode' => 'unscheduledvisit',
             'putUrl' => 'crf.unscheduledvisit.echocardiography.update',
-            'backUrl' => route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit])
+            'backUrl' => route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]),
+            'echodicomfiles' => $unscheduledvisit->echocardiographies ? 
+            EchoDicomFile::where('echocardiography_id', $echocardiography->id)->get()->map(fn ($file) => [
+                'id' => $file->id,
+                'file_name' => $file->file_name,
+                'download_url' => storage_path('app/public/' . $file->file_path)
+            ]) : null
         ]);
     }
     public function update(Request $request, CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, Echocardiography $echocardiography, EchocardiographyService  $echocardiographyService)

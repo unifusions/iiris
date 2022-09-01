@@ -61,7 +61,13 @@ class SVEchocardiographyController extends Controller
             'echocardiography' => $echocardiography,
             'mode' => 'scheduledvisit',
             'putUrl' => 'crf.scheduledvisit.echocardiography.update',
-            'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit])
+            'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit]),
+            'echodicomfiles' => $scheduledvisit->echocardiographies ? 
+            EchoDicomFile::where('echocardiography_id', $echocardiography->id)->get()->map(fn ($file) => [
+                'id' => $file->id,
+                'file_name' => $file->file_name,
+                'download_url' => storage_path('app/public/' . $file->file_path)
+            ]) : null
         ]);
     }
     public function update(Request $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit, Echocardiography $echocardiography, EchocardiographyService  $echocardiographyService)
