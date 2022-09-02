@@ -1,6 +1,6 @@
 import FormButton from "@/Pages/Shared/FormButton";
-import { Link, useForm } from "@inertiajs/inertia-react"
-import React from "react"
+import { useForm } from "@inertiajs/inertia-react"
+import React, { useState } from "react"
 import { Modal } from "react-bootstrap";
 
 export default function ApprovalSubmit({ role, crf, postoperative }) {
@@ -10,7 +10,10 @@ export default function ApprovalSubmit({ role, crf, postoperative }) {
           action: 'Submitted',
           remarks: ''
      });
+     const [show, setShow] = useState(false);
 
+     const handleClose = () => setShow(false);
+     const handleShow = () => setShow(true);
      function handlesubmit(e) {
           e.preventDefault();
           put(route('crf.postoperative.update', { crf: crf, postoperative: postoperative }));
