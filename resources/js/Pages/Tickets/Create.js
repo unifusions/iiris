@@ -19,7 +19,7 @@ export default function Create() {
           from_user_id: auth.user.id || '',
           to_user_id: '',
           facility_id: '',
-          status: 'Open',
+          ticketstatus: 'Open',
           isAdminQuery: roles.admin,
           message: ''
 

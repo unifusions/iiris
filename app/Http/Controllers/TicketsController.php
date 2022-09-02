@@ -82,7 +82,7 @@ class TicketsController extends Controller
             'from_user_id' => $request->from_user_id,
             'to_user_id' => $request->to_user_id,
             'facility_id' => $request->facility_id,
-            'status' => $request->status
+            'status' => $request->ticketstatus
         ]);
         return redirect()->route('tickets.index')->with(['message' => 'Ticket has been raised']);
     }
