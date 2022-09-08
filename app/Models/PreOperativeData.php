@@ -78,6 +78,10 @@ class PreOperativeData extends Model
         return $this->hasManyThrough(EchoDicomFile::class, Echocardiography::class);
     }
 
+    public function fileuploads(){
+        return $this->hasMany(PreoperativeDicomFile::class);
+    }
+
     public function medications(){
         return $this->hasMany(Medication::class);
     }

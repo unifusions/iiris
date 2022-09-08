@@ -68,6 +68,27 @@ export function RenderFieldDatas({ labelText, value, units, status }) {
      )
 }
 
+export function RenderDateFieldDatas({ labelText, value, units, status, options }) {
+     return (
+          <Row className='mb-3'>
+               <Col md={4} className='text-secondary'>
+                    {labelText}
+               </Col>
+               <Col md={8}>
+                    {status !== undefined &&
+                         <span className={`dot bg-${status} me-1`}></span>
+                    }
+                    {value !== null ? <>{new Date(value).toLocaleString('en-in', options) }
+
+                         {units !== undefined &&
+                              <RenderUnits units={units} />
+                         }</> : <NotAvailable />}
+
+
+               </Col>
+          </Row>
+     )
+}
 
 export function RenderTicketStatus({ labelText, value, units, status, closedByUser }) {
      return (

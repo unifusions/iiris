@@ -9,6 +9,7 @@ use App\Models\PreOperativeData;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Psr\Log\NullLogger;
 
 class PreOperativeMedicationController extends Controller
 {
@@ -35,7 +36,7 @@ class PreOperativeMedicationController extends Controller
                 ];
             }),
 
-           
+
             'updateUrl' => 'crf.preoperative.update',
             'backUrl' => route('crf.preoperative.show', [$crf, $preoperative])
         ]);
@@ -62,11 +63,11 @@ class PreOperativeMedicationController extends Controller
             'status' => $request->status,
             'dosage' => $request->dosage,
             'reason' => $request->reason,
-            'start_date' => Carbon::parse($request->start_date)->addHours(5)->addMinutes(30),
-            'stop_date' => $request->stop_date !== null ? Carbon::parse($request->stop_date)->addHours(5)->addMinutes(30) : null
+            'start_date' => $request->start_date !== null ?  Carbon::parse($request->start_date)->addHours(5)->addMinutes(30) : null,
+            'stop_date' => $request->status === 'Discontinued' ? ($request->stop_date !== null ? Carbon::parse($request->stop_date)->addHours(5)->addMinutes(30) : null) : null,
         ]);
 
-        return redirect()->route('crf.preoperative.medication.index', [$crf,$preoperative])->with(['message' => 'Medication Added successfully']);
+        return redirect()->route('crf.preoperative.medication.index', [$crf, $preoperative])->with(['message' => 'Medication Added successfully']);
     }
 
     public function show($id)
@@ -93,8 +94,8 @@ class PreOperativeMedicationController extends Controller
         $medication->status = $request->status;
         $medication->dosage = $request->dosage;
         $medication->reason = $request->reason;
-        $medication->start_date = Carbon::parse($request->start_date)->addHours(5)->addMinutes(30);
-        $medication->stop_date = $request->stop_date !== null ? Carbon::parse($request->stop_date)->addHours(5)->addMinutes(30) : null;
+        $medication->start_date = $request->start_date !== null ?  Carbon::parse($request->start_date)->addHours(5)->addMinutes(30) : null;
+        $medication->stop_date = $request->status === 'Discontinued' ? ($request->stop_date !== null ? Carbon::parse($request->stop_date)->addHours(5)->addMinutes(30) : null) : null;
         $medication->save();
         return redirect()->route('crf.preoperative.medication.index', [$crf, $preoperative])->with(['message' => 'Medication Edited successfully']);
     }

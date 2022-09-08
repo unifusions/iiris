@@ -21,6 +21,10 @@ class PostOperativeData extends Model
         return $this->hasOne(PostoperativeApprovalRemark::class);
     }
 
+    public function fileuploads(){
+        return $this->hasMany(PostoperativeDicomFile::class);
+    }
+
     public function physicalexaminations()
     {
         return $this->hasOne(PhysicalExamination::class);

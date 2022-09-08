@@ -257,7 +257,7 @@ const Create = () => {
                                         step='0.1'
                                    />
 
-                                   <Row>
+                                   {/* <Row>
                                         <Col lg={3} >
                                              Dicom Files
                                         </Col>
@@ -267,7 +267,7 @@ const Create = () => {
                                              </div>
 
                                         </Col>
-                                   </Row>
+                                   </Row> */}
 
 
 

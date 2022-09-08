@@ -3,7 +3,7 @@ import FormButton from "@/Pages/Shared/FormButton";
 import PageTitle from "@/Pages/Shared/PageTitle";
 import { Link, useForm, usePage } from "@inertiajs/inertia-react";
 import React, { useState } from "react";
-import { Alert, Button, Col, Modal, Row } from "react-bootstrap";
+import { Alert, Button, Card, Col, Modal, Row } from "react-bootstrap";
 import CaseReportFormData from "../FormData/CaseReportFormData";
 import EchocardiographyData from "../FormData/EchocardiographyData";
 import ElectrocardiogramData from "../FormData/ElectrocardiogramData";
@@ -122,7 +122,7 @@ function ApprovalSubmit({ role, crf, unscheduledvisit }) {
           <>{role.coordinator &&
                <>{unscheduledvisit.is_submitted !== null &&
                     <>
-                          {unscheduledvisit.is_submitted ? '' :
+                         {unscheduledvisit.is_submitted ? '' :
                               <form onSubmit={handlesubmit} >
                                    <Button variant="primary" onClick={handleShow}> Submit </Button>
                               </form>
@@ -159,7 +159,7 @@ export default function Show() {
           labinvestigations,
           electrocardiograms,
           echocardiographies,
-          safetyparameters, echodicomfiles,
+          safetyparameters, echodicomfiles, usvdicomfiles,
           medications, } = usePage().props;
      return (
           <Authenticated auth={auth} role={roles}>
@@ -272,6 +272,33 @@ export default function Show() {
                               role={roles}
                               linkUrl={route('crf.unscheduledvisit.medication.index', { crf: crf, unscheduledvisit: unscheduledvisit })}
                          />
+
+                         <Card className="mb-3 rounded-5 shadow-sm">
+                              <Card.Body>
+                                   <div className='d-flex justify-content-between align-items-center'>
+                                        <div className='fs-6 fw-bold'>
+                                             Related Files
+                                        </div>
+                                        {!unscheduledvisit.is_submitted &&
+                                             <Link href={route('crf.unscheduledvisit.fileupload.index', { crf: crf, unscheduledvisit: unscheduledvisit })} type="submit" className='btn btn-primary btn-sm' method="get" as="button" >Upload Files</Link>
+
+                                        }
+                                   </div>
+
+                                   <hr />
+                                   {usvdicomfiles !== undefined &&
+                                        <div className='container'>
+                                             <div className="row ">
+                                                  {usvdicomfiles.map((file) =>
+                                                       <div key={file.id} className="col-md-4">
+                                                            <a href={route('crf.unscheduledvisit.fileupload.show', { crf: crf, unscheduledvisit: unscheduledvisit, fileupload: file })} >{file.file_name} </a>
+                                                       </div>)}
+                                             </div>
+                                        </div>
+                                   }
+                              </Card.Body>
+                         </Card>
+
 
                     </Col>
                </Row>

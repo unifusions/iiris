@@ -25,6 +25,10 @@ class ScheduledVisit extends Model
         return $this->hasOne(ScheduledVisitApprovalRemark::class);
     }
 
+    public function fileuploads(){
+        return $this->hasMany(ScheduledVisitDicomFile::class, 'scheduled_visits_id', 'id');
+    }
+
     public function physicalexaminations()
     {
         return $this->hasOne(PhysicalExamination::class, 'scheduled_visits_id', 'id');

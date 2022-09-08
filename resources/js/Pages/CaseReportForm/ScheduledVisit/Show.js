@@ -34,7 +34,7 @@ function DateofInvestigation({ crf, scheduledvisit }) {
                     <Card.Body>
                          <form onSubmit={handlesubmit} >
                               <FormCalendar
-                                   labelText='Date of Investigation'
+                                   labelText='Date of Visit'
                                    value={data.pod}
                                    handleChange={(date) => setData('pod', new Date(date))}
                                    className={`${errors.pod ? 'is-invalid' : ''}`}
@@ -197,7 +197,7 @@ export default function Show() {
           safetyparameters,
           medications,
           echodicomfiles,
-
+          svdicomfiles
      } = usePage().props;
 
      return (
@@ -238,7 +238,7 @@ export default function Show() {
                               <Col md={12} lg={12} className="mail-view d-none d-md-block">
                                    <Card className="mb-3 shadow-sm rounded-5">
                                         <Card.Body>
-                                             Date of Investigation : {scheduledvisit.pod}
+                                             Date of Visit : {scheduledvisit.pod}
                                         </Card.Body>
                                    </Card>
                                    <PhysicalExaminationData
@@ -315,6 +315,32 @@ export default function Show() {
                                         role={roles}
                                         linkUrl={route('crf.scheduledvisit.medication.index', { crf: crf, scheduledvisit: scheduledvisit })}
                                    />
+
+                                   <Card className="mb-3 rounded-5 shadow-sm">
+                                        <Card.Body>
+                                             <div className='d-flex justify-content-between align-items-center'>
+                                                  <div className='fs-6 fw-bold'>
+                                                       Related Files
+                                                  </div>
+                                                  {!scheduledvisit.is_submitted &&
+                                                       <Link href={route('crf.scheduledvisit.fileupload.index', { crf: crf, scheduledvisit: scheduledvisit })} type="submit" className='btn btn-primary btn-sm' method="get" as="button" >Upload Files</Link>
+
+                                                  }
+                                             </div>
+
+                                             <hr />
+                                             {svdicomfiles !== undefined &&
+                                                  <div className='container'>
+                                                       <div className="row ">
+                                                            {svdicomfiles.map((file) =>
+                                                                 <div key={file.id} className="col-md-4">
+                                                                      <a href={route('crf.scheduledvisit.fileupload.show', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file })} >{file.file_name} </a>
+                                                                 </div>)}
+                                                       </div>
+                                                  </div>
+                                             }
+                                        </Card.Body>
+                                   </Card>
 
                               </Col>
                          </Row>

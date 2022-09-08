@@ -61,6 +61,7 @@ class PreOperativeController extends Controller
     public function show(CaseReportForm $crf, PreOperativeData $preoperative)
     {
        
+        
         // $preop = CaseReportFormVisitMode::find($id);
         // return view('casereportforms.visits.preoperative.show', compact('preop'));
         return Inertia::render('CaseReportForm/Preoperative/Index', [
@@ -77,6 +78,7 @@ class PreOperativeController extends Controller
             'electrocardiograms' => $preoperative->electrocardiograms,
             'labinvestigations' => $preoperative->labinvestigations,
             'medications' => $preoperative->medications,
+            'preopdicomfiles' => $preoperative->fileuploads,
             'echodicomfiles' => $preoperative->echocardiographies ? 
             EchoDicomFile::where('echocardiography_id', $preoperative->echocardiographies->id)->get()->map(fn ($file) => [
                 'id' => $file->id,

@@ -18,6 +18,7 @@ class CaseReportFormController extends Controller
 
         return Inertia::render('CaseReportForm/Index', [
             'crf' => $caseReportForm,
+
             'facility' => auth()->user()->facility->name ?? ''
         ]);
     }
@@ -29,7 +30,7 @@ class CaseReportFormController extends Controller
         $crf_count = CaseReportForm::withTrashed()->where('facility_id', $user->facility_id)->count();
         return Inertia::render('CaseReportForm/Create', [
             'facility' => auth()->user()->facility->name ?? '',
-            'subject_id' =>  $user->facility->uid . '-' . str_pad($crf_count+1, 3, '0', STR_PAD_LEFT)
+            'subject_id' =>  $user->facility->uid . '-' . str_pad($crf_count + 1, 3, '0', STR_PAD_LEFT)
         ]);
     }
 
@@ -37,8 +38,9 @@ class CaseReportFormController extends Controller
     {
 
         $request->validated();
-
-        $crf->subject_id = $request->subject_id;
+        $user = auth()->user();
+        $crf_count = CaseReportForm::withTrashed()->where('facility_id', $user->facility_id)->count();
+        $crf->subject_id = $user->facility->uid . '-' . str_pad($crf_count + 1, 3, '0', STR_PAD_LEFT);
         $crf->date_of_consent =  Carbon::parse($request->date_of_consent)->addHours(5)->addMinutes(30);
         $crf->uhid = $request->uhid;
         $crf->gender = $request->gender;

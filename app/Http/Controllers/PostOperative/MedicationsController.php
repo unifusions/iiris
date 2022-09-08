@@ -7,6 +7,7 @@ use App\Models\CaseReportForm;
 use App\Models\Medication;
 use App\Models\PostOperativeData;
 use App\Models\PreOperativeData;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -66,8 +67,8 @@ class MedicationsController extends Controller
             'status' => $request->status,
             'dosage' => $request->dosage,
             'reason' => $request->reason,
-            'start_date' => $request->start_date,
-            'stop_date' => $request->stop_date
+            'start_date' => $request->start_date !== null ?  Carbon::parse($request->start_date)->addHours(5)->addMinutes(30) : null,
+            'stop_date' => $request->status === 'Discontinued' ? ($request->stop_date !== null ? Carbon::parse($request->stop_date)->addHours(5)->addMinutes(30) : null) : null,
         ]);
 
         return redirect()->route('crf.postoperative.medication.index', [$crf,$postoperative])->with(['message' => 'Medication Added successfully']);

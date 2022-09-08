@@ -20,7 +20,9 @@ import CaseReportFormData from '../FormData/CaseReportFormData';
 import ApprovalSubmit from './ApprovalSubmit';
 import ApprovalActionsApprove from './ApprovalActionsApprove';
 import ApprovalActionsDisapprove from './ApprovalActionsDisapprove';
-import { RenderFormStatus } from '../FormData/FormDataHelper';
+import { RenderCreateButton, RenderFormStatus } from '../FormData/FormDataHelper';
+import FileUpload from './FileUpload';
+
 
 
 
@@ -46,7 +48,8 @@ export default class Index extends React.Component {
                electrocardiograms,
                echocardiographies, echodicomfiles,
                medications,
-               
+               preopdicomfiles
+
           } = this.props;
 
 
@@ -92,7 +95,7 @@ export default class Index extends React.Component {
                                              physicalexamination={physicalexamination}
                                              role={roles}
                                              enableActions={preoperative.is_submitted}
-                                             showHWB = {true}
+                                             showHWB={true}
                                              createUrl={route('crf.preoperative.physicalexamination.create', { crf: crf, preoperative: preoperative })}
                                              editUrl={physicalexamination !== null && route('crf.preoperative.physicalexamination.edit', { crf: crf, preoperative: preoperative, physicalexamination: physicalexamination })}
                                         />
@@ -160,18 +163,14 @@ export default class Index extends React.Component {
                                              createUrl={route('crf.preoperative.electrocardiogram.create', { crf: crf, preoperative: preoperative })}
                                              editUrl={electrocardiograms !== null && route('crf.preoperative.electrocardiogram.edit', { crf: crf, preoperative: preoperative, electrocardiogram: electrocardiograms })}
                                         />
-                                        
-                                       
-
                                         <EchocardiographyData
                                              echocardiographies={echocardiographies}
                                              enableActions={preoperative.is_submitted}
-                                             echodicomfiles = {echodicomfiles}
+                                             echodicomfiles={echodicomfiles}
                                              role={roles}
                                              createUrl={route('crf.preoperative.echocardiography.create', { crf: crf, preoperative: preoperative })}
                                              editUrl={echocardiographies !== null && route('crf.preoperative.echocardiography.edit', { crf: crf, preoperative: preoperative, echocardiography: echocardiographies })}
                                         />
-
 
                                         <MedicationsData
                                              hasMedication={preoperative.hasMedications}
@@ -180,6 +179,35 @@ export default class Index extends React.Component {
                                              role={roles}
                                              linkUrl={route('crf.preoperative.medication.index', { crf: crf, preoperative: preoperative })}
                                         />
+
+                                        <Card className="mb-3 rounded-5 shadow-sm">
+
+                                             <Card.Body>
+                                                  <div className='d-flex justify-content-between align-items-center'>
+                                                       <div className='fs-6 fw-bold'>
+                                                            Related Files
+                                                       </div>
+                                                       {!preoperative.is_submitted &&
+                                                            <Link href={route('crf.preoperative.fileupload.index', { crf: crf, preoperative: preoperative })} type="submit" className='btn btn-primary btn-sm' method="get" as="button" >Upload Files</Link>
+
+                                                       }
+                                                  </div>
+
+                                                  <hr />
+
+
+                                                  {preopdicomfiles !== undefined &&
+                                                       <div className='container'>
+                                                            <div className="row ">
+                                                                 {preopdicomfiles.map((file) =>
+                                                                      <div key={file.id} className="col-md-4">
+                                                                           <a href={route('crf.preoperative.fileupload.show', { crf: crf, preoperative: preoperative, fileupload: file })} >{file.file_name} </a>
+                                                                      </div>)}
+                                                            </div>
+                                                       </div>
+                                                  }
+                                             </Card.Body>
+                                        </Card>
 
                                    </Col>
                               </Row>

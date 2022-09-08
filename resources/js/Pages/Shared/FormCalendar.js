@@ -25,11 +25,13 @@ const FormCalendar = ({ name, value, className, minDate, autoComplete, required,
                          scrollableYearDropdown={true}
                          dropdownMode="select"
                          name={name}
-                         selected={value !== '' && new Date(value)}
+                         
+                         selected={value !== '' ? new Date(value) : null}
                          onChange={(date) => handleChange(date)}
                          className={`form-control ` + className} 
                          showYearPicker = {showYearPicker}
-                         required = {required}/>
+                         required = {required}
+                         autoComplete = "off"/>
                          
 
                     {error && <div class="invalid-feedback">

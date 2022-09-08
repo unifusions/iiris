@@ -18,9 +18,9 @@ import PageTitle from "@/Pages/Shared/PageTitle";
 const Create = () => {
      const { auth, roles, postUrl, mode, physicalactivities, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, updateUrl, flash, backUrl } = usePage().props;
      const { data, setData, errors, post, put, processing, hasErrors, transform } = useForm({
-          physical_activity: preoperative !== undefined ? preoperative.physical_activity ? '1' : '0' : '',
-          sv_physical_activity: scheduledvisit !== undefined ? scheduledvisit.physical_activity ? '1' : '0' : '',
-          usv_physical_activity : unscheduledvisit !== undefined ? unscheduledvisit.physical_activity ? '1' : '0' : ''
+          physical_activity: preoperative !== undefined ? preoperative.physical_activity !== null ? preoperative.physical_activity ? '1' : '0' : null : null,
+          sv_physical_activity: scheduledvisit !== undefined ? scheduledvisit.physical_activity !== null ? scheduledvisit.physical_activity ? '1' : '0' : null : null,
+          usv_physical_activity : unscheduledvisit !== undefined ? unscheduledvisit.physical_activity !== null ? unscheduledvisit.physical_activity ? '1' : '0' : null : null
 
      });
 
@@ -74,7 +74,7 @@ const Create = () => {
                }
           >
                <Head title="Physical Activity" />
-
+{console.log(scheduledvisit.physical_activity)}
 
                <Container>
                     <PageTitle backUrl={backUrl} pageTitle='Physical Activity' role={roles} />
@@ -106,6 +106,20 @@ const Create = () => {
                                              selectedValue={data.sv_physical_activity !== null && data.sv_physical_activity}
                                              error={errors.sv_physical_activity}
                                              className={`${errors.sv_physical_activity ? 'is-invalid' : ''}`}
+                                        />
+
+                                   }
+
+{unscheduledvisit !== undefined &&
+                                        <FormRadio
+                                             labelText='Has Physical Activity?'
+
+                                             options={boolRadios}
+                                             name="physicalactivity"
+                                             handleChange={e => setData('usv_physical_activity', e.target.value)}
+                                             selectedValue={data.usv_physical_activity !== null && data.usv_physical_activity}
+                                             error={errors.usv_physical_activity}
+                                             className={`${errors.usv_physical_activity ? 'is-invalid' : ''}`}
                                         />
 
                                    }

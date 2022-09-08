@@ -32,7 +32,7 @@ export default function Show() {
                     <Card.Body>
                          <form onSubmit={handlesubmit} >
                               <FormCalendar
-                                   labelText='Date of Investigation'
+                                   labelText='Date of Visit'
                                    value={data.pod}
                                    handleChange={(date) => setData('pod', new Date(date))}
                                    className={`${errors.pod ? 'is-invalid' : ''}`}

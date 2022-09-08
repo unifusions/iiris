@@ -18,11 +18,11 @@ trait FilterByFacility{
           
           static::addGlobalScope('facility_id', function (Builder $builder) {
               if (auth()->check()) {
-               if(auth()->user()->role_id===4){
-                    $builder->where('facility_id', auth()->user()->facility_id)->where('user_id', auth()->id());
-               }
+               // if(auth()->user()->role_id===4){
+               //      $builder->where('facility_id', auth()->user()->facility_id)->where('user_id', auth()->id());
+               // }
 
-               if(auth()->user()->role_id===3){
+               if(auth()->user()->role_id===4 || auth()->user()->role_id===3){
                     $builder->where('facility_id', auth()->user()->facility_id);
                }
                   

@@ -62,6 +62,7 @@ class UnscheduledvisitController extends Controller
             'electrocardiograms' => $unscheduledvisit->electrocardiograms,
             'safetyparameters' => $unscheduledvisit->safetyparameters,
             'medications' => $unscheduledvisit->medications,
+            'usvdicomfiles' => $unscheduledvisit->fileuploads,
             'echodicomfiles' => $unscheduledvisit->echocardiographies ?
                 EchoDicomFile::where('echocardiography_id', $unscheduledvisit->echocardiographies->id)->get()->map(fn ($file) => [
                     'id' => $file->id,

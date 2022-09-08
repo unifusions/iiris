@@ -5,7 +5,7 @@ import { Card, Modal, Button, Row, Col } from "react-bootstrap";
 
 
 
-import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton } from "./FormDataHelper";
+import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton, RenderDateFieldDatas } from "./FormDataHelper";
 
 
 export default function EchocardiographyData({ echodicomfiles, echocardiographies, role, createUrl, editUrl, enableActions }) {
@@ -46,7 +46,7 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
                          <>
                               <div className='fs-6  mb-3'>Effectiveness</div>
 
-                              <RenderFieldDatas labelText='Date of Investigation' value={new Date(echocardiographies.echodate).toLocaleString('en-in', options)} />
+                              <RenderDateFieldDatas labelText='Date of Investigation' value={echocardiographies.echodate} options={options} />
                               <RenderFieldDatas labelText='Peak Velocity' value={echocardiographies.peak_velocity} units='mmHg' />
                               <RenderFieldDatas labelText='Velocity Time Integral(Aortic Valve)' value={echocardiographies.velocity_time_integral} units='cm' />
                               <RenderFieldDatas labelText='Peak Gradient' value={echocardiographies.peak_gradient} units='mmHg' />

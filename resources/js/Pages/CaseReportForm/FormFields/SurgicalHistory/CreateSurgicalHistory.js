@@ -41,7 +41,7 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
                               <Row className="fw-bold">
                                    <Col>#</Col>
                                    <Col>Date</Col>
-                                   <Col>Diagnosis</Col>
+                                   <Col>Procedure</Col>
                                    <Col>Treatment</Col>
                          <Col>Actions</Col>
                               </Row>
@@ -88,7 +88,7 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
                                              />
 
                                              <FormInput
-                                                  labelText='Diagnosis'
+                                                  labelText='Procedure'
                                                   value={data.diagnosis}
                                                   handleChange={e => setData('diagnosis', e.target.value)} />
 

@@ -14,10 +14,9 @@ class ScheduledVisitPersonalHistoryController extends Controller
 {
     public function index()
     {
-       
     }
 
-    
+
     public function create(CaseReportForm $crf, ScheduledVisit $scheduledvisit)
     {
         return Inertia::render('CaseReportForm/FormFields/PersonalHistory/Create', [
@@ -26,37 +25,35 @@ class ScheduledVisitPersonalHistoryController extends Controller
             'mode' => 'scheduledvisit',
             'crf' => $crf,
             'scheduledvisit' => $scheduledvisit,
-            
+
         ]);
     }
 
-   
+
     public function store(Request $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit)
     {
         PersonalHistory::Create([
             'scheduled_visits_id' => $scheduledvisit->id,
             'smoking' => $request->smoking,
             'cigarettes' => $request->cigarettes,
-            'smoking_since' => Carbon::parse($request->smoking_since)->addHours(5)->addMinutes(30),
-            'smoking_stopped' =>  Carbon::parse($request->smoking_stopped)->addHours(5)->addMinutes(30),
+            'smoking_since' => $request->smoking_since !== null ?  Carbon::parse($request->smoking_since)->addHours(5)->addMinutes(30) : null,
+            'smoking_stopped' =>  $request->smoking === 'Used to consume in the past' ? ($request->smoking_stopped !== null ?   Carbon::parse($request->smoking_stopped)->addHours(5)->addMinutes(30) : null) : null,
             'alchohol' => $request->alchohol,
             'quantity' => $request->quantity,
-            'alchohol_since' =>  Carbon::parse($request->alchohol_since)->addHours(5)->addMinutes(30),
-            'alchohol_stopped' =>  Carbon::parse($request->alchohol_stopped)->addHours(5)->addMinutes(30),
+            'alchohol_since' =>  $request->alchohol_since !== null ?  Carbon::parse($request->alchohol_since)->addHours(5)->addMinutes(30) : null,
+            'alchohol_stopped' => $request->alchohol === 'Used to consume in the past' ? ($request->alchohol_stopped !== null ?   Carbon::parse($request->alchohol_stopped)->addHours(5)->addMinutes(30) : null) : null,
             'tobacco' => $request->tobacco,
             'tobacco_type' => $request->tobacco_type,
             'tobacco_quantity' => $request->tobacco_quantity,
-            'tobacco_since' =>  Carbon::parse($request->tobacco_since)->addHours(5)->addMinutes(30),
-            'tobacco_stopped' =>  Carbon::parse($request->tobacco_stopped)->addHours(5)->addMinutes(30),
+            'tobacco_since' =>   $request->tobacco_since !== null ? Carbon::parse($request->tobacco_since)->addHours(5)->addMinutes(30) : null,
+            'tobacco_stopped' =>   $request->tobacco === 'Used to consume in the past' ? ($request->tobacco_stopped !== null ?   Carbon::parse($request->tobacco_stopped)->addHours(5)->addMinutes(30) : null) : null
         ]);
 
         return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit]);
-
     }
 
     public function show($id)
     {
-        
     }
 
     public function edit(CaseReportForm $crf, ScheduledVisit $scheduledvisit, PersonalHistory $personalhistory)
@@ -73,22 +70,23 @@ class ScheduledVisitPersonalHistoryController extends Controller
 
     public function update(Request $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit, PersonalHistory $personalhistory)
     {
-        
+
         $personalhistory->smoking = $request->smoking;
         $personalhistory->cigarettes = $request->cigarettes;
-        $personalhistory->smoking_since =  Carbon::parse($request->smoking_since)->addHours(5)->addMinutes(30);
-        $personalhistory->smoking_stopped =  Carbon::parse($request->smoking_stopped)->addHours(5)->addMinutes(30);
+        $personalhistory->smoking_since =  $request->smoking_since !== null ?  Carbon::parse($request->smoking_since)->addHours(5)->addMinutes(30) : null;
+        $personalhistory->smoking_stopped = $request->smoking === 'Used to consume in the past' ? ($request->smoking_stopped !== null ?   Carbon::parse($request->smoking_stopped)->addHours(5)->addMinutes(30) : null) : null;
         $personalhistory->alchohol = $request->alchohol;
         $personalhistory->quantity = $request->quantity;
-        $personalhistory->alchohol_since =  Carbon::parse($request->alchohol_since)->addHours(5)->addMinutes(30);
-        $personalhistory->alchohol_stopped =  Carbon::parse($request->alchohol_stopped)->addHours(5)->addMinutes(30);
+        $personalhistory->alchohol_since =  $request->alchohol_since !== null ?  Carbon::parse($request->alchohol_since)->addHours(5)->addMinutes(30) : null;
+        $personalhistory->alchohol_stopped = $request->alchohol === 'Used to consume in the past' ? ($request->alchohol_stopped !== null ?   Carbon::parse($request->alchohol_stopped)->addHours(5)->addMinutes(30) : null) : null;
         $personalhistory->tobacco = $request->tobacco;
         $personalhistory->tobacco_type = $request->tobacco_type;
         $personalhistory->tobacco_quantity = $request->tobacco_quantity;
-        $personalhistory->tobacco_since =  Carbon::parse($request->tobacco_since)->addHours(5)->addMinutes(30);
-        $personalhistory->tobacco_stopped =  Carbon::parse($request->tobacco_stopped)->addHours(5)->addMinutes(30);
+        $personalhistory->tobacco_since =  $request->tobacco_since !== null ? Carbon::parse($request->tobacco_since)->addHours(5)->addMinutes(30) : null;
+        $personalhistory->tobacco_stopped = $request->tobacco === 'Used to consume in the past' ? ($request->tobacco_stopped !== null ?   Carbon::parse($request->tobacco_stopped)->addHours(5)->addMinutes(30) : null) : null;
+
         $personalhistory->save();
-        return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit])->with(['message'=>'Personal History Updated Successfully']);
+        return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit])->with(['message' => 'Personal History Updated Successfully']);
     }
 
     /**
@@ -99,6 +97,5 @@ class ScheduledVisitPersonalHistoryController extends Controller
      */
     public function destroy($id)
     {
-       
     }
 }

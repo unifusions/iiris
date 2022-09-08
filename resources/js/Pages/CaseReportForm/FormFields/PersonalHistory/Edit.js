@@ -14,9 +14,10 @@ import FormCalendar from "@/Pages/Shared/FormCalendar";
 import PageTitle from "@/Pages/Shared/PageTitle";
 
 
+
 const Edit = () => {
      const { auth, roles, putUrl, mode, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, backUrl, personalhistories } = usePage().props;
-     const { data, setData, errors, put, processing, hasErrors, transform } = useForm({
+     const { data, setData, errors, put, processing, hasErrors, reset } = useForm({
           pre_operative_data_id: preoperative !== undefined ? preoperative.id : '',
           scheduled_visits_id: scheduledvisit !== undefined ? scheduledvisit.id : '',
           unscheduled_visits_id: unscheduledvisit !== undefined ? unscheduledvisit.id : '',
@@ -65,8 +66,7 @@ const Edit = () => {
           }
      }
 
-
-
+    
      return (
           <Authenticated
                auth={auth}
@@ -98,7 +98,7 @@ const Edit = () => {
                                         name="Smoking"
                                         selectedValue={data.smoking}
                                         options={consumptionOptions}
-                                        handleChange={e => setData('smoking', e.target.value)}
+                                        handleChange={e =>  setData('smoking', e.target.value)}
                                         checked={data.smoking !== '' && data.smoking}
                                         error={errors.smoking}
                                         className={`${errors.smoking ? 'is-invalid' : ''}`}
@@ -120,7 +120,7 @@ const Edit = () => {
                                                        labelText='Smoking Since'
                                                        name='smokingsince'
                                                        value={data.smoking_since}
-                                                       handleChange={(date) => setData('smoking_since', new Date(date))}
+                                                       handleChange={(date) => date !== null ? setData('smoking_since', new Date(date)) : setData('smoking_since', '')}
                                                        className={`${errors.smoking_since ? 'is-invalid' : ''}`}
                                                        showYearPicker
                                                        dateFormat='Y'
@@ -131,7 +131,7 @@ const Edit = () => {
                                                             name=''
                                                             minDate={data.smoking_since}
                                                             value={data.smoking_stopped}
-                                                            handleChange={(date) => setData('smoking_stopped', new Date(date))}
+                                                            handleChange={(date) => date !== null ? setData('smoking_stopped', new Date(date)) : setData('smoking_stopped', '')}
                                                             className={`${errors.smoking_stopped ? 'is-invalid' : ''}`}
                                                             showYearPicker
                                                             dateFormat='Y'
@@ -167,10 +167,12 @@ const Edit = () => {
                                                   />
 
                                                   <FormCalendar
-                                                       labelText='Smoking Since'
+                                                       labelText='Alcohol Since'
                                                        name=''
                                                        value={data.alchohol_since}
-                                                       handleChange={(date) => setData('alchohol_since', new Date(date))}
+                                                       handleChange={(date) => date !== null ? setData('alchohol_since', new Date(date)) : setData('alchohol_since', '')}
+
+
                                                        className={`${errors.alchohol_since ? 'is-invalid' : ''}`}
                                                        showYearPicker
                                                        dateFormat='Y'
@@ -181,7 +183,10 @@ const Edit = () => {
                                                             name=''
                                                             minDate={data.alchohol_since}
                                                             value={data.alchohol_stopped}
-                                                            handleChange={(date) => setData('alchohol_stopped', new Date(date))}
+                                                            handleChange={(date) => date !== null ? setData('alchohol_stopped', new Date(date)) : setData('alchohol_stopped', '')}
+
+
+
                                                             className={`${errors.alchohol_stopped ? 'is-invalid' : ''}`}
                                                             showYearPicker
                                                             dateFormat='Y'
@@ -231,7 +236,9 @@ const Edit = () => {
                                                        labelText='Smoking Since'
                                                        name=''
                                                        value={data.tobacco_since}
-                                                       handleChange={(date) => setData('tobacco_since', new Date(date))}
+                                                       handleChange={(date) => date !== null ? setData('tobacco_since', new Date(date)) : setData('tobacco_since', '')}
+
+
                                                        className={`${errors.tobacco_since ? 'is-invalid' : ''}`}
                                                        showYearPicker
                                                        dateFormat='Y'
@@ -242,7 +249,9 @@ const Edit = () => {
                                                             name=''
                                                             minDate={data.tobacco_since}
                                                             value={data.tobacco_stopped}
-                                                            handleChange={(date) => setData('tobacco_stopped', new Date(date))}
+                                                            handleChange={(date) => date !== null ? setData('tobacco_stopped', new Date(date)) : setData('tobacco_stopped', '')}
+
+
                                                             className={`${errors.tobacco_stopped ? 'is-invalid' : ''}`}
                                                             showYearPicker
                                                             dateFormat='Y'

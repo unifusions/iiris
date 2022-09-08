@@ -34,7 +34,8 @@ export default class Index extends React.Component {
                electrocardiograms,
                safetyparameters,
                medications,
-               echodicomfiles
+               echodicomfiles,
+               postopdicomfiles
           } = this.props;
           return (
                <Authenticated auth={auth} role={roles}>
@@ -125,7 +126,31 @@ export default class Index extends React.Component {
                                              role={roles}
                                              linkUrl={route('crf.postoperative.medication.index', { crf: crf, postoperative: postoperative })}
                                         />
+                                        <Card className="mb-3 rounded-5 shadow-sm">
+                                             <Card.Body>
+                                                  <div className='d-flex justify-content-between align-items-center'>
+                                                       <div className='fs-6 fw-bold'>
+                                                            Related Files
+                                                       </div>
+                                                       {!postoperative.is_submitted &&
+                                                            <Link href={route('crf.postoperative.fileupload.index', { crf: crf, postoperative: postoperative })} type="submit" className='btn btn-primary btn-sm' method="get" as="button" >Upload Files</Link>
 
+                                                       }
+                                                  </div>
+
+                                                  <hr />
+                                                  {postopdicomfiles !== undefined &&
+                                                       <div className='container'>
+                                                            <div className="row ">
+                                                                 {postopdicomfiles.map((file) =>
+                                                                      <div key={file.id} className="col-md-4">
+                                                                           <a href={route('crf.postoperative.fileupload.show', { crf: crf, postoperative: postoperative, fileupload: file })} >{file.file_name} </a>
+                                                                      </div>)}
+                                                            </div>
+                                                       </div>
+                                                  }
+                                             </Card.Body>
+                                        </Card>
 
                                    </Col>
                               </Row>

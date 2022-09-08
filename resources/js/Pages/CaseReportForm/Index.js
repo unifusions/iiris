@@ -7,6 +7,18 @@ import TablePagination from '../Shared/TablePagination';
 import BadgeLink from '../Shared/BadgeLinks';
 
 
+const GetAge = ({birthDate}) => {
+     
+     var today = new Date();
+         var bd = new Date(birthDate);
+     var age = today.getFullYear() - bd.getFullYear();
+         var m = today.getMonth() - bd.getMonth();
+     if (m < 0 || (m === 0 && today.getDate() < bd.getDate())) {
+          age--;
+     }
+     
+     return( <>{age}</> );
+}
 
 export default class Index extends React.Component {
 
@@ -40,6 +52,7 @@ export default class Index extends React.Component {
                                              <th>Age</th>
                                              <th>Gender</th>
                                              <th>Status</th>
+                                             <th>Created By</th>
                                              <th>Actions</th>
                                         </tr>
                                    </thead>
@@ -47,7 +60,7 @@ export default class Index extends React.Component {
                                         {this.props.crf.data.map((crf) => <tr key={crf.id} >
                                              <td>{crf.subject_id}</td>
                                              <td>{crf.facility.name}</td>
-                                             <td>{crf.age}</td>
+                                             <td><GetAge birthDate = {crf.date_of_birth} /> </td>
                                              <td>{crf.gender}</td>
                                              <td>
                                                   <BadgeLink routeUrl={route('crf.preoperative.show', { crf: crf, preoperative: crf.preoperative })}
@@ -57,7 +70,9 @@ export default class Index extends React.Component {
                                                   <BadgeLink routeUrl={route('crf.postoperative.show', { crf: crf, postoperative: crf.postoperative })}
                                                        status={crf.postoperative.is_submitted ? crf.postoperative.visit_status ? 'bg-success' : 'bg-warning' : 'bg-secondary'} labelText='Post Operative' />
                                              </td>
-
+                                             <td>
+                                                  {crf.user.name}
+                                             </td>
                                              <td>
                                                   <Link href={route('crf.show', { crf: crf })} className='btn btn-primary btn-sm'> View </Link>
                                              </td>

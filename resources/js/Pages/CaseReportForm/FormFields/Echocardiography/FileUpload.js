@@ -22,7 +22,7 @@ export default function FileUpload() {
 
      function handleFilesubmit(e) {
           e.preventDefault();
-          console.log('function called')
+         
           // return post(route('crf.intraoperative.fileupload.store', { crf: crf, intraoperative: intraoperative }));
 
      }

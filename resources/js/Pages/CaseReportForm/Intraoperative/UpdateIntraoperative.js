@@ -24,10 +24,10 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
           tcb_time: intraoperative.tcb_time || '',
           acc_time: intraoperative.acc_time || '',
           concomitant_procedure: intraoperative.concomitant_procedure || '',
-          all_paravalvular_leak: intraoperative.all_paravalvular_leak === 1 ? '1' : '0' || '',
+          all_paravalvular_leak: intraoperative.all_paravalvular_leak !== null ? intraoperative.all_paravalvular_leak === 1 ? '1' : '0'  : '',
           all_paravalvular_leak_specify: intraoperative.all_paravalvular_leak_specify || '',
 
-          major_paravalvular_leak: intraoperative.major_paravalvular_leak === 1 ? '1' : '0' || '',
+          major_paravalvular_leak: intraoperative.major_paravalvular_leak !== null ? intraoperative.major_paravalvular_leak === 1 ? '1' : '0'  : '',
           major_paravalvular_leak_specify: intraoperative.major_paravalvular_leak_specify || '',
           difiles: ''
      });
@@ -79,7 +79,8 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
                          labelText="Date of Procedure" error={errors.date_of_procedure}
                          name="date_of_procedure"
                          value={data.date_of_procedure}
-                         handleChange={(date) => setData('date_of_procedure', date)}
+                         handleChange={(date) => date !== null ? setData('date_of_procedure', new Date(date)) : setData('date_of_procedure', '')}
+                         
                          className={`${errors.date_of_procedure && 'is-invalid'}`}
                     />
                     <hr />
@@ -180,11 +181,11 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
                          error={errors.all_paravalvular_leak}
                          className={`${errors.all_paravalvular_leak ? 'is-invalid' : ''}`} />
 
-                    {data.all_paravalvular_leak === '0' ? <FormInput
+                    {data.all_paravalvular_leak === '1' ? <FormInput
                          type="text"
                          className={`${errors.all_paravalvular_leak_specify && 'is-invalid '}`}
                          value={data.all_paravalvular_leak_specify}
-                         error={errors.all_paravalvular_leak_specify} labelText="If No, please Specify"
+                         error={errors.all_paravalvular_leak_specify} labelText="If Yes, please Specify"
                          handleChange={e => setData('all_paravalvular_leak_specify', e.target.value)}
 
                     /> : ''
@@ -201,11 +202,11 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
                          className={`${errors.major_paravalvular_leak ? 'is-invalid' : ''}`} />
 
 
-                    {data.major_paravalvular_leak === '0' ? <FormInput
+                    {data.major_paravalvular_leak === '1' ? <FormInput
                          type="text"
                          className={`${errors.major_paravalvular_leak_specify && 'is-invalid '}`}
                          value={data.major_paravalvular_leak_specify}
-                         error={errors.major_paravalvular_leak_specify} labelText="Specify"
+                         error={errors.major_paravalvular_leak_specify} labelText="If Yes, please Specify"
                          handleChange={e => setData('major_paravalvular_leak_specify', e.target.value)} /> : ''
                     }
 

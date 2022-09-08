@@ -28,7 +28,7 @@ class CaseReportForm extends Model
    protected $appends = [
     'preoperative', 'intraoperative', 'postoperative',  'unscheduledvisits', 'scheduledvisits', 
     // 'physicalexaminations',
-   'facility',
+   'facility', 'user'
   ];
     // protected $dates = ['date_of_consent','date_of_birth'];
 
@@ -40,6 +40,10 @@ class CaseReportForm extends Model
    
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function getUserAttribute(){
+        return $this->user()->first();
     }
    
     public function getAgeAttribute(){

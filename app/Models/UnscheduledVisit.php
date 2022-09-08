@@ -20,6 +20,9 @@ class UnscheduledVisit extends Model
         return $this->belongsTo(CaseReportForm::class, 'case_report_form_id', 'id');
     }
     
+    public function fileuploads(){
+        return $this->hasMany(UnscheduledVisitDicomFile::class, 'unscheduled_visits_id', 'id');
+    }
     public function approvalremarks(){
         return $this->hasOne(UnscheduledVisitApprovalRemark::class);
     }

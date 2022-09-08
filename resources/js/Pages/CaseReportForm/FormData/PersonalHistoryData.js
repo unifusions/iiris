@@ -1,13 +1,13 @@
 
 import React from "react";
 import { Card } from "react-bootstrap";
-import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton } from "./FormDataHelper";
+import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton, RenderDateFieldDatas } from "./FormDataHelper";
 
 
 
 export default function PersonalHistoryData({ personalhistories, role, createUrl, editUrl, enableActions }) {
      const options = {
-         
+
           year: 'numeric'
      }
      return (
@@ -35,7 +35,7 @@ export default function PersonalHistoryData({ personalhistories, role, createUrl
                               </>
                          }
 
-                       
+
                     </div>
 
                     {personalhistories !== null ?
@@ -44,8 +44,11 @@ export default function PersonalHistoryData({ personalhistories, role, createUrl
                               <RenderFieldDatas labelText='Smoking' value={personalhistories.smoking} />
                               {personalhistories.smoking !== 'Never' && <>
                                    <RenderFieldDatas labelText='No. of. Cigaretters' value={personalhistories.cigarettes} />
-                                   {personalhistories.smoking_since !== null &&  <RenderFieldDatas labelText='Smoking Since' value={new Date(personalhistories.smoking_since).toLocaleString('en-in', options)} />}
-                                   {personalhistories.smoking_stopped !== null &&  <RenderFieldDatas labelText='Stopped Since' value={new Date(personalhistories.smoking_stopped).toLocaleString('en-in', options)} />}
+                                   <RenderDateFieldDatas labelText='Smoking Since' value={personalhistories.smoking_since} options={options} />
+                                   {personalhistories.smoking === 'Used to consume in the past' && <>
+                                        <RenderDateFieldDatas labelText='Stopped Since' value={personalhistories.smoking_stopped} options={options} />
+
+                                   </>}
 
                               </>
                               }
@@ -55,11 +58,14 @@ export default function PersonalHistoryData({ personalhistories, role, createUrl
 
                               {personalhistories.alchohol !== 'Never' && <>
                                    <RenderFieldDatas labelText='Quantity' value={personalhistories.quantity} />
-                                   {personalhistories.alchohol_since !== null &&  <RenderFieldDatas labelText='Consuming Since' value={new Date(personalhistories.alchohol_since).toLocaleString('en-in', options)} />}
-                                   {personalhistories.alchohol_stopped !== null && <RenderFieldDatas labelText='Stopped Since' value={new Date(personalhistories.alchohol_stopped).toLocaleString('en-in', options)} />}
+                                   <RenderDateFieldDatas labelText='Consuming Since' value={personalhistories.alchohol_since} options={options} />
+                                   {personalhistories.alchohol === 'Used to consume in the past' && <>
+                                        <RenderDateFieldDatas labelText='Stopped Since' value={personalhistories.alchohol_stopped} options={options} />
 
+                                   </>}
                                   
-                                   
+
+
                               </>}
 
                               <hr />
@@ -69,10 +75,16 @@ export default function PersonalHistoryData({ personalhistories, role, createUrl
                               {personalhistories.tobacco !== 'Never' && <>
                                    <RenderFieldDatas labelText='Type' value={personalhistories.tobacco_type} />
                                    <RenderFieldDatas labelText='Quantity' value={personalhistories.tobacco_quantity} />
-                                   {personalhistories.tobacco_since !== null && <RenderFieldDatas labelText='Consuming Since' value={new Date(personalhistories.tobacco_since).toLocaleString('en-in', options)} />}
-                                   {personalhistories.tobacco_stopped !== null && <RenderFieldDatas labelText='Stopped Since' value={new Date(personalhistories.tobacco_stopped).toLocaleString('en-in', options)} />}
 
-                                   
+                                   <RenderDateFieldDatas labelText='Consuming Since' value={personalhistories.tobacco_since} options={options} />
+                                   {personalhistories.tobacco === 'Used to consume in the past' && <>
+                                        <RenderDateFieldDatas labelText='Stopped Since' value={personalhistories.tobacco_stopped} options={options} />
+
+                                   </>}
+
+                                 
+
+
 
                               </>}
 

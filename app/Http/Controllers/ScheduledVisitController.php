@@ -16,8 +16,9 @@ use Inertia\Inertia;
 class ScheduledVisitController extends Controller
 {
 
-    public function index()
+    public function index(CaseReportForm $crf, ScheduledVisit $scheduledvisit)
     {
+        
     }
 
 
@@ -43,6 +44,7 @@ class ScheduledVisitController extends Controller
             'labinvestigations' => $scheduledvisit->labinvestigations,
             'physicalactivities' => $scheduledvisit->physicalactivities,
             'echocardiographies' => $scheduledvisit->echocardiographies,
+            'svdicomfiles' => $scheduledvisit->fileuploads,
             'echodicomfiles' => $scheduledvisit->echocardiographies ?
                 EchoDicomFile::where('echocardiography_id', $scheduledvisit->echocardiographies->id)->get()->map(fn ($file) => [
                     'id' => $file->id,

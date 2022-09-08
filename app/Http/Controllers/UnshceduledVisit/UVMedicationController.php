@@ -55,8 +55,8 @@ class UVMedicationController extends Controller
             'status' => $request->status,
             'dosage' => $request->dosage,
             'reason' => $request->reason,
-            'start_date' => Carbon::parse($request->start_date)->addHours(5)->addMinutes(30),
-            'stop_date' => $request->stop_date !== null ? Carbon::parse($request->stop_date)->addHours(5)->addMinutes(30) : null
+            'start_date' => $request->start_date !== null ?  Carbon::parse($request->start_date)->addHours(5)->addMinutes(30) : null,
+            'stop_date' => $request->status === 'Discontinued' ? ($request->stop_date !== null ? Carbon::parse($request->stop_date)->addHours(5)->addMinutes(30) : null) : null,
         ]);
 
         return redirect()->route('crf.unscheduledvisit.medication.index', [$crf, $unscheduledvisit])->with(['message' => 'Medication Added successfully']);
@@ -86,8 +86,8 @@ class UVMedicationController extends Controller
         $medication->status = $request->status;
         $medication->dosage = $request->dosage;
         $medication->reason = $request->reason;
-        $medication->start_date = Carbon::parse($request->start_date)->addHours(5)->addMinutes(30);
-        $medication->stop_date = $request->stop_date !== null ? Carbon::parse($request->stop_date)->addHours(5)->addMinutes(30) : null;
+        $medication->start_date = $request->start_date !== null ?  Carbon::parse($request->start_date)->addHours(5)->addMinutes(30) : null;
+        $medication->stop_date = $request->status === 'Discontinued' ? ($request->stop_date !== null ? Carbon::parse($request->stop_date)->addHours(5)->addMinutes(30) : null) : null;
         $medication->save();
         return redirect()->route('crf.unscheduledvisit.medication.index', [$crf, $unscheduledvisit])->with(['message' => 'Medication Edited successfully']);
     }
