@@ -20,11 +20,11 @@ const Create = () => {
      const { data, setData, errors, post, put, processing, hasErrors, transform } = useForm({
           physical_activity: preoperative !== undefined ? preoperative.physical_activity !== null ? preoperative.physical_activity ? '1' : '0' : null : null,
           sv_physical_activity: scheduledvisit !== undefined ? scheduledvisit.physical_activity !== null ? scheduledvisit.physical_activity ? '1' : '0' : null : null,
-          usv_physical_activity : unscheduledvisit !== undefined ? unscheduledvisit.physical_activity !== null ? unscheduledvisit.physical_activity ? '1' : '0' : null : null
+          usv_physical_activity: unscheduledvisit !== undefined ? unscheduledvisit.physical_activity !== null ? unscheduledvisit.physical_activity ? '1' : '0' : null : null
 
      });
 
-     const boolRadios = [     
+     const boolRadios = [
           { labelText: 'Yes', value: '1' },
           { labelText: 'No', value: '0' }
      ];
@@ -74,7 +74,7 @@ const Create = () => {
                }
           >
                <Head title="Physical Activity" />
-{console.log(scheduledvisit.physical_activity)}
+               
 
                <Container>
                     <PageTitle backUrl={backUrl} pageTitle='Physical Activity' role={roles} />
@@ -110,7 +110,7 @@ const Create = () => {
 
                                    }
 
-{unscheduledvisit !== undefined &&
+                                   {unscheduledvisit !== undefined &&
                                         <FormRadio
                                              labelText='Has Physical Activity?'
 
