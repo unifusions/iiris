@@ -279,7 +279,7 @@ export default function Show() {
                                         <div className='fs-6 fw-bold'>
                                              Related Files
                                         </div>
-                                        {role.coordinator &&
+                                        {roles.coordinator &&
                                              <>
                                                   {!unscheduledvisit.is_submitted &&
                                                        <Link href={route('crf.unscheduledvisit.fileupload.index', { crf: crf, unscheduledvisit: unscheduledvisit })} type="submit" className='btn btn-primary btn-sm' method="get" as="button" >Upload Files</Link>
