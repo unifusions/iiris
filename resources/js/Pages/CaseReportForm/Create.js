@@ -32,7 +32,7 @@ const LabelData = ({ labelKey, labelValue }) => {
 const Create = () => {
      const { auth, facility, roles, subject_id } = usePage().props;
      const { data, setData, errors, post, processing, hasErrors } = useForm({
-          subject_id : subject_id,
+          subject_id: subject_id,
           date_of_consent: '',
           uhid: '',
           gender: '',
@@ -74,7 +74,7 @@ const Create = () => {
                               <form onSubmit={handlesubmit}
                               // className={hasErrors && 'was-validated'}
                               >
-                                 
+
                                    <LabelData labelKey='Subject ID' labelValue={data.subject_id} />
                                    <LabelData labelKey='Protocol Number' labelValue='2021-04' />
                                    <LabelData labelKey='Facility' labelValue={facility} />
@@ -85,7 +85,7 @@ const Create = () => {
                                         labelText="Date of Consent" error={errors.date_of_consent}
                                         name="date_of_consent"
                                         value={data.date_of_consent}
-                                        handleChange={(date) => setData('date_of_consent', date)}
+                                        handleChange={(date) => date !== null ? setData('date_of_consent', new Date(date)) : setData('date_of_consent', '')}
                                         className={`${errors.date_of_consent && 'is-invalid'}`}
                                    />
 
@@ -110,7 +110,7 @@ const Create = () => {
                                         name="date_of_birth"
                                         labelText="Date of Birth" error={errors.date_of_birth}
                                         value={data.date_of_birth}
-                                        handleChange={(date) => setData('date_of_birth', date)}
+                                        handleChange={(date) => date !== null ? setData('date_of_birth', new Date(date)) : setData('date_of_birth', '')}
                                         className={`${errors.date_of_birth && 'is-invalid'}`}
                                    />
                                    <hr />
