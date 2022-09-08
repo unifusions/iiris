@@ -187,10 +187,16 @@ export default class Index extends React.Component {
                                                        <div className='fs-6 fw-bold'>
                                                             Related Files
                                                        </div>
-                                                       {!preoperative.is_submitted &&
-                                                            <Link href={route('crf.preoperative.fileupload.index', { crf: crf, preoperative: preoperative })} type="submit" className='btn btn-primary btn-sm' method="get" as="button" >Upload Files</Link>
+                                                       {role.coordinator &&
+                                                            <>
+                                                                 {!preoperative.is_submitted &&
+                                                                      <Link href={route('crf.preoperative.fileupload.index', { crf: crf, preoperative: preoperative })} type="submit" className='btn btn-primary btn-sm' method="get" as="button" >Upload Files</Link>
 
+                                                                 }
+                                                            </>
                                                        }
+
+
                                                   </div>
 
                                                   <hr />

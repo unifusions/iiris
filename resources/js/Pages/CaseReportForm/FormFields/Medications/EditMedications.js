@@ -98,7 +98,9 @@ export default function CreateMedications({ crf, preoperative, postoperative, sc
                                              labelText='Start Date'
                                              name='start_date'
                                              value={data.start_date}
-                                             handleChange={(date) => setData('start_date', new Date(date))}
+                                             
+                                        handleChange={(date) => date !== null ? setData('start_date', new Date(date)) : setData('start_date', '')}
+                                             
                                              className={`${errors.start_date ? 'is-invalid' : ''}`}
                                         />
                                         {data.status === 'Discontinued' && <>
@@ -106,7 +108,9 @@ export default function CreateMedications({ crf, preoperative, postoperative, sc
                                                   name='stop_date'
                                                   minDate={data.start_date}
                                                   value={data.stop_date}
-                                                  handleChange={(date) => setData('stop_date', new Date(date))}
+                                        handleChange={(date) => date !== null ? setData('stop_date', new Date(date)) : setData('stop_date', '')}
+
+                                                  
                                                   className={`${errors.stop_date ? 'is-invalid' : ''}`} />
 
                                         </>}

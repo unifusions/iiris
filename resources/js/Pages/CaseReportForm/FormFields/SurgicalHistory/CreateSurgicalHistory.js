@@ -82,7 +82,9 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
                                                   labelText="Date of Surgery" error={errors.sh_date}
                                                   name="sh_date"
                                                   value={data.sh_date}
-                                                  handleChange={(date) => setData('sh_date', new Date(date))}
+                                        handleChange={(date) => date !== null ? setData('sh_date', new Date(date)) : setData('sh_date', '')}
+
+                                                  
                                                   className={`${errors.sh_date && 'is-invalid'}`}
                                                   required 
                                              />

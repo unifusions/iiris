@@ -79,17 +79,17 @@ const Create = () => {
                <Head title="Create Echocardiography" />
                <Container>
                     <PageTitle backUrl={backUrl} pageTitle='Echocardiography' role={roles} />
-                  
+
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
-                         <h3 className="font-semibold text-l text-gray-800 leading-tight">Effectiveness</h3>
-                         <hr/>
+                              <h3 className="font-semibold text-l text-gray-800 leading-tight">Effectiveness</h3>
+                              <hr />
                               <form onSubmit={handlesubmit}>
 
                                    <FormCalendar
                                         labelText='Date of Investigation'
                                         value={data.echodate}
-                                        handleChange={(date) => setData('echodate', new Date(date))}
+                                        handleChange={(date) => date !== null ? setData('echodate', new Date(date)) : setData('echodate', '')}
                                         className={`${errors.ecg_date ? 'is-invalid' : ''}`}
                                    />
 
