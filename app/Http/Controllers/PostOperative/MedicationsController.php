@@ -62,7 +62,7 @@ class MedicationsController extends Controller
 
         Medication::create([
             'post_operative_data_id' => $request->postoperative->id,
-            'medication' => $request->medication_name,
+            'medication' => $request->medication,
             'indication' => $request->indication,
             'status' => $request->status,
             'dosage' => $request->dosage,
@@ -79,14 +79,30 @@ class MedicationsController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(CaseReportForm $crf, PostOperativeData $postoperative, Medication $medication)
     {
-        //
+        return Inertia::render('CaseReportForm/FormFields/Medications/EditMedications', [
+            'crf' => $crf,
+            'mode' => 'postoperative',
+            'postoperative' => $postoperative,
+            'medication' => $medication,
+            'updateUrl' => 'crf.postoperative.update',
+            'backUrl' => route('crf.preoperative.show', [$crf, $postoperative])
+        ]);
+     
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, CaseReportForm $crf, PostOperativeData $postoperative, Medication $medication)
     {
-        //
+        $medication->medication = $request->medication;
+        $medication->indication = $request->indication;
+        $medication->status = $request->status;
+        $medication->dosage = $request->dosage;
+        $medication->reason = $request->reason;
+        $medication->start_date = $request->start_date !== null ?  Carbon::parse($request->start_date)->addHours(5)->addMinutes(30) : null;
+        $medication->stop_date = $request->status === 'Discontinued' ? ($request->stop_date !== null ? Carbon::parse($request->stop_date)->addHours(5)->addMinutes(30) : null) : null;
+        $medication->save();
+        return redirect()->route('crf.preoperative.medication.index', [$crf, $postoperative])->with(['message' => 'Medication Edited successfully']);
     }
     public function destroy(CaseReportForm $crf, PostOperativeData $postoperative, Medication $medication)
     {
