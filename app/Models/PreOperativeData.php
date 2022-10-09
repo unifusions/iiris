@@ -37,7 +37,7 @@ class PreOperativeData extends Model
     }
 
     public function approvalremarks(){
-        return $this->hasOne(PreoperativeApprovalRemark::class);
+        return $this->hasMany(PreoperativeApprovalRemark::class)->orderBy('created_at', 'DESC');
     }
 
 

@@ -24,7 +24,7 @@ class UnscheduledVisit extends Model
         return $this->hasMany(UnscheduledVisitDicomFile::class, 'unscheduled_visits_id', 'id');
     }
     public function approvalremarks(){
-        return $this->hasOne(UnscheduledVisitApprovalRemark::class);
+        return $this->hasMany(UnscheduledVisitApprovalRemark::class, 'unscheduled_visits_id', 'id');
     }
 
     public function physicalexaminations()

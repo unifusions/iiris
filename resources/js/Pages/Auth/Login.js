@@ -38,7 +38,7 @@ export default function Login({ status, canResetPassword }) {
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <ValidationErrors errors={errors} />
+           
 
             <form onSubmit={submit}>
                 <Card className='rounded-5 shadow-sm'>
@@ -79,6 +79,7 @@ export default function Login({ status, canResetPassword }) {
                         <Button className="btn btn-primary w-100 mt-3"  processing={processing}>
                         Log in
                     </Button>
+                    <ValidationErrors errors={errors} />
                     </Card.Body>
                 </Card>
 

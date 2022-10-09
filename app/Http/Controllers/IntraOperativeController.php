@@ -33,10 +33,10 @@ class IntraOperativeController extends Controller
     public function show(CaseReportForm $crf, IntraOperativeData $intraoperative)
     {
 
-        // dd($intraoperative->fileuploads);
         return Inertia::render('CaseReportForm/Intraoperative/Index', [
             'crf' => $crf,
             'intraoperative' => $intraoperative,
+            'approvalremarks' => $intraoperative->approvalremarks,
             'intradicomfiles' => $intraoperative->fileuploads  ?
                 IntraoperativeDicomFile::where('intra_operative_data_id', $intraoperative->id)->get()->map(fn ($file) => [
                     'id' => $file->id,
@@ -63,7 +63,7 @@ class IntraOperativeController extends Controller
             $intraoperative->is_submitted = $request->is_submitted;
             $intraoperative->save();
             $remarks = IntraoperativeApprovalRemark::Create([
-                'pre_operative_data_id' => $intraoperative->id,
+                'intra_operative_data_id' => $intraoperative->id,
                 'user_id' => auth()->user()->id,
                 'action' => $request->action,
                 'remarks' => $request->remarks,
@@ -79,7 +79,7 @@ class IntraOperativeController extends Controller
             $intraoperative->visit_status = $request->approve;
             $intraoperative->save();
             $remarks = IntraoperativeApprovalRemark::Create([
-                'pre_operative_data_id' => $intraoperative->id,
+                'intra_operative_data_id' => $intraoperative->id,
                 'user_id' => auth()->user()->id,
                 'action' => $request->action,
                 'remarks' => $request->remarks,
@@ -95,7 +95,7 @@ class IntraOperativeController extends Controller
             $intraoperative->visit_status = !$request->disapprove;
             $intraoperative->save();
             $remarks = IntraoperativeApprovalRemark::Create([
-                'pre_operative_data_id' => $intraoperative->id,
+                'intra_operative_data_id' => $intraoperative->id,
                 'user_id' => auth()->user()->id,
                 'action' => $request->action,
                 'remarks' => $request->remarks,

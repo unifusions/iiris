@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CaseReportForm;
 use App\Models\PostOperativeData;
 use App\Models\SafetyParameter;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -29,7 +30,7 @@ class PostOperativeSafetyController extends Controller
         return view('casereportforms.FormFields.SafetyParameter.index', compact('crf', 'storeUri', 'destroyUri', 'storeParameters', 'breadcrumb'));
     }
 
-   
+
     public function create(CaseReportForm $crf, PostOperativeData $postoperative)
     {
         return Inertia::render('CaseReportForm/FormFields/SafetyParameters/Create', [
@@ -41,7 +42,7 @@ class PostOperativeSafetyController extends Controller
         ]);
     }
 
-    
+
     public function store(Request $request, CaseReportForm $crf, PostOperativeData $postoperative)
     {
 
@@ -69,22 +70,39 @@ class PostOperativeSafetyController extends Controller
             'sudden_unexplained_death' => $request->sudden_unexplained_death,
             'cardiac_death' => $request->cardiac_death,
 
+            'date_structural_value_deterioration' => $request->date_structural_value_deterioration !== null ? Carbon::parse($request->date_structural_value_deterioration)->addHours(5)->addMinutes(30) : null,
+            'date_valve_thrombosis' => $request->date_valve_thrombosis !== null ? Carbon::parse($request->date_valve_thrombosis)->addHours(5)->addMinutes(30) : null,
+            'date_all_paravalvular_leak' => $request->date_all_paravalvular_leak !== null ? Carbon::parse($request->date_all_paravalvular_leak)->addHours(5)->addMinutes(30) : null,
+            'date_major_paravalvular_leak' => $request->date_major_paravalvular_leak !== null ? Carbon::parse($request->date_major_paravalvular_leak)->addHours(5)->addMinutes(30) : null,
+            'date_non_structural_value_deterioration' => $request->date_non_structural_value_deterioration !== null ? Carbon::parse($request->date_non_structural_value_deterioration)->addHours(5)->addMinutes(30) : null,
+            'date_thromboembolism' => $request->date_thromboembolism !== null ? Carbon::parse($request->date_thromboembolism)->addHours(5)->addMinutes(30) : null,
+            'date_all_bleeding' => $request->date_all_bleeding !== null ? Carbon::parse($request->date_all_bleeding)->addHours(5)->addMinutes(30) : null,
+            'date_major_bleeding' => $request->date_major_bleeding !== null ? Carbon::parse($request->date_major_bleeding)->addHours(5)->addMinutes(30) : null,
+            'date_endocarditis' => $request->date_endocarditis !== null ? Carbon::parse($request->date_endocarditis)->addHours(5)->addMinutes(30) : null,
+            'date_all_mortality' => $request->date_all_mortality !== null ? Carbon::parse($request->date_all_mortality)->addHours(5)->addMinutes(30) : null,
+            'date_valve_mortality' => $request->date_valve_mortality !== null ? Carbon::parse($request->date_valve_mortality)->addHours(5)->addMinutes(30) : null,
+            'date_valve_related_operation' => $request->date_valve_related_operation !== null ? Carbon::parse($request->date_valve_related_operation)->addHours(5)->addMinutes(30) : null,
+            'date_explant' => $request->date_explant !== null ? Carbon::parse($request->date_explant)->addHours(5)->addMinutes(30) : null,
+            'date_haemolysis' => $request->date_haemolysis !== null ? Carbon::parse($request->date_haemolysis)->addHours(5)->addMinutes(30) : null,
+            'date_sudden_unexplained_death' => $request->date_sudden_unexplained_death !== null ? Carbon::parse($request->date_sudden_unexplained_death)->addHours(5)->addMinutes(30) : null,
+            'date_cardiac_death' => $request->date_cardiac_death !== null ? Carbon::parse($request->date_cardiac_death)->addHours(5)->addMinutes(30) : null,
+
             'has_structural_value_deterioration' => $request->has_structural_value_deterioration,
-            'has_valve_thrombosis'=> $request->has_valve_thrombosis,
-            'has_all_paravalvular_leak'=> $request->has_all_paravalvular_leak,
-            'has_major_paravalvular_leak'=> $request->has_major_paravalvular_leak,
-            'has_non_structural_value_deterioration'=> $request->has_non_structural_value_deterioration,
-            'has_thromboembolism'=> $request->has_thromboembolism,
-            'has_all_bleeding'=> $request->has_all_bleeding,
-            'has_major_bleeding'=> $request->has_major_bleeding,
-            'has_endocarditis'=> $request->has_endocarditis,
-            'has_all_mortality'=> $request->has_all_mortality,
-            'has_valve_mortality'=> $request->has_valve_mortality,
-            'has_valve_related_operation'=> $request->has_valve_related_operation,
-            'has_explant'=> $request->has_explant,
-            'has_haemolysis'=> $request->has_haemolysis,
-            'has_sudden_unexplained_death'=> $request->has_sudden_unexplained_death,
-            'has_cardiac_death'=> $request->has_cardiac_death
+            'has_valve_thrombosis' => $request->has_valve_thrombosis,
+            'has_all_paravalvular_leak' => $request->has_all_paravalvular_leak,
+            'has_major_paravalvular_leak' => $request->has_major_paravalvular_leak,
+            'has_non_structural_value_deterioration' => $request->has_non_structural_value_deterioration,
+            'has_thromboembolism' => $request->has_thromboembolism,
+            'has_all_bleeding' => $request->has_all_bleeding,
+            'has_major_bleeding' => $request->has_major_bleeding,
+            'has_endocarditis' => $request->has_endocarditis,
+            'has_all_mortality' => $request->has_all_mortality,
+            'has_valve_mortality' => $request->has_valve_mortality,
+            'has_valve_related_operation' => $request->has_valve_related_operation,
+            'has_explant' => $request->has_explant,
+            'has_haemolysis' => $request->has_haemolysis,
+            'has_sudden_unexplained_death' => $request->has_sudden_unexplained_death,
+            'has_cardiac_death' => $request->has_cardiac_death
         ]);
 
 
@@ -92,13 +110,12 @@ class PostOperativeSafetyController extends Controller
         return redirect()->route('crf.postoperative.show', [$crf, $postoperative])->with(['message' => $message]);
     }
 
-   
+
     public function show($id)
     {
-       
     }
 
-  
+
     public function edit(CaseReportForm $crf, PostOperativeData $postoperative, SafetyParameter $safetyparameter)
     {
         return Inertia::render('CaseReportForm/FormFields/SafetyParameters/Edit', [
@@ -111,7 +128,7 @@ class PostOperativeSafetyController extends Controller
         ]);
     }
 
-    
+
     public function update(Request $request, CaseReportForm $crf, PostOperativeData $postoperative, SafetyParameter $safetyparameter)
     {
 
@@ -133,22 +150,39 @@ class PostOperativeSafetyController extends Controller
         $safetyparameter->sudden_unexplained_death = $request->sudden_unexplained_death;
         $safetyparameter->cardiac_death = $request->cardiac_death;
 
+        $safetyparameter->date_structural_value_deterioration = $request->date_structural_value_deterioration !== null ? Carbon::parse($request->date_structural_value_deterioration)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_valve_thrombosis = $request->date_valve_thrombosis !== null ? Carbon::parse($request->date_valve_thrombosis)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_all_paravalvular_leak = $request->date_all_paravalvular_leak !== null ? Carbon::parse($request->date_all_paravalvular_leak)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_major_paravalvular_leak = $request->date_major_paravalvular_leak !== null ? Carbon::parse($request->date_major_paravalvular_leak)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_non_structural_value_deterioration = $request->date_non_structural_value_deterioration !== null ? Carbon::parse($request->date_non_structural_value_deterioration)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_thromboembolism = $request->date_thromboembolism !== null ? Carbon::parse($request->date_thromboembolism)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_all_bleeding = $request->date_all_bleeding !== null ? Carbon::parse($request->date_all_bleeding)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_major_bleeding = $request->date_major_bleeding !== null ? Carbon::parse($request->date_major_bleeding)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_endocarditis = $request->date_endocarditis !== null ? Carbon::parse($request->date_endocarditis)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_all_mortality = $request->date_all_mortality !== null ? Carbon::parse($request->date_all_mortality)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_valve_mortality = $request->date_valve_mortality !== null ? Carbon::parse($request->date_valve_mortality)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_valve_related_operation = $request->date_valve_related_operation !== null ? Carbon::parse($request->date_valve_related_operation)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_explant = $request->date_explant !== null ? Carbon::parse($request->date_explant)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_haemolysis = $request->date_haemolysis !== null ? Carbon::parse($request->date_haemolysis)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_sudden_unexplained_death = $request->date_sudden_unexplained_death !== null ? Carbon::parse($request->date_sudden_unexplained_death)->addHours(5)->addMinutes(30) : null;
+        $safetyparameter->date_cardiac_death = $request->date_cardiac_death !== null ? Carbon::parse($request->date_cardiac_death)->addHours(5)->addMinutes(30) : null;
+
         $safetyparameter->has_structural_value_deterioration = $request->has_structural_value_deterioration;
-        $safetyparameter->has_valve_thrombosis= $request->has_valve_thrombosis;
-        $safetyparameter->has_all_paravalvular_leak= $request->has_all_paravalvular_leak;
-        $safetyparameter->has_major_paravalvular_leak= $request->has_major_paravalvular_leak;
-        $safetyparameter->has_non_structural_value_deterioration= $request->has_non_structural_value_deterioration;
-        $safetyparameter->has_thromboembolism= $request->has_thromboembolism;
-        $safetyparameter->has_all_bleeding= $request->has_all_bleeding;
-        $safetyparameter->has_major_bleeding= $request->has_major_bleeding;
-        $safetyparameter->has_endocarditis= $request->has_endocarditis;
-        $safetyparameter->has_all_mortality= $request->has_all_mortality;
-        $safetyparameter->has_valve_mortality= $request->has_valve_mortality;
-        $safetyparameter->has_valve_related_operation= $request->has_valve_related_operation;
-        $safetyparameter->has_explant= $request->has_explant;
-        $safetyparameter->has_haemolysis= $request->has_haemolysis;
-        $safetyparameter->has_sudden_unexplained_death= $request->has_sudden_unexplained_death;
-        $safetyparameter->has_cardiac_death= $request->has_cardiac_death;
+        $safetyparameter->has_valve_thrombosis = $request->has_valve_thrombosis;
+        $safetyparameter->has_all_paravalvular_leak = $request->has_all_paravalvular_leak;
+        $safetyparameter->has_major_paravalvular_leak = $request->has_major_paravalvular_leak;
+        $safetyparameter->has_non_structural_value_deterioration = $request->has_non_structural_value_deterioration;
+        $safetyparameter->has_thromboembolism = $request->has_thromboembolism;
+        $safetyparameter->has_all_bleeding = $request->has_all_bleeding;
+        $safetyparameter->has_major_bleeding = $request->has_major_bleeding;
+        $safetyparameter->has_endocarditis = $request->has_endocarditis;
+        $safetyparameter->has_all_mortality = $request->has_all_mortality;
+        $safetyparameter->has_valve_mortality = $request->has_valve_mortality;
+        $safetyparameter->has_valve_related_operation = $request->has_valve_related_operation;
+        $safetyparameter->has_explant = $request->has_explant;
+        $safetyparameter->has_haemolysis = $request->has_haemolysis;
+        $safetyparameter->has_sudden_unexplained_death = $request->has_sudden_unexplained_death;
+        $safetyparameter->has_cardiac_death = $request->has_cardiac_death;
 
         $safetyparameter->save();
 

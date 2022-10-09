@@ -10538,13 +10538,21 @@ div.tagsinput span.tag a {
      background-color: #f7f7f7;
      transition: ease 1s;
 }
+    ul.notifications {
+         list-style: none;
+         margin: 0;
+         padding: 0;
+    }
+
+    .notifications li{
+     border-bottom : 1px solid #DED6D6
+    }
 /* @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
  */
 
 /* @import url('sidebar.css'); */
-
 body {
   font-family: 'Inter';
   color: #000;

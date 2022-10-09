@@ -65,8 +65,11 @@ use App\Models\EchoDicomFile;
 use App\Http\Controllers\IntrafileUploadController;
 use App\Http\Controllers\PostoperativeFileUploadController;
 use App\Http\Controllers\PreoperativeFileUploadController;
+use App\Http\Controllers\Reviewer\EchocardiographyReview;
+use App\Http\Controllers\Reviewer\EchocardiographyReviewed;
 use App\Http\Controllers\ScheduledVisitFileUploadController;
 use App\Http\Controllers\UnscheduledVisitFileUploadController;
+use App\Models\Echocardiography;
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -156,6 +159,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 
         Route::post('interactions', TicketCommentController::class)->name('interactions');
+        Route::patch('submitReview/{echocardiography}', EchocardiographyReview::class)->name('submitreview');
+        Route::patch('MarkAsReviewed/{echocardiography}', EchocardiographyReviewed::class)->name('markasreviewed');
+
     });
 
     Route::get('/dicomviewer/{echodicomfile}', [EchoDicomFilesController::class, 'viewer'] )->name('dicomviewer');

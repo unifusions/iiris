@@ -54,6 +54,7 @@ class ScheduledVisitController extends Controller
             'electrocardiograms' => $scheduledvisit->electrocardiograms,
             'safetyparameters' => $scheduledvisit->safetyparameters,
             'medications' => $scheduledvisit->medications,
+            'approvalremarks' => $scheduledvisit->approvalremarks,
             'backUrl' => route('crf.show', [$crf])
         ]);
     }
@@ -95,7 +96,7 @@ class ScheduledVisitController extends Controller
             $scheduledvisit->is_submitted = $request->is_submitted;
             $scheduledvisit->save();
             $remarks = ScheduledVisitApprovalRemark::Create([
-                'pre_operative_data_id' => $scheduledvisit->id,
+                'scheduled_visits_id' => $scheduledvisit->id,
                 'user_id' => auth()->user()->id,
                 'action' => $request->action,
                 'remarks' => $request->remarks,
@@ -111,7 +112,7 @@ class ScheduledVisitController extends Controller
             $scheduledvisit->visit_status = $request->approve;
             $scheduledvisit->save();
             $remarks = ScheduledVisitApprovalRemark::Create([
-                'post_operative_data_id' => $scheduledvisit->id,
+                'scheduled_visits_id' => $scheduledvisit->id,
                 'user_id' => auth()->user()->id,
                 'action' => $request->action,
                 'remarks' => $request->remarks,
@@ -126,7 +127,7 @@ class ScheduledVisitController extends Controller
             $scheduledvisit->visit_status = !$request->disapprove;
             $scheduledvisit->save();
             $remarks = ScheduledVisitApprovalRemark::Create([
-                'post_operative_data_id' => $scheduledvisit->id,
+                'scheduled_visits_id' => $scheduledvisit->id,
                 'user_id' => auth()->user()->id,
                 'action' => $request->action,
                 'remarks' => $request->remarks,

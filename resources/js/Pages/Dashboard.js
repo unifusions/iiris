@@ -83,7 +83,7 @@ export default function Dashboard(props) {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight mb-3">Dashboard</h2>}
             role={props.roles}
         >
-
+          
             <Head title="Dashboard" />
             <Row className='mb-3'>
                 {props.roles.coordinator || props.roles.investigator ? <CoordinatorDashboard dashboardData={props.data} facility={props.facility} /> : <AdminDashboard dashboardData={props.adminData} adminCards = {props.adminCards } />}

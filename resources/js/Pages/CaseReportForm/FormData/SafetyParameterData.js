@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Modal, Button } from "react-bootstrap";
 
 
-import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton, RenderFieldBoolDatas } from "./FormDataHelper";
+import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton, RenderFieldBoolDatas, RenderFieldSafetyParameterData } from "./FormDataHelper";
 
 
 export default function SafetyParameterData({ safetyparameters, role, createUrl, editUrl,enableActions }) {
@@ -37,28 +37,28 @@ export default function SafetyParameterData({ safetyparameters, role, createUrl,
                     <hr />
                     {safetyparameters !== null ?
                          <>
-                              <RenderFieldBoolDatas labelText='Structural valve deterioration' boolValue={safetyparameters.has_structural_value_deterioration} value={safetyparameters.structural_value_deterioration} />
-                              <RenderFieldBoolDatas labelText='Valve Thrombosis' boolValue={safetyparameters.has_valve_thrombosis} value={safetyparameters.valve_thrombosis} />
-                              <RenderFieldBoolDatas labelText='All Paravalvular Leak' boolValue={safetyparameters.has_all_paravalvular_leak} value={safetyparameters.all_paravalvular_leak} />
-                              <RenderFieldBoolDatas labelText='Major Paravalvular Leak' boolValue={safetyparameters.has_major_paravalvular_leak} value={safetyparameters.major_paravalvular_leak} />
-                              <RenderFieldBoolDatas labelText='Non-structural Valve Deterioration ' boolValue={safetyparameters.has_non_structural_value_deterioration} value={safetyparameters.non_structural_value_deterioration} />
+                              <RenderFieldSafetyParameterData labelText='Structural valve deterioration' boolValue={safetyparameters.has_structural_value_deterioration} value={safetyparameters.structural_value_deterioration} dateValue= {safetyparameters.date_structural_value_deterioration}/>
+                              <RenderFieldSafetyParameterData labelText='Valve Thrombosis' boolValue={safetyparameters.has_valve_thrombosis} value={safetyparameters.valve_thrombosis} dateValue = {safetyparameters.date_valve_thrombosis}/>
+                              <RenderFieldSafetyParameterData labelText='All Paravalvular Leak' boolValue={safetyparameters.has_all_paravalvular_leak} value={safetyparameters.all_paravalvular_leak}  dateValue = {safetyparameters.date_all_paravalvular_leak}/>
+                              <RenderFieldSafetyParameterData labelText='Major Paravalvular Leak' boolValue={safetyparameters.has_major_paravalvular_leak} value={safetyparameters.major_paravalvular_leak}  dateValue = {safetyparameters.date_major_paravalvular_leak}/>
+                              <RenderFieldSafetyParameterData labelText='Non-structural Valve Deterioration ' boolValue={safetyparameters.has_non_structural_value_deterioration} value={safetyparameters.non_structural_value_deterioration}  dateValue = {safetyparameters.date_non_structural_value_deterioration}/>
                               <hr/>
                               <div className="row mb-3">
                                    <div className="col-sm-12">
                                         <span className="fs-6 fw-bold">Clinical Safety Parameters</span>
                                    </div>
                               </div>
-                              <RenderFieldBoolDatas labelText='Thromboembolism' boolValue={safetyparameters.has_thromboembolism} value={safetyparameters.thromboembolism} />
-                              <RenderFieldBoolDatas labelText='All Bleeding/Hemorrhage' boolValue={safetyparameters.has_all_bleeding} value={safetyparameters.all_bleeding} />
-                              <RenderFieldBoolDatas labelText='Major Bleeding/Hemorrhage ' boolValue={safetyparameters.has_major_bleeding}  value={safetyparameters.major_bleeding} />
-                              <RenderFieldBoolDatas labelText='Endocarditis' boolValue={safetyparameters.has_endocarditis} value={safetyparameters.endocarditis} />
-                              <RenderFieldBoolDatas labelText='All-cause Mortality' boolValue={safetyparameters.has_all_mortality}  value={safetyparameters.all_mortality} />
-                              <RenderFieldBoolDatas labelText='Valve-related Mortality ' boolValue={safetyparameters.has_valve_mortality} value={safetyparameters.valve_mortality} />
-                              <RenderFieldBoolDatas labelText='Valve-related reoperation' boolValue={safetyparameters.has_valve_related_operation}  value={safetyparameters.valve_related_operation} />
-                              <RenderFieldBoolDatas labelText='Explant' boolValue={safetyparameters.has_explant} value={safetyparameters.explant} />
-                              <RenderFieldBoolDatas labelText='Haemolysis' boolValue={safetyparameters.has_haemolysis} value={safetyparameters.haemolysis} />
-                              <RenderFieldBoolDatas labelText='Sudden Unexplained Death' boolValue={safetyparameters.has_sudden_unexplained_death} value={safetyparameters.sudden_unexplained_death} />
-                              <RenderFieldBoolDatas labelText='Cardiac Death' boolValue={safetyparameters.has_cardiac_death} value={safetyparameters.cardiac_death} />
+                              <RenderFieldSafetyParameterData labelText='Thromboembolism' boolValue={safetyparameters.has_thromboembolism} value={safetyparameters.thromboembolism}  dateValue = {safetyparameters.date_thromboembolism}/>
+                              <RenderFieldSafetyParameterData labelText='All Bleeding/Hemorrhage' boolValue={safetyparameters.has_all_bleeding} value={safetyparameters.all_bleeding}  dateValue = {safetyparameters.date_all_bleeding}/>
+                              <RenderFieldSafetyParameterData labelText='Major Bleeding/Hemorrhage ' boolValue={safetyparameters.has_major_bleeding}  value={safetyparameters.major_bleeding}  dateValue = {safetyparameters.date_major_bleeding}/>
+                              <RenderFieldSafetyParameterData labelText='Endocarditis' boolValue={safetyparameters.has_endocarditis} value={safetyparameters.endocarditis}  dateValue = {safetyparameters.date_endocarditis}/>
+                              <RenderFieldSafetyParameterData labelText='All-cause Mortality' boolValue={safetyparameters.has_all_mortality}  value={safetyparameters.all_mortality} dateValue = {safetyparameters.date_all_mortality} />
+                              <RenderFieldSafetyParameterData labelText='Valve-related Mortality ' boolValue={safetyparameters.has_valve_mortality} value={safetyparameters.valve_mortality}  dateValue = {safetyparameters.date_valve_mortality}/>
+                              <RenderFieldSafetyParameterData labelText='Valve-related reoperation' boolValue={safetyparameters.has_valve_related_operation}  value={safetyparameters.valve_related_operation}  dateValue = {safetyparameters.date_valve_related_operation}/>
+                              <RenderFieldSafetyParameterData labelText='Explant' boolValue={safetyparameters.has_explant} value={safetyparameters.explant}  dateValue = {safetyparameters.date_explant}/>
+                              <RenderFieldSafetyParameterData labelText='Haemolysis' boolValue={safetyparameters.has_haemolysis} value={safetyparameters.haemolysis}  dateValue = {safetyparameters.date_haemolysis}/>
+                              <RenderFieldSafetyParameterData labelText='Sudden Unexplained Death' boolValue={safetyparameters.has_sudden_unexplained_death} value={safetyparameters.sudden_unexplained_death}  dateValue = {safetyparameters.date_sudden_unexplained_death}/>
+                              <RenderFieldSafetyParameterData labelText='Cardiac Death' boolValue={safetyparameters.has_cardiac_death} value={safetyparameters.cardiac_death}  dateValue = {safetyparameters.date_cardiac_death}/>
 
                          </> : <span className="fw-normal text-secondary fst-italic">No safety parameters data has been recorded. Go ahead and create one.</span>
 

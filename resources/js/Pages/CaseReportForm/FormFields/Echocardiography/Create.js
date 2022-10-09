@@ -100,7 +100,7 @@ const Create = () => {
                                         name='peak_velocity'
                                         value={data.peak_velocity}
                                         error={errors.peak_velocity}
-                                        units='mmHg'
+                                        units='m/s'
                                         handleChange={e => setData('peak_velocity', e.target.value.toString().slice(0, 7).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
                                    />
 

@@ -13,7 +13,7 @@
 /* @import url('sidebar.css'); */
 
 @import url('tableCss.css');
-
+@import url('notifications.css');
 body {
   font-family: 'Inter';
   color: #000;

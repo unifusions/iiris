@@ -40,11 +40,11 @@ export default function FileUpload() {
                     </>
                     }
                >
-                    <Head title="Preoperative File Uploads" />
+                    <Head title="Postoperative File Uploads" />
 
 
                     <Container>
-                         <PageTitle backUrl={route('crf.postoperative.show', { crf: crf, postoperative: postoperative })} pageTitle='Preoperative File Uploads' role={roles} />
+                         <PageTitle backUrl={route('crf.postoperative.show', { crf: crf, postoperative: postoperative })} pageTitle='Postoperative File Uploads' role={roles} />
 
                          <Card className="mb-3 shadow-sm rounded-5">
                               <Card.Body>

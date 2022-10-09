@@ -76,6 +76,7 @@ class MedicalHistoryController extends Controller
             'diagnosis' => $request->diagnosis,
             'duration' => $request->duration,
             'treatment' => $request->treatment,
+            'on_treatment' => $request->on_treatment
         ]);
         
         return redirect()->back()->with(['message' => 'Operation Successful !', 'modalClose' => true]);

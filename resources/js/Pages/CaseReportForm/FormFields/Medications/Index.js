@@ -145,7 +145,7 @@ const Create = () => {
 
                     {postoperative !== undefined && <>
                          {postoperative.hasMedications !== null && <>
-                              {postoperative.hasMedications ? <RenderMedication crf={crf} postoperative={postoperative} preopmedications={preopmedications !== undefined ? preopmedications : ''}
+                              {postoperative.hasMedications ? <RenderMedication crf={crf} postoperative={postoperative} postopmedications={postopmedications !== undefined ? postopmedications : ''}
                                    medications={medications !== undefined ? medications : ''}
                                    mode={mode}  createUrl={createUrl}
                                    /> : ''}

@@ -22,7 +22,7 @@ class ScheduledVisit extends Model
     }
 
     public function approvalremarks(){
-        return $this->hasOne(ScheduledVisitApprovalRemark::class);
+        return $this->hasMany(ScheduledVisitApprovalRemark::class,  'scheduled_visits_id', 'id');
     }
 
     public function fileuploads(){

@@ -62,6 +62,7 @@ class SurgicalHistoryController extends Controller
             'sh_date' => Carbon::parse($request->sh_date)->addHours(5)->addMinutes(30),
             'diagnosis' => $request->diagnosis,
             'treatment' => $request->treatment,
+            'on_treatment' => $request->on_treatment
         ]);
 
         return redirect()->back()->with(['message' => 'Operation Successful !', 'modalClose' => true]);

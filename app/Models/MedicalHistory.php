@@ -15,6 +15,7 @@ class MedicalHistory extends Model
         'diagnosis',
         'duration',
         'treatment',
+        'on_treatment',
     ];
     public function preoperatives(){
         return $this->belongsTo(PreOperativeData::class);

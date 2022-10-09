@@ -82,11 +82,9 @@ export default function RenderMedication({ crf, preoperative, postoperative, sch
                          <hr />
                          
                          <RenderMedTable meds={medications} mode={preoperative} />
-                         {preopmedications !== undefined && <RenderMedTable meds={preopmedications} />
-                         }
-                          {postopmedications !== undefined && <RenderMedTable meds={postopmedications} />
-                         }
-                         
+                         {preopmedications !== undefined && <RenderMedTable meds={preopmedications} mode={preoperative}  />}
+                          {postopmedications !== undefined && <RenderMedTable meds={postopmedications} mode={postoperative} />}
+                        
                          
                     </Card.Body>
 

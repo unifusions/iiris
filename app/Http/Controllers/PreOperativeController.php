@@ -79,6 +79,7 @@ class PreOperativeController extends Controller
             'labinvestigations' => $preoperative->labinvestigations,
             'medications' => $preoperative->medications,
             'preopdicomfiles' => $preoperative->fileuploads,
+            'approvalremarks' => $preoperative->approvalremarks,
             'echodicomfiles' => $preoperative->echocardiographies ? 
             EchoDicomFile::where('echocardiography_id', $preoperative->echocardiographies->id)->get()->map(fn ($file) => [
                 'id' => $file->id,

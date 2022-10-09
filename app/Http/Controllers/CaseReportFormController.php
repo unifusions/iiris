@@ -59,7 +59,24 @@ class CaseReportFormController extends Controller
             'crf' => $crf,
             'facility' => auth()->user()->facility->name ?? '',
             'backUrl' => route('crf.index'),
-            'preoperativeUrl' => route('crf.preoperative.show', [$crf, $crf->preoperatives])
+            'preoperativeUrl' => route('crf.preoperative.show', [$crf, $crf->preoperatives]),
+            'preopremarks' => $crf->preoperatives->approvalremarks,
+            'intraopremarks' => $crf->intraoperatives->approvalremarks,
+            'postopremarks' => $crf->postoperatives->approvalremarks,
+            'svremarks' => $crf->scheduledvisits->map(function ($sv) {
+                return [
+                    'visit_no' => $sv->visit_no,
+                    'remarks' => $sv->remarks
+
+                ];
+            }),
+            'usvremarks' => $crf->unscheduledvisits->map(function ($usv) {
+                return [
+                    'visit_no' => $usv->visit_no,
+                    'remarks' => $usv->remarks
+
+                ];
+            }),
         ]);
         // return view('casereportforms.show', compact('crf'));
     }

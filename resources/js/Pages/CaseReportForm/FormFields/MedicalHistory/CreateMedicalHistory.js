@@ -1,5 +1,6 @@
 import FormButton from "@/Pages/Shared/FormButton";
 import FormInput from "@/Pages/Shared/FormInput";
+import FormRadio from "@/Pages/Shared/FormRadio";
 import { Link, useForm } from "@inertiajs/inertia-react";
 import React, { useState } from "react";
 import { Card, Col, Modal, Row } from "react-bootstrap";
@@ -12,6 +13,7 @@ export default function CreateMedicalHistory({ crf, preoperative, medicalhistori
           diagnosis: '',
           duration: '',
           treatment: '',
+          on_treatment: '',
      })
 
 
@@ -28,7 +30,10 @@ export default function CreateMedicalHistory({ crf, preoperative, medicalhistori
 
      const [show, setShow] = useState(false);
      const handleShow = () => setShow(true);
-
+     const boolRadios = [
+          { labelText: 'Yes', value: '1' },
+          { labelText: 'No', value: '0' }
+     ];
      return (
           <Card className="mb-3 shadow-sm rounded-5">
                <Card.Body>
@@ -49,7 +54,10 @@ export default function CreateMedicalHistory({ crf, preoperative, medicalhistori
                                    <Col>{index + 1}</Col>
                                    <Col>{medicalhistory.diagnosis}</Col>
                                    <Col>{medicalhistory.duration}</Col>
-                                   <Col>{medicalhistory.treatment}</Col>
+                                   <Col>{medicalhistory.on_treatment !== null && 
+                                        <> {medicalhistory.on_treatment ===1 ? 'Yes' : 'No'}
+                                        </>
+                                   }</Col>
                                    <Col> <Link href={route('crf.preoperative.medicalhistory.destroy', { crf: crf, preoperative: preoperative, medicalhistory: medicalhistory })} type="submit" method="delete" className='btn btn-danger btn-sm'>Delete</Link>
                                    </Col>
                               </Row>)}
@@ -86,10 +94,20 @@ export default function CreateMedicalHistory({ crf, preoperative, medicalhistori
                                                   value={data.duration}
                                                   handleChange={e => setData('duration', e.target.value)} />
 
-                                             <FormInput
+                                             <FormRadio
+                                                  labelText="On Treatment?"
+                                                  options={boolRadios}
+                                                  name="on_treatment"
+                                                  handleChange={e => setData('on_treatment', e.target.value)}
+                                                  selectedValue={data.on_treatment !== null && data.on_treatment}
+                                                  error={errors.on_treatment}
+                                                  className={`${errors.on_treatment ? 'is-invalid' : ''}`}
+                                             />
+
+                                             {/* <FormInput
                                                   labelText='Treatment'
                                                   value={data.treatment}
-                                                  handleChange={e => setData('treatment', e.target.value)} />
+                                                  handleChange={e => setData('treatment', e.target.value)} /> */}
 
                                         </Modal.Body>
                                         <Modal.Footer>

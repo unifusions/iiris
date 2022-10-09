@@ -69,7 +69,8 @@ class AppServiceProvider extends ServiceProvider
                         'admin' => $user->can('admin'),
                         'investigator' => $user->can('investigator'),
                         'coordinator' => $user->can('coordinator'),
-                        'sudo' => $user->can('sudo')
+                        'sudo' => $user->can('sudo'),
+                        'reviewer' => $user->can('reviewer')
                     ]
 
                     : null;

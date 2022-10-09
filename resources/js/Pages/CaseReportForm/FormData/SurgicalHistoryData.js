@@ -56,8 +56,10 @@ export default function SurgicalHistoryData({ hasSurHis, surgicalhistories, role
                                    <Col>{index + 1}</Col>
                                    <Col>{surgicalhistory.sh_date}</Col>
                                    <Col>{surgicalhistory.diagnosis}</Col>
-                                   <Col>{surgicalhistory.treatment}</Col>
-
+                                   <Col>{surgicalhistory.on_treatment !== null &&
+                                             <> {surgicalhistory.on_treatment === 1 ? 'Yes' : 'No'}
+                                             </>
+                                        }</Col>
                               </Row>)}</>
 
 

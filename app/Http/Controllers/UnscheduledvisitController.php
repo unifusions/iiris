@@ -50,6 +50,7 @@ class UnscheduledvisitController extends Controller
     public function show(CaseReportForm $crf, UnscheduledVisit $unscheduledvisit)
     {
 
+      
         return Inertia::render('CaseReportForm/UnscheduledVisit/Show', [
             'crf' => $crf,
             'unscheduledvisit' => $unscheduledvisit,
@@ -63,6 +64,7 @@ class UnscheduledvisitController extends Controller
             'safetyparameters' => $unscheduledvisit->safetyparameters,
             'medications' => $unscheduledvisit->medications,
             'usvdicomfiles' => $unscheduledvisit->fileuploads,
+            'approvalremarks' => $unscheduledvisit->approvalremarks,
             'echodicomfiles' => $unscheduledvisit->echocardiographies ?
                 EchoDicomFile::where('echocardiography_id', $unscheduledvisit->echocardiographies->id)->get()->map(fn ($file) => [
                     'id' => $file->id,
@@ -103,7 +105,7 @@ class UnscheduledvisitController extends Controller
             $unscheduledvisit->is_submitted = $request->is_submitted;
             $unscheduledvisit->save();
             $remarks = UnscheduledVisitApprovalRemark::Create([
-                'pre_operative_data_id' => $unscheduledvisit->id,
+                'unscheduled_visits_id' => $unscheduledvisit->id,
                 'user_id' => auth()->user()->id,
                 'action' => $request->action,
                 'remarks' => $request->remarks,
@@ -119,7 +121,7 @@ class UnscheduledvisitController extends Controller
             $unscheduledvisit->visit_status = $request->approve;
             $unscheduledvisit->save();
             $remarks = UnscheduledVisitApprovalRemark::Create([
-                'post_operative_data_id' => $unscheduledvisit->id,
+                'unscheduled_visits_id' => $unscheduledvisit->id,
                 'user_id' => auth()->user()->id,
                 'action' => $request->action,
                 'remarks' => $request->remarks,
@@ -134,7 +136,7 @@ class UnscheduledvisitController extends Controller
             $unscheduledvisit->visit_status = !$request->disapprove;
             $unscheduledvisit->save();
             $remarks = UnscheduledVisitApprovalRemark::Create([
-                'post_operative_data_id' => $unscheduledvisit->id,
+                'unscheduled_visits_id' => $unscheduledvisit->id,
                 'user_id' => auth()->user()->id,
                 'action' => $request->action,
                 'remarks' => $request->remarks,

@@ -1,6 +1,7 @@
 import FormButton from "@/Pages/Shared/FormButton";
 import FormCalendar from "@/Pages/Shared/FormCalendar";
 import FormInput from "@/Pages/Shared/FormInput";
+import FormRadio from "@/Pages/Shared/FormRadio";
 import { Link, useForm } from "@inertiajs/inertia-react";
 import React, { useState } from "react";
 import { Card, Col, Modal, Row } from "react-bootstrap";
@@ -13,6 +14,7 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
           diagnosis: '',
           sh_date: '',
           treatment: '',
+          on_treatment: '',
      })
 
 
@@ -28,7 +30,10 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
 
      const [show, setShow] = useState(false);
      const handleShow = () => setShow(true);
-
+     const boolRadios = [
+          { labelText: 'Yes', value: '1' },
+          { labelText: 'No', value: '0' }
+     ];
      return (
           <Card className="mb-3 shadow-sm rounded-5">
                <Card.Body>
@@ -42,7 +47,7 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
                                    <Col>#</Col>
                                    <Col>Date</Col>
                                    <Col>Procedure</Col>
-                                   <Col>Treatment</Col>
+                                   <Col>On Treatment</Col>
                          <Col>Actions</Col>
                               </Row>
                               <hr />
@@ -50,7 +55,10 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
                                    <Col>{index + 1}</Col>
                                    <Col>{surgicalhistory.sh_date}</Col>
                                    <Col>{surgicalhistory.diagnosis}</Col>
-                                   <Col>{surgicalhistory.treatment}</Col>
+                                   <Col>{surgicalhistory.on_treatment !== null &&
+                                             <> {surgicalhistory.on_treatment === 1 ? 'Yes' : 'No'}
+                                             </>
+                                        }</Col>
                                    <Col>
                                         <Link href={route('crf.preoperative.surgicalhistory.destroy', { crf: crf, preoperative: preoperative, surgicalhistory: surgicalhistory })}
                                              type="submit" method="delete" as="button"
@@ -95,9 +103,18 @@ export default function CreateSurgicalHistory({ crf, preoperative, surgicalhisto
                                                   handleChange={e => setData('diagnosis', e.target.value)} />
 
 
-                                             <FormInput labelText='Treatment'
+<FormRadio
+                                                  labelText="On Treatment?"
+                                                  options={boolRadios}
+                                                  name="on_treatment"
+                                                  handleChange={e => setData('on_treatment', e.target.value)}
+                                                  selectedValue={data.on_treatment !== null && data.on_treatment}
+                                                  error={errors.on_treatment}
+                                                  className={`${errors.on_treatment ? 'is-invalid' : ''}`}
+                                             />
+                                             {/* <FormInput labelText='Treatment'
                                                   value={data.treatment}
-                                                  handleChange={e => setData('treatment', e.target.value)} />
+                                                  handleChange={e => setData('treatment', e.target.value)} /> */}
                                         </Modal.Body>
                                         <Modal.Footer>
                                              <FormButton processing={processing} labelText='Add Surgical History' type="submit" mode="primary" className="btn-sm" />

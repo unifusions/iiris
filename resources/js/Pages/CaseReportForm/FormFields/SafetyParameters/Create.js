@@ -9,6 +9,7 @@ import FormButton from "@/Pages/Shared/FormButton";
 import Authenticated from '@/Layouts/Authenticated';
 import PageTitle from "@/Pages/Shared/PageTitle";
 import FormRadio from "@/Pages/Shared/FormRadio";
+import FormCalendar from "@/Pages/Shared/FormCalendar";
 
 
 const Create = () => {
@@ -35,6 +36,22 @@ const Create = () => {
           sudden_unexplained_death: '',
           cardiac_death: '',
 
+          date_structural_value_deterioration: '',
+          date_valve_thrombosis: '',
+          date_all_paravalvular_leak: '',
+          date_major_paravalvular_leak: '',
+          date_non_structural_value_deterioration: '',
+          date_thromboembolism: '',
+          date_all_bleeding: '',
+          date_major_bleeding: '',
+          date_endocarditis: '',
+          date_all_mortality: '',
+          date_valve_mortality: '',
+          date_valve_related_operation: '',
+          date_explant: '',
+          date_haemolysis: '',
+          date_sudden_unexplained_death: '',
+          date_cardiac_death: '',
 
           has_structural_value_deterioration: '',
           has_valve_thrombosis: '',
@@ -107,13 +124,31 @@ const Create = () => {
                                         error={errors.has_structural_value_deterioration}
                                         className={`${errors.has_structural_value_deterioration ? 'is-invalid' : ''}`}
                                    />
-                                   {data.has_structural_value_deterioration === '1' &&
-                                        <FormInput
-                                             value={data.structural_value_deterioration}
-                                             className={`${errors.structural_value_deterioration && 'is-invalid '}`}
-                                             error={errors.structural_value_deterioration}
-                                             handleChange={e => setData('structural_value_deterioration', e.target.value)}
-                                        />
+                                   {data.has_structural_value_deterioration === '1' && <>
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_structural_value_deterioration}
+                                                       handleChange={(date) => date !== null ? setData('date_structural_value_deterioration', new Date(date)) : setData('date_structural_value_deterioration', '')}
+                                                       className={`${errors.date_structural_value_deterioration ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.structural_value_deterioration}
+                                                       className={`${errors.structural_value_deterioration && 'is-invalid '}`}
+                                                       error={errors.structural_value_deterioration}
+                                                       handleChange={e => setData('structural_value_deterioration', e.target.value)}
+                                                  />
+
+                                             </Col>
+                                        </Row>
+
+
+
+                                   </>
+
                                    }
 
                                    <FormRadio
@@ -125,14 +160,27 @@ const Create = () => {
                                         error={errors.has_valve_thrombosis}
                                         className={`${errors.has_valve_thrombosis ? 'is-invalid' : ''}`}
                                    />
-                                   {data.has_valve_thrombosis === '1' &&
-                                        <FormInput
-                                             value={data.valve_thrombosis}
-                                             className={`${errors.valve_thrombosis && 'is-invalid '}`}
-                                             error={errors.valve_thrombosis}
-                                             handleChange={e => setData('valve_thrombosis', e.target.value)}
-                                        />
-                              }
+                                   {data.has_valve_thrombosis === '1' && <Row>
+                                        <Col md={3}></Col>
+                                        <Col md={9}>
+                                             <FormCalendar
+                                                  labelText='Date'
+                                                  value={data.date_valve_thrombosis}
+                                                  handleChange={(date) => date !== null ? setData('date_valve_thrombosis', new Date(date)) : setData('date_valve_thrombosis', '')}
+                                                  className={`${errors.date_valve_thrombosis ? 'is-invalid' : ''}`}
+                                             />
+                                             <FormInput
+                                                  labelText='Comments'
+                                                  value={data.valve_thrombosis}
+                                                  className={`${errors.valve_thrombosis && 'is-invalid '}`}
+                                                  error={errors.valve_thrombosis}
+                                                  handleChange={e => setData('valve_thrombosis', e.target.value)}
+                                             />
+
+                                        </Col>
+                                   </Row>
+
+                                   }
 
 
                                    <FormRadio
@@ -146,12 +194,27 @@ const Create = () => {
                                    />
 
                                    {data.has_all_paravalvular_leak === '1' &&
-                                        <FormInput
-                                             value={data.all_paravalvular_leak}
-                                             className={`${errors.all_paravalvular_leak && 'is-invalid '}`}
-                                             error={errors.all_paravalvular_leak}
-                                             handleChange={e => setData('all_paravalvular_leak', e.target.value)}
-                                        />
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_all_paravalvular_leak}
+                                                       handleChange={(date) => date !== null ? setData('date_all_paravalvular_leak', new Date(date)) : setData('date_all_paravalvular_leak', '')}
+                                                       className={`${errors.date_all_paravalvular_leak ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.all_paravalvular_leak}
+                                                       className={`${errors.all_paravalvular_leak && 'is-invalid '}`}
+                                                       error={errors.all_paravalvular_leak}
+                                                       handleChange={e => setData('all_paravalvular_leak', e.target.value)}
+                                                  />
+
+                                             </Col>
+                                        </Row>
+
                                    }
 
                                    <FormRadio
@@ -164,12 +227,26 @@ const Create = () => {
                                         className={`${errors.has_major_paravalvular_leak ? 'is-invalid' : ''}`}
                                    />
                                    {data.has_major_paravalvular_leak === '1' &&
-                                        <FormInput
-                                             value={data.major_paravalvular_leak}
-                                             className={`${errors.major_paravalvular_leak && 'is-invalid '}`}
-                                             error={errors.major_paravalvular_leak} 
-                                             handleChange={e => setData('major_paravalvular_leak', e.target.value)}
-                                        />
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_major_paravalvular_leak}
+                                                       handleChange={(date) => date !== null ? setData('date_major_paravalvular_leak', new Date(date)) : setData('date_major_paravalvular_leak', '')}
+                                                       className={`${errors.date_major_paravalvular_leak ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.major_paravalvular_leak}
+                                                       className={`${errors.major_paravalvular_leak && 'is-invalid '}`}
+                                                       error={errors.major_paravalvular_leak}
+                                                       handleChange={e => setData('major_paravalvular_leak', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+
                                    }
 
                                    <FormRadio
@@ -182,12 +259,28 @@ const Create = () => {
                                         className={`${errors.has_non_structural_value_deterioration ? 'is-invalid' : ''}`}
                                    />
                                    {data.has_non_structural_value_deterioration === '1' &&
-                                        <FormInput
-                                             value={data.non_structural_value_deterioration}
-                                             className={`${errors.non_structural_value_deterioration && 'is-invalid '}`}
-                                             error={errors.non_structural_value_deterioration} 
-                                             handleChange={e => setData('non_structural_value_deterioration', e.target.value)}
-                                        />}
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_non_structural_value_deterioration}
+                                                       handleChange={(date) => date !== null ? setData('date_non_structural_value_deterioration', new Date(date)) : setData('date_non_structural_value_deterioration', '')}
+                                                       className={`${errors.date_non_structural_value_deterioration ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.non_structural_value_deterioration}
+                                                       className={`${errors.non_structural_value_deterioration && 'is-invalid '}`}
+                                                       error={errors.non_structural_value_deterioration}
+                                                       handleChange={e => setData('non_structural_value_deterioration', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+
+
+                                   }
                                    <hr />
                                    <div className="fs-6 fw-bold mb-3">Clinical Safety Parameters</div>
 
@@ -200,12 +293,28 @@ const Create = () => {
                                         error={errors.has_thromboembolism}
                                         className={`${errors.has_thromboembolism ? 'is-invalid' : ''}`}
                                    />
-                                   {data.has_thromboembolism === '1' && <FormInput
-                                        value={data.thromboembolism}
-                                        className={`${errors.thromboembolism && 'is-invalid '}`}
-                                        error={errors.thromboembolism}
-                                        handleChange={e => setData('thromboembolism', e.target.value)}
-                                   />
+                                   {data.has_thromboembolism === '1' &&
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_thromboembolism}
+                                                       handleChange={(date) => date !== null ? setData('date_thromboembolism', new Date(date)) : setData('date_thromboembolism', '')}
+                                                       className={`${errors.date_thromboembolism ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.thromboembolism}
+                                                       className={`${errors.thromboembolism && 'is-invalid '}`}
+                                                       error={errors.thromboembolism}
+                                                       handleChange={e => setData('thromboembolism', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+
+
                                    }
 
                                    <FormRadio
@@ -218,12 +327,26 @@ const Create = () => {
                                         className={`${errors.has_all_bleeding ? 'is-invalid' : ''}`}
                                    />
                                    {data.has_all_bleeding === '1' &&
-                                        <FormInput
-                                             value={data.all_bleeding}
-                                             className={`${errors.all_bleeding && 'is-invalid '}`}
-                                             error={errors.all_bleeding}
-                                             handleChange={e => setData('all_bleeding', e.target.value)}
-                                        />
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_all_bleeding}
+                                                       handleChange={(date) => date !== null ? setData('date_all_bleeding', new Date(date)) : setData('date_all_bleeding', '')}
+                                                       className={`${errors.date_all_bleeding ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.all_bleeding}
+                                                       className={`${errors.all_bleeding && 'is-invalid '}`}
+                                                       error={errors.all_bleeding}
+                                                       handleChange={e => setData('all_bleeding', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+
                                    }
 
                                    <FormRadio
@@ -236,12 +359,27 @@ const Create = () => {
                                         className={`${errors.has_major_bleeding ? 'is-invalid' : ''}`}
                                    />
                                    {data.has_major_bleeding === '1' &&
-                                        <FormInput
-                                             value={data.major_bleeding}
-                                             className={`${errors.major_bleeding && 'is-invalid '}`}
-                                             error={errors.major_bleeding}
-                                             handleChange={e => setData('major_bleeding', e.target.value)}
-                                        />}
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_major_bleeding}
+                                                       handleChange={(date) => date !== null ? setData('date_major_bleeding', new Date(date)) : setData('date_major_bleeding', '')}
+                                                       className={`${errors.date_major_bleeding ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.major_bleeding}
+                                                       className={`${errors.major_bleeding && 'is-invalid '}`}
+                                                       error={errors.major_bleeding}
+                                                       handleChange={e => setData('major_bleeding', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+
+                                   }
 
 
                                    <FormRadio
@@ -254,12 +392,27 @@ const Create = () => {
                                         className={`${errors.has_endocarditis ? 'is-invalid' : ''}`}
                                    />
                                    {data.has_endocarditis === '1' &&
-                                        <FormInput
-                                             value={data.endocarditis}
-                                             className={`${errors.endocarditis && 'is-invalid '}`}
-                                             error={errors.endocarditis}
-                                             handleChange={e => setData('endocarditis', e.target.value)}
-                                        />}
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_endocarditis}
+                                                       handleChange={(date) => date !== null ? setData('date_endocarditis', new Date(date)) : setData('date_endocarditis', '')}
+                                                       className={`${errors.date_endocarditis ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.endocarditis}
+                                                       className={`${errors.endocarditis && 'is-invalid '}`}
+                                                       error={errors.endocarditis}
+                                                       handleChange={e => setData('endocarditis', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+
+                                   }
 
 
                                    <FormRadio
@@ -272,12 +425,27 @@ const Create = () => {
                                         className={`${errors.has_all_mortality ? 'is-invalid' : ''}`}
                                    />
                                    {data.has_all_mortality === '1' &&
-                                        <FormInput
-                                             value={data.all_mortality}
-                                             className={`${errors.all_mortality && 'is-invalid '}`}
-                                             error={errors.all_mortality}
-                                             handleChange={e => setData('all_mortality', e.target.value)}
-                                        />}
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_all_mortality}
+                                                       handleChange={(date) => date !== null ? setData('date_all_mortality', new Date(date)) : setData('date_all_mortality', '')}
+                                                       className={`${errors.date_all_mortality ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.all_mortality}
+                                                       className={`${errors.all_mortality && 'is-invalid '}`}
+                                                       error={errors.all_mortality}
+                                                       handleChange={e => setData('all_mortality', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+
+                                   }
 
 
                                    <FormRadio
@@ -290,12 +458,26 @@ const Create = () => {
                                         className={`${errors.has_valve_mortality ? 'is-invalid' : ''}`}
                                    />
                                    {data.has_valve_mortality === '1' &&
-                                        <FormInput
-                                             value={data.valve_mortality}
-                                             className={`${errors.valve_mortality && 'is-invalid '}`}
-                                             error={errors.valve_mortality}
-                                             handleChange={e => setData('valve_mortality', e.target.value)}
-                                        />}
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_valve_mortality}
+                                                       handleChange={(date) => date !== null ? setData('date_valve_mortality', new Date(date)) : setData('date_valve_mortality', '')}
+                                                       className={`${errors.date_valve_mortality ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.valve_mortality}
+                                                       className={`${errors.valve_mortality && 'is-invalid '}`}
+                                                       error={errors.valve_mortality}
+                                                       handleChange={e => setData('valve_mortality', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+                                   }
 
 
                                    <FormRadio
@@ -308,12 +490,26 @@ const Create = () => {
                                         className={`${errors.has_valve_related_operation ? 'is-invalid' : ''}`}
                                    />
                                    {data.has_valve_related_operation === '1' &&
-                                        <FormInput
-                                             value={data.valve_related_operation}
-                                             className={`${errors.valve_related_operation && 'is-invalid '}`}
-                                             error={errors.valve_related_operation}
-                                             handleChange={e => setData('valve_related_operation', e.target.value)}
-                                        />
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_valve_related_operation}
+                                                       handleChange={(date) => date !== null ? setData('date_valve_related_operation', new Date(date)) : setData('date_valve_related_operation', '')}
+                                                       className={`${errors.date_valve_related_operation ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.valve_related_operation}
+                                                       className={`${errors.valve_related_operation && 'is-invalid '}`}
+                                                       error={errors.valve_related_operation}
+                                                       handleChange={e => setData('valve_related_operation', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+
                                    }
 
                                    <FormRadio
@@ -326,12 +522,26 @@ const Create = () => {
                                         className={`${errors.has_explant ? 'is-invalid' : ''}`}
                                    />
                                    {data.has_explant === '1' &&
-                                        <FormInput
-                                             value={data.explant}
-                                             className={`${errors.explant && 'is-invalid '}`}
-                                             error={errors.explant}
-                                             handleChange={e => setData('explant', e.target.value)}
-                                        />}
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_explant}
+                                                       handleChange={(date) => date !== null ? setData('date_explant', new Date(date)) : setData('date_explant', '')}
+                                                       className={`${errors.date_explant ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.explant}
+                                                       className={`${errors.explant && 'is-invalid '}`}
+                                                       error={errors.explant}
+                                                       handleChange={e => setData('explant', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+                                   }
 
 
                                    <FormRadio
@@ -344,12 +554,26 @@ const Create = () => {
                                         className={`${errors.has_haemolysis ? 'is-invalid' : ''}`}
                                    />
                                    {data.has_haemolysis === '1' &&
-                                        <FormInput
-                                             value={data.haemolysis}
-                                             className={`${errors.haemolysis && 'is-invalid '}`}
-                                             error={errors.haemolysis}
-                                             handleChange={e => setData('haemolysis', e.target.value)}
-                                        />}
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_haemolysis}
+                                                       handleChange={(date) => date !== null ? setData('date_haemolysis', new Date(date)) : setData('date_haemolysis', '')}
+                                                       className={`${errors.date_haemolysis ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.haemolysis}
+                                                       className={`${errors.haemolysis && 'is-invalid '}`}
+                                                       error={errors.haemolysis}
+                                                       handleChange={e => setData('haemolysis', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+                                   }
 
 
                                    <FormRadio
@@ -362,12 +586,26 @@ const Create = () => {
                                         className={`${errors.has_sudden_unexplained_death ? 'is-invalid' : ''}`}
                                    />
                                    {data.has_sudden_unexplained_death === '1' &&
-                                        <FormInput
-                                             value={data.sudden_unexplained_death}
-                                             className={`${errors.sudden_unexplained_death && 'is-invalid '}`}
-                                             error={errors.sudden_unexplained_death}
-                                             handleChange={e => setData('sudden_unexplained_death', e.target.value)}
-                                        />}
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_sudden_unexplained_death}
+                                                       handleChange={(date) => date !== null ? setData('date_sudden_unexplained_death', new Date(date)) : setData('date_sudden_unexplained_death', '')}
+                                                       className={`${errors.date_sudden_unexplained_death ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.sudden_unexplained_death}
+                                                       className={`${errors.sudden_unexplained_death && 'is-invalid '}`}
+                                                       error={errors.sudden_unexplained_death}
+                                                       handleChange={e => setData('sudden_unexplained_death', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+                                   }
 
 
                                    <FormRadio
@@ -380,12 +618,27 @@ const Create = () => {
                                         className={`${errors.has_cardiac_death ? 'is-invalid' : ''}`}
                                    />
                                    {data.has_cardiac_death === '1' &&
-                                        <FormInput
-                                             value={data.cardiac_death}
-                                             className={`${errors.cardiac_death && 'is-invalid '}`}
-                                             error={errors.cardiac_death}
-                                             handleChange={e => setData('cardiac_death', e.target.value)}
-                                        />}
+
+                                        <Row>
+                                             <Col md={3}></Col>
+                                             <Col md={9}>
+                                                  <FormCalendar
+                                                       labelText='Date'
+                                                       value={data.date_cardiac_death}
+                                                       handleChange={(date) => date !== null ? setData('date_cardiac_death', new Date(date)) : setData('date_cardiac_death', '')}
+                                                       className={`${errors.date_cardiac_death ? 'is-invalid' : ''}`}
+                                                  />
+                                                  <FormInput
+                                                       labelText='Comments'
+                                                       value={data.cardiac_death}
+                                                       className={`${errors.cardiac_death && 'is-invalid '}`}
+                                                       error={errors.cardiac_death}
+                                                       handleChange={e => setData('cardiac_death', e.target.value)}
+                                                  />
+                                             </Col>
+                                        </Row>
+
+                                   }
 
 
                                    <hr />

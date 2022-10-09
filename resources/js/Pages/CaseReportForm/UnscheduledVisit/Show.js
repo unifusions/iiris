@@ -159,44 +159,45 @@ export default function Show() {
           labinvestigations,
           electrocardiograms,
           echocardiographies,
-          safetyparameters, echodicomfiles, usvdicomfiles,
+          safetyparameters, echodicomfiles, usvdicomfiles, approvalremarks,
           medications, } = usePage().props;
      return (
           <Authenticated auth={auth} role={roles}>
-               <div className='d-flex justify-content-between align-items-center mb-3'>
 
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">Unscheduled Visit No: {unscheduledvisit.visit_no}</h2>
-                    <div className='d-flex'>
-                         <Link href={backUrl} className="btn btn-secondary me-2" method="get" type="button" as="button">Back</Link>
-
-                         <ApprovalSubmit role={roles} crf={crf} unscheduledvisit={unscheduledvisit} />
-
-
-
-
-                         {unscheduledvisit.is_submitted ? <>
-                              <ApprovalActionsDisapprove role={roles} crf={crf} unscheduledvisit={unscheduledvisit} />
-                              <ApprovalActionsApprove role={roles} crf={crf} unscheduledvisit={unscheduledvisit} />
-                         </> : ''
-                         }
-
-
-                    </div>
-
-               </div>
-
-               {/* <PageTitle backUrl={backUrl} pageTitle={`Unscheduled Visit No: ${unscheduledvisit.visit_no}`} role={roles} /> */}
-
-               <RenderFormStatus
-                    isSubmitted={unscheduledvisit.is_submitted}
-                    visitStatus={unscheduledvisit.visit_status}
-                    visitNo={unscheduledvisit.visit_no}
-                    formTitle="Unscheduled Visit" />
-
-
-               <CaseReportFormData crf={crf} />
                <Row className='align-items-stretch'>
-                    <Col md={12} lg={12} className="mail-view d-none d-md-block">
+                    <Col md={9} lg={10} className="mail-view d-none d-md-block">
+                         <div className='d-flex justify-content-between align-items-center mb-3'>
+
+                              <h2 className="font-semibold text-xl text-gray-800 leading-tight">Unscheduled Visit No: {unscheduledvisit.visit_no}</h2>
+                              <div className='d-flex'>
+                                   <Link href={backUrl} className="btn btn-secondary me-2" method="get" type="button" as="button">Back</Link>
+
+                                   <ApprovalSubmit role={roles} crf={crf} unscheduledvisit={unscheduledvisit} />
+
+
+
+
+                                   {unscheduledvisit.is_submitted ? <>
+                                        <ApprovalActionsDisapprove role={roles} crf={crf} unscheduledvisit={unscheduledvisit} />
+                                        <ApprovalActionsApprove role={roles} crf={crf} unscheduledvisit={unscheduledvisit} />
+                                   </> : ''
+                                   }
+
+
+                              </div>
+
+                         </div>
+
+                         {/* <PageTitle backUrl={backUrl} pageTitle={`Unscheduled Visit No: ${unscheduledvisit.visit_no}`} role={roles} /> */}
+
+                         <RenderFormStatus
+                              isSubmitted={unscheduledvisit.is_submitted}
+                              visitStatus={unscheduledvisit.visit_status}
+                              visitNo={unscheduledvisit.visit_no}
+                              formTitle="Unscheduled Visit" />
+
+
+                         <CaseReportFormData crf={crf} />
                          <PhysicalExaminationData
                               physicalexamination={physicalexamination}
                               enableActions={unscheduledvisit.is_submitted}
@@ -277,7 +278,7 @@ export default function Show() {
                               <Card.Body>
                                    <div className='d-flex justify-content-between align-items-center'>
                                         <div className='fs-6 fw-bold'>
-                                             Related Files
+                                             Dicom Files
                                         </div>
                                         {roles.coordinator &&
                                              <>
@@ -305,6 +306,22 @@ export default function Show() {
                               </Card.Body>
                          </Card>
 
+
+                    </Col>
+                    <Col md={3} lg={2}>
+                         <div className='fs-6 fw-bold'>Notifications</div>
+
+                         <hr />
+                         <ul className='notifications'>
+
+
+                              {approvalremarks !== null &&
+                                   approvalremarks.map((approvalremark) => <li key={approvalremark.id} className="py-2">
+                                        Form has been <strong>{approvalremark.action}</strong> <br />
+                                        <span className='text-secondary'>{approvalremark.remarks}</span>
+                                   </li>)
+                              }
+                         </ul>
 
                     </Col>
                </Row>

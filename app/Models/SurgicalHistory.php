@@ -14,7 +14,8 @@ class SurgicalHistory extends Model
         'pre_operative_data_id',
         'diagnosis',
         'sh_date',
-        'treatment'
+        'treatment',
+        'on_treatment',
     ];
 
     protected $dates = ['sh_date'];

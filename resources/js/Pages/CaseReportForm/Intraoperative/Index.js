@@ -23,8 +23,8 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles }) {
      const iconStyle = { width: 15, height: 15, };
 
      return (<>
-
-          <RenderFieldDatas labelText='Date of Procedure' value={new Date(intraoperative.date_of_procedure).toLocaleString('en-in', options)} />
+{console.log(intraoperative.date_of_procedure)}
+          <RenderFieldDatas labelText='Date of Procedure' value={intraoperative.date_of_procedure !== null ? new Date(intraoperative.date_of_procedure).toLocaleString('en-in', options) : null} />
           <RenderFieldDatas labelText='Arterial Cannulation' value={intraoperative.arterial_cannulation} />
           <RenderFieldDatas labelText='Venous Cannulation' value={intraoperative.venous_cannulation} />
           <RenderFieldDatas labelText='Cardioplegia' value={intraoperative.cardioplegia} />
@@ -77,7 +77,7 @@ export default class Index extends React.Component {
 
 
      render() {
-          const { auth, roles, crf, intraoperative, updateUrl, intradicomfiles } = this.props;
+          const { auth, roles, crf, intraoperative, updateUrl, intradicomfiles, approvalremarks } = this.props;
 
 
           return (
@@ -85,7 +85,8 @@ export default class Index extends React.Component {
 
                     <div className='wrapper'>
 
-                         <Container className='mb-3'>
+                              <Row >
+                              <Col md={9} lg={10}>
                               <div className='d-flex justify-content-between align-items-center mb-3'>
                                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">Case Report Forms \ {crf.subject_id} \ Intraoperative</h2>
                                    <div className='d-flex'>
@@ -120,10 +121,24 @@ export default class Index extends React.Component {
                                         </> : <> <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} /> </>}
                                    </Card.Body>
                               </Card>
+</Col>
+                              <Col md={3} lg={2}>
+                                   <div className='fs-6 fw-bold'>Notifications</div>
+
+                                   <hr />
+                                   <ul className='notifications'>
 
 
+                                        {approvalremarks !== null &&
+                                             approvalremarks.map((approvalremark) => <li key={approvalremark.id} className="py-2">
+                                                  Form has been <strong>{approvalremark.action}</strong> <br />
+                                                  <span className='text-secondary'>{approvalremark.remarks}</span>
+                                             </li>)
+                                        }
+                                   </ul>
 
-                         </Container>
+                              </Col>
+</Row>
                     </div>
 
 

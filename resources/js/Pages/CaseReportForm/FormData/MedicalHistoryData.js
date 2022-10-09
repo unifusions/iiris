@@ -43,14 +43,17 @@ export default function MedicalHistoryData({ hasMedHis, medicalhistories, role, 
                                         <Col>#</Col>
                                         <Col>Diagnosis</Col>
                                         <Col>Duration</Col>
-                                        <Col>Treatment</Col>
+                                        <Col>On Treatment</Col>
                                    </Row>
-                                   <hr/>
+                                   <hr />
                                    {medicalhistories.map((medicalhistory, index) => <Row className="mb-2" key={index}>
                                         <Col>{index + 1}</Col>
                                         <Col>{medicalhistory.diagnosis}</Col>
                                         <Col>{medicalhistory.duration}</Col>
-                                        <Col>{medicalhistory.treatment}</Col>
+                                        <Col>{medicalhistory.on_treatment !== null &&
+                                             <> {medicalhistory.on_treatment === 1 ? 'Yes' : 'No'}
+                                             </>
+                                        }</Col>
 
                                    </Row>)}
                               </>
