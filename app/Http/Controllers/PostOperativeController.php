@@ -45,6 +45,7 @@ class PostOperativeController extends Controller
             'safetyparameters' => $postoperative->safetyparameters,
             'postopdicomfiles' => $postoperative->fileuploads,
             'approvalremarks' => $postoperative->approvalremarks,
+            'medications' => $postoperative->medications,
             'echodicomfiles' => $postoperative->echocardiographies ?
                 EchoDicomFile::where('echocardiography_id', $postoperative->echocardiographies->id)->get()->map(fn ($file) => [
                     'id' => $file->id,

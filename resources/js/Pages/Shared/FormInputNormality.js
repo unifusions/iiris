@@ -2,6 +2,12 @@ import React, { useEffect, useRef } from "react";
 import { Row, Col } from "react-bootstrap";
 import { RenderUnits } from "../CaseReportForm/FormData/FormDataHelper";
 
+const NotAvailable = () => {
+     return (
+          <span className='fw-normal text-secondary fst-italic'>No data available</span>
+     )
+}
+
 const FormInputNormality = ({
      name, labelText,
      options, value,
