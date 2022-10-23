@@ -49,7 +49,7 @@ export default function PhysicalActivityData({ physicalactivites, isPhyAct, role
                                    {physicalactivites.map((physicalactivity, index) => <Row className="mb-2" key={index}>
                                         <Col>{index + 1}</Col>
                                         <Col>{physicalactivity.activity_type}</Col>
-                                        <Col>{physicalactivity.duration} mins</Col>
+                                        <Col>{physicalactivity.duration} hrs/week</Col>
 
                                    </Row>)
 

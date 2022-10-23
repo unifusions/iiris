@@ -71,7 +71,7 @@ export default function CreatePhysicalActivity({ crf, mode, postUrl, preoperativ
                               {physicalactivities.map((physicalactivity, index) => <Row className="mb-2" key={index}>
                                    <Col>{index + 1}</Col>
                                    <Col>{physicalactivity.activity_type}</Col>
-                                   <Col>{physicalactivity.duration}</Col>
+                                   <Col>{physicalactivity.duration} hrs/week</Col>
                                    <Col>
                                         {preoperative !== undefined && <Link href={route('crf.preoperative.physicalactivity.destroy', { crf: crf, preoperative: preoperative, physicalactivity: physicalactivity })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
                                         {scheduledvisit !== undefined && <Link href={route('crf.scheduledvisit.physicalactivity.destroy', { crf: crf, scheduledvisit: scheduledvisit, physicalactivity: physicalactivity })} type="submit" method="delete" as="button" className='btn btn-danger btn-sm'>Delete</Link>}
@@ -110,7 +110,7 @@ export default function CreatePhysicalActivity({ crf, mode, postUrl, preoperativ
                                    className={`${errors.duration && 'is-invalid '}`}
                                    error={errors.duration} labelText="Duration"
                                    handleChange={e => setData('duration', e.target.value)}
-                                   units='mins'
+                                   units='hrs/week'
                                    value={data.duration}
                                    // min={1}
                                    // max={60}

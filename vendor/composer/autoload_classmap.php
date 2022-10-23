@@ -20,6 +20,7 @@ return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DashboardController' => $baseDir . '/app/Http/Controllers/DashboardController.php',
     'App\\Http\\Controllers\\EchoDicomFilesController' => $baseDir . '/app/Http/Controllers/EchoDicomFilesController.php',
+    'App\\Http\\Controllers\\EchocardiographyGetReviewController' => $baseDir . '/app/Http/Controllers/EchocardiographyGetReviewController.php',
     'App\\Http\\Controllers\\FacilityController' => $baseDir . '/app/Http/Controllers/FacilityController.php',
     'App\\Http\\Controllers\\IntraOperativeController' => $baseDir . '/app/Http/Controllers/IntraOperativeController.php',
     'App\\Http\\Controllers\\IntrafileUploadController' => $baseDir . '/app/Http/Controllers/IntrafileUploadController.php',

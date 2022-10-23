@@ -576,6 +576,7 @@ class ComposerStaticIniteeca557e6e0d40500dca547c9e4fdc0b
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
         'App\\Http\\Controllers\\EchoDicomFilesController' => __DIR__ . '/../..' . '/app/Http/Controllers/EchoDicomFilesController.php',
+        'App\\Http\\Controllers\\EchocardiographyGetReviewController' => __DIR__ . '/../..' . '/app/Http/Controllers/EchocardiographyGetReviewController.php',
         'App\\Http\\Controllers\\FacilityController' => __DIR__ . '/../..' . '/app/Http/Controllers/FacilityController.php',
         'App\\Http\\Controllers\\IntraOperativeController' => __DIR__ . '/../..' . '/app/Http/Controllers/IntraOperativeController.php',
         'App\\Http\\Controllers\\IntrafileUploadController' => __DIR__ . '/../..' . '/app/Http/Controllers/IntrafileUploadController.php',
