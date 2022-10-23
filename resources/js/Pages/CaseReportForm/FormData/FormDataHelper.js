@@ -5,7 +5,7 @@ import { Row, Col } from 'react-bootstrap';
 import { method } from 'lodash';
 
 
-const NotAvailable = () => {
+export const NotAvailable = () => {
      return (
           <span className='fw-normal text-secondary fst-italic'>No data available</span>
      )
@@ -68,31 +68,93 @@ export function RenderFieldDatas({ labelText, value, units, status }) {
      )
 }
 
-export function RenderFieldEchoDatas({ labelText, value, units,  normality, abnormality }) {
+
+
+export function RenderFieldEchoReviewDatas({ labelText, rvalue, units, normality, abnormality }) {
      return (
+
           <Row className='mb-3'>
-               <Col md={4} className='text-secondary'>
-                    {labelText}
-               </Col>
+               <Col md={4} className='text-secondary'>{labelText}</Col>
+
                <Col md={2}>
-                
-                    {value !== null ? <>{value}
+                    {rvalue !== null ? <>{rvalue}
                          {units !== undefined &&
                               <RenderUnits units={units} />
                          }</> : <NotAvailable />}
-
-
                </Col>
-               <Col md={2}>
-                  {normality !== null ? <>{normality ? 'Normal' : 'Abnormal'}</> : <NotAvailable /> }
-               </Col> 
-               <Col md={3}>
-                         {abnormality !== null ? <>{abnormality}</> : <NotAvailable /> }
-               </Col>
+
                
+               <Col md={2}>
+                    {normality !== null ? <>{normality ? 'Normal' : 'Abnormal'}</> : <NotAvailable />}
+               </Col>
+               <Col md={4}>
+                    {abnormality !== null ? <>{abnormality}</> : <NotAvailable />}
+               </Col>
+
+
+
           </Row>
+
      )
 }
+
+
+export function RenderFieldEchoDatas({ labelText, value, rvalue, units, normality, abnormality, role }) {
+     return (
+
+          <Row className='mb-3'>
+               <Col md={4} className='text-secondary'>{labelText}</Col>
+               {(role.investigator || role.coordinator || role.admin) &&
+                    <Col md={1}>
+                         {value !== null ? <>{value}
+                              {units !== undefined &&
+                                   <RenderUnits units={units} />
+                              }</> : <NotAvailable />}
+                    </Col>
+               }
+
+               {(role.admin || role.reviewer) && <>
+                    <Col md={1}>
+                         {rvalue !== null ? <>{rvalue}
+                              {units !== undefined &&
+                                   <RenderUnits units={units} />
+                              }</> : <NotAvailable />}
+                    </Col>
+                    <Col md={2}>
+                         {normality !== null ? <>{normality ? 'Normal' : 'Abnormal'}</> : <NotAvailable />}
+                    </Col>
+                    <Col md={4}>
+                         {abnormality !== null ? <>{abnormality}</> : <NotAvailable />}
+                    </Col>
+               </>}
+
+
+          </Row>
+          // <Row className='mb-3'>
+          //      <Col md={4} className='text-secondary'>
+          //           {labelText}
+          //      </Col>
+          //      <Col md={2}>
+
+          //           {value !== null ? <>{value}
+          //                {units !== undefined &&
+          //                     <RenderUnits units={units} />
+          //                }</> : <NotAvailable />}
+
+
+          //      </Col>
+          //      <Col md={2}>
+          //         {normality !== null ? <>{normality ? 'Normal' : 'Abnormal'}</> : <NotAvailable /> }
+          //      </Col> 
+          //      <Col md={3}>
+          //                {abnormality !== null ? <>{abnormality}</> : <NotAvailable /> }
+          //      </Col>
+
+          // </Row>
+     )
+}
+
+
 
 export function RenderDateFieldDatas({ labelText, value, units, status, options }) {
      return (
@@ -110,6 +172,31 @@ export function RenderDateFieldDatas({ labelText, value, units, status, options 
                               <RenderUnits units={units} />
                          }</> : <NotAvailable />}
 
+
+               </Col>
+          </Row>
+     )
+}
+
+
+
+export function RenderDateFieldEchoDatas({ labelText, echodate, r_echodate, options }) {
+     return (
+
+
+          <Row className='mb-3'>
+               <Col md={4} className='text-secondary'>
+                    {labelText}
+               </Col>
+               <Col md={1}>
+
+                    {echodate !== null ? <>{new Date(echodate).toLocaleString('en-in', options)}</> : <NotAvailable />}
+
+
+               </Col>
+
+               <Col md={1}>
+                    {r_echodate !== null ? <>{new Date(r_echodate).toLocaleString('en-in', options)}</> : <NotAvailable />}
 
                </Col>
           </Row>

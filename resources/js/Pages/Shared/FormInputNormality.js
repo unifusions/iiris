@@ -12,18 +12,32 @@ const FormInputNormality = ({
      name, labelText,
      options, value,
      selectedValue, echoValue,
-     className, autoComplete, required, isFocused, handleRadioChange, handleTextChange, error, disabled, reviewer, units
+     handleValueChange,
+     className, autoComplete, required, handleRadioChange, handleTextChange, error, disabled, reviewer, units
 }) => {
 
-     const input = useRef();
-     useEffect(() => { if (isFocused) { input.current.focus(); } }, []);
+     
 
      return (
-          <Row className = 'mb-3'>
-               <Col md={4} className='text-secondary'>{labelText}</Col>
-               <Col md={2}>{echoValue !== null ? <>{echoValue}<RenderUnits units={units} /> </> : <NotAvailable />}</Col>
+          <Row className='mb-3'>
+               <Col md={3} className='text-secondary'>{labelText}</Col>
+               <Col md={3}>   <div className="input-group has-validation">
+                    <input
+                         type='number'
+                         name={name}
+     
+                         value={echoValue}
+                         className={`form-control with-units ` + className}
+                         onChange={(e) => handleValueChange(e)}
+                         />
+                    <span className="input-group-text input-units text-secondary" dangerouslySetInnerHTML={{ __html: units }}></span>
+
+                    {error && <div className="invalid-feedback">
+                         {error}
+                    </div>}
+               </div></Col>
                <Col md={6}>
-                    {reviewer ? <Row>
+                    <Row>
                          <Col md={4}>
                               {options.map((option, index, arr) =>
 
@@ -54,7 +68,7 @@ const FormInputNormality = ({
                                              name={name}
                                              value={value}
                                              className={`form-control form-control-sm`}
-                                             ref={input}
+                                            
                                              autoComplete={autoComplete}
                                              onChange={(e) => handleTextChange(e)}
                                         />
@@ -66,7 +80,8 @@ const FormInputNormality = ({
                                    </div>
                               }
                          </Col>
-                    </Row> : ''}</Col>
+                    </Row>
+               </Col>
           </Row>
 
 

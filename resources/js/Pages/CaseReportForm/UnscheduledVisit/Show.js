@@ -32,29 +32,30 @@ function ApprovalActionsApprove({ role, crf, unscheduledvisit }) {
           put(route('crf.unscheduledvisit.update', { crf: crf, unscheduledvisit: unscheduledvisit }));
      }
      return (
-          <>{role.investigator &&
-               <>{unscheduledvisit.visit_status !== null &&
-                    <>
-                         {unscheduledvisit.visit_status ? '' :
-                              <Button variant="success" onClick={handleShow}> Approve </Button>
+          <>
+               {role.investigator &&
+                    <>{unscheduledvisit.visit_status !== null &&
+                         <>
+                              {unscheduledvisit.visit_status ? '' :
+                                   <Button variant="success" onClick={handleShow}> Approve </Button>
 
-                         }
+                              }
 
-                         <Modal show={show} onHide={handleClose}>
-                              <form onSubmit={handlesubmit}>
-                                   <Modal.Header closeButton>
-                                        <Modal.Title>Remarks/Reason</Modal.Title>
-                                   </Modal.Header>
-                                   <Modal.Body>    <textarea onChange={(e) => setData('remarks', e.target.value)} className="form-control" rows="5"></textarea></Modal.Body>
-                                   <Modal.Footer>
-                                        <FormButton processing={processing} labelText='Approve' type="submit" mode="success" />
+                              <Modal show={show} onHide={handleClose}>
+                                   <form onSubmit={handlesubmit}>
+                                        <Modal.Header closeButton>
+                                             <Modal.Title>Remarks/Reason</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>    <textarea onChange={(e) => setData('remarks', e.target.value)} className="form-control" rows="5"></textarea></Modal.Body>
+                                        <Modal.Footer>
+                                             <FormButton processing={processing} labelText='Approve' type="submit" mode="success" />
 
-                                   </Modal.Footer>
-                              </form>
-                         </Modal>
-                    </>
-               }</>
-          }  </>
+                                        </Modal.Footer>
+                                   </form>
+                              </Modal>
+                         </>
+                    }</>
+               }  </>
 
 
      )
@@ -198,81 +199,98 @@ export default function Show() {
 
 
                          <CaseReportFormData crf={crf} />
-                         <PhysicalExaminationData
-                              physicalexamination={physicalexamination}
-                              enableActions={unscheduledvisit.is_submitted}
-                              role={roles}
-                              showHWB={true}
-                              createUrl={route('crf.unscheduledvisit.physicalexamination.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
-                              editUrl={physicalexamination !== null && route('crf.unscheduledvisit.physicalexamination.edit', { crf: crf, unscheduledvisit: unscheduledvisit, physicalexamination: physicalexamination })}
-                         />
-
-                         <SymptomsData
-                              symptoms={symptoms}
-                              enableActions={unscheduledvisit.is_submitted}
-                              role={roles}
-                              title="Post Operative"
-                              createUrl={route('crf.unscheduledvisit.symptoms.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
-                              editUrl={symptoms !== null && route('crf.unscheduledvisit.symptoms.edit', { crf: crf, unscheduledvisit: unscheduledvisit, symptom: symptoms })}
-                         />
-
-                         <PersonalHistoryData
-                              personalhistories={personalhistories}
-                              enableActions={unscheduledvisit.is_submitted}
-                              role={roles}
-                              createUrl={route('crf.unscheduledvisit.personalhistory.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
-                              editUrl={personalhistories !== null && route('crf.unscheduledvisit.personalhistory.edit', { crf: crf, unscheduledvisit: unscheduledvisit, personalhistory: personalhistories })}
-                         />
-
-                         <PhysicalActivityData
-                              isPhyAct={unscheduledvisit.physical_activity}
-                              enableActions={unscheduledvisit.is_submitted}
-                              physicalactivites={physicalactivities}
-                              role={roles}
-                              linkUrl={route('crf.unscheduledvisit.physicalactivity.index', { crf: crf, unscheduledvisit: unscheduledvisit })}
-                         />
-
-                         <LabInvestigationData
-                              labinvestigations={labinvestigations}
-                              enableActions={unscheduledvisit.is_submitted}
-                              role={roles}
-                              createUrl={route('crf.unscheduledvisit.labinvestigation.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
-                              editUrl={labinvestigations !== null && route('crf.unscheduledvisit.labinvestigation.edit', { crf: crf, unscheduledvisit: unscheduledvisit, labinvestigation: labinvestigations })}
-                         />
-
-                         <ElectrocardiogramData
-                              electrocardiograms={electrocardiograms}
-                              enableActions={unscheduledvisit.is_submitted}
-                              role={roles}
-                              createUrl={route('crf.unscheduledvisit.electrocardiogram.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
-                              editUrl={electrocardiograms !== null && route('crf.scheduledvisit.electrocardiogram.edit', { crf: crf, unscheduledvisit: scheduledvisit, electrocardiogram: electrocardiograms })}
-                         />
-
-                         <EchocardiographyData
-                              echocardiographies={echocardiographies}
-                              enableActions={unscheduledvisit.is_submitted}
-                              echodicomfiles={echodicomfiles}
-                              role={roles}
-                              createUrl={route('crf.unscheduledvisit.echocardiography.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
-                              editUrl={echocardiographies !== null && route('crf.unscheduledvisit.echocardiography.edit', { crf: crf, unscheduledvisit: unscheduledvisit, echocardiography: echocardiographies })}
-                         />
+                         {!roles.reviewer ? <>
+                              <PhysicalExaminationData
+                                   physicalexamination={physicalexamination}
+                                   enableActions={unscheduledvisit.is_submitted}
+                                   role={roles}
+                                   showHWB={true}
+                                   createUrl={route('crf.unscheduledvisit.physicalexamination.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
+                                   editUrl={physicalexamination !== null && route('crf.unscheduledvisit.physicalexamination.edit', { crf: crf, unscheduledvisit: unscheduledvisit, physicalexamination: physicalexamination })}
+                              />
 
 
-                         <SafetyParameterData
-                              safetyparameters={safetyparameters}
-                              enableActions={unscheduledvisit.is_submitted}
-                              role={roles}
-                              createUrl={route('crf.unscheduledvisit.safetyparameter.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
-                              editUrl={safetyparameters !== null && route('crf.unscheduledvisit.safetyparameter.edit', { crf: crf, unscheduledvisit: unscheduledvisit, safetyparameter: safetyparameters })} />
+                              <SymptomsData
+                                   symptoms={symptoms}
+                                   enableActions={unscheduledvisit.is_submitted}
+                                   role={roles}
+                                   title="Post Operative"
+                                   createUrl={route('crf.unscheduledvisit.symptoms.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
+                                   editUrl={symptoms !== null && route('crf.unscheduledvisit.symptoms.edit', { crf: crf, unscheduledvisit: unscheduledvisit, symptom: symptoms })}
+                              />
+
+                              <PersonalHistoryData
+                                   personalhistories={personalhistories}
+                                   enableActions={unscheduledvisit.is_submitted}
+                                   role={roles}
+                                   createUrl={route('crf.unscheduledvisit.personalhistory.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
+                                   editUrl={personalhistories !== null && route('crf.unscheduledvisit.personalhistory.edit', { crf: crf, unscheduledvisit: unscheduledvisit, personalhistory: personalhistories })}
+                              />
+
+                              <PhysicalActivityData
+                                   isPhyAct={unscheduledvisit.physical_activity}
+                                   enableActions={unscheduledvisit.is_submitted}
+                                   physicalactivites={physicalactivities}
+                                   role={roles}
+                                   linkUrl={route('crf.unscheduledvisit.physicalactivity.index', { crf: crf, unscheduledvisit: unscheduledvisit })}
+                              />
 
 
-                         <MedicationsData
-                              hasMedication={unscheduledvisit.hasMedications}
-                              enableActions={unscheduledvisit.is_submitted}
-                              medications={medications}
-                              role={roles}
-                              linkUrl={route('crf.unscheduledvisit.medication.index', { crf: crf, unscheduledvisit: unscheduledvisit })}
-                         />
+
+                              <LabInvestigationData
+                                   labinvestigations={labinvestigations}
+                                   enableActions={unscheduledvisit.is_submitted}
+                                   role={roles}
+                                   createUrl={route('crf.unscheduledvisit.labinvestigation.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
+                                   editUrl={labinvestigations !== null && route('crf.unscheduledvisit.labinvestigation.edit', { crf: crf, unscheduledvisit: unscheduledvisit, labinvestigation: labinvestigations })}
+                              />
+
+                              <ElectrocardiogramData
+                                   electrocardiograms={electrocardiograms}
+                                   enableActions={unscheduledvisit.is_submitted}
+                                   role={roles}
+                                   createUrl={route('crf.unscheduledvisit.electrocardiogram.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
+                                   editUrl={electrocardiograms !== null && route('crf.scheduledvisit.electrocardiogram.edit', { crf: crf, unscheduledvisit: scheduledvisit, electrocardiogram: electrocardiograms })}
+                              />
+
+
+
+                              <EchocardiographyData
+                                   echocardiographies={echocardiographies}
+                                   enableActions={unscheduledvisit.is_submitted}
+                                   echodicomfiles={echodicomfiles}
+                                   role={roles}
+                                   createUrl={route('crf.unscheduledvisit.echocardiography.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
+                                   editUrl={echocardiographies !== null && route('crf.unscheduledvisit.echocardiography.edit', { crf: crf, unscheduledvisit: unscheduledvisit, echocardiography: echocardiographies })}
+                              />
+
+                              <SafetyParameterData
+                                   safetyparameters={safetyparameters}
+                                   enableActions={unscheduledvisit.is_submitted}
+                                   role={roles}
+                                   createUrl={route('crf.unscheduledvisit.safetyparameter.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
+                                   editUrl={safetyparameters !== null && route('crf.unscheduledvisit.safetyparameter.edit', { crf: crf, unscheduledvisit: unscheduledvisit, safetyparameter: safetyparameters })} />
+                              <MedicationsData
+                                   hasMedication={unscheduledvisit.hasMedications}
+                                   enableActions={unscheduledvisit.is_submitted}
+                                   medications={medications}
+                                   role={roles}
+                                   linkUrl={route('crf.unscheduledvisit.medication.index', { crf: crf, unscheduledvisit: unscheduledvisit })}
+                              />
+
+
+                         </> : <>
+                              <EchocardiographyData
+                                   echocardiographies={echocardiographies}
+                                   enableActions={unscheduledvisit.is_submitted}
+                                   echodicomfiles={echodicomfiles}
+                                   role={roles}
+                                   createUrl={route('crf.unscheduledvisit.echocardiography.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
+                                   editUrl={echocardiographies !== null && route('crf.unscheduledvisit.echocardiography.edit', { crf: crf, unscheduledvisit: unscheduledvisit, echocardiography: echocardiographies })}
+                              /></>}
+
+
+
 
                          <Card className="mb-3 rounded-5 shadow-sm">
                               <Card.Body>

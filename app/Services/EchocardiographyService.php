@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Echocardiography;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EchocardiographyService
@@ -12,7 +13,7 @@ class EchocardiographyService
           $echocardiography = Echocardiography::Create([
                'case_report_form_id' => $request->crf->id,
                'pre_operative_data_id'  => $request->preoperative->id,
-               'echodate'=> $request->echodate,
+               'echodate'=> Carbon::parse($request->echodate)->addHours(5)->addMinutes(30),
                'peak_velocity'=> $request->peak_velocity,
                'velocity_time_integral'=> $request->velocity_time_integral,
                'peak_gradient'=> $request->peak_gradient,
@@ -39,7 +40,7 @@ class EchocardiographyService
           $echocardiography = Echocardiography::Create([
                'case_report_form_id' => $request->crf->id,
                'post_operative_data_id'  => $request->postoperative->id,
-               'echodate'=> $request->echodate,
+               'echodate'=> Carbon::parse($request->echodate)->addHours(5)->addMinutes(30),
                'peak_velocity'=> $request->peak_velocity,
                'velocity_time_integral'=> $request->velocity_time_integral,
                'peak_gradient'=> $request->peak_gradient,
@@ -66,7 +67,7 @@ class EchocardiographyService
           $echocardiography = Echocardiography::Create([
                'case_report_form_id' => $request->crf->id,
                'scheduled_visits_id'  => $request->scheduledvisit->id,
-               'echodate'=> $request->echodate,
+               'echodate'=> Carbon::parse($request->echodate)->addHours(5)->addMinutes(30),
                'peak_velocity'=> $request->peak_velocity,
                'velocity_time_integral'=> $request->velocity_time_integral,
                'peak_gradient'=> $request->peak_gradient,
@@ -93,7 +94,7 @@ class EchocardiographyService
           $echocardiography = Echocardiography::Create([
                'case_report_form_id' => $request->crf->id,
                'unscheduled_visits_id'  => $request->unscheduledvisit->id,
-               'echodate'=> $request->echodate,
+               'echodate'=> Carbon::parse($request->echodate)->addHours(5)->addMinutes(30),
                'peak_velocity'=> $request->peak_velocity,
                'velocity_time_integral'=> $request->velocity_time_integral,
                'peak_gradient'=> $request->peak_gradient,

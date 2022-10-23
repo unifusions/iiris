@@ -24,10 +24,10 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
           tcb_time: intraoperative.tcb_time || '',
           acc_time: intraoperative.acc_time || '',
           concomitant_procedure: intraoperative.concomitant_procedure || '',
-          all_paravalvular_leak: intraoperative.all_paravalvular_leak !== null ? intraoperative.all_paravalvular_leak === 1 ? '1' : '0'  : '',
+          all_paravalvular_leak: intraoperative.all_paravalvular_leak !== null ? intraoperative.all_paravalvular_leak === 1 ? '1' : '0' : '',
           all_paravalvular_leak_specify: intraoperative.all_paravalvular_leak_specify || '',
 
-          major_paravalvular_leak: intraoperative.major_paravalvular_leak !== null ? intraoperative.major_paravalvular_leak === 1 ? '1' : '0'  : '',
+          major_paravalvular_leak: intraoperative.major_paravalvular_leak !== null ? intraoperative.major_paravalvular_leak === 1 ? '1' : '0' : '',
           major_paravalvular_leak_specify: intraoperative.major_paravalvular_leak_specify || '',
           difiles: ''
      });
@@ -73,14 +73,13 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
 
      return (
           <>
-
-               <form onSubmit={handlesubmit} >
+               {!role.reviewer ? <>  <form onSubmit={handlesubmit} >
                     <FormCalendar
                          labelText="Date of Procedure" error={errors.date_of_procedure}
                          name="date_of_procedure"
                          value={data.date_of_procedure}
                          handleChange={(date) => date !== null ? setData('date_of_procedure', new Date(date)) : setData('date_of_procedure', '')}
-                         
+
                          className={`${errors.date_of_procedure && 'is-invalid'}`}
                     />
                     <hr />
@@ -193,7 +192,7 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
 
 
                     <FormRadio
-                         type="radio" labelText="Major Pravalvular Leak"
+                         type="radio" labelText="Major Paravalvular Leak"
                          name="major_paravalvular_leak"
                          options={boolRadios}
                          selectedValue={data.major_paravalvular_leak}
@@ -237,7 +236,8 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
                     {role.coordinator && <FormButton processing={processing} labelText='Update' type="submit" mode="warning" />}
 
 
-               </form>
+               </form></> : <>Form is yet to be submitted and approved</>}
+
           </>
 
      )

@@ -4,12 +4,32 @@ namespace App\Http\Controllers\Reviewer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Echocardiography;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EchocardiographyReview extends Controller
 {
     public function __invoke(Request $request, Echocardiography $echocardiography)
     {
+        
+        $echocardiography->r_echodate =  Carbon::parse($request->r_echodate)->addHours(5)->addMinutes(30);
+
+        $echocardiography->r_peak_velocity = $request->r_peak_velocity;
+        $echocardiography->r_velocity_time_integral= $request->r_velocity_time_integral;
+        $echocardiography->r_peak_gradient= $request->r_peak_gradient;
+        $echocardiography->r_mean_gradient= $request->r_mean_gradient;
+        $echocardiography->r_heart_rate= $request->r_heart_rate;
+        $echocardiography->r_stroke_volume= $request->r_stroke_volume;
+        $echocardiography->r_dvi= $request->r_dvi;
+        $echocardiography->r_eoa= $request->r_eoa;
+        $echocardiography->r_acceleration_time= $request->r_acceleration_time;
+        $echocardiography->r_lvot_vti= $request->r_lvot_vti;
+        $echocardiography->r_lv_mass= $request->r_lv_mass;
+        $echocardiography->r_ivs_diastole= $request->r_ivs_diastole;
+        $echocardiography->r_pw_diastole= $request->r_pw_diastole;
+        $echocardiography->r_lvidend_systole= $request->r_lvidend_systole;
+        $echocardiography->r_lvidend_diastole= $request->r_lvidend_diastole;
+        $echocardiography->r_ejection_fraction= $request->r_ejection_fraction;
 
         $echocardiography->peak_velocity_normality =  $request->peak_velocity_normality;
         $echocardiography->velocity_time_integral_normality =  $request->velocity_time_integral_normality;

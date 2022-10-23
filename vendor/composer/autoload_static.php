@@ -604,6 +604,7 @@ class ComposerStaticIniteeca557e6e0d40500dca547c9e4fdc0b
         'App\\Http\\Controllers\\PreOperative\\SurgicalHistoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/PreOperative/SurgicalHistoryController.php',
         'App\\Http\\Controllers\\PreoperativeFileUploadController' => __DIR__ . '/../..' . '/app/Http/Controllers/PreoperativeFileUploadController.php',
         'App\\Http\\Controllers\\Reviewer\\EchocardiographyReview' => __DIR__ . '/../..' . '/app/Http/Controllers/Reviewer/EchocardiographyReview.php',
+        'App\\Http\\Controllers\\Reviewer\\EchocardiographyReviewed' => __DIR__ . '/../..' . '/app/Http/Controllers/Reviewer/EchocardiographyReviewed.php',
         'App\\Http\\Controllers\\ScheduledVisitController' => __DIR__ . '/../..' . '/app/Http/Controllers/ScheduledVisitController.php',
         'App\\Http\\Controllers\\ScheduledVisitFileUploadController' => __DIR__ . '/../..' . '/app/Http/Controllers/ScheduledVisitFileUploadController.php',
         'App\\Http\\Controllers\\ScheduledVisit\\SVEchocardiographyController' => __DIR__ . '/../..' . '/app/Http/Controllers/ScheduledVisit/SVEchocardiographyController.php',

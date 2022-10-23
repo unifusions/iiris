@@ -99,7 +99,7 @@ export default function Authenticated(props) {
                                 <li className="nav-item">
                                     <Link className="nav-link" href={route('tickets.index')}>
                                         <SupportIcon className='menu-arrow' style={iconStyle} />
-                                        <span className="menu-title ms-1">Tickets</span>
+                                        <span className="menu-title ms-1">Queries</span>
                                     </Link>
                                 </li>
 

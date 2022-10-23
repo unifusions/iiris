@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\CaseReportFormController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EchocardiographyGetReviewController;
 use App\Http\Controllers\EchoDicomFilesController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\PreOperativeController;
@@ -64,6 +65,7 @@ use App\Http\Controllers\UserController;
 use App\Models\EchoDicomFile;
 use App\Http\Controllers\IntrafileUploadController;
 use App\Http\Controllers\PostoperativeFileUploadController;
+use App\Http\Controllers\Preoperative\PreopEchoReviewController;
 use App\Http\Controllers\PreoperativeFileUploadController;
 use App\Http\Controllers\Reviewer\EchocardiographyReview;
 use App\Http\Controllers\Reviewer\EchocardiographyReviewed;
@@ -119,7 +121,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.preoperative.physicalactivity', PreOperativePhysicalActivityController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.medication', PreOperativeMedicationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.fileupload', PreoperativeFileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
-
+        
+        
+        
         Route::resource('crf.intraoperative', IntraOperativeController::class)->parameters(['crf' => 'crf:subject_id', 'intraoperative' => 'intraoperative:visit_no']);
         Route::resource('crf.intraoperative.fileupload', IntrafileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'intraoperative' => 'intraoperative:visit_no']); 
 
@@ -159,10 +163,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 
         Route::post('interactions', TicketCommentController::class)->name('interactions');
+        
         Route::patch('submitReview/{echocardiography}', EchocardiographyReview::class)->name('submitreview');
         Route::patch('MarkAsReviewed/{echocardiography}', EchocardiographyReviewed::class)->name('markasreviewed');
 
     });
+
+   
 
     Route::get('/dicomviewer/{echodicomfile}', [EchoDicomFilesController::class, 'viewer'] )->name('dicomviewer');
     Route::post('/dicomupload', [EchoDicomFilesController::class, 'uploaded'] )->name('dicomuploader');

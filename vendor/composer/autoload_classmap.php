@@ -48,6 +48,7 @@ return array(
     'App\\Http\\Controllers\\PreOperative\\SurgicalHistoryController' => $baseDir . '/app/Http/Controllers/PreOperative/SurgicalHistoryController.php',
     'App\\Http\\Controllers\\PreoperativeFileUploadController' => $baseDir . '/app/Http/Controllers/PreoperativeFileUploadController.php',
     'App\\Http\\Controllers\\Reviewer\\EchocardiographyReview' => $baseDir . '/app/Http/Controllers/Reviewer/EchocardiographyReview.php',
+    'App\\Http\\Controllers\\Reviewer\\EchocardiographyReviewed' => $baseDir . '/app/Http/Controllers/Reviewer/EchocardiographyReviewed.php',
     'App\\Http\\Controllers\\ScheduledVisitController' => $baseDir . '/app/Http/Controllers/ScheduledVisitController.php',
     'App\\Http\\Controllers\\ScheduledVisitFileUploadController' => $baseDir . '/app/Http/Controllers/ScheduledVisitFileUploadController.php',
     'App\\Http\\Controllers\\ScheduledVisit\\SVEchocardiographyController' => $baseDir . '/app/Http/Controllers/ScheduledVisit/SVEchocardiographyController.php',

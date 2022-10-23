@@ -102,7 +102,7 @@ export default function Index() {
                errors={errors}
                header={
                     <div className='d-flex justify-content-between align-items-center mb-3'>
-                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Tickets</h2>
+                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Queries</h2>
                          <Link href={route('tickets.create')} className="btn btn-primary" method="get" type="button" as="button" >Create</Link>
 
                     </div>
@@ -117,7 +117,7 @@ export default function Index() {
                          <Table hover responsive size="sm">
                               <thead>
                                    <tr>
-                                        <th>Ticket ID</th>
+                                        <th>Query ID</th>
                                         <th>Form Query</th>
                                         <th>Message</th>
                                         {(roles.admin || roles.sudo) &&

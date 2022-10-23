@@ -35,6 +35,24 @@ class Echocardiography extends Model
         'lvidend_systole',
         'lvidend_diastole',
         'ejection_fraction',
+
+        'r_echodate',
+        'r_peak_velocity',
+        'r_velocity_time_integral',
+        'r_peak_gradient',
+        'r_mean_gradient',
+        'r_heart_rate',
+        'r_stroke_volume',
+        'r_dvi',
+        'r_eoa',
+        'r_acceleration_time',
+        'r_lvot_vti',
+        'r_lv_mass',
+        'r_ivs_diastole',
+        'r_pw_diastole',
+        'r_lvidend_systole',
+        'r_lvidend_diastole',
+        'r_ejection_fraction',
         
 
         'peak_velocity_normality',
@@ -74,7 +92,8 @@ class Echocardiography extends Model
         'is_reviewed'
 
     ];
-    protected $dates = ['echodate'];
+    protected $dates = ['echodate', 'r_echodate'];
+    
 
     public function preoperatives()
     {

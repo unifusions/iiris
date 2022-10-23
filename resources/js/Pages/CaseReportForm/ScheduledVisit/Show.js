@@ -260,112 +260,174 @@ export default function Show() {
                                         Date of Visit : {scheduledvisit.pod}
                                    </Card.Body>
                               </Card>
-                              <PhysicalExaminationData
-                                   physicalexamination={physicalexamination}
-                                   enableActions={scheduledvisit.is_submitted}
-                                   role={roles}
-                                   showHWB={true}
-                                   createUrl={route('crf.scheduledvisit.physicalexamination.create', { crf: crf, scheduledvisit: scheduledvisit })}
-                                   editUrl={physicalexamination !== null && route('crf.scheduledvisit.physicalexamination.edit', { crf: crf, scheduledvisit: scheduledvisit, physicalexamination: physicalexamination })}
-                              />
-                              <SymptomsData
-                                   symptoms={symptoms}
-                                   enableActions={scheduledvisit.is_submitted}
-                                   role={roles}
-                                   title="Post Operative"
-                                   createUrl={route('crf.scheduledvisit.symptoms.create', { crf: crf, scheduledvisit: scheduledvisit })}
-                                   editUrl={symptoms !== null && route('crf.scheduledvisit.symptoms.edit', { crf: crf, scheduledvisit: scheduledvisit, symptom: symptoms })}
-                              />
 
-                              <PersonalHistoryData
-                                   personalhistories={personalhistories}
-                                   enableActions={scheduledvisit.is_submitted}
-                                   role={roles}
-                                   createUrl={route('crf.scheduledvisit.personalhistory.create', { crf: crf, scheduledvisit: scheduledvisit })}
-                                   editUrl={personalhistories !== null && route('crf.scheduledvisit.personalhistory.edit', { crf: crf, scheduledvisit: scheduledvisit, personalhistory: personalhistories })}
-                              />
+                              {!roles.reviewer ? <>
+                                   <PhysicalExaminationData
+                                        physicalexamination={physicalexamination}
+                                        enableActions={scheduledvisit.is_submitted}
+                                        role={roles}
+                                        showHWB={true}
+                                        createUrl={route('crf.scheduledvisit.physicalexamination.create', { crf: crf, scheduledvisit: scheduledvisit })}
+                                        editUrl={physicalexamination !== null && route('crf.scheduledvisit.physicalexamination.edit', { crf: crf, scheduledvisit: scheduledvisit, physicalexamination: physicalexamination })}
+                                   />
+                                   <SymptomsData
+                                        symptoms={symptoms}
+                                        enableActions={scheduledvisit.is_submitted}
+                                        role={roles}
+                                        title="Post Operative"
+                                        createUrl={route('crf.scheduledvisit.symptoms.create', { crf: crf, scheduledvisit: scheduledvisit })}
+                                        editUrl={symptoms !== null && route('crf.scheduledvisit.symptoms.edit', { crf: crf, scheduledvisit: scheduledvisit, symptom: symptoms })}
+                                   />
+                                   <PersonalHistoryData
+                                        personalhistories={personalhistories}
+                                        enableActions={scheduledvisit.is_submitted}
+                                        role={roles}
+                                        createUrl={route('crf.scheduledvisit.personalhistory.create', { crf: crf, scheduledvisit: scheduledvisit })}
+                                        editUrl={personalhistories !== null && route('crf.scheduledvisit.personalhistory.edit', { crf: crf, scheduledvisit: scheduledvisit, personalhistory: personalhistories })}
+                                   />
 
-                              <PhysicalActivityData
-                                   isPhyAct={scheduledvisit.physical_activity}
-                                   enableActions={scheduledvisit.is_submitted}
-                                   physicalactivites={physicalactivities}
-                                   role={roles}
-                                   linkUrl={route('crf.scheduledvisit.physicalactivity.index', { crf: crf, scheduledvisit: scheduledvisit })}
-                              />
+                                   <PhysicalActivityData
+                                        isPhyAct={scheduledvisit.physical_activity}
+                                        enableActions={scheduledvisit.is_submitted}
+                                        physicalactivites={physicalactivities}
+                                        role={roles}
+                                        linkUrl={route('crf.scheduledvisit.physicalactivity.index', { crf: crf, scheduledvisit: scheduledvisit })}
+                                   />
+                                   <LabInvestigationData
+                                        labinvestigations={labinvestigations}
+                                        enableActions={scheduledvisit.is_submitted}
+                                        role={roles}
+                                        createUrl={route('crf.scheduledvisit.labinvestigation.create', { crf: crf, scheduledvisit: scheduledvisit })}
+                                        editUrl={labinvestigations !== null && route('crf.scheduledvisit.labinvestigation.edit', { crf: crf, scheduledvisit: scheduledvisit, labinvestigation: labinvestigations })}
+                                   />
 
-                              <LabInvestigationData
-                                   labinvestigations={labinvestigations}
-                                   enableActions={scheduledvisit.is_submitted}
-                                   role={roles}
-                                   createUrl={route('crf.scheduledvisit.labinvestigation.create', { crf: crf, scheduledvisit: scheduledvisit })}
-                                   editUrl={labinvestigations !== null && route('crf.scheduledvisit.labinvestigation.edit', { crf: crf, scheduledvisit: scheduledvisit, labinvestigation: labinvestigations })}
-                              />
-
-                              <ElectrocardiogramData
-                                   electrocardiograms={electrocardiograms}
-                                   enableActions={scheduledvisit.is_submitted}
-                                   role={roles}
-                                   createUrl={route('crf.scheduledvisit.electrocardiogram.create', { crf: crf, scheduledvisit: scheduledvisit })}
-                                   editUrl={electrocardiograms !== null && route('crf.scheduledvisit.electrocardiogram.edit', { crf: crf, scheduledvisit: scheduledvisit, electrocardiogram: electrocardiograms })}
-                              />
-
-                              <EchocardiographyData
-                                   echocardiographies={echocardiographies}
-                                   enableActions={scheduledvisit.is_submitted}
-                                   echodicomfiles={echodicomfiles}
-                                   role={roles}
-                                   createUrl={route('crf.scheduledvisit.echocardiography.create', { crf: crf, scheduledvisit: scheduledvisit })}
-                                   editUrl={echocardiographies !== null && route('crf.scheduledvisit.echocardiography.edit', { crf: crf, scheduledvisit: scheduledvisit, echocardiography: echocardiographies })}
-                              />
+                                   <ElectrocardiogramData
+                                        electrocardiograms={electrocardiograms}
+                                        enableActions={scheduledvisit.is_submitted}
+                                        role={roles}
+                                        createUrl={route('crf.scheduledvisit.electrocardiogram.create', { crf: crf, scheduledvisit: scheduledvisit })}
+                                        editUrl={electrocardiograms !== null && route('crf.scheduledvisit.electrocardiogram.edit', { crf: crf, scheduledvisit: scheduledvisit, electrocardiogram: electrocardiograms })}
+                                   />
 
 
-                              <SafetyParameterData
-                                   safetyparameters={safetyparameters}
-                                   enableActions={scheduledvisit.is_submitted}
-                                   role={roles}
-                                   createUrl={route('crf.scheduledvisit.safetyparameter.create', { crf: crf, scheduledvisit: scheduledvisit })}
-                                   editUrl={safetyparameters !== null && route('crf.scheduledvisit.safetyparameter.edit', { crf: crf, scheduledvisit: scheduledvisit, safetyparameter: safetyparameters })} />
+                                   <EchocardiographyData
+                                        echocardiographies={echocardiographies}
+                                        enableActions={scheduledvisit.is_submitted}
+                                        echodicomfiles={echodicomfiles}
+                                        role={roles}
+                                        createUrl={route('crf.scheduledvisit.echocardiography.create', { crf: crf, scheduledvisit: scheduledvisit })}
+                                        editUrl={echocardiographies !== null && route('crf.scheduledvisit.echocardiography.edit', { crf: crf, scheduledvisit: scheduledvisit, echocardiography: echocardiographies })}
+                                   />
 
 
-                              <MedicationsData
-                                   hasMedication={scheduledvisit.hasMedications}
-                                   enableActions={scheduledvisit.is_submitted}
-                                   medications={medications}
-                                   role={roles}
-                                   linkUrl={route('crf.scheduledvisit.medication.index', { crf: crf, scheduledvisit: scheduledvisit })}
-                              />
 
-                              <Card className="mb-3 rounded-5 shadow-sm">
-                                   <Card.Body>
-                                        <div className='d-flex justify-content-between align-items-center'>
-                                             <div className='fs-6 fw-bold'>
-                                                  Dicom Files
-                                             </div>
-                                             {roles.coordinator &&
-                                                  <>
-                                                       {!scheduledvisit.is_submitted &&
-                                                            <Link href={route('crf.scheduledvisit.fileupload.index', { crf: crf, scheduledvisit: scheduledvisit })} type="submit" className='btn btn-primary btn-sm' method="get" as="button" >Upload Files</Link>
-
-                                                       }
-                                                  </>
-                                             }
+                                   <SafetyParameterData
+                                        safetyparameters={safetyparameters}
+                                        enableActions={scheduledvisit.is_submitted}
+                                        role={roles}
+                                        createUrl={route('crf.scheduledvisit.safetyparameter.create', { crf: crf, scheduledvisit: scheduledvisit })}
+                                        editUrl={safetyparameters !== null && route('crf.scheduledvisit.safetyparameter.edit', { crf: crf, scheduledvisit: scheduledvisit, safetyparameter: safetyparameters })} />
 
 
-                                        </div>
+                                   <MedicationsData
+                                        hasMedication={scheduledvisit.hasMedications}
+                                        enableActions={scheduledvisit.is_submitted}
+                                        medications={medications}
+                                        role={roles}
+                                        linkUrl={route('crf.scheduledvisit.medication.index', { crf: crf, scheduledvisit: scheduledvisit })}
+                                   />
 
-                                        <hr />
-                                        {svdicomfiles !== undefined &&
-                                             <div className='container'>
-                                                  <div className="row ">
-                                                       {svdicomfiles.map((file) =>
-                                                            <div key={file.id} className="col-md-4">
-                                                                 <a href={route('crf.scheduledvisit.fileupload.show', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file })} >{file.file_name} </a>
-                                                            </div>)}
+                                   <Card className="mb-3 rounded-5 shadow-sm">
+                                        <Card.Body>
+                                             <div className='d-flex justify-content-between align-items-center'>
+                                                  <div className='fs-6 fw-bold'>
+                                                       Dicom Files
                                                   </div>
+                                                  {roles.coordinator &&
+                                                       <>
+                                                            {!scheduledvisit.is_submitted &&
+                                                                 <Link href={route('crf.scheduledvisit.fileupload.index', { crf: crf, scheduledvisit: scheduledvisit })} type="submit" className='btn btn-primary btn-sm' method="get" as="button" >Upload Files</Link>
+
+                                                            }
+                                                       </>
+                                                  }
+
+
                                              </div>
-                                        }
-                                   </Card.Body>
-                              </Card>
+
+                                             <hr />
+                                             {svdicomfiles !== undefined &&
+                                                  <div className='container'>
+                                                       <div className="row ">
+                                                            {svdicomfiles.map((file) =>
+                                                                 <div key={file.id} className="col-md-4">
+                                                                      <a href={route('crf.scheduledvisit.fileupload.show', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file })} >{file.file_name} </a>
+                                                                 </div>)}
+                                                       </div>
+                                                  </div>
+                                             }
+                                        </Card.Body>
+                                   </Card>
+
+                              </> : <>
+
+                                   {(scheduledvisit.is_submitted && scheduledvisit.visit_status) ? <>
+                                        <EchocardiographyData
+                                             echocardiographies={echocardiographies}
+                                             enableActions={scheduledvisit.is_submitted}
+                                             echodicomfiles={echodicomfiles}
+                                             role={roles}
+                                             crf={crf}
+                                             editUrl={echocardiographies !== null && route('crf.scheduledvisit.echocardiography.edit', { crf: crf, scheduledvisit: scheduledvisit, echocardiography: echocardiographies })}
+                                        />
+                                   </> : <>
+                                        <Card className="mb-3 rounded-5 shadow-sm">
+                                             <Card.Body>
+                                                  Forms is yet to be submitted and approved.
+                                             </Card.Body>
+                                        </Card>
+                                   </>}
+
+
+                                   <Card className="mb-3 rounded-5 shadow-sm">
+
+                                        <Card.Body>
+                                             <div className='d-flex justify-content-between align-items-center'>
+                                                  <div className='fs-6 fw-bold'>
+                                                       Dicom Files
+                                                  </div>
+                                                  {roles.coordinator &&
+                                                       <>
+                                                            {!scheduledvisit.is_submitted &&
+                                                                 <Link href={route('crf.scheduledvisit.fileupload.index', { crf: crf, scheduledvisit: scheduledvisit })} type="submit" className='btn btn-primary btn-sm' method="get" as="button" >Upload Files</Link>
+
+                                                            }
+                                                       </>
+                                                  }
+
+
+                                             </div>
+
+                                             <hr />
+                                             {svdicomfiles !== undefined &&
+                                                  <div className='container'>
+                                                       <div className="row ">
+                                                            {svdicomfiles.map((file) =>
+                                                                 <div key={file.id} className="col-md-4">
+                                                                      <a href={route('crf.scheduledvisit.fileupload.show', { crf: crf, preoperative: preoperative, fileupload: file })} >{file.file_name} </a>
+                                                                 </div>)}
+                                                       </div>
+                                                  </div>
+                                             }
+                                        </Card.Body>
+                                   </Card>
+                              </>}
+
+
+
+
+
+
 
                          </Col>
 

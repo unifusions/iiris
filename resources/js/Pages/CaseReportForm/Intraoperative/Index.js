@@ -14,7 +14,7 @@ import ApprovalActionsApprove from './ApprovalActionsApprove';
 import { DocumentDownloadIcon } from '@heroicons/react/outline';
 
 
-function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles }) {
+function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role }) {
      const options = {
           day: 'numeric',
           month: 'numeric',
@@ -23,32 +23,34 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles }) {
      const iconStyle = { width: 15, height: 15, };
 
      return (<>
-{console.log(intraoperative.date_of_procedure)}
-          <RenderFieldDatas labelText='Date of Procedure' value={intraoperative.date_of_procedure !== null ? new Date(intraoperative.date_of_procedure).toLocaleString('en-in', options) : null} />
-          <RenderFieldDatas labelText='Arterial Cannulation' value={intraoperative.arterial_cannulation} />
-          <RenderFieldDatas labelText='Venous Cannulation' value={intraoperative.venous_cannulation} />
-          <RenderFieldDatas labelText='Cardioplegia' value={intraoperative.cardioplegia} />
-          <RenderFieldDatas labelText='Aortotomy' value={intraoperative.aortotomy} />
-          {intraoperative.aortotomy === 'Others' &&
-               <RenderFieldDatas labelText='' value={intraoperative.aortotomy_others} />
-          }
+          {!role.reviewer ? <>
+               <RenderFieldDatas labelText='Date of Procedure' value={intraoperative.date_of_procedure !== null ? new Date(intraoperative.date_of_procedure).toLocaleString('en-in', options) : null} />
+               <RenderFieldDatas labelText='Arterial Cannulation' value={intraoperative.arterial_cannulation} />
+               <RenderFieldDatas labelText='Venous Cannulation' value={intraoperative.venous_cannulation} />
+               <RenderFieldDatas labelText='Cardioplegia' value={intraoperative.cardioplegia} />
+               <RenderFieldDatas labelText='Aortotomy' value={intraoperative.aortotomy} />
+               {intraoperative.aortotomy === 'Others' &&
+                    <RenderFieldDatas labelText='' value={intraoperative.aortotomy_others} />
+               }
 
-          <RenderFieldDatas labelText='Annular Suturing Technique' value={intraoperative.annular_suturing_technique} />
+               <RenderFieldDatas labelText='Annular Suturing Technique' value={intraoperative.annular_suturing_technique} />
 
-          {intraoperative.annular_suturing_technique === 'Others' &&
-               <RenderFieldDatas labelText='' value={intraoperative.annular_suturing_others} />
-          }
+               {intraoperative.annular_suturing_technique === 'Others' &&
+                    <RenderFieldDatas labelText='' value={intraoperative.annular_suturing_others} />
+               }
 
 
-          <RenderFieldDatas labelText='Total Cardiopulmonary Bypass Time' value={intraoperative.tcb_time} />
-          <RenderFieldDatas labelText='Aortic Cross Clamp Time' value={intraoperative.acc_time} />
-          <RenderFieldDatas labelText='Concomitant Procedure' value={intraoperative.concomitant_procedure} />
-          <RenderFieldBoolNoDatas labelText='All paravalvular leak' boolValue={intraoperative.all_paravalvular_leak} value={intraoperative.all_paravalvular_leak_specify} />
-          <RenderFieldBoolNoDatas labelText='Major Pravalvular Leak' boolValue={intraoperative.major_paravalvular_leak} value={intraoperative.major_paravalvular_leak_specify} />
+               <RenderFieldDatas labelText='Total Cardiopulmonary Bypass Time' value={intraoperative.tcb_time} />
+               <RenderFieldDatas labelText='Aortic Cross Clamp Time' value={intraoperative.acc_time} />
+               <RenderFieldDatas labelText='Concomitant Procedure' value={intraoperative.concomitant_procedure} />
+               <RenderFieldBoolNoDatas labelText='All paravalvular leak' boolValue={intraoperative.all_paravalvular_leak} value={intraoperative.all_paravalvular_leak_specify} />
+               <RenderFieldBoolNoDatas labelText='Major Pravalvular Leak' boolValue={intraoperative.major_paravalvular_leak} value={intraoperative.major_paravalvular_leak_specify} />
 
+
+          </> : <>Form is yet to be approved</>}
           {intradicomfiles !== undefined &&
                <Row>
-                    <Col md={4} className='text-secondary'>Related Dicom Files</Col>
+                    <Col md={4} className='text-secondary'>Related Echo Files</Col>
                     <Col md={8} >
 
                          <ul className="file-list">
@@ -63,6 +65,7 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles }) {
                </Row>
 
           }
+
      </>
      )
 }
@@ -85,43 +88,43 @@ export default class Index extends React.Component {
 
                     <div className='wrapper'>
 
-                              <Row >
+                         <Row >
                               <Col md={9} lg={10}>
-                              <div className='d-flex justify-content-between align-items-center mb-3'>
-                                   <h2 className="font-semibold text-xl text-gray-800 leading-tight">Case Report Forms \ {crf.subject_id} \ Intraoperative</h2>
-                                   <div className='d-flex'>
-                                        <Link href={route('crf.show', { crf: crf })} className="btn btn-secondary me-2" type="button" as="button" >Back</Link>
-                                        <ApprovalSubmit role={roles} crf={crf} intraoperative={intraoperative} />
-                                        {intraoperative.is_submitted ? <>
-                                             <ApprovalActionsDisapprove role={roles} crf={crf} intraoperative={intraoperative} />
-                                             <ApprovalActionsApprove role={roles} crf={crf} intraoperative={intraoperative} />
-                                        </> : ''
-                                        }
+                                   <div className='d-flex justify-content-between align-items-center mb-3'>
+                                        <h2 className="font-semibold text-xl text-gray-800 leading-tight">Case Report Forms \ {crf.subject_id} \ Intraoperative</h2>
+                                        <div className='d-flex'>
+                                             <Link href={route('crf.show', { crf: crf })} className="btn btn-secondary me-2" type="button" as="button" >Back</Link>
+                                             <ApprovalSubmit role={roles} crf={crf} intraoperative={intraoperative} />
+                                             {intraoperative.is_submitted ? <>
+                                                  <ApprovalActionsDisapprove role={roles} crf={crf} intraoperative={intraoperative} />
+                                                  <ApprovalActionsApprove role={roles} crf={crf} intraoperative={intraoperative} />
+                                             </> : ''
+                                             }
+
+                                        </div>
+
+
 
                                    </div>
 
 
+                                   <RenderFormStatus
+                                        isSubmitted={intraoperative.is_submitted}
+                                        visitStatus={intraoperative.visit_status}
+                                        visitNo=''
+                                        formTitle="Intraoperative " />
 
-                              </div>
-                             
+                                   <CaseReportFormData crf={crf} />
 
-                              <RenderFormStatus
-                                   isSubmitted={intraoperative.is_submitted}
-                                   visitStatus={intraoperative.visit_status}
-                                   visitNo=''
-                                   formTitle="Intraoperative " />
+                                   <Card className='shadow-sm rounded-t'>
+                                        <Card.Body>
+                                             {intraoperative.is_submitted ? <>
+                                                  <SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} />
 
-                              <CaseReportFormData crf={crf} />
-
-                              <Card className='shadow-sm rounded-t'>
-                                   <Card.Body>
-                                        {intraoperative.is_submitted ? <>
-                                             <SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} />
-
-                                        </> : <> <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} /> </>}
-                                   </Card.Body>
-                              </Card>
-</Col>
+                                             </> : <> <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} /> </>}
+                                        </Card.Body>
+                                   </Card>
+                              </Col>
                               <Col md={3} lg={2}>
                                    <div className='fs-6 fw-bold'>Notifications</div>
 
@@ -138,7 +141,7 @@ export default class Index extends React.Component {
                                    </ul>
 
                               </Col>
-</Row>
+                         </Row>
                     </div>
 
 
