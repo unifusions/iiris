@@ -19,6 +19,7 @@ const Create = () => {
           pre_operative_data_id: preoperative !== undefined ? preoperative.id : null,
           post_operative_data_id: postoperative !== undefined ? postoperative.id : null,
           scheduled_visit_id: scheduledvisit !== undefined ? scheduledvisit.id : null,
+          unscheduled_visit_id: unscheduledvisit !== undefined ? unscheduledvisit.id : null,
           symptoms: '',
           angina: '', angina_class: '', angina_duration: '',
           dyspnea: '', dyspnea_class: '', dyspnea_duration: '',

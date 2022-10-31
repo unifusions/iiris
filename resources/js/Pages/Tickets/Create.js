@@ -94,7 +94,7 @@ export default function Create() {
 
                               <Row className="mb-3">
                                    <Col md={3}>
-                                        Raise Ticket
+                                        Raise Query
                                    </Col>
                                    <Col md={6}>
                                         <Select options={listUsers}
@@ -118,7 +118,7 @@ export default function Create() {
 
                                    </Col>
                                    <Col md={6}>
-                                        <FormButton processing={processing} labelText='Create Ticket' type="submit" mode="primary" />
+                                        <FormButton processing={processing} labelText='Create Query' type="submit" mode="primary" />
                                         <Link href={route('tickets.index')} className="btn btn-secondary ms-3" method="get" type="button" as="button" >Back</Link>
                                    </Col>
                               </Row>

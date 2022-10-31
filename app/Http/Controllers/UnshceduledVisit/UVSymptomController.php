@@ -48,7 +48,9 @@ class UVSymptomController extends Controller
             'mode' => 'unscheduledvisit',
             'unscheduledvisit' => $unscheduledvisit,
             'symptom' => $symptom,
-            'backUrl' => route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit])
+            'backUrl' => route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]),
+            'title' => 'Post Operative',
+            
         ]);
     }
 

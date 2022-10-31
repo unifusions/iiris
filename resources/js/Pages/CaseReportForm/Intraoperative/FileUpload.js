@@ -53,7 +53,7 @@ export default function FileUpload() {
 
                                              <Row>
                                                   <Col lg={3} >
-                                                       Dicom Files
+                                                       Echo Files
                                                   </Col>
                                                   <Col lg={9}>
                                                        <div className="input-group">

@@ -57,7 +57,7 @@ const Create = () => {
                case 'scheduledvisit':
                     return post(route(`${postUrl}`, { crf: crf, scheduledvisit: scheduledvisit }));
                case 'unscheduledvisit':
-                    return post(route(`${postUrl}`, { crf: crf, postoperative: unscheduledvisit }));
+                    return post(route(`${postUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit }));
 
           }
      }

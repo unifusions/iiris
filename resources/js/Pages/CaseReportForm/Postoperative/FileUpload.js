@@ -44,7 +44,7 @@ export default function FileUpload() {
 
 
                     <Container>
-                         <PageTitle backUrl={route('crf.postoperative.show', { crf: crf, postoperative: postoperative })} pageTitle='Postoperative File Uploads' role={roles} />
+                         <PageTitle backUrl={route('crf.postoperative.show', { crf: crf, postoperative: postoperative })} pageTitle='Postoperative Echo File Uploads' role={roles} />
 
                          <Card className="mb-3 shadow-sm rounded-5">
                               <Card.Body>
@@ -53,7 +53,7 @@ export default function FileUpload() {
 
                                              <Row>
                                                   <Col lg={3} >
-                                                       Dicom Files
+                                                       Echo Files
                                                   </Col>
                                                   <Col lg={9}>
                                                        <div className="input-group">

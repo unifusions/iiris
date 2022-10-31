@@ -209,7 +209,7 @@ export default function Show() {
                                    editUrl={physicalexamination !== null && route('crf.unscheduledvisit.physicalexamination.edit', { crf: crf, unscheduledvisit: unscheduledvisit, physicalexamination: physicalexamination })}
                               />
 
-
+                            
                               <SymptomsData
                                    symptoms={symptoms}
                                    enableActions={unscheduledvisit.is_submitted}
@@ -250,7 +250,7 @@ export default function Show() {
                                    enableActions={unscheduledvisit.is_submitted}
                                    role={roles}
                                    createUrl={route('crf.unscheduledvisit.electrocardiogram.create', { crf: crf, unscheduledvisit: unscheduledvisit })}
-                                   editUrl={electrocardiograms !== null && route('crf.scheduledvisit.electrocardiogram.edit', { crf: crf, unscheduledvisit: scheduledvisit, electrocardiogram: electrocardiograms })}
+                                   editUrl={electrocardiograms !== null && route('crf.unscheduledvisit.electrocardiogram.edit', { crf: crf, unscheduledvisit: unscheduledvisit, electrocardiogram: electrocardiograms })}
                               />
 
 
@@ -296,7 +296,7 @@ export default function Show() {
                               <Card.Body>
                                    <div className='d-flex justify-content-between align-items-center'>
                                         <div className='fs-6 fw-bold'>
-                                             Dicom Files
+                                             Echo Files
                                         </div>
                                         {roles.coordinator &&
                                              <>

@@ -40,7 +40,7 @@ const Create = () => {
                case 'scheduledvisit':
                     return put(route(`${updateUrl}`, { crf: crf, scheduledvisit: scheduledvisit }));
                case 'unscheduledvisit':
-                    return put(route(`${updateUrl}`, { crf: crf, postoperative: unscheduledvisit }));
+                    return put(route(`${updateUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit }));
 
           }
      }
@@ -104,6 +104,18 @@ const Create = () => {
                                              selectedValue={data.svHasMedications}
                                              error={errors.svHasMedications}
                                              className={`${errors.svHasMedications ? 'is-invalid' : ''}`}
+                                        />}
+
+                                        
+                                   {unscheduledvisit !== undefined &&
+                                        <FormRadio
+                                             labelText='Has Medications?'
+                                             options={boolRadios}
+                                             name="usvHasMedications"
+                                             handleChange={e => setData('usvHasMedications', e.target.value)}
+                                             selectedValue={data.usvHasMedications}
+                                             error={errors.usvHasMedications}
+                                             className={`${errors.usvHasMedications ? 'is-invalid' : ''}`}
                                         />}
 
                                    <hr />

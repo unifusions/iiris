@@ -37,7 +37,7 @@ class PhysicalActivityService
      {
           $physicalactivity = PhysicalActivity::Create([
 
-               'unscheduled_visits_id' => $request->scheduledvisit->id,
+               'unscheduled_visits_id' => $request->unscheduledvisit->id,
                'activity_type' => $request->activity_type,
                'duration' => $request->duration,
 

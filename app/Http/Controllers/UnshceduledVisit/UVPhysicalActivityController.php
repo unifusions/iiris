@@ -23,6 +23,8 @@ class UVPhysicalActivityController extends Controller
             'backUrl' => route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]),
             'physicalactivities' => $unscheduledvisit->physicalactivities
         ]);
+
+  
     }
 
     public function create()

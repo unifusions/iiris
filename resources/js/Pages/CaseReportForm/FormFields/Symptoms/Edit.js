@@ -21,7 +21,8 @@ const Edit = () => {
           case_report_form_id: crf.id,
           pre_operative_data_id: symptom.pre_operative_data_id,
           post_operative_data_id: symptom.post_operative_data_id,
-
+          scheduled_visit_id: symptom.scheduledvisit,
+          unscheduled_visit_id: symptom.unscheduledvisit,
           symptoms: symptom.symptoms !== null ? symptom.symptoms ? '1' : '0' : null,
           angina: symptom.angina !== null ? symptom.angina ? '1' : '0' : null,
           angina_class: symptom.angina_class !== null ? symptom.angina_class : null,
@@ -77,9 +78,9 @@ const Edit = () => {
                case 'postoperative':
                     return put(route(`${putUrl}`, { crf: crf, postoperative: postoperative, symptom: symptom }));;
                case 'scheduledvisit':
-                    return post(route(`${postUrl}`, { crf: crf, scheduledvisit: scheduledvisit }));
+                    return put(route(`${putUrl}`, { crf: crf, scheduledvisit: scheduledvisit, symptom: symptom  }));
                case 'unscheduledvisit':
-                    return post(route(`${postUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit }));
+                    return put(route(`${putUrl}`, { crf: crf, unscheduledvisit: unscheduledvisit, symptom: symptom  }));
 
           }
      }

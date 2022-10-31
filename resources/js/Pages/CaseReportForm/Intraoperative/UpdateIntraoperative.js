@@ -213,7 +213,7 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
 
                     {intradicomfiles !== undefined &&
                          <Row>
-                              <Col md={3} className='text-secondary'>Related Dicom Files</Col>
+                              <Col md={3} className='text-secondary'>Echo Files</Col>
                               <Col md={6} >
                                    <ul className="list-style-none">
                                         {intradicomfiles.map((file) =>

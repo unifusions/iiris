@@ -241,7 +241,7 @@ export function RenderFormStatus({ isSubmitted, visitStatus, formTitle, visitNo 
                     <>
                          <div className='bg-success text-white p-3 mb-3 rounded-5 shadow-sm'>
                               {formTitle} Data has been submitted & approved. To modify data, please raise a
-                              <Link href={route('tickets.index')} className="fw-bold text-white" style={{ textDecoration: 'none' }}> ticket</Link>
+                              <Link href={route('tickets.index')} className="fw-bold text-white" style={{ textDecoration: 'none' }}> query</Link>
                          </div>
                     </> : <div className='bg-warning text-dark p-3 mb-3 rounded-5'>
                          {formTitle} {visitNo} Data has been submitted. Please wait until your investigator approves/disapproves

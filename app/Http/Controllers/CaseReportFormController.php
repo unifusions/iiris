@@ -66,14 +66,14 @@ class CaseReportFormController extends Controller
             'svremarks' => $crf->scheduledvisits->map(function ($sv) {
                 return [
                     'visit_no' => $sv->visit_no,
-                    'remarks' => $sv->remarks
+                    'remarks' => $sv->approvalremarks
 
                 ];
             }),
             'usvremarks' => $crf->unscheduledvisits->map(function ($usv) {
                 return [
                     'visit_no' => $usv->visit_no,
-                    'remarks' => $usv->remarks
+                    'remarks' => $usv->approvalremarks,
 
                 ];
             }),

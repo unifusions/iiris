@@ -341,7 +341,7 @@ export default function Show() {
                                         <Card.Body>
                                              <div className='d-flex justify-content-between align-items-center'>
                                                   <div className='fs-6 fw-bold'>
-                                                       Dicom Files
+                                                       Echo Files
                                                   </div>
                                                   {roles.coordinator &&
                                                        <>
@@ -394,7 +394,7 @@ export default function Show() {
                                         <Card.Body>
                                              <div className='d-flex justify-content-between align-items-center'>
                                                   <div className='fs-6 fw-bold'>
-                                                       Dicom Files
+                                                       Echo Files
                                                   </div>
                                                   {roles.coordinator &&
                                                        <>

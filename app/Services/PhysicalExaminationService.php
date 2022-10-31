@@ -78,7 +78,7 @@ class PhysicalExaminationService
      {
           $physicalexamination = PhysicalExamination::Create([
                'case_report_form_id' => $request->crf->id,
-               'unscheduled_visits_id' => $request->scheduledvisit->id,
+               'unscheduled_visits_id' => $request->unscheduledvisit->id,
                'height' => $request->height,
                'weight' => $request->weight,
                'bsa' => $request->bsa,

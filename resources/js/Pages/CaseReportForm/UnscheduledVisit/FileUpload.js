@@ -42,7 +42,7 @@ export default function FileUpload() {
 
 
                     <Container>
-                         <PageTitle backUrl={route('crf.unscheduledvisit.show', { crf: crf, unscheduledvisit: unscheduledvisit })} pageTitle='Unscheduled Visit File Uploads' role={roles} />
+                         <PageTitle backUrl={route('crf.unscheduledvisit.show', { crf: crf, unscheduledvisit: unscheduledvisit })} pageTitle={`Unscheduled Visit : ${unscheduledvisit.visit_no} Echo File Uploads`} role={roles} />
 
                          <Card className="mb-3 shadow-sm rounded-5">
                               <Card.Body>
@@ -51,7 +51,7 @@ export default function FileUpload() {
 
                                              <Row>
                                                   <Col lg={3} >
-                                                       Dicom Files
+                                                       Echo Files
                                                   </Col>
                                                   <Col lg={9}>
                                                        <div className="input-group">

@@ -74,7 +74,7 @@ const Create = () => {
                }
           >
                <Head title="Physical Activity" />
-               
+
 
                <Container>
                     <PageTitle backUrl={backUrl} pageTitle='Physical Activity' role={roles} />
@@ -152,6 +152,14 @@ const Create = () => {
                          <>
                               {scheduledvisit.physical_activity ? <CreatePhysicalActivity
                                    mode={mode} postUrl={postUrl} scheduledvisit={scheduledvisit} crf={crf} physicalactivities={physicalactivities} modalTitle='Create Physical Activity' /> : ''}
+                         </>
+
+                    }
+
+                    {unscheduledvisit !== undefined &&
+                         <>
+                              {unscheduledvisit.physical_activity ? <CreatePhysicalActivity
+                                   mode={mode} postUrl={postUrl} unscheduledvisit={unscheduledvisit} crf={crf} physicalactivities={physicalactivities} modalTitle='Create Physical Activity' /> : ''}
                          </>
 
                     }

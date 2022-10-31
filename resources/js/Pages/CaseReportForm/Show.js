@@ -150,11 +150,11 @@ export default class Show extends React.Component {
                                    <Row className='align-items-stretch'>
 
                                         {usvremarks.map((sv) => <Col md={3} lg={3} key={sv.visit_no}>
-                                             {/* <RenderRemarks cardTitle={`Unscheduled Visit No. ${sv.visit_no} Comments`} remarks={sv.remarks} /> */}
+                                             <RenderRemarks cardTitle={`Unscheduled Visit No. ${sv.visit_no} Comments`} remarks={sv.remarks} />
                                         </Col>)}
 
 
-
+{console.log(usvremarks)}
 
                                    </Row>
                                    {/* <Tab.Container id="left-tabs-example" defaultActiveKey="preoperative">
