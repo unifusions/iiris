@@ -66,7 +66,7 @@ export default function Create() {
                errors={errors}
                header={
                     <div className='d-flex justify-content-between align-items-center mb-3'>
-                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Tickets</h2>
+                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Queries</h2>
                          {/* {roles.coordinator && <Link href={route('crf.create')} className="btn btn-primary" method="get" type="button" as="button" >Create</Link>} */}
 
                     </div>
@@ -76,7 +76,7 @@ export default function Create() {
           >
 
 
-               <Head title="Tickets" />
+               <Head title="Query" />
                
                <Card className="shadow-sm rounded-5">
                     <Card.Body>

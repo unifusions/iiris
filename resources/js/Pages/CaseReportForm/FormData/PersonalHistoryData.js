@@ -57,7 +57,7 @@ export default function PersonalHistoryData({ personalhistories, role, createUrl
                               <RenderFieldDatas labelText='Alcohol' value={personalhistories.alchohol} />
 
                               {personalhistories.alchohol !== 'Never' && <>
-                                   <RenderFieldDatas labelText='Quantity' value={personalhistories.quantity} />
+                                   <RenderFieldDatas labelText='Quantity' value={personalhistories.quantity} units='ml'/>
                                    <RenderDateFieldDatas labelText='Consuming Since' value={personalhistories.alchohol_since} options={options} />
                                    {personalhistories.alchohol === 'Used to consume in the past' && <>
                                         <RenderDateFieldDatas labelText='Stopped Since' value={personalhistories.alchohol_stopped} options={options} />
