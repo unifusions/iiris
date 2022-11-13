@@ -31,6 +31,13 @@ const AdminNavigation = () => {
                     <span className="menu-title ms-1">Users</span>
                 </Link>
             </li>
+
+            <li className="nav-item">
+                <Link className="nav-link" href={route('reports.index')}>
+                    <DocumentTextIcon className='menu-arrow' style={iconStyle} />
+                    <span className="menu-title ms-1">Reports</span>
+                </Link>
+            </li>
         </>
     )
 
@@ -85,7 +92,7 @@ export default function Authenticated(props) {
                                     </Link>
                                 </li>
 
-                                <li className="nav-item">
+                                {/* <li className="nav-item">
                                     <Link className="nav-link"
                                     href={route('underconstruction')}
                                         // href={route('logs.index')}
@@ -93,7 +100,7 @@ export default function Authenticated(props) {
                                         <ViewListIcon className='menu-arrow' style={iconStyle} />
                                         <span className="menu-title ms-1">Logs</span>
                                     </Link>
-                                </li>
+                                </li> */}
 
 
                                 <li className="nav-item">

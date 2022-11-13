@@ -414,7 +414,7 @@ export default function Show() {
                                                        <div className="row ">
                                                             {svdicomfiles.map((file) =>
                                                                  <div key={file.id} className="col-md-4">
-                                                                      <a href={route('crf.scheduledvisit.fileupload.show', { crf: crf, preoperative: preoperative, fileupload: file })} >{file.file_name} </a>
+                                                                      <a href={route('crf.scheduledvisit.fileupload.show', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file })} >{file.file_name} </a>
                                                                  </div>)}
                                                        </div>
                                                   </div>

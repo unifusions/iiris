@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\PhysicalExaminationExport;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -64,14 +65,20 @@ use App\Http\Controllers\UnshceduledVisit\UVSafetyParameterController;
 use App\Http\Controllers\UserController;
 use App\Models\EchoDicomFile;
 use App\Http\Controllers\IntrafileUploadController;
+use App\Http\Controllers\PhysicalExaminationController;
 use App\Http\Controllers\PostoperativeFileUploadController;
 use App\Http\Controllers\Preoperative\PreopEchoReviewController;
 use App\Http\Controllers\PreoperativeFileUploadController;
+use App\Http\Controllers\Reports\CaseReportFormExportController;
+use App\Http\Controllers\Reports\PhysicalExaminationExportController;
+use App\Http\Controllers\Reports\UserExportController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\Reviewer\EchocardiographyReview;
 use App\Http\Controllers\Reviewer\EchocardiographyReviewed;
 use App\Http\Controllers\ScheduledVisitFileUploadController;
 use App\Http\Controllers\UnscheduledVisitFileUploadController;
 use App\Models\Echocardiography;
+use Maatwebsite\Excel\Facades\Excel;
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -99,6 +106,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('tickets', TicketsController::class);
     Route::resource('logs', LogController::class);
     Route::resource('users', UserController::class);
+    Route::resource('reports', ReportsController::class);
+
+    Route::get('reports/export/users', UserExportController::class)->name('downloadReport');
+    Route::get('/reports/export/crf', CaseReportFormExportController::class)->name('downloadCrfReport');
+    Route::get('/reports/export/physicalexamination', PhysicalExaminationExportController::class)->name('downloadPhysicalExaminationReport');
+
+    
+
+
     Route::resource('crf', CaseReportFormController::class)->parameters(['crf' => 'crf:subject_id']);
 
     Route::scopeBindings()->group(function () {

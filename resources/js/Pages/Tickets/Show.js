@@ -22,7 +22,7 @@ export default function Show() {
                errors={errors}
                header={
                     <div className='d-flex justify-content-between align-items-center mb-3'>
-                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Tickets</h2>
+                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Queries</h2>
                          <Link href={backUrl} className="btn btn-secondary" method="get" type="button" as="button" >Back</Link>
                     </div>
 
@@ -31,7 +31,7 @@ export default function Show() {
           >
 
 
-               <Head title="Tickets" />
+               <Head title="Queries" />
                <Row>
                     <Col md={6}>
                          <Card className="shadow-sm rounded-5 mb-3">

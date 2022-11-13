@@ -22,11 +22,11 @@ protected $fillable = [
     'diastolic_bp',
 ];
     public function preoperative(){
-        return $this->belongsTo(PreOperativeData::class);
+        return $this->belongsTo(PreOperativeData::class, 'pre_operative_data_id');
     }
 
     public function postoperative(){
-        return $this->belongsTo(PostOperativeData::class);
+        return $this->belongsTo(PostOperativeData::class, 'post_operative_data_id');
     }
 
 }
