@@ -42,16 +42,16 @@ class CaseReportFormExport implements FromQuery, WithHeadings, WithMapping
 
             'Angina on Exertion', 'Class', 'Duration',
             'Dyspnea on Exertion', 'Class', 'Duration',
-            'Syncope', 'Class', 'Duration',
-            'Palpitation', 'Class', 'Duration',
-            'Giddiness', 'Class', 'Duration',
-            'Fever', 'Class', 'Duration',
-            'Heart Failure Admission', 'Class', 'Duration',
+            'Syncope',  'Duration',
+            'Palpitation', 'Duration',
+            'Giddiness',  'Duration',
+            'Fever',  'Duration',
+            'Heart Failure Admission',  'Duration',
             'Others', 'Others Specify', 'Duration',
 
             'Smoking', 'Quantity', 'Since', 'Stopped',
             'Drinking', 'Quantity', 'Since', 'Stopped',
-            'Tobacco', 'Quantity', 'Since', 'Stopped',
+            'Tobacco', 'Type', 'Quantity', 'Since', 'Stopped',
 
             'Date of Investigation',
             'Red Blood Cell (RBC)',
@@ -132,11 +132,11 @@ class CaseReportFormExport implements FromQuery, WithHeadings, WithMapping
 
             'Angina on Exertion', 'Class', 'Duration',
             'Dyspnea on Exertion', 'Class', 'Duration',
-            'Syncope', 'Class', 'Duration',
-            'Palpitation', 'Class', 'Duration',
-            'Giddiness', 'Class', 'Duration',
-            'Fever', 'Class', 'Duration',
-            'Heart Failure Admission', 'Class', 'Duration',
+            'Syncope', 'Duration',
+            'Palpitation', 'Duration',
+            'Giddiness', 'Duration',
+            'Fever', 'Duration',
+            'Heart Failure Admission', 'Duration',
             'Others', 'Others Specify', 'Duration',
 
             'Date of Investigation',
@@ -233,6 +233,7 @@ class CaseReportFormExport implements FromQuery, WithHeadings, WithMapping
                 Carbon::parse($crf->date_of_birth)->format('d/m/Y'),
                 Carbon::createFromDate($crf->date_of_birth)->diffInYears(Carbon::now()),
                 $crf->gender,
+
                 $preoperative->physicalexaminations->height ?? 'NA',
                 $preoperative->physicalexaminations->weight?? 'NA',
                 $preoperative->physicalexaminations->bsa?? 'NA',
@@ -247,8 +248,10 @@ class CaseReportFormExport implements FromQuery, WithHeadings, WithMapping
                 $preoperative->symptoms->dyspnea?? 'NA',
                 $preoperative->symptoms->dyspnea_class?? 'NA',
                 $preoperative->symptoms->dyspnea_duration?? 'NA',
+
                 $preoperative->symptoms->syncope?? 'NA',
                 $preoperative->symptoms->syncope_duration?? 'NA',
+
                 $preoperative->symptoms->palpitation?? 'NA',
                 $preoperative->symptoms->palpitation_duration?? 'NA',
                 $preoperative->symptoms->giddiness?? 'NA',
