@@ -292,7 +292,7 @@ class CaseReportFormExport implements FromQuery, WithHeadings, WithMapping
                 $preoperative->labinvestigations->bilirubin,
                 $preoperative->labinvestigations->pt_inr,
 
-                $preoperative->electrocardiograms->ecg_date,
+                $preoperative->electrocardiograms->ecg_date ?? 'NA',
                 $preoperative->electrocardiograms->rhythm,
                 $preoperative->electrocardiograms->rhythm_others,
                 $preoperative->electrocardiograms->rate,
@@ -301,7 +301,7 @@ class CaseReportFormExport implements FromQuery, WithHeadings, WithMapping
                 $preoperative->electrocardiograms->printerval,
                 $preoperative->electrocardiograms->qrsduration,
 
-                $preoperative->echocardiographies->echodate,
+                $preoperative->echocardiographies->echodate  ?? 'NA',
                 $preoperative->echocardiographies->peak_velocity,
                 $preoperative->echocardiographies->velocity_time_integral,
                 $preoperative->echocardiographies->peak_gradient,
@@ -319,7 +319,7 @@ class CaseReportFormExport implements FromQuery, WithHeadings, WithMapping
                 $preoperative->echocardiographies->lvidend_diastole,
                 $preoperative->echocardiographies->ejection_fraction,
 
-                $preoperative->echocardiographies->r_echodate,
+                $preoperative->echocardiographies->r_echodate  ?? 'NA',
 
                 $preoperative->echocardiographies->r_peak_velocity,
                 $preoperative->echocardiographies->peak_velocity_normality,
