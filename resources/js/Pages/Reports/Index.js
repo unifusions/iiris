@@ -39,14 +39,14 @@ export default class Index extends React.Component {
                                    </Col>
                               </Row>
 
-                              <Row>
+                              {/* <Row>
                                    <Col md={4}>
                                   Physical Examination
                                    </Col>
                                    <Col md={8}>
                                         <a href={route('downloadPhysicalExaminationReport')} className="btn btn-primary" method="get" type="button" as="button" >Download</a>
                                    </Col>
-                              </Row>
+                              </Row> */}
 
                          </Card.Body>
 
