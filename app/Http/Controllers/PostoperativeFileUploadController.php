@@ -47,7 +47,7 @@ class PostoperativeFileUploadController extends Controller
     }
 
 
-    public function show(CaseReportForm $crf, PostOperativeData $preoperative, PostoperativeDicomFile $fileupload)
+    public function show(CaseReportForm $crf, PostOperativeData $postoperative, PostoperativeDicomFile $fileupload)
     {
         $pathToFile = storage_path('app/public/'. $fileupload->file_path);
         return response()->download($pathToFile);
