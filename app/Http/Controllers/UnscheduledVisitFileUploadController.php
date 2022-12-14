@@ -48,9 +48,10 @@ class UnscheduledVisitFileUploadController extends Controller
         return redirect()->route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]);
     }
 
-    public function show($id)
+    public function show(CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, UnscheduledVisitDicomFile $fileupload)
     {
-        
+        $pathToFile = storage_path('app/public/'. $fileupload->file_path);
+        return response()->download($pathToFile);
     }
 
     public function edit($id)

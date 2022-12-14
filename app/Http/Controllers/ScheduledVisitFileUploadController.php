@@ -49,9 +49,10 @@ class ScheduledVisitFileUploadController extends Controller
     }
 
     
-    public function show($id)
+    public function show(CaseReportForm $crf, ScheduledVisit $scheduledvisit, ScheduledVisitDicomFile $fileupload)
     {
-        //
+        $pathToFile = storage_path('app/public/'. $fileupload->file_path);
+        return response()->download($pathToFile);
     }
 
     
