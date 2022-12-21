@@ -60,8 +60,9 @@ class PreOperativeController extends Controller
      */
     public function show(CaseReportForm $crf, PreOperativeData $preoperative)
     {
-       
-        
+
+        // dd($preoperative->fileuploads->map(fn($file) => ['extension' =>  pathinfo(storage_path('app/public/' . $file->file_path), PATHINFO_EXTENSION)]));
+
         // $preop = CaseReportFormVisitMode::find($id);
         // return view('casereportforms.visits.preoperative.show', compact('preop'));
         return Inertia::render('CaseReportForm/Preoperative/Index', [
@@ -79,13 +80,18 @@ class PreOperativeController extends Controller
             'labinvestigations' => $preoperative->labinvestigations,
             'medications' => $preoperative->medications,
             'preopdicomfiles' => $preoperative->fileuploads,
+            'preopfileswext' => $preoperative->fileuploads->map(fn ($file) => [
+                'file' => $file,
+                
+                'extension' =>  pathinfo(storage_path('app/public/' . $file->file_path), PATHINFO_EXTENSION)
+            ]),
             'approvalremarks' => $preoperative->approvalremarks,
-            'echodicomfiles' => $preoperative->echocardiographies ? 
-            EchoDicomFile::where('echocardiography_id', $preoperative->echocardiographies->id)->get()->map(fn ($file) => [
-                'id' => $file->id,
-                'file_name' => $file->file_name,
-                'download_url' => storage_path('app/public/' . $file->file_path)
-            ]) : null
+            'echodicomfiles' => $preoperative->echocardiographies ?
+                EchoDicomFile::where('echocardiography_id', $preoperative->echocardiographies->id)->get()->map(fn ($file) => [
+                    'id' => $file->id,
+                    'file_name' => $file->file_name,
+                    'download_url' => storage_path('app/public/' . $file->file_path)
+                ]) : null
         ]);
     }
 
@@ -95,7 +101,7 @@ class PreOperativeController extends Controller
 
     public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative)
     {
-        $investigators = User::where('facility_id',$crf->facility->id)->where('role_id', '3')->pluck('email');
+        $investigators = User::where('facility_id', $crf->facility->id)->where('role_id', '3')->pluck('email');
         // dd($investigators);
 
         if (isset($request->medical_history)) {
@@ -148,7 +154,7 @@ class PreOperativeController extends Controller
             ]);
             $preoperative->save();
             $message = 'Preoperative Data successfully submitted for approval';
-            Mail::to($investigators)->send(new PreoperativeApprovalMail($crf, $preoperative, $remarks ));
+            Mail::to($investigators)->send(new PreoperativeApprovalMail($crf, $preoperative, $remarks));
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
 
@@ -163,7 +169,7 @@ class PreOperativeController extends Controller
             ]);
             $preoperative->save();
             $message = 'Preoperative Data has been approved';
-            Mail::to($crf->user->email)->send(new PreoperativeApprovalMail($crf, $preoperative, $remarks ));
+            Mail::to($crf->user->email)->send(new PreoperativeApprovalMail($crf, $preoperative, $remarks));
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
 
@@ -179,7 +185,7 @@ class PreOperativeController extends Controller
             ]);
             $preoperative->save();
             $message = 'Preoperative Data has been disapproved';
-            Mail::to($crf->user->email)->send(new PreoperativeApprovalMail($crf, $preoperative, $remarks ));
+            Mail::to($crf->user->email)->send(new PreoperativeApprovalMail($crf, $preoperative, $remarks));
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
     }

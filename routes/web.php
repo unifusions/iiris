@@ -68,6 +68,7 @@ use App\Http\Controllers\IntrafileUploadController;
 use App\Http\Controllers\PhysicalExaminationController;
 use App\Http\Controllers\PostoperativeFileUploadController;
 use App\Http\Controllers\Preoperative\PreopEchoReviewController;
+use App\Http\Controllers\PreoperativeFileDownloadController;
 use App\Http\Controllers\PreoperativeFileUploadController;
 use App\Http\Controllers\Reports\CaseReportFormExportController;
 use App\Http\Controllers\Reports\PhysicalExaminationExportController;
@@ -99,7 +100,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', DashboardController::class)->name('home');
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
-    
+  
+    // Route::get('/dcmviewer', function () {
+    //     return Inertia::render(
+    //         'EchoDicomFiles/EchoRDicomViewer',
+           
+
+    //     );
+    // })->middleware(['auth'])->name('dcmviewer');
     //Admin Specific ROutes
     
     Route::resource('facility', FacilityController::class)->parameters(['facility' => 'facility:uid']);
@@ -137,7 +145,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.preoperative.physicalactivity', PreOperativePhysicalActivityController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.medication', PreOperativeMedicationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.fileupload', PreoperativeFileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
-        
+        Route::get('/download/{crf}/preoperative/{preoperative}/{fileupload}', PreoperativeFileDownloadController::class)->name('preopertivefiledownload');
         
         
         Route::resource('crf.intraoperative', IntraOperativeController::class)->parameters(['crf' => 'crf:subject_id', 'intraoperative' => 'intraoperative:visit_no']);
