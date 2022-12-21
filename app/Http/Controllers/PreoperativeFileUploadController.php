@@ -54,7 +54,7 @@ class PreoperativeFileUploadController extends Controller
     {
         $pathToFile = storage_path('app/public/' . $fileupload->file_path);
 
-        $fileUrl = url('/storage', $pathToFile);
+        $fileUrl = url('/storage/app/public', $fileupload->file_path);
         $extension = pathinfo(storage_path('app/public/' . $fileupload->file_path), PATHINFO_EXTENSION);
 
         if ($extension === 'jpg' || $extension === 'jpeg' || $extension === 'png')
