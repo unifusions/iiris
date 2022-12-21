@@ -66,8 +66,8 @@ class PreoperativeFileUploadController extends Controller
         return Inertia::render(
             'EchoDicomFiles/EchoRDicomViewer',
             [
-                'file' => preg_replace("(^https?://)", "", $fileUrl)
-
+                // 'file' => preg_replace("(^https?://)", "", $fileUrl)
+                'file' => $fileUrl
             ]
 
 
