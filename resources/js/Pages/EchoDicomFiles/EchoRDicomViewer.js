@@ -64,7 +64,7 @@ export default function EchoRDicomViewer() {
      );
 
      useEffect(() => {
-          let url = 'http://' + file;
+          let url = 'https://' + file;
           cornerstoneWADOImageLoader.wadouri.dataSetCacheManager.load(url, cornerstoneWADOImageLoader.internal.xhrRequest).then(function (dataSet) {
                setNumFrames(dataSet.intString('x00280008'));
               
