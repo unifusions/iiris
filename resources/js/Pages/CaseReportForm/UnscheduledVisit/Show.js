@@ -336,9 +336,11 @@ export default function Show() {
                                                                            href={route('usvfiledownload', { crf: crf, unscheduledvisit: unscheduledvisit, fileupload: file.file })}>Download</a>
 
                                                                       {roles.admin &&
-                                                                           <a
-                                                                                className='btn btn-outline-danger btn-sm ms-2'
-                                                                                href={route('crf.unscheduledvisit.fileupload.destroy', { crf: crf, unscheduledvisit: unscheduledvisit, fileupload: file.file })}><TrashIcon style={iconStyle} /> Delete</a>
+
+                                                                           <Link
+                                                                                method='delete'
+                                                                                href={route('crf.unscheduledvisit.fileupload.destroy', { crf: crf, unscheduledvisit: unscheduledvisit, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
+
                                                                       }
 
                                                                  </div>

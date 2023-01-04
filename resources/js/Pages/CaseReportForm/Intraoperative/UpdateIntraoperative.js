@@ -239,11 +239,13 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
                                                                  className='btn btn-outline-success btn-sm'
                                                                  href={route('intraoperativefiledownload', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}>Download</a>
 
-                                                            {role.admin &&
-                                                                 <a
-                                                                      className='btn btn-outline-danger btn-sm ms-2'
-                                                                      href={route('crf.intraoperative.fileupload.destroy', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}><TrashIcon style={iconStyle} /> Delete</a>
-                                                            }
+{role.admin &&
+
+<Link
+method='delete'
+href={route('crf.intraoperative.fileupload.destroy', { crf: crf, intraoperative: intraoperative, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
+
+}
 
                                                        </div>
                                                   </div>

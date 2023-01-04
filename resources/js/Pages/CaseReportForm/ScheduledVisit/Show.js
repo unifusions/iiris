@@ -343,7 +343,7 @@ export default function Show() {
                                         <Card.Body>
                                              <div className='d-flex justify-content-between align-items-center'>
                                                   <div className='fs-6 fw-bold'>
-                                                       Echo Files 
+                                                       Echo Files
                                                   </div>
                                                   {roles.coordinator &&
                                                        <>
@@ -381,9 +381,11 @@ export default function Show() {
                                                                                      href={route('svfiledownload', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file.file })}>Download</a>
 
                                                                                 {roles.admin &&
-                                                                                     <a
-                                                                                          className='btn btn-outline-danger btn-sm ms-2'
-                                                                                          href={route('crf.scheduledvisit.fileupload.destroy', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file.file })}><TrashIcon style={iconStyle} /> Delete</a>
+
+                                                                                     <Link
+                                                                                          method='delete'
+                                                                                          href={route('crf.scheduledvisit.fileupload.destroy', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
+
                                                                                 }
 
                                                                            </div>
@@ -441,7 +443,7 @@ export default function Show() {
 
                                              <hr />
 
-                                             
+
 
 
                                              {/* {svdicomfiles !== undefined &&

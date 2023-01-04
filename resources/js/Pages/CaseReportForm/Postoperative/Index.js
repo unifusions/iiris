@@ -201,9 +201,11 @@ export default class Index extends React.Component {
                                                                                      href={route('postoperativefiledownload', { crf: crf, postoperative: postoperative, fileupload: file.file })}>Download</a>
 
                                                                                 {roles.admin &&
-                                                                                     <a
-                                                                                          className='btn btn-outline-danger btn-sm ms-2'
-                                                                                          href={route('crf.postoperative.fileupload.destroy', { crf: crf, postoperative: postoperative, fileupload: file.file })}><TrashIcon style={iconStyle}/> Delete</a>
+
+                                                                                     <Link
+                                                                                     method='delete'
+                                                                                     href={route('crf.postoperative.fileupload.destroy', { crf: crf, postoperative: postoperative, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
+
                                                                                 }
 
                                                                            </div>

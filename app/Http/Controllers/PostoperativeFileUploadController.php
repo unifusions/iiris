@@ -76,6 +76,7 @@ class PostoperativeFileUploadController extends Controller
 
     public function destroy(CaseReportForm $crf, PostOperativeData $postoperative, PostoperativeDicomFile $fileupload)
     {
+       
         $fileupload->delete();
         return redirect()->back()->with(['message' => 'File Deleted successfully']);
     }
