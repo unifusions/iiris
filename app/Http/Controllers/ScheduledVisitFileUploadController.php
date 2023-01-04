@@ -76,8 +76,9 @@ class ScheduledVisitFileUploadController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(CaseReportForm $crf, ScheduledVisit $scheduledvisit, ScheduledVisitDicomFile $fileupload)
     {
-        //
+        $fileupload->delete();
+        return redirect()->back()->with(['message' => 'File Deleted successfully']);
     }
 }

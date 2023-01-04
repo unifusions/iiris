@@ -72,7 +72,9 @@ class UnscheduledVisitFileUploadController extends Controller
     {
     }
 
-    public function destroy($id)
+    public function destroy(CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, UnscheduledVisitDicomFile $fileupload)
     {
+        $fileupload->delete();
+        return redirect()->back()->with(['message' => 'File Deleted successfully']);
     }
 }

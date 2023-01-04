@@ -84,8 +84,9 @@ class PreoperativeFileUploadController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(CaseReportForm $crf, PreOperativeData $preoperative, PreoperativeDicomFile $fileupload)
     {
-        //
+        $fileupload->delete();
+        return redirect()->back()->with(['message' => 'File Deleted successfully']);
     }
 }

@@ -80,7 +80,9 @@ class IntrafileUploadController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(CaseReportForm $crf, IntraOperativeData $intraoperative, IntraoperativeDicomFile $fileupload)
     {
+        $fileupload->delete();
+        return redirect()->back()->with(['message' => 'File Deleted successfully']);
     }
 }
