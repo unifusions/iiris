@@ -65,7 +65,9 @@ use App\Http\Controllers\UnshceduledVisit\UVSafetyParameterController;
 use App\Http\Controllers\UserController;
 use App\Models\EchoDicomFile;
 use App\Http\Controllers\IntrafileUploadController;
+use App\Http\Controllers\IntraoperativeFileDownloadController;
 use App\Http\Controllers\PhysicalExaminationController;
+use App\Http\Controllers\PostoperativeFileDownloadController;
 use App\Http\Controllers\PostoperativeFileUploadController;
 use App\Http\Controllers\Preoperative\PreopEchoReviewController;
 use App\Http\Controllers\PreoperativeFileDownloadController;
@@ -77,7 +79,9 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\Reviewer\EchocardiographyReview;
 use App\Http\Controllers\Reviewer\EchocardiographyReviewed;
 use App\Http\Controllers\ScheduledVisitFileUploadController;
+use App\Http\Controllers\SvFileDownloadController;
 use App\Http\Controllers\UnscheduledVisitFileUploadController;
+use App\Http\Controllers\UsvFileDownloadController;
 use App\Models\Echocardiography;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -94,22 +98,22 @@ use Maatwebsite\Excel\Facades\Excel;
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('rd');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', DashboardController::class)->name('home');
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
-  
+
     // Route::get('/dcmviewer', function () {
     //     return Inertia::render(
     //         'EchoDicomFiles/EchoRDicomViewer',
-           
+
 
     //     );
     // })->middleware(['auth'])->name('dcmviewer');
     //Admin Specific ROutes
-    
+
     Route::resource('facility', FacilityController::class)->parameters(['facility' => 'facility:uid']);
     Route::resource('tickets', TicketsController::class);
     Route::resource('logs', LogController::class);
@@ -120,7 +124,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/reports/export/crf', CaseReportFormExportController::class)->name('downloadCrfReport');
     Route::get('/reports/export/physicalexamination', PhysicalExaminationExportController::class)->name('downloadPhysicalExaminationReport');
 
-    
+
 
 
     Route::resource('crf', CaseReportFormController::class)->parameters(['crf' => 'crf:subject_id']);
@@ -145,13 +149,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.preoperative.physicalactivity', PreOperativePhysicalActivityController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.medication', PreOperativeMedicationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.fileupload', PreoperativeFileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
-        Route::get('/download/{crf}/preoperative/{preoperative}/{fileupload}', PreoperativeFileDownloadController::class)->name('preopertivefiledownload');
-        
-        
-        Route::resource('crf.intraoperative', IntraOperativeController::class)->parameters(['crf' => 'crf:subject_id', 'intraoperative' => 'intraoperative:visit_no']);
-        Route::resource('crf.intraoperative.fileupload', IntrafileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'intraoperative' => 'intraoperative:visit_no']); 
 
-    
+        Route::get('/download/{crf}/preoperative/{preoperative}/{fileupload}', PreoperativeFileDownloadController::class)->name('preopertivefiledownload');
+
+
+
+        Route::resource('crf.intraoperative', IntraOperativeController::class)->parameters(['crf' => 'crf:subject_id', 'intraoperative' => 'intraoperative:visit_no']);
+        Route::resource('crf.intraoperative.fileupload', IntrafileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'intraoperative' => 'intraoperative:visit_no']);
+        Route::get('/download/{crf}/intraoperative/{intraoperative}/{fileupload}', IntraoperativeFileDownloadController::class)->name('intraoperativefiledownload');
+
+
         Route::resource('crf.postoperative.physicalexamination', PostOperativePhysicalExaminationController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
         Route::resource('crf.postoperative.symptoms', OperativeSymptomController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
         Route::resource('crf.postoperative.labinvestigation', LabInvestigationController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
@@ -160,6 +167,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.postoperative.safetyparameter', PostOperativeSafetyController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
         Route::resource('crf.postoperative.medication', MedicationsController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
         Route::resource('crf.postoperative.fileupload', PostoperativeFileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'postoperative' => 'postoperative:visit_no']);
+        Route::get('/download/{crf}/postoperative/{postoperative}/{fileupload}', PostoperativeFileDownloadController::class)->name('postoperativefiledownload');
 
         Route::resource('crf.unscheduledvisit.physicalexamination', UVPhysicalExaminationController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
         Route::resource('crf.unscheduledvisit.symptoms', UVSymptomController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
@@ -171,8 +179,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.unscheduledvisit.safetyparameter', UVSafetyParameterController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
         Route::resource('crf.unscheduledvisit.medication', UVMedicationController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
         Route::resource('crf.unscheduledvisit.fileupload', UnscheduledVisitFileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
+        Route::get('/download/{crf}/unscheduledvisit/{unscheduledvisit}/{fileupload}', UsvFileDownloadController::class)->name('usvfiledownload');
 
-        
+
 
         Route::resource('crf.scheduledvisit.physicalexamination', ScheduledVisitPhysicalExaminationController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
         Route::resource('crf.scheduledvisit.symptoms', ScheduledVisitSymptomController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
@@ -184,23 +193,23 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.scheduledvisit.safetyparameter', SVSafetyParameterController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
         Route::resource('crf.scheduledvisit.medication', SVMedicationsController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
         Route::resource('crf.scheduledvisit.fileupload', ScheduledVisitFileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
+        Route::get('/download/{crf}/scheduledvisit/{scheduledvisit}/{fileupload}', SvFileDownloadController::class)->name('svfiledownload');
 
 
         Route::post('interactions', TicketCommentController::class)->name('interactions');
-        
+
         Route::patch('submitReview/{echocardiography}', EchocardiographyReview::class)->name('submitreview');
         Route::patch('MarkAsReviewed/{echocardiography}', EchocardiographyReviewed::class)->name('markasreviewed');
-
     });
 
-   
 
-    Route::get('/dicomviewer/{echodicomfile}', [EchoDicomFilesController::class, 'viewer'] )->name('dicomviewer');
-    Route::post('/dicomupload', [EchoDicomFilesController::class, 'uploaded'] )->name('dicomuploader');
+
+    Route::get('/dicomviewer/{echodicomfile}', [EchoDicomFilesController::class, 'viewer'])->name('dicomviewer');
+    Route::post('/dicomupload', [EchoDicomFilesController::class, 'uploaded'])->name('dicomuploader');
     Route::get('/download/{echodicomfile}', [EchoDicomFilesController::class, 'download'])->name('dicomdownload');
 
-    
-  
+
+
 
     Route::get('/underconstruction', function () {
         return 'Feature under developement';

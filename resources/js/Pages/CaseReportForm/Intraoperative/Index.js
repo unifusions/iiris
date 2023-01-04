@@ -14,7 +14,7 @@ import ApprovalActionsApprove from './ApprovalActionsApprove';
 import { DocumentDownloadIcon } from '@heroicons/react/outline';
 
 
-function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role }) {
+function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, intraopfileswext  }) {
      const options = {
           day: 'numeric',
           month: 'numeric',
@@ -48,17 +48,43 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role })
 
 
           </> : <>Form is yet to be approved</>}
-          {intradicomfiles !== undefined &&
+          {intraopfileswext !== undefined &&
                <Row>
                     <Col md={4} className='text-secondary'>Related Echo Files</Col>
                     <Col md={8} >
 
                          <ul className="file-list">
-                              {intradicomfiles.map((file) =>
-                                   <li key={file.id} className='col-6'>
+                              {intraopfileswext.map((file) =>
+                                   <div key={file.file.id} className="col-md-6 mb-3">
+                                        <div className="d-flex justify-content-between">
+                                             <div> {file.file.file_name} </div>
+                                             <div>
 
-                                        <a href={route('crf.intraoperative.fileupload.show', { crf: crf, intraoperative: intraoperative, fileupload: file })} ><DocumentDownloadIcon style={iconStyle} /> {file.file_name} </a>
-                                   </li>)}
+                                                  {(file.extension === 'jpg' || file.extension === '512' || file.extension === '') &&
+                                                       <>
+
+                                                            <a
+                                                                 className='btn btn-outline-info btn-sm me-2'
+                                                                 href={route('crf.intraoperative.fileupload.show', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}
+                                                                 target="_blank" rel="noopener noreferrer">View</a></>}
+
+                                                  <a
+                                                       className='btn btn-outline-success btn-sm'
+                                                       href={route('intraoperativefiledownload', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}>Download</a>
+
+                                                  {role.admin &&
+                                                       <a
+                                                            className='btn btn-outline-danger btn-sm ms-2'
+                                                            href={route('crf.intraoperative.fileupload.destroy', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}><TrashIcon style={iconStyle} /> Delete</a>
+                                                  }
+
+                                             </div>
+                                        </div>
+
+
+
+
+                                   </div>)}
                          </ul>
                     </Col>
 
@@ -80,7 +106,7 @@ export default class Index extends React.Component {
 
 
      render() {
-          const { auth, roles, crf, intraoperative, updateUrl, intradicomfiles, approvalremarks } = this.props;
+          const { auth, roles, crf, intraoperative, updateUrl, intradicomfiles, approvalremarks, intraopfileswext  } = this.props;
 
 
           return (
@@ -119,9 +145,9 @@ export default class Index extends React.Component {
                                    <Card className='shadow-sm rounded-t'>
                                         <Card.Body>
                                              {intraoperative.is_submitted ? <>
-                                                  <SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} />
+                                                  <SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} />
 
-                                             </> : <> <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} /> </>}
+                                             </> : <> <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} /> </>}
                                         </Card.Body>
                                    </Card>
                               </Col>

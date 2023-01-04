@@ -3,7 +3,7 @@ import React from 'react';
 import { usePage } from '@inertiajs/inertia-react';
 import Authenticated from '@/Layouts/Authenticated';
 import { Link } from '@inertiajs/inertia-react';
-import { LinkIcon } from '@heroicons/react/outline';
+import { LinkIcon, TrashIcon } from '@heroicons/react/outline';
 import { Row, Col, Card, Container, Alert } from 'react-bootstrap';
 import CaseReportFormData from '../FormData/CaseReportFormData';
 import PhysicalExaminationData from '../FormData/PhysicalExaminationData';
@@ -36,8 +36,10 @@ export default class Index extends React.Component {
                medications,
                echodicomfiles,
                postopdicomfiles,
-               approvalremarks
+               approvalremarks,
+               postopfileswext
           } = this.props;
+          const iconStyle = { width: 18, height: 18 };
           return (
                <Authenticated auth={auth} role={roles}>
 
@@ -176,13 +178,42 @@ export default class Index extends React.Component {
                                              </div>
 
                                              <hr />
-                                             {postopdicomfiles !== undefined &&
+                                             {postopfileswext !== undefined &&
                                                   <div className='container'>
+
                                                        <div className="row ">
-                                                            {postopdicomfiles.map((file) =>
-                                                                 <div key={file.id} className="col-md-4">
-                                                                      <a href={route('crf.postoperative.fileupload.show', { crf: crf, postoperative: postoperative, fileupload: file })} >{file.file_name} </a>
-                                                                 </div>)}
+                                                            {postopfileswext.map((file) =>
+                                                                 <div key={file.file.id} className="col-md-6 mb-3">
+                                                                      <div className="d-flex justify-content-between">
+                                                                           <div> {file.file.file_name} </div>
+                                                                           <div>
+
+                                                                                {(file.extension === 'jpg' || file.extension === '512' || file.extension === '') &&
+                                                                                     <>
+
+                                                                                          <a
+                                                                                               className='btn btn-outline-info btn-sm me-2'
+                                                                                               href={route('crf.postoperative.fileupload.show', { crf: crf, postoperative: postoperative, fileupload: file.file })}
+                                                                                               target="_blank" rel="noopener noreferrer">View</a></>}
+
+                                                                                <a
+                                                                                     className='btn btn-outline-success btn-sm'
+                                                                                     href={route('postoperativefiledownload', { crf: crf, postoperative: postoperative, fileupload: file.file })}>Download</a>
+
+                                                                                {roles.admin &&
+                                                                                     <a
+                                                                                          className='btn btn-outline-danger btn-sm ms-2'
+                                                                                          href={route('crf.postoperative.fileupload.destroy', { crf: crf, postoperative: postoperative, fileupload: file.file })}><TrashIcon style={iconStyle}/> Delete</a>
+                                                                                }
+
+                                                                           </div>
+                                                                      </div>
+
+
+
+
+                                                                 </div>
+                                                            )}
                                                        </div>
                                                   </div>
                                              }

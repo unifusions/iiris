@@ -7,8 +7,9 @@ import FormButton from '@/Pages/Shared/FormButton';
 import FormInput from '@/Pages/Shared/FormInput';
 import FormRadio from '@/Pages/Shared/FormRadio';
 import FormInputWithLabel from '@/Pages/Shared/FormInputWithLabel';
+import { TrashIcon } from '@heroicons/react/solid';
 
-export default function UpdateIntraOperative({ crf, intraoperative, role, intradicomfiles }) {
+export default function UpdateIntraOperative({ crf, intraoperative, role, intradicomfiles, intraopfileswext }) {
 
      const { data, setData, errors, put, processing, hasErrors } = useForm({
           case_report_form_id: intraoperative.case_report_form_id,
@@ -70,6 +71,7 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
           { labelText: 'Yes', value: '1' },
           { labelText: 'No', value: '0' }
      ]
+     const iconStyle = { width: 18, height: 18 };
 
      return (
           <>
@@ -211,16 +213,47 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
 
                     <hr />
 
-                    {intradicomfiles !== undefined &&
+
+
+
+                    {intraopfileswext !== undefined &&
                          <Row>
                               <Col md={3} className='text-secondary'>Echo Files</Col>
                               <Col md={6} >
-                                   <ul className="list-style-none">
-                                        {intradicomfiles.map((file) =>
-                                             <li key={file.id}>
-                                                  <a href={route('crf.intraoperative.fileupload.show', { crf: crf, intraoperative: intraoperative, fileupload: file })} >{file.file_name} </a>
-                                             </li>)}
-                                   </ul>
+                                   {intraopfileswext !== undefined && <>
+                                        {intraopfileswext.map((file) =>
+                                             <div key={file.file.id} className="mb-3">
+                                                  <div className="d-flex justify-content-between">
+                                                       <div> {file.file.file_name} </div>
+                                                       <div>
+
+                                                            {(file.extension === 'jpg' || file.extension === '512' || file.extension === '') &&
+                                                                 <>
+
+                                                                      <a
+                                                                           className='btn btn-outline-info btn-sm me-2'
+                                                                           href={route('crf.intraoperative.fileupload.show', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}
+                                                                           target="_blank" rel="noopener noreferrer">View</a></>}
+
+                                                            <a
+                                                                 className='btn btn-outline-success btn-sm'
+                                                                 href={route('intraoperativefiledownload', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}>Download</a>
+
+                                                            {role.admin &&
+                                                                 <a
+                                                                      className='btn btn-outline-danger btn-sm ms-2'
+                                                                      href={route('crf.intraoperative.fileupload.destroy', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}><TrashIcon style={iconStyle} /> Delete</a>
+                                                            }
+
+                                                       </div>
+                                                  </div>
+
+
+
+
+                                             </div>
+                                        )}
+                                   </>}
                               </Col>
                               <Col md={3}>
                                    <Link href={route('crf.intraoperative.fileupload.index', { crf: crf, intraoperative: intraoperative })} className="btn btn-sm btn-secondary"> Upload Files</Link>

@@ -44,6 +44,11 @@ class PostOperativeController extends Controller
             'electrocardiograms' => $postoperative->electrocardiograms,
             'safetyparameters' => $postoperative->safetyparameters,
             'postopdicomfiles' => $postoperative->fileuploads,
+            'postopfileswext' => $postoperative->fileuploads->map(fn ($file) => [
+                'file' => $file,
+
+                'extension' =>  pathinfo(storage_path('app/public/' . $file->file_path), PATHINFO_EXTENSION)
+            ]),
             'approvalremarks' => $postoperative->approvalremarks,
             'medications' => $postoperative->medications,
             'echodicomfiles' => $postoperative->echocardiographies ?

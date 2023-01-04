@@ -214,14 +214,14 @@ export default class Index extends React.Component {
                                                                            <div className="d-flex justify-content-between">
                                                                                 <div> {file.file.file_name} </div>
                                                                                 <div>
-                                                                              
+
                                                                                      {(file.extension === 'jpg' || file.extension === '512' || file.extension === '') &&
                                                                                           <>
-                                                                                          
-                                                                                          <a
-                                                                                               className='btn btn-outline-info btn-sm me-2'
-                                                                                               href={route('crf.preoperative.fileupload.show', { crf: crf, preoperative: preoperative, fileupload: file.file })}
-                                                                                               target="_blank" rel="noopener noreferrer" >View</a></>}
+
+                                                                                               <a
+                                                                                                    className='btn btn-outline-info btn-sm me-2'
+                                                                                                    href={route('crf.preoperative.fileupload.show', { crf: crf, preoperative: preoperative, fileupload: file.file })}
+                                                                                                    target="_blank" rel="noopener noreferrer" >View</a></>}
 
                                                                                      <a
                                                                                           className='btn btn-outline-success btn-sm'
@@ -234,24 +234,14 @@ export default class Index extends React.Component {
 
 
 
-                                                                      </div>)}
+                                                                      </div>
+                                                                 )}
                                                             </div>
 
                                                        }
 
-                                                     
-                                                       {/* {preopdicomfiles !== undefined &&
-                                                            <div className='container'>
-                                                                 <div className="row ">
-                                                                      {preopdicomfiles.map((file) =>
-                                                                           <div key={file.id} className="col-md-4">
-                                                                                <a
-                                                                                     href={route('crf.preoperative.fileupload.show', { crf: crf, preoperative: preoperative, fileupload: file })}
-                                                                                     target="_blank" rel="noopener noreferrer" >{file.file_name} </a>
-                                                                           </div>)}
-                                                                 </div>
-                                                            </div>
-                                                       } */}
+
+
                                                   </Card.Body>
                                              </Card>
 

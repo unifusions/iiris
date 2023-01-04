@@ -2,6 +2,7 @@ import Authenticated from "@/Layouts/Authenticated";
 import FormButton from "@/Pages/Shared/FormButton";
 import FormCalendar from "@/Pages/Shared/FormCalendar";
 import PageTitle from "@/Pages/Shared/PageTitle";
+import { TrashIcon } from "@heroicons/react/solid";
 import { Link, useForm, usePage } from "@inertiajs/inertia-react";
 
 import React, { useState } from "react";
@@ -57,7 +58,7 @@ function ApprovalActionsApprove({ role, crf, scheduledvisit }) {
           action: 'Approved'
      });
      const [show, setShow] = useState(false);
-
+     const iconStyle = { width: 18, height: 18 };
      const handleClose = () => setShow(false);
      const handleShow = () => setShow(true);
 
@@ -198,9 +199,10 @@ export default function Show() {
           medications,
           echodicomfiles,
           svdicomfiles,
+          svdicomfileswext,
           approvalremarks
      } = usePage().props;
-
+     const iconStyle = { width: 18, height: 18 };
      return (
           <Authenticated auth={auth} role={roles}>
 
@@ -341,7 +343,7 @@ export default function Show() {
                                         <Card.Body>
                                              <div className='d-flex justify-content-between align-items-center'>
                                                   <div className='fs-6 fw-bold'>
-                                                       Echo Files
+                                                       Echo Files 
                                                   </div>
                                                   {roles.coordinator &&
                                                        <>
@@ -356,13 +358,42 @@ export default function Show() {
                                              </div>
 
                                              <hr />
-                                             {svdicomfiles !== undefined &&
+                                             {svdicomfileswext !== undefined &&
                                                   <div className='container'>
+
                                                        <div className="row ">
-                                                            {svdicomfiles.map((file) =>
-                                                                 <div key={file.id} className="col-md-4">
-                                                                      <a href={route('crf.scheduledvisit.fileupload.show', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file })} >{file.file_name} </a>
-                                                                 </div>)}
+                                                            {svdicomfileswext.map((file) =>
+                                                                 <div key={file.file.id} className="col-md-6 mb-3">
+                                                                      <div className="d-flex justify-content-between">
+                                                                           <div> {file.file.file_name} </div>
+                                                                           <div>
+
+                                                                                {(file.extension === 'jpg' || file.extension === '512' || file.extension === '') &&
+                                                                                     <>
+
+                                                                                          <a
+                                                                                               className='btn btn-outline-info btn-sm me-2'
+                                                                                               href={route('crf.scheduledvisit.fileupload.show', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file.file })}
+                                                                                               target="_blank" rel="noopener noreferrer">View</a></>}
+
+                                                                                <a
+                                                                                     className='btn btn-outline-success btn-sm'
+                                                                                     href={route('svfiledownload', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file.file })}>Download</a>
+
+                                                                                {roles.admin &&
+                                                                                     <a
+                                                                                          className='btn btn-outline-danger btn-sm ms-2'
+                                                                                          href={route('crf.scheduledvisit.fileupload.destroy', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file.file })}><TrashIcon style={iconStyle} /> Delete</a>
+                                                                                }
+
+                                                                           </div>
+                                                                      </div>
+
+
+
+
+                                                                 </div>
+                                                            )}
                                                        </div>
                                                   </div>
                                              }
@@ -409,7 +440,11 @@ export default function Show() {
                                              </div>
 
                                              <hr />
-                                             {svdicomfiles !== undefined &&
+
+                                             
+
+
+                                             {/* {svdicomfiles !== undefined &&
                                                   <div className='container'>
                                                        <div className="row ">
                                                             {svdicomfiles.map((file) =>
@@ -418,7 +453,7 @@ export default function Show() {
                                                                  </div>)}
                                                        </div>
                                                   </div>
-                                             }
+                                             } */}
                                         </Card.Body>
                                    </Card>
                               </>}

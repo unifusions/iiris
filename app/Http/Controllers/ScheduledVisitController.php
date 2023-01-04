@@ -45,6 +45,11 @@ class ScheduledVisitController extends Controller
             'physicalactivities' => $scheduledvisit->physicalactivities,
             'echocardiographies' => $scheduledvisit->echocardiographies,
             'svdicomfiles' => $scheduledvisit->fileuploads,
+            'svdicomfileswext' => $scheduledvisit->fileuploads->map(fn ($file) => [
+                'file' => $file,
+                'extension' =>  pathinfo(storage_path('app/public/' . $file->file_path), PATHINFO_EXTENSION)
+            ]),
+            
             'echodicomfiles' => $scheduledvisit->echocardiographies ?
                 EchoDicomFile::where('echocardiography_id', $scheduledvisit->echocardiographies->id)->get()->map(fn ($file) => [
                     'id' => $file->id,

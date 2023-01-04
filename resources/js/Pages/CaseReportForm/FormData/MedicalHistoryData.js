@@ -36,30 +36,36 @@ export default function MedicalHistoryData({ hasMedHis, medicalhistories, role, 
 
                     </div>
                     <hr />
-                    {hasMedHis ? <>
-                         {medicalhistories.length > 0 &&
-                              <>
-                                   <Row className="fw-bold">
-                                        <Col>#</Col>
-                                        <Col>Diagnosis</Col>
-                                        <Col>Duration</Col>
-                                        <Col>On Treatment</Col>
-                                   </Row>
-                                   <hr />
-                                   {medicalhistories.map((medicalhistory, index) => <Row className="mb-2" key={index}>
-                                        <Col>{index + 1}</Col>
-                                        <Col>{medicalhistory.diagnosis}</Col>
-                                        <Col>{medicalhistory.duration}</Col>
-                                        <Col>{medicalhistory.on_treatment !== null &&
-                                             <> {medicalhistory.on_treatment === 1 ? 'Yes' : 'No'}
-                                             </>
-                                        }</Col>
+                    {hasMedHis === null ? <span className="fw-normal text-secondary fst-italic">Medical History Data has not been updated. Go ahead and update one.</span> :
+                         <>
+                              {hasMedHis ? <>
+                                   {medicalhistories.length > 0 &&
+                                        <>
+                                             <Row className="fw-bold">
+                                                  <Col>#</Col>
+                                                  <Col>Diagnosis</Col>
+                                                  <Col>Duration</Col>
+                                                  <Col>On Treatment</Col>
+                                             </Row>
+                                             <hr />
+                                             {medicalhistories.map((medicalhistory, index) => <Row className="mb-2" key={index}>
+                                                  <Col>{index + 1}</Col>
+                                                  <Col>{medicalhistory.diagnosis}</Col>
+                                                  <Col>{medicalhistory.duration}</Col>
+                                                  <Col>{medicalhistory.on_treatment !== null &&
+                                                       <> {medicalhistory.on_treatment === 1 ? 'Yes' : 'No'}
+                                                       </>
+                                                  }</Col>
 
-                                   </Row>)}
-                              </>
+                                             </Row>)}
+                                        </>
 
-                         }
-                    </> : 'No previous medical history recorded'}
+                                   }
+                              </> : 'No previous medical history recorded'}
+                         </>
+
+                    }
+
 
 
                </Card.Body>

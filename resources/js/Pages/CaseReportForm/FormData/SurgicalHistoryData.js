@@ -38,7 +38,11 @@ export default function SurgicalHistoryData({ hasSurHis, surgicalhistories, role
 
                     </div>
                     <hr />
-                    {hasSurHis ? <>
+
+                    {
+                         hasSurHis === null ? <span className="fw-normal text-secondary fst-italic">Surgical History Data has not been updated. Go ahead and update one.</span> : 
+                         <>
+                          {hasSurHis ? <>
                          {surgicalhistories.length > 0 &&
 
                               <> 
@@ -65,6 +69,9 @@ export default function SurgicalHistoryData({ hasSurHis, surgicalhistories, role
 
                          }
                     </> : 'No previous surgical history recorded'}
+                         </>
+                    }
+                   
 
 
                </Card.Body>

@@ -64,6 +64,10 @@ class UnscheduledvisitController extends Controller
             'safetyparameters' => $unscheduledvisit->safetyparameters,
             'medications' => $unscheduledvisit->medications,
             'usvdicomfiles' => $unscheduledvisit->fileuploads,
+            'usvdicomfileswext' => $unscheduledvisit->fileuploads->map(fn ($file) => [
+                'file' => $file,
+                'extension' =>  pathinfo(storage_path('app/public/' . $file->file_path), PATHINFO_EXTENSION)
+            ]),
             'approvalremarks' => $unscheduledvisit->approvalremarks,
             'echodicomfiles' => $unscheduledvisit->echocardiographies ?
                 EchoDicomFile::where('echocardiography_id', $unscheduledvisit->echocardiographies->id)->get()->map(fn ($file) => [

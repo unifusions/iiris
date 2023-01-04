@@ -1,6 +1,7 @@
 import Authenticated from "@/Layouts/Authenticated";
 import FormButton from "@/Pages/Shared/FormButton";
 import PageTitle from "@/Pages/Shared/PageTitle";
+import { TrashIcon } from "@heroicons/react/solid";
 import { Link, useForm, usePage } from "@inertiajs/inertia-react";
 import React, { useState } from "react";
 import { Alert, Button, Card, Col, Modal, Row } from "react-bootstrap";
@@ -159,9 +160,10 @@ export default function Show() {
           physicalactivities,
           labinvestigations,
           electrocardiograms,
-          echocardiographies,
+          echocardiographies, usvdicomfileswext,
           safetyparameters, echodicomfiles, usvdicomfiles, approvalremarks,
           medications, } = usePage().props;
+     const iconStyle = { width: 18, height: 18 };
      return (
           <Authenticated auth={auth} role={roles}>
 
@@ -209,7 +211,7 @@ export default function Show() {
                                    editUrl={physicalexamination !== null && route('crf.unscheduledvisit.physicalexamination.edit', { crf: crf, unscheduledvisit: unscheduledvisit, physicalexamination: physicalexamination })}
                               />
 
-                            
+
                               <SymptomsData
                                    symptoms={symptoms}
                                    enableActions={unscheduledvisit.is_submitted}
@@ -311,13 +313,42 @@ export default function Show() {
                                    </div>
 
                                    <hr />
-                                   {usvdicomfiles !== undefined &&
+                                   {usvdicomfileswext !== undefined &&
                                         <div className='container'>
+
                                              <div className="row ">
-                                                  {usvdicomfiles.map((file) =>
-                                                       <div key={file.id} className="col-md-4">
-                                                            <a href={route('crf.unscheduledvisit.fileupload.show', { crf: crf, unscheduledvisit: unscheduledvisit, fileupload: file })} >{file.file_name} </a>
-                                                       </div>)}
+                                                  {usvdicomfileswext.map((file) =>
+                                                       <div key={file.file.id} className="col-md-6 mb-3">
+                                                            <div className="d-flex justify-content-between">
+                                                                 <div> {file.file.file_name} </div>
+                                                                 <div>
+
+                                                                      {(file.extension === 'jpg' || file.extension === '512' || file.extension === '') &&
+                                                                           <>
+
+                                                                                <a
+                                                                                     className='btn btn-outline-info btn-sm me-2'
+                                                                                     href={route('crf.unscheduledvisit.fileupload.show', { crf: crf, unscheduledvisit: unscheduledvisit, fileupload: file.file })}
+                                                                                     target="_blank" rel="noopener noreferrer">View</a></>}
+
+                                                                      <a
+                                                                           className='btn btn-outline-success btn-sm'
+                                                                           href={route('usvfiledownload', { crf: crf, unscheduledvisit: unscheduledvisit, fileupload: file.file })}>Download</a>
+
+                                                                      {roles.admin &&
+                                                                           <a
+                                                                                className='btn btn-outline-danger btn-sm ms-2'
+                                                                                href={route('crf.unscheduledvisit.fileupload.destroy', { crf: crf, unscheduledvisit: unscheduledvisit, fileupload: file.file })}><TrashIcon style={iconStyle} /> Delete</a>
+                                                                      }
+
+                                                                 </div>
+                                                            </div>
+
+
+
+
+                                                       </div>
+                                                  )}
                                              </div>
                                         </div>
                                    }

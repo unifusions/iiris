@@ -49,8 +49,18 @@ class PostoperativeFileUploadController extends Controller
 
     public function show(CaseReportForm $crf, PostOperativeData $postoperative, PostoperativeDicomFile $fileupload)
     {
-        $pathToFile = storage_path('app/public/'. $fileupload->file_path);
-        return response()->download($pathToFile);
+        $pathToFile = storage_path('app/public/' . $fileupload->file_path);
+        $fileUrl = url('/storage/app/public', $fileupload->file_path);
+        $extension = pathinfo(storage_path('app/public/' . $fileupload->file_path), PATHINFO_EXTENSION);
+        if ($extension === 'jpg' || $extension === 'jpeg' || $extension === 'png')
+            return response()->file($pathToFile);
+        return Inertia::render(
+            'EchoDicomFiles/EchoRDicomViewer',
+            [
+                'file' => preg_replace("(^https?://)", "", urldecode($fileUrl))
+
+            ]
+        );
     }
 
 

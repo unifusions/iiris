@@ -37,6 +37,10 @@ class IntraOperativeController extends Controller
             'crf' => $crf,
             'intraoperative' => $intraoperative,
             'approvalremarks' => $intraoperative->approvalremarks,
+            'intraopfileswext' => $intraoperative->fileuploads->map(fn ($file) => [
+                'file' => $file,
+                'extension' =>  pathinfo(storage_path('app/public/' . $file->file_path), PATHINFO_EXTENSION)
+            ]),
             'intradicomfiles' => $intraoperative->fileuploads  ?
                 IntraoperativeDicomFile::where('intra_operative_data_id', $intraoperative->id)->get()->map(fn ($file) => [
                     'id' => $file->id,
@@ -57,7 +61,7 @@ class IntraOperativeController extends Controller
     public function update(Request $request, CaseReportForm $crf, IntraOperativeData $intraoperative)
     {
 
-        $investigators = User::where('facility_id',$crf->facility->id)->where('role_id', '3')->pluck('email');
+        $investigators = User::where('facility_id', $crf->facility->id)->where('role_id', '3')->pluck('email');
 
         if ($request->is_submitted) {
             $intraoperative->is_submitted = $request->is_submitted;
@@ -68,7 +72,7 @@ class IntraOperativeController extends Controller
                 'action' => $request->action,
                 'remarks' => $request->remarks,
             ]);
-            Mail::to($investigators)->send(new IntraoperativeApprovalMail($crf, $intraoperative, $remarks ));
+            Mail::to($investigators)->send(new IntraoperativeApprovalMail($crf, $intraoperative, $remarks));
 
             $message = 'Intraoperative Data for Subject:' . $crf->subject_id . 'submitted Successfully';
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
@@ -84,7 +88,7 @@ class IntraOperativeController extends Controller
                 'action' => $request->action,
                 'remarks' => $request->remarks,
             ]);
-            Mail::to($crf->user->email)->send(new IntraoperativeApprovalMail($crf, $intraoperative, $remarks ));
+            Mail::to($crf->user->email)->send(new IntraoperativeApprovalMail($crf, $intraoperative, $remarks));
 
             $message = 'Intraoperative Data has been approved';
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
@@ -100,7 +104,7 @@ class IntraOperativeController extends Controller
                 'action' => $request->action,
                 'remarks' => $request->remarks,
             ]);
-            Mail::to($crf->user->email)->send(new IntraoperativeApprovalMail($crf, $intraoperative, $remarks ));
+            Mail::to($crf->user->email)->send(new IntraoperativeApprovalMail($crf, $intraoperative, $remarks));
             $message = 'Intraoperative Data has been disapproved';
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }

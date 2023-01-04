@@ -37,26 +37,29 @@ export default function FamilyHistoryData({ isFamHis, familyhistories, role, lin
 
                     </div>
                     <hr />
-                    {isFamHis ? <>
-                         {familyhistories.length > 0 &&
-                              <>
-                                   <Row className="fw-bold">
-                                        <Col>#</Col>
-                                        <Col>Diagnosis</Col>
-                                        <Col>Relation</Col>
-                                   </Row>
-                                   <hr />
-                                   {familyhistories.map((familyhistory, index) => <Row className="mb-2" key={index}>
-                                        <Col>{index + 1}</Col>
-                                        <Col>{familyhistory.diagnosis}</Col>
-                                        <Col>{familyhistory.relation}</Col>
+                    {isFamHis === null ? <span className="fw-normal text-secondary fst-italic">Family History Data has not been updated. Go ahead and update one.</span> : <>
+                         {isFamHis ? <>
+                              {familyhistories.length > 0 &&
+                                   <>
+                                        <Row className="fw-bold">
+                                             <Col>#</Col>
+                                             <Col>Diagnosis</Col>
+                                             <Col>Relation</Col>
+                                        </Row>
+                                        <hr />
+                                        {familyhistories.map((familyhistory, index) => <Row className="mb-2" key={index}>
+                                             <Col>{index + 1}</Col>
+                                             <Col>{familyhistory.diagnosis}</Col>
+                                             <Col>{familyhistory.relation}</Col>
 
-                                   </Row>)}
-                              </>
+                                        </Row>)}
+                                   </>
 
 
-                         }
-                    </> : 'No previous family history recorded'}
+                              }
+                         </> : 'No previous family history recorded'}
+
+                    </>}
 
 
                </Card.Body>

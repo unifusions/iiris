@@ -36,27 +36,30 @@ export default function PhysicalActivityData({ physicalactivites, isPhyAct, role
 
                     </div>
                     <hr />
-                    {isPhyAct ? <>
-                         {physicalactivites.length > 0 &&
-                              <>
-                                   <Row className="fw-bold">
-                                        <Col>#</Col>
-                                        <Col>Activity Type</Col>
-                                        <Col>Duration</Col>
-                                   </Row>
+                    {isPhyAct === null ? <span className="fw-normal text-secondary fst-italic">Physical Activity Data has not been updated. Go ahead and update one.</span>  : <>
+                         {isPhyAct ? <>
+                              {physicalactivites.length > 0 &&
+                                   <>
+                                        <Row className="fw-bold">
+                                             <Col>#</Col>
+                                             <Col>Activity Type</Col>
+                                             <Col>Duration</Col>
+                                        </Row>
 
-                                   <hr />
-                                   {physicalactivites.map((physicalactivity, index) => <Row className="mb-2" key={index}>
-                                        <Col>{index + 1}</Col>
-                                        <Col>{physicalactivity.activity_type}</Col>
-                                        <Col>{physicalactivity.duration} hrs/week</Col>
+                                        <hr />
+                                        {physicalactivites.map((physicalactivity, index) => <Row className="mb-2" key={index}>
+                                             <Col>{index + 1}</Col>
+                                             <Col>{physicalactivity.activity_type}</Col>
+                                             <Col>{physicalactivity.duration} hrs/week</Col>
 
-                                   </Row>)
+                                        </Row>)
 
-                                   }
-                              </>
-                         }
-                    </> : 'No previous physical activity recorded'}
+                                        }
+                                   </>
+                              }
+                         </> : 'No previous physical activity recorded'}
+                    </>}
+
 
                </Card.Body>
           </Card>
