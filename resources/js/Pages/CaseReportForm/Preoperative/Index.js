@@ -22,7 +22,7 @@ import ApprovalActionsApprove from './ApprovalActionsApprove';
 import ApprovalActionsDisapprove from './ApprovalActionsDisapprove';
 import { RenderCreateButton, RenderFormStatus } from '../FormData/FormDataHelper';
 import FileUpload from './FileUpload';
-
+import { TrashIcon } from "@heroicons/react/solid";
 
 
 

@@ -154,7 +154,7 @@ export default class Show extends React.Component {
                                         </Col>)}
 
 
-{console.log(usvremarks)}
+
 
                                    </Row>
                                    {/* <Tab.Container id="left-tabs-example" defaultActiveKey="preoperative">
