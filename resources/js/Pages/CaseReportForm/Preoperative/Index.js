@@ -53,7 +53,7 @@ export default class Index extends React.Component {
                approvalremarks
 
           } = this.props;
-
+          const iconStyle = { width: 18, height: 18 };
 
 
           return (
