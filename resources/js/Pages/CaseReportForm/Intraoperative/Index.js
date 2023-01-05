@@ -12,9 +12,10 @@ import ApprovalActionsDisapprove from './ApprovalActionsDisapprove';
 import ApprovalSubmit from './ApprovalSubmit';
 import ApprovalActionsApprove from './ApprovalActionsApprove';
 import { DocumentDownloadIcon } from '@heroicons/react/outline';
+import { TrashIcon } from '@heroicons/react/outline';
 
 
-function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, intraopfileswext  }) {
+function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, intraopfileswext }) {
      const options = {
           day: 'numeric',
           month: 'numeric',
@@ -106,7 +107,7 @@ export default class Index extends React.Component {
 
 
      render() {
-          const { auth, roles, crf, intraoperative, updateUrl, intradicomfiles, approvalremarks, intraopfileswext  } = this.props;
+          const { auth, roles, crf, intraoperative, updateUrl, intradicomfiles, approvalremarks, intraopfileswext } = this.props;
 
 
           return (
@@ -147,7 +148,10 @@ export default class Index extends React.Component {
                                              {intraoperative.is_submitted ? <>
                                                   <SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} />
 
-                                             </> : <> <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} /> </>}
+                                             </> : <>
+                                                  {roles.admin ? <><SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} /></> : <>  <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} /></>}
+                                             </>
+                                             }
                                         </Card.Body>
                                    </Card>
                               </Col>

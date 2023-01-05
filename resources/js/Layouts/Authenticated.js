@@ -3,7 +3,9 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 
 import NavBar from './NavBar';
 
-import { DocumentTextIcon, ViewGridIcon, SupportIcon, OfficeBuildingIcon, UserGroupIcon, ViewListIcon } from '@heroicons/react/outline';
+import { DocumentTextIcon, ViewGridIcon, SupportIcon, OfficeBuildingIcon, UserGroupIcon } from '@heroicons/react/outline';
+
+
 
 
 import MainPanel from './MainPanel';
