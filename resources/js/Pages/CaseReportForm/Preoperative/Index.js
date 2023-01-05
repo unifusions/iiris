@@ -227,13 +227,13 @@ export default class Index extends React.Component {
                                                                                           className='btn btn-outline-success btn-sm'
                                                                                           href={route('preopertivefiledownload', { crf: crf, preoperative: preoperative, fileupload: file.file })}> Download</a>
 
-{roles.admin &&
+                                                                                     {roles.admin &&
 
-<Link
-method='delete'
-href={route('crf.preoperative.fileupload.destroy', { crf: crf, preoperative: preoperative, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
+                                                                                          <Link
+                                                                                               method='delete' as="button"
+                                                                                               href={route('crf.preoperative.fileupload.destroy', { crf: crf, preoperative: preoperative, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
 
-}ஃஃஃ
+                                                                                     }
                                                                                 </div>
                                                                            </div>
 

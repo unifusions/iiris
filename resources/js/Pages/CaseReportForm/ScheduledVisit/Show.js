@@ -383,7 +383,7 @@ export default function Show() {
                                                                                 {roles.admin &&
 
                                                                                      <Link
-                                                                                          method='delete'
+                                                                                          method='delete' as="button"
                                                                                           href={route('crf.scheduledvisit.fileupload.destroy', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
 
                                                                                 }

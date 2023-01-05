@@ -203,7 +203,7 @@ export default class Index extends React.Component {
                                                                                 {roles.admin &&
 
                                                                                      <Link
-                                                                                     method='delete'
+                                                                                     method='delete' as="button"
                                                                                      href={route('crf.postoperative.fileupload.destroy', { crf: crf, postoperative: postoperative, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
 
                                                                                 }
