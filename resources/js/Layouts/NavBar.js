@@ -10,6 +10,11 @@ const iconStyle = {
      height: 24
 };
 
+const iconStyle20 = {
+     width: 20,
+     height: 20
+};
+
 export default class NavBar extends React.Component {
 
      constructor(props) {
@@ -25,22 +30,17 @@ export default class NavBar extends React.Component {
 
                     <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
                          <div>
-
-                              <a className="navbar-brand brand-logo" href="index.html">
+                              <a className="navbar-brand brand-logo ms-4" href={route('dashboard')}>
                                    <BrandLogo />
                               </a>
-                              <a className="navbar-brand brand-logo-mini text-centre" href="index.html">
+                              <a className="navbar-brand brand-logo-mini text-centre" href={route('dashboard')}>
                                    <MiniLogo />
                               </a>
                          </div>
-
-
                     </div>
 
                     <div className="navbar-menu-wrapper d-flex align-items-center  ">
-
                          <div className="d-flex flex-row align-items-center">
-
                               <MenuIcon style={{ width: 24, height: 24, cursor: 'pointer' }}
                                    className="navbar-toggler navbar-toggler align-self-center text-dark me-3"
                                    onClick={this.props.toggleNav} />
@@ -58,16 +58,16 @@ export default class NavBar extends React.Component {
                                    <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                                         <div className='dropdown-item'>
                                              <div className='fw-bold my-2'>{this.props.user.name}</div>
-                                             <div className='small my-2'><span className='text-secondary' ><UserIcon style={{ width: 20, height: 20 }} className="me-2" /> </span>{this.props.user.UserRole.name}</div>
-                                             <div className='small my-2'><span className='text-secondary' ><LoginIcon style={{ width: 20, height: 20 }} className="me-2" /></span>{this.props.user.email}</div>
+                                             <div className='small my-2'><span className='text-secondary' ><UserIcon style={iconStyle20} className="me-2" /> </span>{this.props.user.UserRole.name}</div>
+                                             <div className='small my-2'><span className='text-secondary' ><LoginIcon style={iconStyle20} className="me-2" /></span>{this.props.user.email}</div>
 
                                         </div>
 
-                                        <div >
-                                             <Link href={route('logout')} className='dropdown-item' method="post" as="button" type="submit">
-                                                  <LogoutIcon style={{ width: 20, height: 20 }} className="me-3" />Sign Out
-                                             </Link>
-                                        </div>
+
+                                        <Link href={route('logout')} className='dropdown-item' method="post" as="button" type="submit">
+                                             <LogoutIcon style={iconStyle20} className="me-3" />Sign Out
+                                        </Link>
+
                                    </div>
                               </li>
                          </ul>

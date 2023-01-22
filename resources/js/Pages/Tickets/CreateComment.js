@@ -5,7 +5,7 @@ import FormButton from "../Shared/FormButton";
 
 export default function CreateComment({ ticket, auth }) {
 
-     const { data, setData, post, processing } = useForm({
+     const { data, setData, post, processing, reset } = useForm({
           content: '',
           user_id: auth.user.id,
           ticket_id: ticket.id,
@@ -15,7 +15,11 @@ export default function CreateComment({ ticket, auth }) {
 
      function handleSubmit(e) {
           e.preventDefault();
-          post(route('interactions'));
+          post(route('interactions')
+          , {
+               preserveScroll: true,
+               onSuccess: () => reset(),
+             });
      }
 
      return (
@@ -23,7 +27,7 @@ export default function CreateComment({ ticket, auth }) {
                <Card className='shadow-sm rounded-5'>
                     <Card.Body>
                          <form onSubmit={handleSubmit}>
-                              <textarea onChange={(e) => setData('content', e.target.value)} className="form-control mb-3" rows="5"></textarea>
+                              <textarea onChange={(e) => setData('content', e.target.value)} className="form-control mb-3" rows="5" value={data.content}></textarea>
                               <FormButton processing={processing} labelText='Post a Reply' type="submit" mode="primary" />
                          </form>
                     </Card.Body>

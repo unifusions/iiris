@@ -21,21 +21,21 @@ const AdminNavigation = () => {
         <>
 
             <li className="nav-item">
-                <Link className="nav-link" href={route('facility.index')}>
+                <Link className={`nav-link ${route().current('facility.index') ? 'active' : ''}`} href={route('facility.index')}>
                     <OfficeBuildingIcon className='menu-arrow' style={iconStyle} />
                     <span className="menu-title ms-1">Facility</span>
                 </Link>
             </li>
 
             <li className="nav-item">
-                <Link className="nav-link" href={route('users.index')}>
+                <Link className={`nav-link ${route().current('users.index') ? 'active' : ''}`} href={route('users.index')}>
                     <UserGroupIcon className='menu-arrow' style={iconStyle} />
                     <span className="menu-title ms-1">Users</span>
                 </Link>
             </li>
 
             <li className="nav-item">
-                <Link className="nav-link" href={route('reports.index')}>
+                <Link className={`nav-link ${route().current('reports.index') ? 'active' : ''}`} href={route('reports.index')}>
                     <DocumentTextIcon className='menu-arrow' style={iconStyle} />
                     <span className="menu-title ms-1">Reports</span>
                 </Link>
@@ -106,7 +106,7 @@ export default function Authenticated(props) {
 
 
                                 <li className="nav-item">
-                                    <Link className="nav-link" href={route('tickets.index')}>
+                                    <Link className={`nav-link ${route().current('tickets.index') ? 'active' : ''}`} href={route('tickets.index')}>
                                         <SupportIcon className='menu-arrow' style={iconStyle} />
                                         <span className="menu-title ms-1">Queries</span>
                                     </Link>
