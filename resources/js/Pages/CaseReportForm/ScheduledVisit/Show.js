@@ -1,3 +1,4 @@
+import FileDeleteConfirmDialog from "@/Components/FileDeleteConfirmDialog";
 import Authenticated from "@/Layouts/Authenticated";
 import FormButton from "@/Pages/Shared/FormButton";
 import FormCalendar from "@/Pages/Shared/FormCalendar";
@@ -20,7 +21,7 @@ import SafetyParameterData from "../FormData/SafetyParameterData";
 import SymptomsData from "../FormData/SymptomsData";
 
 
-function DateofInvestigation({ crf, scheduledvisit }) {
+function DateofInvestigation({ crf, scheduledvisit, isCordinator }) {
      const { data, put, setData, errors, processing } = useForm({
           pod: ''
      });
@@ -33,7 +34,7 @@ function DateofInvestigation({ crf, scheduledvisit }) {
           <>
                <Card className='card shadow-sm rounded-5'>
                     <Card.Body>
-                         <form onSubmit={handlesubmit} >
+                         {isCordinator ? <>   <form onSubmit={handlesubmit} >
                               <FormCalendar
                                    labelText='Date of Visit'
                                    value={data.pod}
@@ -43,7 +44,8 @@ function DateofInvestigation({ crf, scheduledvisit }) {
                               <hr />
                               <FormButton processing={processing} labelText='Next' type="submit" mode="primary" />
 
-                         </form>
+                         </form></> : <> Scheduled Visit is yet to be created. </>}
+
                     </Card.Body>
                </Card>
           </>
@@ -208,6 +210,8 @@ export default function Show() {
 
 
                {scheduledvisit.pod === null ? <>
+
+
                     <div className='d-flex justify-content-between align-items-center mb-3'>
 
                          <h2 className="font-semibold text-xl text-gray-800 leading-tight">Scheduled Visit No: {scheduledvisit.visit_no}</h2>
@@ -224,7 +228,7 @@ export default function Show() {
                          visitNo={scheduledvisit.visit_no}
                          formTitle="Scheduled Visit" />
                     <CaseReportFormData crf={crf} />
-                    <DateofInvestigation crf={crf} scheduledvisit={scheduledvisit} />
+                    <DateofInvestigation crf={crf} scheduledvisit={scheduledvisit} isCordinator={roles.coordinator} />
                </> : <>
                     <Row className='align-items-stretch'>
                          <Col md={9} lg={10} className="mail-view d-none d-md-block">
@@ -257,6 +261,7 @@ export default function Show() {
                                    visitNo={scheduledvisit.visit_no}
                                    formTitle="Scheduled Visit" />
                               <CaseReportFormData crf={crf} />
+
                               <Card className="mb-3 shadow-sm rounded-5">
                                    <Card.Body>
                                         Date of Visit : {scheduledvisit.pod}
@@ -382,9 +387,10 @@ export default function Show() {
 
                                                                                 {roles.admin &&
 
-                                                                                     <Link
-                                                                                          method='delete' as="button"
-                                                                                          href={route('crf.scheduledvisit.fileupload.destroy', { crf: crf, scheduledvisit: scheduledvisit, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
+                                                                                     <FileDeleteConfirmDialog
+                                                                                          url='crf.scheduledvisit.fileupload.destroy'
+                                                                                          options={{ crf: crf, scheduledvisit: scheduledvisit, fileupload: file.file }} />
+
 
                                                                                 }
 

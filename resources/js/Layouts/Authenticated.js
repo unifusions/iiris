@@ -9,6 +9,7 @@ import { DocumentTextIcon, ViewGridIcon, SupportIcon, OfficeBuildingIcon, UserGr
 
 
 import MainPanel from './MainPanel';
+import { ConfirmDialogProvider } from '@/Components/ConfirmDialog';
 
 
 const AdminNavigation = () => {
@@ -119,8 +120,10 @@ export default function Authenticated(props) {
                             </ul>
                         </nav>
                     </div>
+                    
+                        <MainPanel flash={flash} header={header} children={children} />
+                    
 
-                    <MainPanel flash={flash} header={header} children={children} />
                 </div>
             </div>
         </div>

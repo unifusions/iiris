@@ -2,9 +2,9 @@ import React from 'react';
 
 
 import Authenticated from '@/Layouts/Authenticated';
-import { Link } from '@inertiajs/inertia-react';
+import { Head, Link, usePage } from '@inertiajs/inertia-react';
 
-import { Row, Col, Card, Container, Alert } from 'react-bootstrap';
+import { Row, Col, Card, Container, Alert, Button } from 'react-bootstrap';
 import PhysicalExaminationData from '../FormData/PhysicalExaminationData';
 import SymptomsData from '../FormData/SymptomsData';
 import MedicationsData from '../FormData/MedicationsData';
@@ -23,6 +23,11 @@ import ApprovalActionsDisapprove from './ApprovalActionsDisapprove';
 import { RenderCreateButton, RenderFormStatus } from '../FormData/FormDataHelper';
 import FileUpload from './FileUpload';
 import { TrashIcon } from "@heroicons/react/solid";
+import ConfirmDialog, { ConfirmDialogProvider } from '@/Components/ConfirmDialog';
+import useDeleteConfirm from '@/Components/ConfirmDialog';
+import { Inertia } from '@inertiajs/inertia';
+
+import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
 
 
 
@@ -50,18 +55,20 @@ export default class Index extends React.Component {
                medications,
                preopdicomfiles,
                preopfileswext,
-               approvalremarks
+               approvalremarks,
+errors
 
           } = this.props;
+
+
           const iconStyle = { width: 18, height: 18 };
 
-
           return (
-               <Authenticated auth={auth} role={roles}>
+               <Authenticated auth={auth} role={roles}   errors={errors}>
 
                     <div className='wrapper'>
 
-                         {/* <Container className='mb-3'> */}
+                    <Head title="Preoperation Form" />
 
 
 
@@ -228,10 +235,15 @@ export default class Index extends React.Component {
                                                                                           href={route('preopertivefiledownload', { crf: crf, preoperative: preoperative, fileupload: file.file })}> Download</a>
 
                                                                                      {roles.admin &&
+                                                                                          <>
 
-                                                                                          <Link
-                                                                                               method='delete' as="button"
-                                                                                               href={route('crf.preoperative.fileupload.destroy', { crf: crf, preoperative: preoperative, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
+                                                                                               <FileDeleteConfirmDialog
+                                                                                                    url='crf.preoperative.fileupload.destroy'
+                                                                                                    options={{ crf: crf, preoperative: preoperative, fileupload: file.file }}
+                                                                                               />
+
+
+                                                                                          </>
 
                                                                                      }
                                                                                 </div>
@@ -332,14 +344,14 @@ export default class Index extends React.Component {
 
                               </Col>
                          </Row>
-                         {/* </Container> */}
+
 
 
 
                     </div>
 
 
-               </Authenticated>
+               </Authenticated >
           )
      }
 }

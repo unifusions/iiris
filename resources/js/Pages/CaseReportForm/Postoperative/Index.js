@@ -17,6 +17,7 @@ import ApprovalSubmit from './ApprovalSubmit';
 import ApprovalActionsDisapprove from './ApprovalActionsDisapprove';
 import ApprovalActionsApprove from './ApprovalActionsApprove';
 import { RenderFormStatus } from '../FormData/FormDataHelper';
+import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
 
 export default class Index extends React.Component {
 
@@ -202,9 +203,11 @@ export default class Index extends React.Component {
 
                                                                                 {roles.admin &&
 
-                                                                                     <Link
-                                                                                     method='delete' as="button"
-                                                                                     href={route('crf.postoperative.fileupload.destroy', { crf: crf, postoperative: postoperative, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
+                                                                                     <FileDeleteConfirmDialog
+                                                                                          url='crf.postoperative.fileupload.destroy'
+                                                                                          options={{ crf: crf, postoperative: postoperative, fileupload: file.file }}
+                                                                                     />
+
 
                                                                                 }
 

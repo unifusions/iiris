@@ -1,3 +1,4 @@
+import FileDeleteConfirmDialog from "@/Components/FileDeleteConfirmDialog";
 import Authenticated from "@/Layouts/Authenticated";
 import FormButton from "@/Pages/Shared/FormButton";
 import PageTitle from "@/Pages/Shared/PageTitle";
@@ -337,9 +338,10 @@ export default function Show() {
 
                                                                       {roles.admin &&
 
-                                                                           <Link
-                                                                                method='delete' as="button"
-                                                                                href={route('crf.unscheduledvisit.fileupload.destroy', { crf: crf, unscheduledvisit: unscheduledvisit, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
+                                                                           <FileDeleteConfirmDialog
+                                                                                url='crf.unscheduledvisit.fileupload.destroy'
+                                                                                options={{ crf: crf, unscheduledvisit: unscheduledvisit, fileupload: file.file }} />
+
 
                                                                       }
 

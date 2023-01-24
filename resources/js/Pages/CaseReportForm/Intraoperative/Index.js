@@ -13,6 +13,7 @@ import ApprovalSubmit from './ApprovalSubmit';
 import ApprovalActionsApprove from './ApprovalActionsApprove';
 import { DocumentDownloadIcon } from '@heroicons/react/outline';
 import { TrashIcon } from '@heroicons/react/outline';
+import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
 
 
 function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, intraopfileswext }) {
@@ -75,9 +76,12 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
 
                                                   {role.admin &&
                                                      
-                                                     <Link
-                                                     method='delete' as="button"
-                                                     href={route('crf.intraoperative.fileupload.destroy', { crf: crf, intraoperative: intraoperative, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
+                                                     <FileDeleteConfirmDialog
+                                                     url='crf.intraoperative.fileupload.destroy'
+                                                     options={{ crf: crf, intraoperative: intraoperative, fileupload: file.file }}
+                                                />
+
+                                               
 
                                                   }
 

@@ -8,6 +8,7 @@ import FormInput from '@/Pages/Shared/FormInput';
 import FormRadio from '@/Pages/Shared/FormRadio';
 import FormInputWithLabel from '@/Pages/Shared/FormInputWithLabel';
 import { TrashIcon } from '@heroicons/react/solid';
+import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
 
 export default function UpdateIntraOperative({ crf, intraoperative, role, intradicomfiles, intraopfileswext }) {
 
@@ -241,9 +242,13 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
 
                                                             {role.admin &&
 
-                                                                 <Link
-                                                                      method='delete' as="button"
-                                                                      href={route('crf.intraoperative.fileupload.destroy', { crf: crf, intraoperative: intraoperative, fileupload: file.file })} className="btn btn-outline-danger btn-sm ms-2"> <TrashIcon style={iconStyle} /> Delete</Link>
+
+
+                                                                 <FileDeleteConfirmDialog
+                                                                      url='crf.intraoperative.fileupload.destroy'
+                                                                      options={{ crf: crf, intraoperative: intraoperative, fileupload: file.file }}
+                                                                 />
+
 
                                                             }
 
