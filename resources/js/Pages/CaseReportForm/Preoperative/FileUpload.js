@@ -11,10 +11,10 @@ import { RenderBackButton } from "../FormData/FormDataHelper";
 export default function FileUpload() {
 
      const { auth, roles, errors, crf, preoperative } = usePage().props;
-     const { data, setData, post, processing, hasErrors, transform } = useForm({
+     const { data, setData, post, processing, hasErrors, transform, progress } = useForm({
           pre_operative_data_id: preoperative.id,
 
-          files: ''
+          files: null
 
      });
 
@@ -62,7 +62,11 @@ export default function FileUpload() {
 
                                                   </Col>
                                              </Row>
-
+                                             {progress && (
+                                                  <progress value={progress.percentage} max="100">
+                                                       {progress.percentage} %
+                                                  </progress>
+                                             )}
                                              <hr />
                                              <RenderBackButton backUrl={route('crf.preoperative.show', { crf: crf, preoperative: preoperative })} className='me-3' />
                                              <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />
