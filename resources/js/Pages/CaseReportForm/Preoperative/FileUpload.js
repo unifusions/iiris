@@ -3,7 +3,7 @@ import FormButton from "@/Pages/Shared/FormButton";
 import PageTitle from "@/Pages/Shared/PageTitle";
 import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
 
-import React from "react";
+import React, { useState } from "react";
 import { Card, Col, Row, Container } from "react-bootstrap";
 
 import { RenderBackButton } from "../FormData/FormDataHelper";
@@ -17,6 +17,8 @@ export default function FileUpload() {
           files: null
 
      });
+
+     // const [sfiles, setSfiles] = useState();
 
      function handlesubmit(e) {
           e.preventDefault();
@@ -57,7 +59,9 @@ export default function FileUpload() {
                                                   </Col>
                                                   <Col lg={9}>
                                                        <div className="input-group">
-                                                            <input type="file" className="form-control" name="echofiles" multiple onChange={e => setData('files', e.target.files)} />
+                                                            <input type="file" className="form-control" name="echofiles" multiple
+                                                                 // onChange={e => setSfiles(e.target.files)} />
+                                                                  onChange={e => setdata('files', e.target.files)} /> 
                                                        </div>
 
                                                   </Col>
@@ -65,8 +69,22 @@ export default function FileUpload() {
                                              {progress && (
                                                   <progress value={progress.percentage} max="100">
                                                        {progress.percentage} %
+                                                       {console.log(progress)}
                                                   </progress>
                                              )}
+
+                                             
+                                             {/* {
+                                                  sfiles && (
+                                                       <>
+                                                            {sfiles.map((f) => <>
+                                                                 {console.log(f)}
+                                                            </>)}
+                                                       </>
+                                                  )
+                                             } */}
+
+
                                              <hr />
                                              <RenderBackButton backUrl={route('crf.preoperative.show', { crf: crf, preoperative: preoperative })} className='me-3' />
                                              <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />
