@@ -38,8 +38,8 @@ class PreoperativeFileUploadController extends Controller
             foreach ($files as $file) {
                 $fileName = $file->getClientOriginalName();
                 $uploadpath = 'uploads/' . $crf->subject_id . '/preoperative';
-                $filepath = $file->storeAs($uploadpath, $fileName, 'public');
-
+                // $filepath = $file->storeAs($uploadpath, $fileName, 'public');
+                $filepath = Storage::putFileAs($uploadpath, new File($file), $fileName);
                 PreoperativeDicomFile::Create([
                     'pre_operative_data_id' => $preoperative->id,
                     'file_name' => $fileName,

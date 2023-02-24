@@ -61,7 +61,7 @@ export default function FileUpload() {
                                                        <div className="input-group">
                                                             <input type="file" className="form-control" name="echofiles" multiple
                                                                  // onChange={e => setSfiles(e.target.files)} />
-                                                                  onChange={e => setdata('files', e.target.files)} /> 
+                                                                  onChange={e => setData('files', e.target.files)} /> 
                                                        </div>
 
                                                   </Col>
