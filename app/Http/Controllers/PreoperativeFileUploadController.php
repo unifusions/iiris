@@ -16,10 +16,11 @@ class PreoperativeFileUploadController extends Controller
     public function index(CaseReportForm $crf, PreOperativeData $preoperative)
     {
         return Inertia::render(
-            'CaseReportForm/Preoperative/NewFileUpload',
+            'CaseReportForm/Preoperative/FileUpload',
             [
                 'crf' => $crf,
                 'preoperative' => $preoperative,
+                // 'csrf_token' => csrf_token(),
             ]
 
         );
@@ -39,7 +40,7 @@ class PreoperativeFileUploadController extends Controller
 
             foreach ($files as $file) {
                 $fileName = $file->getClientOriginalName();
-                $uploadpath = 'public/uploads/' . $crf->subject_id . '/preoperative';
+                $uploadpath = 'uploads/' . $crf->subject_id . '/preoperative';
                 // $filepath = $file->storeAs($uploadpath, $fileName, 'public');
                 $filepath = Storage::putFileAs($uploadpath, new File($file), $fileName);
                 PreoperativeDicomFile::Create([

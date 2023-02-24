@@ -5,7 +5,7 @@ import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
 
 import React, { useState } from "react";
 import { Card, Col, Row, Container } from "react-bootstrap";
-import ReactResumableJs from "react-resumable-js";
+
 
 import { RenderBackButton } from "../FormData/FormDataHelper";
 

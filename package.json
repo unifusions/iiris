@@ -42,6 +42,7 @@
         "cornerstone-web-image-loader": "^2.1.1",
         "dicom-parser": "^1.8.13",
         "faker": "^6.6.6",
+        "filepond": "^4.30.4",
         "flatpickr": "^4.6.13",
         "hammerjs": "^2.0.8",
         "jquery": "^3.6.0",
@@ -50,10 +51,9 @@
         "react-chartjs-2": "^4.2.0",
         "react-cornerstone-viewport": "^4.1.4",
         "react-datepicker": "^4.8.0",
-        "react-dropzone": "^14.2.1",
+        "react-filepond": "^7.1.2",
         "react-flatpickr": "^3.10.12",
         "react-player": "^2.11.0",
-        "react-resumable-js": "^1.1.24",
         "react-select": "^5.4.0",
         "webpack-node-externals": "^3.0.0"
     }

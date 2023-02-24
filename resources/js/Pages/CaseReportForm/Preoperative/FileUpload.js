@@ -1,30 +1,45 @@
 import Authenticated from "@/Layouts/Authenticated";
 import FormButton from "@/Pages/Shared/FormButton";
 import PageTitle from "@/Pages/Shared/PageTitle";
-import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
+import { Head, Link, useForm, usePage, } from "@inertiajs/inertia-react";
+import { FilePond } from "react-filepond";
 
-import React, { useState } from "react";
+
+import React, { useCallback, useEffect, useState } from "react";
 import { Card, Col, Row, Container } from "react-bootstrap";
+
+
+
 
 import { RenderBackButton } from "../FormData/FormDataHelper";
 
+
+
+// import 'filepond/dist/filepond.min.css';
+
+
 export default function FileUpload() {
 
-     const { auth, roles, errors, crf, preoperative } = usePage().props;
+     const { auth, roles, errors, crf, preoperative, csrf_token } = usePage().props;
      const { data, setData, post, processing, hasErrors, transform, progress } = useForm({
           pre_operative_data_id: preoperative.id,
 
-          files: null
+          files: ''
 
      });
 
-     // const [sfiles, setSfiles] = useState();
 
      function handlesubmit(e) {
           e.preventDefault();
+
           return post(route('crf.preoperative.fileupload.store', { crf: crf, preoperative: preoperative }));
+          // return post(route('dicupload'));
+
+
 
      }
+
+     
 
      return (
           <>
@@ -75,25 +90,26 @@ export default function FileUpload() {
                                              </>
 
                                              )}
-
-
-                                             {/* {
-                                                  sfiles && (
-                                                       <>
-                                                            {sfiles.map((f) => <>
-                                                                 {console.log(f)}
-                                                            </>)}
-                                                       </>
-                                                  )
-                                             } */}
-
-
                                              <hr />
                                              <RenderBackButton backUrl={route('crf.preoperative.show', { crf: crf, preoperative: preoperative })} className='me-3' />
                                              <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />
 
 
                                         </form>
+
+                                        {/* <FilePond allowMultiple 
+                                        onupdatefiles={(fileItems) => setData('files', fileItems)}
+                                        server = {{
+                                             process: {
+                                                  url: route('dicupload'),
+                                                  headers: {'X-CSRF-Token' : csrf_token}
+                                             },
+                                        }}
+                                        
+                                        />
+{console.log(data.files)} */}
+
+
 
                                    </> : 'You cannot upload files to submitted forms'
 

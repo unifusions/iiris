@@ -14,6 +14,8 @@
 
 @import url('tableCss.css');
 @import url('notifications.css');
+
+@import url('../../node_modules/filepond/dist/filepond.css');
 body {
   font-family: 'Inter';
   color: #000;

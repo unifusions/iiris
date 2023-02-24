@@ -72,6 +72,7 @@ use App\Http\Controllers\PostoperativeFileUploadController;
 use App\Http\Controllers\Preoperative\PreopEchoReviewController;
 use App\Http\Controllers\PreoperativeFileDownloadController;
 use App\Http\Controllers\PreoperativeFileUploadController;
+use App\Http\Controllers\PreoperativeNewFileUploadController;
 use App\Http\Controllers\Reports\CaseReportFormExportController;
 use App\Http\Controllers\Reports\PhysicalExaminationExportController;
 use App\Http\Controllers\Reports\UserExportController;
@@ -208,6 +209,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/dicomupload', [EchoDicomFilesController::class, 'uploaded'])->name('dicomuploader');
     Route::get('/download/{echodicomfile}', [EchoDicomFilesController::class, 'download'])->name('dicomdownload');
 
+    Route::post('/preopupload', [PreoperativeNewFileUploadController::class, 'upload'])->name('dicupload');
 
 
 
