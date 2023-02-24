@@ -61,19 +61,22 @@ export default function FileUpload() {
                                                        <div className="input-group">
                                                             <input type="file" className="form-control" name="echofiles" multiple
                                                                  // onChange={e => setSfiles(e.target.files)} />
-                                                                  onChange={e => setData('files', e.target.files)} /> 
+                                                                 onChange={e => setData('files', e.target.files)} />
                                                        </div>
 
                                                   </Col>
                                              </Row>
-                                             {progress && (
+                                             {progress && (<>
                                                   <progress value={progress.percentage} max="100">
-                                                       {progress.percentage} %
-                                                       {console.log(progress)}
+
                                                   </progress>
+                                                  {progress.percentage} %
+
+                                             </>
+
                                              )}
 
-                                             
+
                                              {/* {
                                                   sfiles && (
                                                        <>
