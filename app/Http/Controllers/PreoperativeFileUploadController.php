@@ -8,6 +8,8 @@ use App\Models\PreoperativeDicomFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Illuminate\Http\File;
+
 
 class PreoperativeFileUploadController extends Controller
 {
