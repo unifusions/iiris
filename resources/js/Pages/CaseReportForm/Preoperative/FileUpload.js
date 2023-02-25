@@ -28,7 +28,7 @@ export default function FileUpload() {
 
      });
 
-
+     const [files, setFiles] = useState([]);
      function handlesubmit(e) {
           e.preventDefault();
 
@@ -39,7 +39,7 @@ export default function FileUpload() {
 
      }
 
-     
+
 
      return (
           <>
@@ -66,9 +66,9 @@ export default function FileUpload() {
                          <Card className="mb-3 shadow-sm rounded-5">
                               <Card.Body>
                                    {!preoperative.is_submitted ? <>
-                                        <form onSubmit={handlesubmit}>
+                                        {/* <form onSubmit={handlesubmit}> */}
 
-                                             <Row>
+                                        {/* <Row>
                                                   <Col lg={3} >
                                                        Echo Files
                                                   </Col>
@@ -80,34 +80,39 @@ export default function FileUpload() {
                                                        </div>
 
                                                   </Col>
-                                             </Row>
-                                             {progress && (<>
-                                                  <progress value={progress.percentage} max="100">
+                                             </Row> */}
 
-                                                  </progress>
-                                                  {progress.percentage} %
 
-                                             </>
+                                        <Row>
+                                             <Col lg={12}>
+                                                  <FilePond
+                                                       allowRevert={false}
+                                                       name="files"
+                                                       labelIdle="Upload Files here and click SAVE after uploading"
+                                                       allowMultiple
+                                                       maxParallelUploads={4}
+                                                       files={files}
+                                                       query={{ 'preoperative': preoperative }}
+                                                       onupdatefiles={setFiles}
+                                                       server={{
+                                                            process: {
+                                                                 url: route('crf.preoperative.fileupload.store', { crf: crf, preoperative: preoperative }),
+                                                                 method: 'POST',
+                                                                 headers: { 'X-CSRF-Token': csrf_token }
+                                                            },
+                                                       }}
 
-                                             )}
-                                             <hr />
-                                             <RenderBackButton backUrl={route('crf.preoperative.show', { crf: crf, preoperative: preoperative })} className='me-3' />
+                                                  />
+                                             </Col>
+                                        </Row>
+
+                                        <hr />
+                                        <RenderBackButton backUrl={route('crf.preoperative.show', { crf: crf, preoperative: preoperative })} className='me-3' />
+                                        {/* <RenderBackButton backUrl={route('crf.preoperative.show', { crf: crf, preoperative: preoperative })} className='me-3' />
                                              <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />
 
 
-                                        </form>
-
-                                        {/* <FilePond allowMultiple 
-                                        onupdatefiles={(fileItems) => setData('files', fileItems)}
-                                        server = {{
-                                             process: {
-                                                  url: route('dicupload'),
-                                                  headers: {'X-CSRF-Token' : csrf_token}
-                                             },
-                                        }}
-                                        
-                                        />
-{console.log(data.files)} */}
+                                        </form> */}
 
 
 

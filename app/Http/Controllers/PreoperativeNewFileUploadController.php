@@ -2,47 +2,31 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\CaseReportForm;
+use App\Models\PreOperativeData;
+use Illuminate\Http\File;
 use Illuminate\Http\JsonResponse;
-use Pion\Laravel\ChunkUpload\Exceptions\UploadFailedException;
-use Storage;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
-use Pion\Laravel\ChunkUpload\Handler\AbstractHandler;
-use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
-use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
+use Illuminate\Support\Facades\Storage;
 
 class PreoperativeNewFileUploadController extends Controller
 {
-    public function upload(Request $request) {
-        // create the file receiver
-        // dd($request);
-        $receiver = new FileReceiver("file", $request, HandlerFactory::classFromRequest($request));
-
-        // check if the upload is success, throw exception or return response you need
-        if ($receiver->isUploaded() === false) {
-            throw new UploadMissingFileException();
+    public function upload(Request $request,CaseReportForm $crf, PreOperativeData $preoperative)
+    {
+        dd($crf);
+        if ($request->hasFile('files')) {
+            $file = $request->file('files');
+            $fileName = $file->getClientOriginalName();
+            $folder = uniqid();
+            $uploadpath = 'uploads/tmp/' . $folder;
+            $file->storeAs($uploadpath, $fileName, 'public');
+            return true;
         }
+        return '';
 
-        // receive the file
-        $save = $receiver->receive();
-
-        // check if the upload has finished (in chunk mode it will send smaller files)
-        if ($save->isFinished()) {
-            // save the file and return any response you need, current example uses `move` function. If you are
-            // not using move, you need to manually delete the file by unlink($save->getFile()->getPathname())
-            return $this->saveFile($save->getFile());
-        }
-
-        // we are in chunk mode, lets send the current progress
-        /** @var AbstractHandler $handler */
-        $handler = $save->handler();
-
-        return response()->json([
-            "done" => $handler->getPercentageDone(),
-            'status' => true
-        ]);
     }
 
 
@@ -64,7 +48,7 @@ class PreoperativeNewFileUploadController extends Controller
         return response()->json([
             'path' => $disk->url($fileName),
             'name' => $fileName,
-            'mime_type' =>$mime
+            'mime_type' => $mime
         ]);
     }
 
@@ -78,7 +62,7 @@ class PreoperativeNewFileUploadController extends Controller
 
         // Build the file path
         $filePath = "upload/{$mime}/{$dateFolder}/";
-        $finalPath = storage_path("app/".$filePath);
+        $finalPath = storage_path("app/" . $filePath);
 
         // move the file name
         $file->move($finalPath, $fileName);
@@ -90,13 +74,13 @@ class PreoperativeNewFileUploadController extends Controller
         ]);
     }
 
-   
+
     protected function createFilename(UploadedFile $file)
     {
         $extension = $file->getClientOriginalExtension();
-        $filename = str_replace(".".$extension, "", $file->getClientOriginalName()); // Filename without extension
+        $filename = str_replace("." . $extension, "", $file->getClientOriginalName()); // Filename without extension
 
-        
+
         $filename .= "_" . md5(time()) . "." . $extension;
 
         return $filename;

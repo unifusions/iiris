@@ -11170,6 +11170,7 @@ div.tagsinput span.tag a {
     z-index: 100;
 }
 .filepond--item {
+    
     position: absolute;
     top: 0;
     left: 0;
@@ -11526,10 +11527,10 @@ div.tagsinput span.tag a {
 
     /* base line height */
     line-height: normal;
-
+font-family: inherit;
     /* up uses default system font family */
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; */
 
     /* will increase font weight a bit on Safari */
     font-weight: 450;
@@ -11579,6 +11580,7 @@ div.tagsinput span.tag a {
     margin-bottom: 1em;
 }
 .filepond--root .filepond--credits {
+    display: none;
     position: absolute;
     right: 0;
     opacity: 0.175;
@@ -11963,4 +11965,11 @@ footer.fixed-bottom {
     background-color: white;
     /* change the margins as you want them to be. */
   }
+}
+
+
+/* File Pond CSS */
+
+.filepond--item {
+  width: calc(33% - 0.5em);
 }
