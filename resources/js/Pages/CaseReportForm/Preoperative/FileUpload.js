@@ -88,11 +88,11 @@ export default function FileUpload() {
                                                   <FilePond
                                                        allowRevert={false}
                                                        name="files"
-                                                       labelIdle="Upload Files here and click SAVE after uploading"
+                                                       labelIdle="Upload Files here"
                                                        allowMultiple
-                                                       maxParallelUploads={4}
+                                                       maxParallelUploads={2}
                                                        files={files}
-                                                       query={{ 'preoperative': preoperative }}
+                                                       // query={{ 'preoperative': preoperative }}
                                                        onupdatefiles={setFiles}
                                                        server={{
                                                             process: {
