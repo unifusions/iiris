@@ -17,6 +17,7 @@ class PostoperativeFileUploadController extends Controller
             [
                 'crf' => $crf,
                 'postoperative' => $postoperative,
+                'csrf_token' => csrf_token(),
             ]
 
         );
@@ -30,20 +31,35 @@ class PostoperativeFileUploadController extends Controller
 
     public function store(Request $request, CaseReportForm $crf, PostOperativeData $postoperative)
     {
-        $files = $request->file('files');
-        if (isset($files)) {
-            foreach ($files as $file) {
-                $fileName = $file->getClientOriginalName();
-                $uploadpath = 'uploads/' . $crf->subject_id . '/postoperative';
-                $filepath = $file->storeAs($uploadpath, $fileName, 'public');
-                PostoperativeDicomFile::Create([
-                    'post_operative_data_id' => $postoperative->id,
-                    'file_name' => $fileName,
-                    'file_path' => $filepath,
-                ]);
-            }
+
+        if ($request->hasFile('files')) {
+            $file = $request->file('files');
+            $fileName = $file->getClientOriginalName();
+            $folder = uniqid();
+            $uploadpath = 'uploads/' . $crf->subject_id . '/postoperative';
+            $filepath = $file->storeAs($uploadpath, $fileName, 'public');
+            PostoperativeDicomFile::Create([
+                'post_operative_data_id' => $postoperative->id,
+                'file_name' => $fileName,
+                'file_path' => $filepath,
+            ]);
+            return true;
         }
-        return redirect()->route('crf.postoperative.show', [$crf, $postoperative]);
+
+        // $files = $request->file('files');
+        // if (isset($files)) {
+        //     foreach ($files as $file) {
+        //         $fileName = $file->getClientOriginalName();
+        //         $uploadpath = 'uploads/' . $crf->subject_id . '/postoperative';
+        //         $filepath = $file->storeAs($uploadpath, $fileName, 'public');
+        //         PostoperativeDicomFile::Create([
+        //             'post_operative_data_id' => $postoperative->id,
+        //             'file_name' => $fileName,
+        //             'file_path' => $filepath,
+        //         ]);
+        //     }
+        // }
+        // return redirect()->route('crf.postoperative.show', [$crf, $postoperative]);
     }
 
 

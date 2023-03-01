@@ -22,6 +22,7 @@ class IntrafileUploadController extends Controller
             [
                 'crf' => $crf,
                 'intraoperative' => $intraoperative,
+                'csrf_token' => csrf_token()
             ]
 
         );
@@ -33,23 +34,19 @@ class IntrafileUploadController extends Controller
 
     public function store(Request $request, CaseReportForm $crf, IntraOperativeData $intraoperative)
     {
-        $files = $request->file('files');
+        if ($request->hasFile('files')) {
+            $file = $request->file('files');
+            $fileName = $file->getClientOriginalName();
 
-        if (isset($files)) {
-
-            foreach ($files as $file) {
-                $fileName = $file->getClientOriginalName();
-                $uploadpath = 'uploads/' . $crf->subject_id . '/intraoperative';
-                $filepath = $file->storeAs($uploadpath, $fileName, 'public');
-
-                IntraoperativeDicomFile::Create([
-                    'intra_operative_data_id' => $intraoperative->id,
-                    'file_name' => $fileName,
-                    'file_path' => $filepath,
-                ]);
-            }
+            $uploadpath = 'uploads/' . $crf->subject_id  . '/intraoperative';
+            $filepath = $file->storeAs($uploadpath, $fileName, 'public');
+            IntraoperativeDicomFile::Create([
+                'intra_operative_data_id' => $intraoperative->id,
+                'file_name' => $fileName,
+                'file_path' => $filepath,
+            ]);
+            return true;
         }
-        return redirect()->route('crf.intraoperative.show', [$crf, $intraoperative]);
     }
 
 

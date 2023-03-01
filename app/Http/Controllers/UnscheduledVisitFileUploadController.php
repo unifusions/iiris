@@ -18,6 +18,7 @@ class UnscheduledVisitFileUploadController extends Controller
             [
                 'crf' => $crf,
                 'unscheduledvisit' => $unscheduledvisit,
+                'csrf_token' => csrf_token()
             ]
 
         );
@@ -32,20 +33,23 @@ class UnscheduledVisitFileUploadController extends Controller
 
     public function store(Request $request, CaseReportForm $crf, UnscheduledVisit $unscheduledvisit)
     {
-        $files = $request->file('files');
-        if (isset($files)) {
-            foreach ($files as $file) {
-                $fileName = $file->getClientOriginalName();
-                $uploadpath = 'uploads/' . $crf->subject_id . '/unscheduledvisit';
-                $filepath = $file->storeAs($uploadpath, $fileName, 'public');
-                UnscheduledVisitDicomFile::Create([
-                    'unscheduled_visits_id' => $unscheduledvisit->id,
-                    'file_name' => $fileName,
-                    'file_path' => $filepath,
-                ]);
-            }
+        if ($request->hasFile('files')) {
+            $file = $request->file('files');
+            $fileName = $file->getClientOriginalName();
+            
+            $uploadpath = 'uploads/' . $crf->subject_id  . '/unscheduledvisit/'  . $unscheduledvisit->visit_no;
+            $filepath = $file->storeAs($uploadpath, $fileName, 'public');
+            UnscheduledVisitDicomFile::Create([
+                'unscheduled_visits_id' => $unscheduledvisit->id,
+                'file_name' => $fileName,
+                'file_path' => $filepath,
+            ]);
+            return true;
         }
-        return redirect()->route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]);
+
+
+
+       
     }
 
     public function show(CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, UnscheduledVisitDicomFile $fileupload)

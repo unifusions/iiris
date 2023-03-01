@@ -37,7 +37,7 @@ class PreoperativeFileUploadController extends Controller
         if ($request->hasFile('files')) {
             $file = $request->file('files');
             $fileName = $file->getClientOriginalName();
-            $folder = uniqid();
+            
             $uploadpath = 'uploads/' . $crf->subject_id . '/preoperative';
             $filepath = $file->storeAs($uploadpath, $fileName, 'public');
             PreoperativeDicomFile::Create([

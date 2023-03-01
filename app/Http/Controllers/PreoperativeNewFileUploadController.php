@@ -16,7 +16,7 @@ class PreoperativeNewFileUploadController extends Controller
 {
     public function upload(Request $request,CaseReportForm $crf, PreOperativeData $preoperative)
     {
-        dd($crf);
+        
         if ($request->hasFile('files')) {
             $file = $request->file('files');
             $fileName = $file->getClientOriginalName();

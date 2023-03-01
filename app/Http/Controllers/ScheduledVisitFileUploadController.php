@@ -18,6 +18,7 @@ class ScheduledVisitFileUploadController extends Controller
             [
                 'crf' => $crf,
                 'scheduledvisit' => $scheduledvisit,
+                'csrf_token' => csrf_token()
             ]
 
         );
@@ -31,20 +32,20 @@ class ScheduledVisitFileUploadController extends Controller
 
     public function store(Request $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit)
     {
-        $files = $request->file('files');
-        if (isset($files)) {
-            foreach ($files as $file) {
-                $fileName = $file->getClientOriginalName();
-                $uploadpath = 'uploads/' . $crf->subject_id . '/scheduledvisit';
-                $filepath = $file->storeAs($uploadpath, $fileName, 'public');
-                ScheduledVisitDicomFile::Create([
-                    'scheduled_visits_id' => $scheduledvisit->id,
-                    'file_name' => $fileName,
-                    'file_path' => $filepath,
-                ]);
-            }
+
+        if ($request->hasFile('files')) {
+            $file = $request->file('files');
+            $fileName = $file->getClientOriginalName();
+
+            $uploadpath = 'uploads/' . $crf->subject_id  . '/scheduledvisit/'  . $scheduledvisit->visit_no;
+            $filepath = $file->storeAs($uploadpath, $fileName, 'public');
+            ScheduledVisitDicomFile::Create([
+                'scheduled_visits_id' => $scheduledvisit->id,
+                'file_name' => $fileName,
+                'file_path' => $filepath,
+            ]);
+            return true;
         }
-        return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit]);
     }
 
 

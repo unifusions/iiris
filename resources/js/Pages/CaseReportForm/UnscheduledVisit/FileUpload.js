@@ -1,26 +1,18 @@
 import Authenticated from "@/Layouts/Authenticated";
-import FormButton from "@/Pages/Shared/FormButton";
+
 import PageTitle from "@/Pages/Shared/PageTitle";
-import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
+import { Head, Link, usePage } from "@inertiajs/inertia-react";
 
 import React from "react";
 import { Card, Col, Row, Container } from "react-bootstrap";
+import { FilePond } from "react-filepond";
 
 import { RenderBackButton } from "../FormData/FormDataHelper";
 
 export default function FileUpload() {
 
-     const { auth, roles, errors, crf, unscheduledvisit } = usePage().props;
-     const { data, setData, post, processing, hasErrors, transform } = useForm({
-         files: ''
+     const { auth, roles, errors, crf, unscheduledvisit, csrf_token } = usePage().props;
 
-     });
-
-     function handlesubmit(e) {
-          e.preventDefault();
-          return post(route('crf.unscheduledvisit.fileupload.store', { crf: crf, unscheduledvisit: unscheduledvisit }));
-
-     }
 
      return (
           <>
@@ -47,26 +39,30 @@ export default function FileUpload() {
                          <Card className="mb-3 shadow-sm rounded-5">
                               <Card.Body>
                                    {!unscheduledvisit.is_submitted ? <>
-                                        <form onSubmit={handlesubmit}>
+                                        <Row>
+                                             <Col lg={12}>
+                                                  <FilePond
+                                                       allowRevert={false}
+                                                       name="files"
+                                                       labelIdle="Upload Files here"
+                                                       allowMultiple
+                                                       maxParallelUploads={2}
+                                                       server={{
+                                                            process: {
+                                                                 url: route('crf.unscheduledvisit.fileupload.store', { crf: crf, unscheduledvisit: unscheduledvisit }),
+                                                                 method: 'POST',
+                                                                 headers: { 'X-CSRF-Token': csrf_token }
+                                                            },
+                                                       }}
 
-                                             <Row>
-                                                  <Col lg={3} >
-                                                       Echo Files
-                                                  </Col>
-                                                  <Col lg={9}>
-                                                       <div className="input-group">
-                                                            <input type="file" className="form-control" name="echofiles" multiple onChange={e => setData('files', e.target.files)} />
-                                                       </div>
-
-                                                  </Col>
-                                             </Row>
-
-                                             <hr />
-                                             <RenderBackButton backUrl={route('crf.unscheduledvisit.show', { crf: crf, unscheduledvisit: unscheduledvisit })} className='me-3' />
-                                             <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />
+                                                  />
+                                             </Col>
+                                        </Row>
 
 
-                                        </form>
+                                        <hr />
+                                        <RenderBackButton backUrl={route('crf.unscheduledvisit.show', { crf: crf, unscheduledvisit: unscheduledvisit })} className='me-3' />
+
 
                                    </> : 'You cannot upload files to submitted forms'
 
