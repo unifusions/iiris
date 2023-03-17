@@ -56,7 +56,7 @@ export default class Index extends React.Component {
                preopdicomfiles,
                preopfileswext,
                approvalremarks,
-errors
+               errors
 
           } = this.props;
 
@@ -64,11 +64,11 @@ errors
           const iconStyle = { width: 18, height: 18 };
 
           return (
-               <Authenticated auth={auth} role={roles}   errors={errors}>
+               <Authenticated auth={auth} role={roles} errors={errors}>
 
                     <div className='wrapper'>
 
-                    <Head title="Preoperation Form" />
+                         <Head title="Preoperation Form" />
 
 
 
@@ -263,7 +263,8 @@ errors
                                                   </Card.Body>
                                              </Card>
 
-                                        </> : <>
+                                        </> :
+                                        <>
                                              {(preoperative.is_submitted && preoperative.visit_status) ? <>
                                                   <EchocardiographyData
                                                        echocardiographies={echocardiographies}
@@ -303,16 +304,50 @@ errors
                                                        </div>
 
                                                        <hr />
-                                                       {preopdicomfiles !== undefined &&
-                                                            <div className='container'>
-                                                                 <div className="row ">
-                                                                      {preopdicomfiles.map((file) =>
-                                                                           <div key={file.id} className="col-md-4">
-                                                                                <a href={route('crf.preoperative.fileupload.show', { crf: crf, preoperative: preoperative, fileupload: file })} target="_blank" rel="noopener noreferrer" onclick="window.open(this.href, 'mywin',
-'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" >{file.file_name} </a>
-                                                                           </div>)}
-                                                                 </div>
+                                                       {preopfileswext !== undefined &&
+
+                                                            <div className="row mt-3">
+                                                                 {preopfileswext.map((file) =>
+                                                                      <div key={file.file.id} className="col-md-6 mb-3">
+
+                                                                           <div className="d-flex justify-content-between">
+                                                                                <div> {file.file.file_name} </div>
+                                                                                <div>
+
+                                                                                     {(file.extension === 'jpg' || file.extension === '512' || file.extension === '') &&
+                                                                                          <>
+
+                                                                                               <a
+                                                                                                    className='btn btn-outline-info btn-sm me-2'
+                                                                                                    href={route('crf.preoperative.fileupload.show', { crf: crf, preoperative: preoperative, fileupload: file.file })}
+                                                                                                    target="_blank" rel="noopener noreferrer" >View</a></>}
+
+                                                                                     <a
+                                                                                          className='btn btn-outline-success btn-sm'
+                                                                                          href={route('preopertivefiledownload', { crf: crf, preoperative: preoperative, fileupload: file.file })}> Download</a>
+
+                                                                                     {roles.admin &&
+                                                                                          <>
+
+                                                                                               <FileDeleteConfirmDialog
+                                                                                                    url='crf.preoperative.fileupload.destroy'
+                                                                                                    options={{ crf: crf, preoperative: preoperative, fileupload: file.file }}
+                                                                                               />
+
+
+                                                                                          </>
+
+                                                                                     }
+                                                                                </div>
+                                                                           </div>
+
+
+
+
+                                                                      </div>
+                                                                 )}
                                                             </div>
+
                                                        }
                                                   </Card.Body>
                                              </Card>
