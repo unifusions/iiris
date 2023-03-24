@@ -7,6 +7,7 @@ import { Card, Col, Row, Container } from "react-bootstrap";
 import { RenderBackButton } from "../FormData/FormDataHelper";
 
 
+
 export default function FileUpload() {
      const { auth, roles, errors, crf, preoperative, csrf_token } = usePage().props;
      return (
@@ -42,16 +43,17 @@ export default function FileUpload() {
                                                   name="files"
                                                   labelIdle="Upload Files here"
                                                   allowMultiple
+                                                  chunkUploads
                                                   maxParallelUploads={2}
                                                   server={{
-                                                       process: {
-                                                            url: route('crf.preoperative.fileupload.store', { crf: crf, preoperative: preoperative }),
-                                                            method: 'POST',
-                                                            headers: { 'X-CSRF-Token': csrf_token }
-                                                       },
+                                                       process: {url: route('crf.preoperative.fileupload.store', { crf: crf, preoperative: preoperative })},
+                                                       headers: { 'X-CSRF-Token': csrf_token },     
+                                                       patch : '?crf='+ crf.subject_id +'&preop='+ preoperative.id+'&patch='                                                // patch:{
+                                                      
                                                   }}
 
                                              />
+                                             
                                         </Col>
                                    </Row>
 

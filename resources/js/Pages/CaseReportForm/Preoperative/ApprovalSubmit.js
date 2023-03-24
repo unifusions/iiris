@@ -24,12 +24,11 @@ export default function ApprovalSubmit({ role, crf, preoperative }) {
                <>{preoperative.is_submitted !== null &&
                     <>
                          {preoperative.is_submitted ? '' :
-                              <form onSubmit={handlesubmit} >
-
+                           
                                    <Button variant="primary" onClick={handleShow}> Submit </Button>
 
 
-                              </form>}
+                           }
 
                          <Modal show={show} onHide={handleClose}>
                               <form onSubmit={handlesubmit}>

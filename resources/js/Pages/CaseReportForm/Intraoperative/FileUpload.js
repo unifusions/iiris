@@ -43,14 +43,16 @@ export default function FileUpload() {
                                                        name="files"
                                                        labelIdle="Upload Files here"
                                                        allowMultiple
+                                                       chunkUploads
                                                        maxParallelUploads={2}
                                                        server={{
-                                                            process: {
-                                                                 url: route('crf.intraoperative.fileupload.store', { crf: crf, intraoperative: intraoperative }),
-                                                                 method: 'POST',
-                                                                 headers: { 'X-CSRF-Token': csrf_token }
-                                                            },
+                                                            process: {url: route('crf.intraoperative.fileupload.store', { crf: crf, intraoperative: intraoperative })},
+                                                            headers: { 'X-CSRF-Token': csrf_token },     
+                                                            patch : '?crf='+ crf.subject_id +'&intraop='+ intraoperative.id+'&patch='                                                // patch:{
+                                                           
                                                        }}
+
+                                                      
 
                                                   />
                                              </Col>

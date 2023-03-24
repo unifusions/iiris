@@ -264,7 +264,13 @@ export default function Show() {
 
                               <Card className="mb-3 shadow-sm rounded-5">
                                    <Card.Body>
-                                        Date of Visit : {scheduledvisit.pod}
+                                        Date of Visit : 
+                                        {/* {scheduledvisit.pod} */}
+
+                                        {new Date(scheduledvisit.pod).toLocaleDateString('en-IN',
+                                        { day: '2-digit',  month: '2-digit', year: 'numeric',  }
+                                        )}
+
                                    </Card.Body>
                               </Card>
 

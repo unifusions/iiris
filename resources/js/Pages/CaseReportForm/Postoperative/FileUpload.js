@@ -40,14 +40,16 @@ export default function FileUpload() {
                                                   labelIdle="Upload Files here"
                                                   allowMultiple
                                                   maxParallelUploads={2}
+                                                  chunkUploads
 
                                                   server={{
-                                                       process: {
-                                                            url: route('crf.postoperative.fileupload.store', { crf: crf, postoperative: postoperative }),
-                                                            method: 'POST',
-                                                            headers: { 'X-CSRF-Token': csrf_token }
-                                                       },
+                                                       process: {url: route('crf.postoperative.fileupload.store', { crf: crf, postoperative: postoperative })},
+                                                       headers: { 'X-CSRF-Token': csrf_token },     
+                                                       patch : '?crf='+ crf.subject_id +'&postop='+ postoperative.id+'&patch='                                                // patch:{
+                                                      
                                                   }}
+
+                                                  
 
                                              />
                                         </Col>

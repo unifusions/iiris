@@ -1,7 +1,7 @@
 import FormButton from "@/Pages/Shared/FormButton";
 import { useForm } from "@inertiajs/inertia-react"
 import React, { useState } from "react"
-import { Modal } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 
 export default function ApprovalSubmit({ role, crf, postoperative }) {
 
@@ -23,12 +23,9 @@ export default function ApprovalSubmit({ role, crf, postoperative }) {
                <>{postoperative.is_submitted !== null &&
                     <>
                          {postoperative.is_submitted ? '' :
-                              <form onSubmit={handlesubmit}>
 
-                                   <FormButton processing={processing} labelText='Submit for Approval' type="submit" mode="primary" />
-
-
-                              </form>}
+                                   <Button variant="primary" onClick={handleShow}> Submit </Button>
+                                   }
                          <Modal show={show} onHide={handleClose}>
                               <form onSubmit={handlesubmit}>
                                    <Modal.Header closeButton>
