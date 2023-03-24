@@ -115,9 +115,9 @@ class PreoperativeFileUploadController extends Controller
         }
         return Response::make(Crypt::encryptString($filelocation), 200
         , 
-        // [
-        //     'Content-Type' => 'text/plain',
-        // ]
+        [
+            'Content-Type' => 'text/plain',
+        ]
     );
     }
     public function patch(Request $request)
@@ -144,8 +144,8 @@ class PreoperativeFileUploadController extends Controller
 
         Storage::put($basePath . '/patch.' . $offset, $request->getContent(), ['mimetype' => 'application/octet-stream']);
         $this->persistFileIfDone($basePath, $length, $finalFilePath, $fileName, $chunkfilepath, $preop);
-
-        return Response::make('', 200);
+return true;
+        // return Response::make('', 204);
     }
 
     private function persistFileIfDone($basePath, $length, $finalFilePath, $fileName, $chunkfilepath, $preop)
