@@ -121,11 +121,12 @@ class PreoperativeFileUploadController extends Controller
             ]
         );
     }
-    public function patch(Request $request)
+    public function patch($crf, $preop, Request $request)
     {
+     
         
-        $crf = $request->input('crf');
-        $preop = $request->input('preop');
+        // $crf = $request->input('crf');
+        // $preop = $request->input('preop');
         $chunkfilepath = 'uploads/' . $crf . '/preoperative/';
         $encryptedPath = $request->input('patch');
         if (!$encryptedPath) {
