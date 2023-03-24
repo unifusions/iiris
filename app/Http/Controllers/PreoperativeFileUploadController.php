@@ -145,7 +145,7 @@ class PreoperativeFileUploadController extends Controller
         Storage::put($basePath . '/patch.' . $offset, $request->getContent(), ['mimetype' => 'application/octet-stream']);
         $this->persistFileIfDone($basePath, $length, $finalFilePath, $fileName, $chunkfilepath, $preop);
 
-        return Response::make('', 204);
+        return Response::make('', 200);
     }
 
     private function persistFileIfDone($basePath, $length, $finalFilePath, $fileName, $chunkfilepath, $preop)
