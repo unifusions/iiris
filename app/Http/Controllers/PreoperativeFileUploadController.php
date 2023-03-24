@@ -113,9 +113,12 @@ class PreoperativeFileUploadController extends Controller
         if (!$fileCreated) {
             abort(500, 'Could not create file');
         }
-        return Response::make(Crypt::encryptString($filelocation), 200, [
-            'Content-Type' => 'text/plain',
-        ]);
+        return Response::make(Crypt::encryptString($filelocation), 200
+        , 
+        // [
+        //     'Content-Type' => 'text/plain',
+        // ]
+    );
     }
     public function patch(Request $request)
     {
