@@ -149,10 +149,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.preoperative.personalhistory', PreOperativePersonalHistoryController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.physicalactivity', PreOperativePhysicalActivityController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.medication', PreOperativeMedicationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
+        // Route::prefix('api')->group(function(){
+            Route::patch('/crf/{crf}/preoperative/{preoperative}/{fileupload}',[ PreoperativeFileUploadController::class, 'patch']);
+
+        // });
         Route::resource('crf.preoperative.fileupload', PreoperativeFileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
 
         Route::get('/download/{crf}/preoperative/{preoperative}/{fileupload}', PreoperativeFileDownloadController::class)->name('preopertivefiledownload');
-        Route::patch('/crf/{crf}/preoperative/{preoperative}/{fileupload}',[ PreoperativeFileUploadController::class, 'patch']);
+        
+     
 
 
         Route::resource('crf.intraoperative', IntraOperativeController::class)->parameters(['crf' => 'crf:subject_id', 'intraoperative' => 'intraoperative:visit_no']);
