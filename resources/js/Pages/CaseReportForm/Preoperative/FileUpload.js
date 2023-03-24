@@ -43,7 +43,7 @@ export default function FileUpload() {
                                                   name="files"
                                                   labelIdle="Upload Files here"
                                                   allowMultiple
-                                                  // chunkUploads
+                                                  chunkUploads
                                                   maxParallelUploads={2}
                                                   server={{
                                                        process: {
