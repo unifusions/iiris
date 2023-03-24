@@ -113,12 +113,13 @@ class PreoperativeFileUploadController extends Controller
         if (!$fileCreated) {
             abort(500, 'Could not create file');
         }
-        return Response::make(Crypt::encryptString($filelocation), 200
-        , 
-        [
-            'Content-Type' => 'text/plain',
-        ]
-    );
+        return Response::make(
+            Crypt::encryptString($filelocation),
+            200,
+            [
+                'Content-Type' => 'text/plain',
+            ]
+        );
     }
     public function patch(Request $request)
     {
@@ -144,8 +145,12 @@ class PreoperativeFileUploadController extends Controller
 
         Storage::put($basePath . '/patch.' . $offset, $request->getContent(), ['mimetype' => 'application/octet-stream']);
         $this->persistFileIfDone($basePath, $length, $finalFilePath, $fileName, $chunkfilepath, $preop);
-return true;
-        // return Response::make('', 204);
+
+        return Response::make(
+            '',
+            204,
+            ['mimetype' => 'application/octet-stream']
+        );
     }
 
     private function persistFileIfDone($basePath, $length, $finalFilePath, $fileName, $chunkfilepath, $preop)
