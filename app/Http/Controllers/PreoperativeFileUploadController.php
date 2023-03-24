@@ -123,7 +123,7 @@ class PreoperativeFileUploadController extends Controller
     }
     public function patch(Request $request)
     {
-        // dd($request);
+        
         $crf = $request->input('crf');
         $preop = $request->input('preop');
         $chunkfilepath = 'uploads/' . $crf . '/preoperative/';

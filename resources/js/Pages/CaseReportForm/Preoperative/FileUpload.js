@@ -56,7 +56,7 @@ export default function FileUpload() {
                                                             'X-CSRF-Token': csrf_token,
                                                           
                                                        },
-                                                       patch: '?crf=' + crf.subject_id + '&postop=' + postoperative.id + '&patch='
+                                                       patch: '?crf=' + crf.subject_id + '&preop=' + preoperative.id + '&patch='
                                                        
                                                      
                                                       
