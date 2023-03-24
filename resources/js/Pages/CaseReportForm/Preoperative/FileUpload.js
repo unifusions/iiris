@@ -43,19 +43,27 @@ export default function FileUpload() {
                                                   name="files"
                                                   labelIdle="Upload Files here"
                                                   allowMultiple
-                                                  chunkUploads
+                                                  // chunkUploads
                                                   maxParallelUploads={2}
                                                   server={{
-                                                       process: {url: route('crf.preoperative.fileupload.store', { crf: crf, preoperative: preoperative })},
-                                                       headers: { 'X-CSRF-Token': csrf_token,
-                                                       'Accept': '*/*',
-                                                       'User-Agent': 'request', },     
-                                                       patch : '?crf='+ crf.subject_id +'&preop='+ preoperative.id+'&patch='                                                // patch:{
+                                                       process: {
+                                                            url: route('crf.preoperative.fileupload.store', { crf: crf, preoperative: preoperative })
+                                                       },
+
+
+
+                                                       headers: {
+                                                            'X-CSRF-Token': csrf_token,
+                                                          
+                                                       },
+                                                       patch: '?crf=' + crf.subject_id + '&postop=' + postoperative.id + '&patch='
+                                                       
+                                                     
                                                       
                                                   }}
 
                                              />
-                                             
+
                                         </Col>
                                    </Row>
 
