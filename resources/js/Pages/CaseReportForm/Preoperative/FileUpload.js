@@ -56,10 +56,11 @@ export default function FileUpload() {
                                                             'X-CSRF-Token': csrf_token,
                                                           
                                                        },
-                                                       patch: {
-                                                            method: 'PATCH'
-                                                       }
-                                                       // patch: '?crf=' + crf.subject_id + '&preop=' + preoperative.id + '&patch='
+                                                       // patch: {
+                                                       //      method: 'PATCH'
+                                                       // }
+                                                       patch: '?patch='
+                                                       // '?crf=' + crf.subject_id + '&preop=' + preoperative.id + '&'
                                                        
                                                      
                                                       

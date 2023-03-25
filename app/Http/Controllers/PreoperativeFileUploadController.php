@@ -151,10 +151,7 @@ class PreoperativeFileUploadController extends Controller
         return Response::make(
             '',
             204,
-            [
-                'content-type' => 'text/plain; charset=UTF-8',
-                'mimetype' => 'application/octet-stream'
-            ]
+         
         );
     }
 
