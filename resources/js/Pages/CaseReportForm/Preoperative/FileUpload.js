@@ -59,8 +59,7 @@ export default function FileUpload() {
                                                        // patch: {
                                                        //      method: 'PATCH'
                                                        // }
-                                                       patch: '?patch='
-                                                       // '?crf=' + crf.subject_id + '&preop=' + preoperative.id + '&'
+                                                       patch: '?crf=' + crf.subject_id + '&preop=' + preoperative.id + '&patch='
                                                        
                                                      
                                                       

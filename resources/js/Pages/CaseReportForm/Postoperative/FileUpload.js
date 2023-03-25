@@ -40,7 +40,7 @@ export default function FileUpload() {
                                                   labelIdle="Upload Files here"
                                                   allowMultiple
                                                   maxParallelUploads={2}
-                                                  // chunkUploads
+                                                  chunkUploads
 
                                                   server={{
                                                        process: {url: route('crf.postoperative.fileupload.store', { crf: crf, postoperative: postoperative })},

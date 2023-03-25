@@ -81,7 +81,7 @@ class PostoperativeFileUploadController extends Controller
     {
 
         $filelocation =  'uploads/temp/' . uniqid();
-$fileCreated = Storage::put($filelocation, '');
+        $fileCreated = Storage::put($filelocation, '');
 
         if (!$fileCreated) {
             abort(500, 'Could not create file');
@@ -185,7 +185,7 @@ $fileCreated = Storage::put($filelocation, '');
 
     public function destroy(CaseReportForm $crf, PostOperativeData $postoperative, PostoperativeDicomFile $fileupload)
     {
-       
+
         $fileupload->delete();
         return redirect()->back()->with(['message' => 'File Deleted successfully']);
     }

@@ -107,7 +107,6 @@ class PreoperativeFileUploadController extends Controller
     {
 
         $filelocation =  'uploads/temp/'  . uniqid();
-
         $fileCreated = Storage::put($filelocation, '');
 
         if (!$fileCreated) {
@@ -121,12 +120,12 @@ class PreoperativeFileUploadController extends Controller
             ]
         );
     }
-    public function patch($crf, $preop, Request $request)
+    public function patch(Request $request)
     {
      
         
-        // $crf = $request->input('crf');
-        // $preop = $request->input('preop');
+        $crf = $request->input('crf');
+        $preop = $request->input('preop');
         $chunkfilepath = 'uploads/' . $crf . '/preoperative/';
         $encryptedPath = $request->input('patch');
         if (!$encryptedPath) {
@@ -148,11 +147,7 @@ class PreoperativeFileUploadController extends Controller
         Storage::put($basePath . '/patch.' . $offset, $request->getContent(), ['mimetype' => 'application/octet-stream']);
         $this->persistFileIfDone($basePath, $length, $finalFilePath, $fileName, $chunkfilepath, $preop);
 
-        return Response::make(
-            '',
-            204,
-         
-        );
+        return Response::make('',204,);
     }
 
     private function persistFileIfDone($basePath, $length, $finalFilePath, $fileName, $chunkfilepath, $preop)
