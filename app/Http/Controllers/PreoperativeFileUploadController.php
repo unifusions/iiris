@@ -33,7 +33,6 @@ class PreoperativeFileUploadController extends Controller
 
     public function create()
     {
-        //
     }
 
 
@@ -63,44 +62,8 @@ class PreoperativeFileUploadController extends Controller
             'Content-Type' => 'text/plain',
         ]);
 
-
-        // if ($request->hasFile('files')) {
-        //     $file = $request->file('files');
-        //     $fileName = $file->getClientOriginalName();
-
-        //     $filepath = $file->storeAs($uploadpath, $fileName, 'public');
-        //     // $preoperativedicomfile = PreoperativeDicomFile::Create([
-        //     //     'pre_operative_data_id' => $preoperative->id,
-        //     //     'file_name' => $fileName,
-        //     //     'file_path' => $filepath,
-        //     // ]);
-
-
-
-        // return $fileupload->id;
-
-        // return $preoperativedicomfile->id;
-        // return response()->json(['id'=>$preoperativedicomfile->id])
-        //  ->withCallback($request->input('patch'));
     }
 
-    // $files = $request->file('files');
-
-    // if (isset($files)) {
-
-    //     foreach ($files as $file) {
-    //         $fileName = $file->getClientOriginalName();
-    //         $uploadpath = 'uploads/' . $crf->subject_id . '/preoperative';
-    //         // $filepath = $file->storeAs($uploadpath, $fileName, 'public');
-    //         $filepath = Storage::putFileAs($uploadpath, new File($file), $fileName);
-    //         PreoperativeDicomFile::Create([
-    //             'pre_operative_data_id' => $preoperative->id,
-    //             'file_name' => $fileName,
-    //             'file_path' => $filepath,
-    //         ]);
-    //     }
-    // }
-    // return redirect()->route('crf.preoperative.show', [$crf, $preoperative]);
 
 
     private function handleChunkInitialization()
@@ -131,8 +94,6 @@ class PreoperativeFileUploadController extends Controller
         if (!$encryptedPath) {
             abort(400, 'No id given');
         }
-
-
         try {
             $finalFilePath = Crypt::decryptString($encryptedPath);
             $id = basename($encryptedPath);

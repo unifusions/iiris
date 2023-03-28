@@ -45,14 +45,17 @@ export default function FileUpload() {
                                                        name="files"
                                                        labelIdle="Upload Files here"
                                                        allowMultiple
+                                                       chunkUploads
                                                        maxParallelUploads={2}
+                                                      
+
                                                        server={{
-                                                            process: {
-                                                                 url: route('crf.scheduledvisit.fileupload.store', { crf: crf, scheduledvisit: scheduledvisit }),
-                                                                 method: 'POST',
-                                                                 headers: { 'X-CSRF-Token': csrf_token }
-                                                            },
+                                                            process: {url: route('crf.scheduledvisit.fileupload.store', { crf: crf, scheduledvisit: scheduledvisit })},
+                                                            headers: { 'X-CSRF-Token': csrf_token },     
+                                                            patch : '?crf='+ crf.subject_id +'&svid='+ scheduledvisit.id+'&patch='                                                // patch:{
+                                                           
                                                        }}
+
 
                                                   />
                                              </Col>

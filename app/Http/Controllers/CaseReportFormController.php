@@ -17,9 +17,18 @@ class CaseReportFormController extends Controller
         // return view('casereportforms.index', compact('caseReportForm'));
 
         return Inertia::render('CaseReportForm/Index', [
-            'crf' => $caseReportForm,
+            'filters' => request()->all('filteredCrf'),
+            'crf' => CaseReportForm::orderBy('subject_id', 'desc')
+            ->filter(request()->only('filteredCrf'))
+            ->paginate(10),
 
-            'facility' => auth()->user()->facility->name ?? ''
+            'facility' => auth()->user()->facility->name ?? '',
+            'subjectOptions' => CaseReportForm::pluck('subject_id')->map(function ($crf) {
+                return [
+                    'label' => $crf,
+                    'value' => $crf
+                ];
+            }),
         ]);
     }
 

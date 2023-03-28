@@ -47,13 +47,14 @@ export default function FileUpload() {
                                                        labelIdle="Upload Files here"
                                                        allowMultiple
                                                        maxParallelUploads={2}
+                                                       chunkUploads
                                                        server={{
-                                                            process: {
-                                                                 url: route('crf.unscheduledvisit.fileupload.store', { crf: crf, unscheduledvisit: unscheduledvisit }),
-                                                                 method: 'POST',
-                                                                 headers: { 'X-CSRF-Token': csrf_token }
-                                                            },
+                                                            process: {url: route('crf.unscheduledvisit.fileupload.store', { crf: crf, unscheduledvisit: unscheduledvisit })},
+                                                            headers: { 'X-CSRF-Token': csrf_token },     
+                                                            patch : '?crf='+ crf.subject_id +'&usvid='+ unscheduledvisit.id+'&patch='                                                // patch:{
+                                                           
                                                        }}
+
 
                                                   />
                                              </Col>

@@ -1,24 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Authenticated from '@/Layouts/Authenticated';
-import { Head, Link } from '@inertiajs/inertia-react';
+import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
 import { Card, Table } from 'react-bootstrap';
 import TablePagination from '../Shared/TablePagination';
 import BadgeLink from '../Shared/BadgeLinks';
+import Select from "react-select";
+import { Inertia } from '@inertiajs/inertia';
+import { SearchIcon } from '@heroicons/react/outline';
 
 
-const GetAge = ({birthDate}) => {
-     
+
+
+const GetAge = ({ birthDate }) => {
+
      var today = new Date();
-         var bd = new Date(birthDate);
+     var bd = new Date(birthDate);
      var age = today.getFullYear() - bd.getFullYear();
-         var m = today.getMonth() - bd.getMonth();
+     var m = today.getMonth() - bd.getMonth();
      if (m < 0 || (m === 0 && today.getDate() < bd.getDate())) {
           age--;
      }
-     
-     return( <>{age}</> );
+
+     return (<>{age}</>);
 }
+
 
 export default class Index extends React.Component {
 
@@ -27,6 +33,48 @@ export default class Index extends React.Component {
      }
 
      render() {
+
+          function CrfSelectComponent({ options, allCrfList, isCreateable }) {
+
+
+
+               function selectCrf(value) {
+
+                    let selectedCrf = allCrfList.find((filteredCrf) => {
+                         return filteredCrf.subject_id === value.value
+                    })
+
+                    Inertia.visit(route('crf.show', { crf: selectedCrf }));
+
+               }
+
+               return (
+                    <div className='d-flex justify-content-between align-items-center mb-3'>
+                         <div className='w-25'>
+                              
+                              < Select
+                                   options={options}
+                                   onChange={(value) => selectCrf(value)}
+                                   isSearchable
+                                   placeholder = 'Search eCRF'
+                              />
+                         </div>
+
+
+
+                         {isCreateable && <Link href={route('crf.create')} className="btn btn-primary" method="get" type="button" as="button" >Create</Link>}
+
+                    </div>
+
+
+
+
+               )
+          }
+
+
+
+
           return (
                <Authenticated
                     auth={this.props.auth}
@@ -34,14 +82,23 @@ export default class Index extends React.Component {
                     header={
                          <div className='d-flex justify-content-between align-items-center mb-3'>
                               <h2 className="font-semibold text-xl text-gray-800 leading-tight">Case Report Forms</h2>
-                              {this.props.roles.coordinator && <Link href={route('crf.create')} className="btn btn-primary" method="get" type="button" as="button" >Create</Link>}
-                              
+
                          </div>
 
                     }
                     role={this.props.roles}
                >
+
                     <Head title="Case Report Form" />
+
+                    <CrfSelectComponent
+                         options={this.props.subjectOptions}
+                         allCrfList={this.props.crf.data}
+                         isCreateable={this.props.roles.coordinator}
+                    />
+
+
+
                     <Card className="card shadow-sm rounded-5">
                          <Card.Body>
                               <Table hover responsive size="sm">
@@ -60,7 +117,7 @@ export default class Index extends React.Component {
                                         {this.props.crf.data.map((crf) => <tr key={crf.id} >
                                              <td>{crf.subject_id}</td>
                                              <td>{crf.facility.name}</td>
-                                             <td><GetAge birthDate = {crf.date_of_birth} /> </td>
+                                             <td><GetAge birthDate={crf.date_of_birth} /> </td>
                                              <td>{crf.gender}</td>
                                              <td>
                                                   <BadgeLink routeUrl={route('crf.preoperative.show', { crf: crf, preoperative: crf.preoperative })}
@@ -79,7 +136,7 @@ export default class Index extends React.Component {
                                         </tr>)}
                                    </tbody>
                               </Table>
-                             
+
                               <hr />
                               <TablePagination links={this.props.crf.links} />
 

@@ -117,4 +117,18 @@ class CaseReportForm extends Model
     public function preoperativeEchocardiographies(){
         return $this->hasManyThrough(Echocardiography::class, PreOperativeData::class,'case_report_form_id','pre_operative_data_id','id','id');
     }
+
+    public function scopeFilter($query, array $filters){
+        $query->when($filters['filteredCrf'] ?? null, function ($query, $filteredCrf){
+            $query->where(function ($query) use ($filteredCrf){
+                $query->where('subject_id', $filteredCrf);
+            });
+        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
+            if ($trashed === 'with') {
+                $query->withTrashed();
+            } elseif ($trashed === 'only') {
+                $query->onlyTrashed();
+            }
+        });
+    }
 }
