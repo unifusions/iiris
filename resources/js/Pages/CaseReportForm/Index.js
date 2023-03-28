@@ -44,7 +44,8 @@ export default class Index extends React.Component {
                          return filteredCrf.subject_id === value.value
                     })
 
-                    Inertia.visit(route('crf.show', { crf: selectedCrf }));
+                    Inertia.reload({ data: { filteredCrf: value.value } })
+
 
                }
 
