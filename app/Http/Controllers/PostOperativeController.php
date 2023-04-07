@@ -118,6 +118,22 @@ class PostOperativeController extends Controller
 
             return redirect()->route('crf.postoperative.show', [$crf, $postoperative])->with(['message' => $message]);
         }
+
+        if (isset($request->action)) {
+            if ($request->action == 'Unlocked') {
+                $postoperative->visit_status = 0;
+                $postoperative->is_submitted = 0;
+                PostoperativeApprovalRemark::Create([
+                    'post_operative_data_id' => $postoperative->id,
+                    'user_id' => auth()->user()->id,
+                    'action' => $request->action,
+                    'remarks' => $request->remarks,
+                ]);
+                $postoperative->save();
+                $message = 'Preoperative Data has been unlocked to edit';
+                return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+            }
+        }
     }
 
 

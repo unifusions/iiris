@@ -109,7 +109,21 @@ class IntraOperativeController extends Controller
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
 
-
+        if (isset($request->action)) {
+            if ($request->action == 'Unlocked') {
+                $intraoperative->visit_status = 0;
+                $intraoperative->is_submitted = 0;
+                IntraoperativeApprovalRemark::Create([
+                    'intra_operative_data_id' => $intraoperative->id,
+                    'user_id' => auth()->user()->id,
+                    'action' => $request->action,
+                    'remarks' => $request->remarks,
+                ]);
+                $intraoperative->save();
+                $message = 'Intraoperative Data has been unlocked to edit';
+                return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+            }
+        }
 
         $intraoperative->case_report_form_id = $request->crf->id;
         $intraoperative->date_of_procedure = $request->date_of_procedure !== null ? Carbon::parse($request->date_of_procedure)->addHours(5)->addMinutes(30) : null;

@@ -149,6 +149,22 @@ class UnscheduledvisitController extends Controller
             $message = 'Unscheduled Data has been disapproved';
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
+
+        if (isset($request->action)) {
+            if ($request->action == 'Unlocked') {
+                $unscheduledvisit->visit_status = 0;
+                $unscheduledvisit->is_submitted = 0;
+                UnscheduledVisitApprovalRemark::Create([
+                    'unscheduled_visits_id' => $unscheduledvisit->id,
+                    'user_id' => auth()->user()->id,
+                    'action' => $request->action,
+                    'remarks' => $request->remarks,
+                ]);
+                $unscheduledvisit->save();
+                $message = 'UnScheduled Visit Data has been unlocked to edit';
+                return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+            }
+        }
     }
 
     public function destroy(UnscheduledVisit $unscheduledvisit)

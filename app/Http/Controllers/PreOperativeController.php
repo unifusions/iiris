@@ -82,7 +82,7 @@ class PreOperativeController extends Controller
             'preopdicomfiles' => $preoperative->fileuploads,
             'preopfileswext' => $preoperative->fileuploads->map(fn ($file) => [
                 'file' => $file,
-                
+
                 'extension' =>  pathinfo(storage_path('app/public/' . $file->file_path), PATHINFO_EXTENSION)
             ]),
             'approvalremarks' => $preoperative->approvalremarks,
@@ -187,6 +187,22 @@ class PreOperativeController extends Controller
             $message = 'Preoperative Data has been disapproved';
             Mail::to($crf->user->email)->send(new PreoperativeApprovalMail($crf, $preoperative, $remarks));
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+        }
+
+        if (isset($request->action)) {
+            if ($request->action == 'Unlocked') {
+                $preoperative->visit_status = 0;
+                $preoperative->is_submitted = 0;
+                PreoperativeApprovalRemark::Create([
+                    'pre_operative_data_id' => $preoperative->id,
+                    'user_id' => auth()->user()->id,
+                    'action' => $request->action,
+                    'remarks' => $request->remarks,
+                ]);
+                $preoperative->save();
+                $message = 'Preoperative Data has been unlocked to edit';
+                return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+            }
         }
     }
 

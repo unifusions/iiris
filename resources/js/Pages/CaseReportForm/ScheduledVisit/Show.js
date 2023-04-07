@@ -19,6 +19,7 @@ import PhysicalActivityData from "../FormData/PhysicalActivityData";
 import PhysicalExaminationData from "../FormData/PhysicalExaminationData";
 import SafetyParameterData from "../FormData/SafetyParameterData";
 import SymptomsData from "../FormData/SymptomsData";
+import ApprovalActionEditable from "./ApprovalActionsEditable";
 
 
 function DateofInvestigation({ crf, scheduledvisit, isCordinator }) {
@@ -251,6 +252,8 @@ export default function Show() {
                                         </> : ''
                                         }
 
+                                        <ApprovalActionEditable role={roles} crf={crf} scheduledvisit={scheduledvisit} />
+
 
                                    </div>
 
@@ -264,11 +267,11 @@ export default function Show() {
 
                               <Card className="mb-3 shadow-sm rounded-5">
                                    <Card.Body>
-                                        Date of Visit : 
+                                        Date of Visit :
                                         {/* {scheduledvisit.pod} */}
 
                                         {new Date(scheduledvisit.pod).toLocaleDateString('en-IN',
-                                        { day: '2-digit',  month: '2-digit', year: 'numeric',  }
+                                             { day: '2-digit', month: '2-digit', year: 'numeric', }
                                         )}
 
                                    </Card.Body>

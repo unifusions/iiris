@@ -28,6 +28,7 @@ import useDeleteConfirm from '@/Components/ConfirmDialog';
 import { Inertia } from '@inertiajs/inertia';
 
 import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
+import ApprovalActionEditable from './ApprovalActionsEditable';
 
 
 
@@ -86,6 +87,9 @@ export default class Index extends React.Component {
                                                   <ApprovalActionsApprove role={roles} crf={crf} preoperative={preoperative} />
                                              </> : ''
                                              }
+
+
+<ApprovalActionEditable role={roles} crf={crf} preoperative={preoperative} />
 
 
 

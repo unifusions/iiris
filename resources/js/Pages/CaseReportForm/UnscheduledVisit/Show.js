@@ -17,6 +17,7 @@ import PhysicalActivityData from "../FormData/PhysicalActivityData";
 import PhysicalExaminationData from "../FormData/PhysicalExaminationData";
 import SafetyParameterData from "../FormData/SafetyParameterData";
 import SymptomsData from "../FormData/SymptomsData";
+import ApprovalActionEditable from "./ApprovalActionsEditable";
 
 function ApprovalActionsApprove({ role, crf, unscheduledvisit }) {
 
@@ -187,7 +188,7 @@ export default function Show() {
                                    </> : ''
                                    }
 
-
+                                   <ApprovalActionEditable role={roles} crf={crf} unscheduledvisit={unscheduledvisit} />
                               </div>
 
                          </div>

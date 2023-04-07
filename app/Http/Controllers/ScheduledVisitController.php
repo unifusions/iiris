@@ -141,6 +141,22 @@ class ScheduledVisitController extends Controller
             $message = 'Scheduled Data has been disapproved';
             return redirect()->route('crf.show', $crf)->with(['message' => $message]);
         }
+
+        if (isset($request->action)) {
+            if ($request->action == 'Unlocked') {
+                $scheduledvisit->visit_status = 0;
+                $scheduledvisit->is_submitted = 0;
+                ScheduledVisitApprovalRemark::Create([
+                    'scheduled_visits_id' => $scheduledvisit->id,
+                    'user_id' => auth()->user()->id,
+                    'action' => $request->action,
+                    'remarks' => $request->remarks,
+                ]);
+                $scheduledvisit->save();
+                $message = 'Scheduled Visit Data has been unlocked to edit';
+                return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+            }
+        }
     }
 
 

@@ -14,6 +14,7 @@ import ApprovalActionsApprove from './ApprovalActionsApprove';
 import { DocumentDownloadIcon } from '@heroicons/react/outline';
 import { TrashIcon } from '@heroicons/react/outline';
 import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
+import ApprovalActionEditable from './ApprovalActionsEditable';
 
 
 function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, intraopfileswext }) {
@@ -75,13 +76,13 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
                                                        href={route('intraoperativefiledownload', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}>Download</a>
 
                                                   {role.admin &&
-                                                     
-                                                     <FileDeleteConfirmDialog
-                                                     url='crf.intraoperative.fileupload.destroy'
-                                                     options={{ crf: crf, intraoperative: intraoperative, fileupload: file.file }}
-                                                />
 
-                                               
+                                                       <FileDeleteConfirmDialog
+                                                            url='crf.intraoperative.fileupload.destroy'
+                                                            options={{ crf: crf, intraoperative: intraoperative, fileupload: file.file }}
+                                                       />
+
+
 
                                                   }
 
@@ -133,6 +134,7 @@ export default class Index extends React.Component {
                                                   <ApprovalActionsApprove role={roles} crf={crf} intraoperative={intraoperative} />
                                              </> : ''
                                              }
+                                             <ApprovalActionEditable role={roles} crf={crf} intraoperative={intraoperative} />
 
                                         </div>
 

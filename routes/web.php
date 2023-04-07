@@ -1,6 +1,7 @@
 <?php
 
 use App\Exports\PhysicalExaminationExport;
+use App\Http\Controllers\Admins\PreoperativeFormEditableController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -151,6 +152,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.preoperative.medication', PreOperativeMedicationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         // Route::prefix('api')->group(function(){
         Route::patch('/crf/{crf}/preoperative/{preoperative}/fileupload', [PreoperativeFileUploadController::class, 'patch']);
+        // Route::put('/crf/{crf}/preoperative/{preoperative}', PreoperativeFormEditableController::class)->name('crf.preoperative.unlock');
 
         // });
         Route::resource('crf.preoperative.fileupload', PreoperativeFileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);

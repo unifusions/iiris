@@ -18,6 +18,7 @@ import ApprovalActionsDisapprove from './ApprovalActionsDisapprove';
 import ApprovalActionsApprove from './ApprovalActionsApprove';
 import { RenderFormStatus } from '../FormData/FormDataHelper';
 import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
+import ApprovalActionEditable from './ApprovalActionsEditable';
 
 export default class Index extends React.Component {
 
@@ -65,7 +66,7 @@ export default class Index extends React.Component {
                                                   <ApprovalActionsApprove role={roles} crf={crf} postoperative={postoperative} />
                                              </> : ''
                                              }
-
+    <ApprovalActionEditable role={roles} crf={crf} postoperative={postoperative} />
                                         </div>
 
 

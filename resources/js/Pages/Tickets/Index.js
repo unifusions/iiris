@@ -91,7 +91,7 @@ export default function Index() {
      };
 
      function handleFilterbyStatus(e) {
-         Inertia.reload({ data: { status: e.target.name } });
+          Inertia.reload({ data: { status: e.target.name } });
      }
 
 
@@ -120,10 +120,11 @@ export default function Index() {
                                         <th>Query ID</th>
                                         <th>Form Query</th>
                                         <th>Message</th>
-                                        {(roles.admin || roles.sudo) &&
+                                        {/* {(roles.admin || roles.sudo) &&
                                              <th>To User/Facility</th>
-                                        }
-
+                                        } */}
+                                        <th>Query By</th>
+                                        <th>Query To</th>
                                         <th>
                                              <Dropdown>
                                                   <Dropdown.Toggle as={CustomToggle}>
@@ -146,12 +147,15 @@ export default function Index() {
                                         <td>{ticket.id}</td>
                                         <td>{ticket.form_data}</td>
                                         <td>{ticket.subject}</td>
-                                        {(roles.admin || roles.sudo) &&
+                                        <td>{ticket.from_user}</td>
+                                        <td>{ticket.to_user}</td>
+                                        {/* {(roles.admin || roles.sudo) &&
                                              <td>{ticket.isAdminQuery ?
                                                   <> <ArrowRightIcon style={iconStyle} className='text-success me-3' /> {ticket.to_user} / {ticket.facility}</> :
                                                   <>  <ArrowLeftIcon style={iconStyle} className='text-danger me-3' /> {ticket.to_user} </>}
                                              </td>
                                         }
+                                        */}
                                         <td><RenderStatus status={ticket.status} /></td>
                                         <td><Link href={ticket.ticketUrl} method="get" type="button" as="button" className="btn btn-sm btn-primary">View</Link></td>
 
