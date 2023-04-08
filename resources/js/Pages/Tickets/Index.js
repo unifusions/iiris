@@ -148,7 +148,7 @@ export default function Index() {
                                         <td>{ticket.form_data}</td>
                                         <td>{ticket.subject}</td>
                                         <td>{ticket.from_user}</td>
-                                        <td>{ticket.to_user}</td>
+                                        <td>{ticket.to_user !== null ? ticket.to_user : 'Cliniquest Admin'}</td>
                                         {/* {(roles.admin || roles.sudo) &&
                                              <td>{ticket.isAdminQuery ?
                                                   <> <ArrowRightIcon style={iconStyle} className='text-success me-3' /> {ticket.to_user} / {ticket.facility}</> :
