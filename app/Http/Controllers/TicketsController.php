@@ -26,7 +26,7 @@ class TicketsController extends Controller
                         'id' => $ticket->id,
                         'form_data' => $ticket->form_data,
                         'from_user' => User::where('id', $ticket->from_user_id)->pluck('name'),
-                        'to_user' => User::where('id', $ticket->to_user_id)->pluck('name'),
+                        'to_user' => $ticket->to_user_id !== null ? User::where('id', $ticket->to_user_id)->pluck('name') : 'IIRIS Admin',
                         'facility' => $ticket->facility->name,
                         'subject' => $ticket->subject,
                         'status' => $ticket->status,
