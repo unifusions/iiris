@@ -96,7 +96,7 @@ const Create = () => {
                                         name='rbc'
                                         value={data.rbc}
                                         error={errors.rbc}
-                                        units='cells/cu.mm'
+                                        units='million/cu.mm'
                                         // handleChange={e => setData('rbc', e.target.value.toString().split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                         handleChange={e => setData('rbc', e.target.value.toString().slice(0,8).split(".").map((el,i)=>i?el.split("").slice(0,2).join(""):el).join("."))}
                                         step='0.01'
