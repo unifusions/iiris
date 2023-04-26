@@ -28,7 +28,8 @@ class LabInvestigationService
                'albumin' => $request->albumin,
                'total_protein' => $request->total_protein,
                'bilirubin' => $request->bilirubin,
-               'pt_inr' => $request->pt_inr
+               'pt_inr' => $request->pt_inr,
+               'inr' => $request->inr
           ]);
 
           return $labinvestiagtions;
@@ -53,7 +54,8 @@ class LabInvestigationService
                'albumin' => $request->albumin,
                'total_protein' => $request->total_protein,
                'bilirubin' => $request->bilirubin,
-               'pt_inr' => $request->pt_inr
+               'pt_inr' => $request->pt_inr,
+               'inr' => $request->inr
           ]);
 
           return $labinvestiagtions;
@@ -78,7 +80,8 @@ class LabInvestigationService
                'albumin' => $request->albumin,
                'total_protein' => $request->total_protein,
                'bilirubin' => $request->bilirubin,
-               'pt_inr' => $request->pt_inr
+               'pt_inr' => $request->pt_inr,
+               'inr' => $request->inr
           ]);
 
           return $labinvestiagtions;
@@ -103,7 +106,8 @@ class LabInvestigationService
                'albumin' => $request->albumin,
                'total_protein' => $request->total_protein,
                'bilirubin' => $request->bilirubin,
-               'pt_inr' => $request->pt_inr
+               'pt_inr' => $request->pt_inr,
+               'inr' => $request->inr
           ]);
 
           return $labinvestiagtions;
@@ -127,6 +131,7 @@ class LabInvestigationService
           $labinvestigation->total_protein = $request->total_protein;
           $labinvestigation->bilirubin = $request->bilirubin;
           $labinvestigation->pt_inr = $request->pt_inr;
+          $labinvestigation->inr = $request->inr;
           $labinvestigation->save();
           return $labinvestigation;
      }

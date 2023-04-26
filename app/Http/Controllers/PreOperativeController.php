@@ -68,6 +68,7 @@ class PreOperativeController extends Controller
         return Inertia::render('CaseReportForm/Preoperative/Index', [
             'crf' => $crf,
             'preoperative' => $preoperative,
+            'diagnosis' => $preoperative->diagnosis,
             'physicalexamination' => $preoperative->physicalexaminations,
             'symptoms' => $preoperative->symptoms,
             'medicalhistories' => $preoperative->medicalhistories,

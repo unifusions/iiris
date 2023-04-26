@@ -29,6 +29,8 @@ import { Inertia } from '@inertiajs/inertia';
 
 import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
 import ApprovalActionEditable from './ApprovalActionsEditable';
+import Diagnosis from './Diagnosis';
+import DiagnosisData from '../FormData/DiagnosisData';
 
 
 
@@ -44,7 +46,8 @@ export default class Index extends React.Component {
 
      render() {
           const { auth, roles, crf, preoperative,
-               physicalexamination, symptoms,
+               diagnosis,
+               physicalexamination, symptoms, 
                medicalhistories,
                surgicalhistories,
                familyhistories,
@@ -89,7 +92,7 @@ export default class Index extends React.Component {
                                              }
 
 
-<ApprovalActionEditable role={roles} crf={crf} preoperative={preoperative} />
+                                             <ApprovalActionEditable role={roles} crf={crf} preoperative={preoperative} />
 
 
 
@@ -107,6 +110,14 @@ export default class Index extends React.Component {
 
                                    {!roles.reviewer ?
                                         <>
+                                             <DiagnosisData
+                                                  diagnosis={diagnosis}
+                                                  createUrl = {route('crf.preoperative.diagnosis.create', {crf:crf, preoperative:preoperative})}
+                                                  enableActions={preoperative.is_submitted}
+                                                  role={roles}
+                                                  editUrl={diagnosis !== null && route('crf.preoperative.diagnosis.edit', { crf: crf, preoperative: preoperative, diagnosi: diagnosis })}
+
+                                             />
                                              <PhysicalExaminationData
                                                   physicalexamination={physicalexamination}
                                                   role={roles}

@@ -40,6 +40,9 @@ class PreOperativeData extends Model
         return $this->hasMany(PreoperativeApprovalRemark::class)->orderBy('created_at', 'DESC');
     }
 
+    public function diagnosis(){
+        return $this->hasOne(Diagnosis::class);
+    }
 
     public function symptoms()
     {

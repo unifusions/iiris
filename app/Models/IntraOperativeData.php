@@ -30,9 +30,14 @@ class IntraOperativeData extends Model
         'all_paravalvular_leak',
         'all_paravalvular_leak_specify',
         'major_paravalvular_leak',
-        'major_paravalvular_leak_specify'
+        'major_paravalvular_leak_specify',
+
+        'r_all_paravalvular_leak',
+        'r_major_paravalvular_leak',
+        'date_of_review',
+        'r_comments'
     ];
-    protected $dates = ['date_of_procedure'];
+    protected $dates = ['date_of_procedure', 'date_of_review'];
 
 
 

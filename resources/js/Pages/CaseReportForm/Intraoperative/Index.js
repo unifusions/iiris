@@ -15,6 +15,7 @@ import { DocumentDownloadIcon } from '@heroicons/react/outline';
 import { TrashIcon } from '@heroicons/react/outline';
 import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
 import ApprovalActionEditable from './ApprovalActionsEditable';
+import ReviewerIntraUpdate from './ReviewerIntraUpdate';
 
 
 function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, intraopfileswext }) {
@@ -49,8 +50,20 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
                <RenderFieldBoolNoDatas labelText='All paravalvular leak' boolValue={intraoperative.all_paravalvular_leak} value={intraoperative.all_paravalvular_leak_specify} />
                <RenderFieldBoolNoDatas labelText='Major Pravalvular Leak' boolValue={intraoperative.major_paravalvular_leak} value={intraoperative.major_paravalvular_leak_specify} />
 
+               {/* Blind Observer Data */}
 
-          </> : <>Form is yet to be approved</>}
+               <hr/>
+               <div className='fw-bold fs-6 mb-3'>Blind Observer Data</div>
+               <RenderFieldBoolNoDatas labelText='All paravalvular leak' boolValue={intraoperative.r_all_paravalvular_leak}  />
+               <RenderFieldBoolNoDatas labelText='Major Pravalvular Leak' boolValue={intraoperative.r_major_paravalvular_leak}  />
+               <RenderFieldDatas labelText='Comments' value={intraoperative.r_comments} />
+               <hr/>
+
+          </> : <>
+
+               {intraoperative.visit_status ? <ReviewerIntraUpdate crf={crf} intraoperative={intraoperative} /> : 'This form is yet to be approved'}
+
+          </>}
           {intraopfileswext !== undefined &&
                <Row>
                     <Col md={4} className='text-secondary'>Related Echo Files</Col>
@@ -143,12 +156,19 @@ export default class Index extends React.Component {
                                    </div>
 
 
-                                   <RenderFormStatus
+                                  
+                                   {roles.reviewer ?
+                                        <>
+                                             {intraoperative.is_reviewed ? <>   <div className='bg-success text-white p-3 mb-3 rounded-5 shadow-sm'>
+                                                  Intraoperative Data has been reviewed. To modify data, please raise a
+                                                  <Link href={route('tickets.index')} className="fw-bold text-white" style={{ textDecoration: 'none' }}> query</Link>
+                                             </div></> : ''}
+                                        </> :  <RenderFormStatus
                                         isSubmitted={intraoperative.is_submitted}
                                         visitStatus={intraoperative.visit_status}
                                         visitNo=''
                                         formTitle="Intraoperative " />
-
+                                   }
                                    <CaseReportFormData crf={crf} />
 
                                    <Card className='shadow-sm rounded-t'>
@@ -157,7 +177,13 @@ export default class Index extends React.Component {
                                                   <SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} />
 
                                              </> : <>
-                                                  {roles.admin ? <><SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} /></> : <>  <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} /></>}
+                                                  {roles.admin ?
+
+                                                       <SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} />
+                                                       :
+
+                                                       <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} />
+                                                  }
                                              </>
                                              }
                                         </Card.Body>

@@ -55,6 +55,7 @@ export default function LabInvestigationData({ labinvestigations, role, createUr
                               <RenderFieldDatas labelText='Bilirubin' value={labinvestigations.bilirubin} units='mg/dl' />
                               <RenderFieldDatas labelText='Prothrombin Time(PT) INR' value={labinvestigations.pt_inr} units='seconds' />
 
+                              <RenderFieldDatas labelText='International Normalised Ratio' value={labinvestigations.inr} />
 
 
                          </> : <span className="fw-normal text-secondary fst-italic">No Lab Investigation data has been recorded. Go ahead and create one.</span>

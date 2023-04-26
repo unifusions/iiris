@@ -67,9 +67,12 @@ use App\Http\Controllers\UserController;
 use App\Models\EchoDicomFile;
 use App\Http\Controllers\IntrafileUploadController;
 use App\Http\Controllers\IntraoperativeFileDownloadController;
+use App\Http\Controllers\IntraoperativeReviewerController;
+use App\Http\Controllers\IntraoperativeReviewSubmitController;
 use App\Http\Controllers\PhysicalExaminationController;
 use App\Http\Controllers\PostoperativeFileDownloadController;
 use App\Http\Controllers\PostoperativeFileUploadController;
+use App\Http\Controllers\Preoperative\DiagnosisController;
 use App\Http\Controllers\Preoperative\PreopEchoReviewController;
 use App\Http\Controllers\PreoperativeFileDownloadController;
 use App\Http\Controllers\PreoperativeFileUploadController;
@@ -139,6 +142,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.scheduledvisit', ScheduledVisitController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
         Route::resource('crf.unscheduledvisit', UnscheduledvisitController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
 
+        Route::resource('crf.preoperative.diagnosis', DiagnosisController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.physicalexamination', PreOperativePhysicalExaminationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.symptoms', PreOperativeSymptomsController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.labinvestigation', PreOperativeLabInvestigationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
@@ -214,6 +218,11 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::patch('submitReview/{echocardiography}', EchocardiographyReview::class)->name('submitreview');
         Route::patch('MarkAsReviewed/{echocardiography}', EchocardiographyReviewed::class)->name('markasreviewed');
+        
+        // Intraoperative Review Routes
+        Route::patch('submitIntraReview/{intraoperative}',IntraoperativeReviewSubmitController::class)->name('submitintrareview');
+        Route::patch('markAsReviewedIntra/{intraoperative}',IntraoperativeReviewerController::class)->name('markasreviewedintra');
+
     });
 
 
