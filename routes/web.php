@@ -72,7 +72,7 @@ use App\Http\Controllers\IntraoperativeReviewSubmitController;
 use App\Http\Controllers\PhysicalExaminationController;
 use App\Http\Controllers\PostoperativeFileDownloadController;
 use App\Http\Controllers\PostoperativeFileUploadController;
-use App\Http\Controllers\Preoperative\DiagnosisController;
+use App\Http\Controllers\PreOperative\DiagnosisController;
 use App\Http\Controllers\Preoperative\PreopEchoReviewController;
 use App\Http\Controllers\PreoperativeFileDownloadController;
 use App\Http\Controllers\PreoperativeFileUploadController;
