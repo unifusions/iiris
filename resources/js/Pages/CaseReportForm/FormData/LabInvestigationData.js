@@ -53,7 +53,7 @@ export default function LabInvestigationData({ labinvestigations, role, createUr
                               <RenderFieldDatas labelText='Albumin' value={labinvestigations.albumin} units='gm/dl' />
                               <RenderFieldDatas labelText='Total Protein' value={labinvestigations.total_protein} units='gm/dl' />
                               <RenderFieldDatas labelText='Bilirubin' value={labinvestigations.bilirubin} units='mg/dl' />
-                              <RenderFieldDatas labelText='Prothrombin Time(PT) INR' value={labinvestigations.pt_inr} units='seconds' />
+                              <RenderFieldDatas labelText='Prothrombin Time(PT)' value={labinvestigations.pt_inr} units='seconds' />
 
                               <RenderFieldDatas labelText='International Normalised Ratio' value={labinvestigations.inr} />
 

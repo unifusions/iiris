@@ -52,12 +52,12 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
 
                {/* Blind Observer Data */}
 
-               <hr/>
+               <hr />
                <div className='fw-bold fs-6 mb-3'>Blind Observer Data</div>
-               <RenderFieldBoolNoDatas labelText='All paravalvular leak' boolValue={intraoperative.r_all_paravalvular_leak}  />
-               <RenderFieldBoolNoDatas labelText='Major Pravalvular Leak' boolValue={intraoperative.r_major_paravalvular_leak}  />
+               <RenderFieldBoolNoDatas labelText='All paravalvular leak' boolValue={intraoperative.r_all_paravalvular_leak} />
+               <RenderFieldBoolNoDatas labelText='Major Pravalvular Leak' boolValue={intraoperative.r_major_paravalvular_leak} />
                <RenderFieldDatas labelText='Comments' value={intraoperative.r_comments} />
-               <hr/>
+               <hr />
 
           </> : <>
 
@@ -156,18 +156,18 @@ export default class Index extends React.Component {
                                    </div>
 
 
-                                  
+
                                    {roles.reviewer ?
                                         <>
                                              {intraoperative.is_reviewed ? <>   <div className='bg-success text-white p-3 mb-3 rounded-5 shadow-sm'>
                                                   Intraoperative Data has been reviewed. To modify data, please raise a
                                                   <Link href={route('tickets.index')} className="fw-bold text-white" style={{ textDecoration: 'none' }}> query</Link>
                                              </div></> : ''}
-                                        </> :  <RenderFormStatus
-                                        isSubmitted={intraoperative.is_submitted}
-                                        visitStatus={intraoperative.visit_status}
-                                        visitNo=''
-                                        formTitle="Intraoperative " />
+                                        </> : <RenderFormStatus
+                                             isSubmitted={intraoperative.is_submitted}
+                                             visitStatus={intraoperative.visit_status}
+                                             visitNo=''
+                                             formTitle="Intraoperative " />
                                    }
                                    <CaseReportFormData crf={crf} />
 
