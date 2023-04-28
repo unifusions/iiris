@@ -142,7 +142,7 @@ class PreOperativeController extends Controller
             $preoperative->save();
             if ($preoperative->hasMedications)
                 return redirect()->route('crf.preoperative.medication.index', ['crf' => $crf, 'preoperative' => $preoperative]);
-            return redirect()->route('crf.preoperative.index', compact('crf', 'preoperative'));
+            return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative]);
         }
 
         if (isset($request->is_submitted)) {
