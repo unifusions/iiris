@@ -110,7 +110,10 @@ const Create = () => {
                                         value={data.wbc}
                                         error={errors.wbc}
                                         units='cells/cu.mm'
+                                        
                                         handleChange={e => setData('wbc', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInputWithLabel
@@ -121,6 +124,8 @@ const Create = () => {
                                         error={errors.hemoglobin}
                                         units='g/dl'
                                         handleChange={e => setData('hemoglobin', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInputWithLabel
@@ -131,6 +136,8 @@ const Create = () => {
                                         error={errors.hematocrit}
                                         units='%'
                                         handleChange={e => setData('hematocrit', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInputWithLabel
@@ -141,6 +148,8 @@ const Create = () => {
                                         error={errors.platelet}
                                         units='cells/cu.mm'
                                         handleChange={e => setData('platelet', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInputWithLabel
@@ -151,6 +160,8 @@ const Create = () => {
                                         error={errors.blood_urea}
                                         units='mg/dl'
                                         handleChange={e => setData('blood_urea', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInputWithLabel
@@ -161,6 +172,8 @@ const Create = () => {
                                         error={errors.serum_creatinine}
                                         units='mg/dl'
                                         handleChange={e => setData('serum_creatinine', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInputWithLabel
@@ -171,6 +184,8 @@ const Create = () => {
                                         error={errors.alt}
                                         units='u/l'
                                         handleChange={e => setData('alt', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInputWithLabel
@@ -181,6 +196,8 @@ const Create = () => {
                                         error={errors.ast}
                                         units='u/l'
                                         handleChange={e => setData('ast', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInputWithLabel
@@ -191,6 +208,8 @@ const Create = () => {
                                         error={errors.alp}
                                         units='u/l'
                                         handleChange={e => setData('alp', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInputWithLabel
@@ -201,6 +220,8 @@ const Create = () => {
                                         error={errors.albumin}
                                         units='gm/dl'
                                         handleChange={e => setData('albumin', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInputWithLabel
@@ -211,6 +232,8 @@ const Create = () => {
                                         error={errors.total_protein}
                                         units='gm/dl'
                                         handleChange={e => setData('total_protein', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInputWithLabel
@@ -221,6 +244,8 @@ const Create = () => {
                                         error={errors.bilirubin}
                                         units='mg/dl'
                                         handleChange={e => setData('bilirubin', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInputWithLabel
@@ -231,6 +256,8 @@ const Create = () => {
                                         error={errors.pt_inr}
                                         units='seconds'
                                         handleChange={e => setData('pt_inr', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
                                    <FormInput
@@ -240,6 +267,8 @@ const Create = () => {
                                         value={data.inr}
                                         error={errors.inr}                                       
                                         handleChange={e => setData('inr', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
+                                        step='0.01'
+
                                    />
 
 
