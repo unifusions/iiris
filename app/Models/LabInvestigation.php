@@ -28,7 +28,8 @@ class LabInvestigation extends Model
         'albumin',
         'total_protein',
         'bilirubin',
-        'pt_inr'
+        'pt_inr',
+        'inr'
     ];
 
     protected $dates = ['li_date'];
