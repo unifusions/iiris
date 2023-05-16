@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Card } from "react-bootstrap";
-import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton, RenderDuration, RenderFieldBoolDatas, RenderSymptomDatas } from "./FormDataHelper";
+import { RenderCreateButton,  RenderEditButton, NotAvailable } from "./FormDataHelper";
 
 
 
