@@ -69,7 +69,7 @@ const Edit = () => {
                          <Link href={route('crf.index')} className="breadcrumb-item"> Case Report Form</Link>
                     </li>
                     <li className='breadcrumb-item'>
-                         <span className="Active">Create</span>
+                         <span className="Active">Edit</span>
                     </li>
                </>
                }
@@ -248,9 +248,9 @@ const Edit = () => {
                                    />
 
                                    <FormInputWithLabel
-                                        labelText='Prothrombin Time(PT) INR'
+                                        labelText='Prothrombin Time(PT)'
                                         type='number'
-                                        name='Prothrombin Time(PT) INR'
+                                        name='Prothrombin Time(PT)'
                                         value={data.pt_inr}
                                         error={errors.pt_inr}
                                         units='seconds'
