@@ -28,7 +28,7 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
      const { data, setData, errors, patch, processing, hasErrors, transform } = useForm({
           id: echocardiographies !== null && echocardiographies.id,
 
-          
+
 
 
      });
@@ -82,128 +82,128 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
                                              <EditReview echocardiography={echocardiographies} />
                                         </> : <>
                                              <RenderDateFieldDatas labelText='Date of Review' value={echocardiographies.r_echodate} options={options} />
-                                             <RenderFieldEchoReviewDatas  labelText="Peak Velocity" rvalue={echocardiographies.r_peak_velocity} normality={echocardiographies.peak_velocity_normality} abnormality={echocardiographies.peak_velocity_abnormality} units='m/s'/>
-                                             
-                                   <RenderFieldEchoReviewDatas
-                                        labelText=" Velocity Time Integral(Aortic Valve)"
-                                       rvalue={echocardiographies.r_velocity_time_integral}
-                                        normality={echocardiographies.velocity_time_integral_normality}
-                                        abnormality={echocardiographies.velocity_time_integral_abnormality}
-                                        units='cm'
-                                        />
+                                             <RenderFieldEchoReviewDatas labelText="Peak Velocity" rvalue={echocardiographies.r_peak_velocity} normality={echocardiographies.peak_velocity_normality} abnormality={echocardiographies.peak_velocity_abnormality} units='m/s' />
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText="Peak Gradient"
-                                       
-                                        rvalue={echocardiographies.r_peak_gradient}
-                                        normality={echocardiographies.peak_gradient_normality}
-                                        abnormality={echocardiographies.peak_gradient_abnormality}
-                                        units='mmHg'
-                                         />
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText=" Velocity Time Integral(Aortic Valve)"
+                                                  rvalue={echocardiographies.r_velocity_time_integral}
+                                                  normality={echocardiographies.velocity_time_integral_normality}
+                                                  abnormality={echocardiographies.velocity_time_integral_abnormality}
+                                                  units='cm'
+                                             />
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText="Mean Gradient"
-                                        
-                                        rvalue={echocardiographies.r_mean_gradient}
-                                        normality={echocardiographies.mean_gradient_normality}
-                                        abnormality={echocardiographies.mean_gradient_abnormality}
-                                        units='mmHg'
-                                        />
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText="Peak Gradient"
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText='Heart Rate' units='bpm'
-                                        
-                                        rvalue={echocardiographies.r_heart_rate}
-                                        normality={echocardiographies.heart_rate_normality}
-                                        abnormality={echocardiographies.heart_rate_abnormality}
-                                        />
+                                                  rvalue={echocardiographies.r_peak_gradient}
+                                                  normality={echocardiographies.peak_gradient_normality}
+                                                  abnormality={echocardiographies.peak_gradient_abnormality}
+                                                  units='mmHg'
+                                             />
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText='Stroke Volume' units='ml'
-                                        
-                                        rvalue={echocardiographies.r_stroke_volume}
-                                        normality={echocardiographies.stroke_volume_normality}
-                                        abnormality={echocardiographies.stroke_volume_abnormality}
-                                        />
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText="Mean Gradient"
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText='DVI' units=''
-                                        
-                                        rvalue={echocardiographies.r_dvi}
-                                        normality={echocardiographies.dvi_normality}
-                                        abnormality={echocardiographies.dvi_abnormality}
-                                        />
+                                                  rvalue={echocardiographies.r_mean_gradient}
+                                                  normality={echocardiographies.mean_gradient_normality}
+                                                  abnormality={echocardiographies.mean_gradient_abnormality}
+                                                  units='mmHg'
+                                             />
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText='Effective Orifice Area (EOA)' units='cm<sup>2</sup>/m<sup>2</sup>'
-                                        
-                                        rvalue={echocardiographies.r_eoa}
-                                        normality={echocardiographies.eoa_normality}
-                                        abnormality={echocardiographies.eoa_abnormality}
-                                        />
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText='Heart Rate' units='bpm'
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText='Acceleration Time' units='millisec'
-                                        
-                                        rvalue={echocardiographies.r_acceleration_time}
-                                        normality={echocardiographies.acceleration_time_normality}
-                                        abnormality={echocardiographies.acceleration_time_abnormality}
-                                        />
+                                                  rvalue={echocardiographies.r_heart_rate}
+                                                  normality={echocardiographies.heart_rate_normality}
+                                                  abnormality={echocardiographies.heart_rate_abnormality}
+                                             />
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText='LVOT VTI' units='cm'
-                                        
-                                        rvalue={echocardiographies.r_lvot_vti}
-                                        normality={echocardiographies.lvot_vti_normality}
-                                        abnormality={echocardiographies.lvot_vti_abnormality}
-                                        />
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText='Stroke Volume' units='ml'
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText='LV Mass' units='g'
-                                        
-                                        rvalue={echocardiographies.r_lv_mass}
-                                        normality={echocardiographies.lv_mass_normality}
-                                        abnormality={echocardiographies.lv_mass_abnormality}
-                                        />
+                                                  rvalue={echocardiographies.r_stroke_volume}
+                                                  normality={echocardiographies.stroke_volume_normality}
+                                                  abnormality={echocardiographies.stroke_volume_abnormality}
+                                             />
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText='IVS Diastole' units='cm'
-                                        
-                                        rvalue={echocardiographies.r_ivs_diastole}
-                                        normality={echocardiographies.ivs_diastole_normality}
-                                        abnormality={echocardiographies.ivs_diastole_abnormality}
-                                        />
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText='DVI' units=''
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText='PW Diastole' units='cm'
-                                        
-                                        rvalue={echocardiographies.r_pw_diastole}
-                                        normality={echocardiographies.pw_diastole_normality}
-                                        abnormality={echocardiographies.pw_diastole_abnormality}
-                                        />
+                                                  rvalue={echocardiographies.r_dvi}
+                                                  normality={echocardiographies.dvi_normality}
+                                                  abnormality={echocardiographies.dvi_abnormality}
+                                             />
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText='LVID-End Systole' units='cm'
-                                        
-                                        rvalue={echocardiographies.r_lvidend_systole}
-                                        normality={echocardiographies.lvidend_systole_normality}
-                                        abnormality={echocardiographies.lvidend_systole_abnormality}
-                                        />
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText='Effective Orifice Area (EOA)' units='cm<sup>2</sup>/m<sup>2</sup>'
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText='LVID-End Diastole' units='cm'
-                                        rvalue={echocardiographies.r_lvidend_diastole}
-                                        normality={echocardiographies.lvidend_diastole_normality}
-                                        abnormality={echocardiographies.lvidend_diastole_abnormality}
-                                        />
+                                                  rvalue={echocardiographies.r_eoa}
+                                                  normality={echocardiographies.eoa_normality}
+                                                  abnormality={echocardiographies.eoa_abnormality}
+                                             />
 
-                                   <RenderFieldEchoReviewDatas
-                                        labelText='Ejection Fraction' units='%'
-                                        
-                                        rvalue={echocardiographies.r_ejection_fraction}
-                                        normality={echocardiographies.ejection_fraction_normality}
-                                        abnormality={echocardiographies.ejection_fraction_abnormality}
-                                         />
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText='Acceleration Time' units='millisec'
+
+                                                  rvalue={echocardiographies.r_acceleration_time}
+                                                  normality={echocardiographies.acceleration_time_normality}
+                                                  abnormality={echocardiographies.acceleration_time_abnormality}
+                                             />
+
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText='LVOT VTI' units='cm'
+
+                                                  rvalue={echocardiographies.r_lvot_vti}
+                                                  normality={echocardiographies.lvot_vti_normality}
+                                                  abnormality={echocardiographies.lvot_vti_abnormality}
+                                             />
+
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText='LV Mass' units='g'
+
+                                                  rvalue={echocardiographies.r_lv_mass}
+                                                  normality={echocardiographies.lv_mass_normality}
+                                                  abnormality={echocardiographies.lv_mass_abnormality}
+                                             />
+
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText='IVS Diastole' units='cm'
+
+                                                  rvalue={echocardiographies.r_ivs_diastole}
+                                                  normality={echocardiographies.ivs_diastole_normality}
+                                                  abnormality={echocardiographies.ivs_diastole_abnormality}
+                                             />
+
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText='PW Diastole' units='cm'
+
+                                                  rvalue={echocardiographies.r_pw_diastole}
+                                                  normality={echocardiographies.pw_diastole_normality}
+                                                  abnormality={echocardiographies.pw_diastole_abnormality}
+                                             />
+
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText='LVID-End Systole' units='cm'
+
+                                                  rvalue={echocardiographies.r_lvidend_systole}
+                                                  normality={echocardiographies.lvidend_systole_normality}
+                                                  abnormality={echocardiographies.lvidend_systole_abnormality}
+                                             />
+
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText='LVID-End Diastole' units='cm'
+                                                  rvalue={echocardiographies.r_lvidend_diastole}
+                                                  normality={echocardiographies.lvidend_diastole_normality}
+                                                  abnormality={echocardiographies.lvidend_diastole_abnormality}
+                                             />
+
+                                             <RenderFieldEchoReviewDatas
+                                                  labelText='Ejection Fraction' units='%'
+
+                                                  rvalue={echocardiographies.r_ejection_fraction}
+                                                  normality={echocardiographies.ejection_fraction_normality}
+                                                  abnormality={echocardiographies.ejection_fraction_abnormality}
+                                             />
                                         </>
                                    }
 
@@ -213,8 +213,8 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
                                    {role.reviewer && <RenderDateFieldDatas labelText='Date of Review' value={echocardiographies.r_echodate} options={options} />}
                                    {(role.investigator || role.coordinator) && <>
                                         <RenderDateFieldDatas labelText='Date of Investigation' value={echocardiographies.echodate} options={options} />
-                                        <RenderFieldDatas labelText="Peak Velocity" value={echocardiographies.peak_velocity} units='m/s' />
-                                        </>
+                                        {/* <RenderFieldDatas labelText="Peak Velocity" value={echocardiographies.peak_velocity} units='m/s' /> */}
+                                   </>
                                    }
                                    {role.admin && <RenderDateFieldEchoDatas labelText={'Date of Investigation/Review'} echodate={echocardiographies.echodate} r_echodate={echocardiographies.r_echodate} options={options} />}
                                    <RenderFieldEchoDatas
