@@ -9,7 +9,8 @@ export default function Diagnosis({crf, preoperative}) {
 
      const boolRadios = [
           { labelText: 'Aortic Regurgitation', value: 'regurgitation' },
-          { labelText: 'Aortic Stenosis', value: 'stenosis' }
+          { labelText: 'Aortic Stenosis', value: 'stenosis' },
+          {labelText: 'Both' , value: 'both'}
      ];
 
      function preopSubmit(e) {
