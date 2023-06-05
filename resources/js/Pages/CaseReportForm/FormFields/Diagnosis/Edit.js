@@ -55,7 +55,7 @@ const Edit = () => {
 
                <Head title="Create New Case Report Form" />
                <Container>
-                    <PageTitle backUrl={backUrl} pageTitle={`${title} Symptoms`} role={roles} />
+                    <PageTitle backUrl={backUrl} pageTitle={`${title} Diagnosis`} role={roles} />
 
                     <Card className='card shadow-sm rounded-5'>
                          <Card.Body>

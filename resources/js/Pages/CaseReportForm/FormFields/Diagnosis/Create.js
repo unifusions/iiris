@@ -22,12 +22,6 @@ const Create = () => {
 
      });
 
-     const BOOLRADIOS = [
-          { labelText: 'Aortic Regurgitation', value: 'regurgitation' },
-          { labelText: 'Aortic Stenosis', value: 'stenosis' },
-          { labelText: 'Both', value: 'both' }
-     ];
-
 
 
 
@@ -67,7 +61,6 @@ const Create = () => {
 
                                    <FormRadio
                                         labelText='Diagnosis'
-
                                         options={DIAGNOSIS_OPTIONS}
                                         name="diagnosis"
                                         handleChange={e => setData('diagnosis', e.target.value)}
