@@ -87,7 +87,7 @@ class MedicationsController extends Controller
             'postoperative' => $postoperative,
             'medication' => $medication,
             'updateUrl' => 'crf.postoperative.update',
-            'backUrl' => route('crf.preoperative.show', [$crf, $postoperative])
+            'backUrl' => route('crf.postoperative.show', [$crf, $postoperative])
         ]);
      
     }
@@ -102,7 +102,7 @@ class MedicationsController extends Controller
         $medication->start_date = $request->start_date !== null ?  Carbon::parse($request->start_date)->addHours(5)->addMinutes(30) : null;
         $medication->stop_date = $request->status === 'Discontinued' ? ($request->stop_date !== null ? Carbon::parse($request->stop_date)->addHours(5)->addMinutes(30) : null) : null;
         $medication->save();
-        return redirect()->route('crf.preoperative.medication.index', [$crf, $postoperative])->with(['message' => 'Medication Edited successfully']);
+        return redirect()->route('crf.postoperative.medication.index', [$crf, $postoperative])->with(['message' => 'Medication Edited successfully']);
     }
     public function destroy(CaseReportForm $crf, PostOperativeData $postoperative, Medication $medication)
     {
