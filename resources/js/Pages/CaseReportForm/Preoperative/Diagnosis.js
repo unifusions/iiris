@@ -2,7 +2,7 @@ import FormRadio from "@/Pages/Shared/FormRadio";
 import { useForm } from "@inertiajs/inertia-react";
 import { Card } from "react-bootstrap";
 
-export default function Diagnosis({crf, preoperative}) {
+export default function Diagnosis({ crf, preoperative }) {
      const { data, setData, errors, put, processing, hasErrors } = useForm({
           diagnosis: '',
      });
@@ -10,7 +10,7 @@ export default function Diagnosis({crf, preoperative}) {
      const boolRadios = [
           { labelText: 'Aortic Regurgitation', value: 'regurgitation' },
           { labelText: 'Aortic Stenosis', value: 'stenosis' },
-          {labelText: 'Both' , value: 'both'}
+          { labelText: 'Both', value: 'both' }
      ];
 
      function preopSubmit(e) {

@@ -11,6 +11,7 @@ import FormButton from "@/Pages/Shared/FormButton";
 import Authenticated from '@/Layouts/Authenticated';
 import FormRadio from "@/Pages/Shared/FormRadio";
 import PageTitle from "@/Pages/Shared/PageTitle";
+import { DIAGNOSIS_OPTIONS } from "./HelperOptions";
 
 
 const Edit = () => {
@@ -24,12 +25,7 @@ const Edit = () => {
 
 
 
-     const BOOLRADIOS = [
-          { labelText: 'Aortic Regurgitation', value: 'regurgitation' },
-          { labelText: 'Aortic Stenosis', value: 'stenosis' }
-     ];
-
-
+  
 
      function handlesubmit(e) {
           e.preventDefault();
@@ -67,12 +63,12 @@ const Edit = () => {
                               // className={hasErrors && 'was-validated'}
                               >
 
-{data.diagnosis}
+
 
                                    <FormRadio
                                         labelText='Diagnosis'
 
-                                        options={BOOLRADIOS}
+                                        options={DIAGNOSIS_OPTIONS}
                                         name="diagnosis"
                                         handleChange={e => setData('diagnosis', e.target.value)}
                                         selectedValue={data.diagnosis !== null && data.diagnosis}

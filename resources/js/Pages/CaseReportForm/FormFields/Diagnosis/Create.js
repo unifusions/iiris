@@ -10,6 +10,7 @@ import FormButton from "@/Pages/Shared/FormButton";
 import Authenticated from '@/Layouts/Authenticated';
 import FormRadio from "@/Pages/Shared/FormRadio";
 import PageTitle from "@/Pages/Shared/PageTitle";
+import { DIAGNOSIS_OPTIONS } from "./HelperOptions";
 
 
 const Create = () => {
@@ -23,7 +24,8 @@ const Create = () => {
 
      const BOOLRADIOS = [
           { labelText: 'Aortic Regurgitation', value: 'regurgitation' },
-          { labelText: 'Aortic Stenosis', value: 'stenosis' }
+          { labelText: 'Aortic Stenosis', value: 'stenosis' },
+          { labelText: 'Both', value: 'both' }
      ];
 
 
@@ -33,9 +35,6 @@ const Create = () => {
      function handlesubmit(e) {
           e.preventDefault();
           return post(route('crf.preoperative.diagnosis.store', { crf: crf, preoperative: preoperative }));
-
-
-
      }
 
 
@@ -69,7 +68,7 @@ const Create = () => {
                                    <FormRadio
                                         labelText='Diagnosis'
 
-                                        options={BOOLRADIOS}
+                                        options={DIAGNOSIS_OPTIONS}
                                         name="diagnosis"
                                         handleChange={e => setData('diagnosis', e.target.value)}
                                         selectedValue={data.diagnosis !== null && data.diagnosis}
