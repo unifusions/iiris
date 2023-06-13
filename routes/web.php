@@ -79,6 +79,7 @@ use App\Http\Controllers\PreoperativeFileUploadController;
 use App\Http\Controllers\PreoperativeNewFileUploadController;
 use App\Http\Controllers\Reports\CaseReportFormExportController;
 use App\Http\Controllers\Reports\PhysicalExaminationExportController;
+use App\Http\Controllers\Reports\ReportsViewController;
 use App\Http\Controllers\Reports\UserExportController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\Reviewer\EchocardiographyReview;
@@ -127,6 +128,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('reports/export/users', UserExportController::class)->name('downloadReport');
     Route::get('/reports/export/crf', CaseReportFormExportController::class)->name('downloadCrfReport');
+    // Route::get('/reports/view/crf', ReportsViewController::class)->name('queryReport');
     Route::get('/reports/export/physicalexamination', PhysicalExaminationExportController::class)->name('downloadPhysicalExaminationReport');
 
 

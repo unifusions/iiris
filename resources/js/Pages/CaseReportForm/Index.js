@@ -8,22 +8,10 @@ import BadgeLink from '../Shared/BadgeLinks';
 import Select from "react-select";
 import { Inertia } from '@inertiajs/inertia';
 import { SearchIcon } from '@heroicons/react/outline';
+import { GetAge } from './FormFields/HelperFunctions';
 
 
 
-
-const GetAge = ({ birthDate }) => {
-
-     var today = new Date();
-     var bd = new Date(birthDate);
-     var age = today.getFullYear() - bd.getFullYear();
-     var m = today.getMonth() - bd.getMonth();
-     if (m < 0 || (m === 0 && today.getDate() < bd.getDate())) {
-          age--;
-     }
-
-     return (<>{age}</>);
-}
 
 
 export default class Index extends React.Component {

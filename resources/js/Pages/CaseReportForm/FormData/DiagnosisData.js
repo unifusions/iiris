@@ -41,7 +41,7 @@ export default function DiagnosisData({ diagnosis, role, createUrl, editUrl, ena
                                         </Col>
                                         <Col md={8}>
 
-                                             {diagnosis.diagnosis_data !== null ? <>Aortic {diagnosis.diagnosis_data}</> : <NotAvailable />}
+                                             {diagnosis.diagnosis_data !== null ? <>Aortic {diagnosis.diagnosis_data === 'both' ? 'Regurgitation & Stenosis' : diagnosis.diagnosis_data}</> : <NotAvailable />}
 
 
                                         </Col>
