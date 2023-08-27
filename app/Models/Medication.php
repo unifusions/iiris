@@ -16,6 +16,7 @@ class Medication extends Model
         'unscheduled_visits_id',
         'medication',
         'indication',
+        'medicine_type',
         'status',
         'start_date',
         'stop_date',

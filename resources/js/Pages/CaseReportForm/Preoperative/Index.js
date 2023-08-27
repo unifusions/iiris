@@ -31,6 +31,8 @@ import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
 import ApprovalActionEditable from './ApprovalActionsEditable';
 import Diagnosis from './Diagnosis';
 import DiagnosisData from '../FormData/DiagnosisData';
+import PredefinedMedicalHistoryData from '../FormData/PredefinedMedicalHistoryData';
+import PredefinedFamilyHistoryData from '../FormData/PredefinedFamilyHistoryData';
 
 
 
@@ -47,16 +49,17 @@ export default class Index extends React.Component {
      render() {
           const { auth, roles, crf, preoperative,
                diagnosis,
-               physicalexamination, symptoms, 
+               physicalexamination, symptoms,
                medicalhistories,
                surgicalhistories,
-               familyhistories,
+               familyhistories,    
+               predefinedfamilyhistory,
                personalhistories,
                physicalactivities,
                labinvestigations,
                electrocardiograms,
                echocardiographies, echodicomfiles,
-               medications,
+               medications, predefinedmedicalhistory,
                preopdicomfiles,
                preopfileswext,
                approvalremarks,
@@ -112,7 +115,7 @@ export default class Index extends React.Component {
                                         <>
                                              <DiagnosisData
                                                   diagnosis={diagnosis}
-                                                  createUrl = {route('crf.preoperative.diagnosis.create', {crf:crf, preoperative:preoperative})}
+                                                  createUrl={route('crf.preoperative.diagnosis.create', { crf: crf, preoperative: preoperative })}
                                                   enableActions={preoperative.is_submitted}
                                                   role={roles}
                                                   editUrl={diagnosis !== null && route('crf.preoperative.diagnosis.edit', { crf: crf, preoperative: preoperative, diagnosi: diagnosis })}
@@ -135,13 +138,23 @@ export default class Index extends React.Component {
                                                   createUrl={route('crf.preoperative.symptoms.create', { crf: crf, preoperative: preoperative })}
                                                   editUrl={symptoms !== null && route('crf.preoperative.symptoms.edit', { crf: crf, preoperative: preoperative, symptom: symptoms })}
                                              />
-                                             <MedicalHistoryData
+
+                                             <PredefinedMedicalHistoryData
+
+                                                  medicalhistory={predefinedmedicalhistory}
+                                                  enableActions={preoperative.is_submitted}
+                                                  hasMedHis={predefinedmedicalhistory !== null ? predefinedmedicalhistory.hasMedHis : null}
+                                                  createUrl={route('crf.preoperative.predefinedmedicalhistory.index', { crf: crf, preoperative: preoperative })}
+                                                  role={roles}
+
+                                             />
+                                             {/* <MedicalHistoryData
                                                   medicalhistories={medicalhistories}
                                                   enableActions={preoperative.is_submitted}
                                                   hasMedHis={preoperative.medical_history}
                                                   role={roles}
                                                   linkUrl={route('crf.preoperative.medicalhistory.index', { crf: crf, preoperative: preoperative })}
-                                             />
+                                             /> */}
                                              <SurgicalHistoryData
                                                   surgicalhistories={surgicalhistories}
                                                   enableActions={preoperative.is_submitted}
@@ -151,13 +164,21 @@ export default class Index extends React.Component {
 
                                              />
 
-                                             <FamilyHistoryData
-                                                  familyhistories={familyhistories}
+                                             <PredefinedFamilyHistoryData
+                                                  predefinedfamilyhistory ={predefinedfamilyhistory }
                                                   enableActions={preoperative.is_submitted}
                                                   isFamHis={preoperative.family_history}
                                                   role={roles}
                                                   linkUrl={route('crf.preoperative.familyhistory.index', { crf: crf, preoperative: preoperative })}
                                              />
+
+                                             {/* <FamilyHistoryData
+                                                  familyhistories={familyhistories}
+                                                  enableActions={preoperative.is_submitted}
+                                                  isFamHis={preoperative.family_history}
+                                                  role={roles}
+                                                  linkUrl={route('crf.preoperative.familyhistory.index', { crf: crf, preoperative: preoperative })}
+                                             /> */}
 
                                              <PersonalHistoryData
                                                   personalhistories={personalhistories}

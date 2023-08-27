@@ -33,6 +33,7 @@ export default class Index extends React.Component {
                                    <thead>
                                         <tr>
                                              <th>#</th>
+                                             <th>Full Name</th>
                                              <th>Registered Email</th>
                                              <th>Role</th>
                                              <th>Facility</th>
@@ -43,11 +44,12 @@ export default class Index extends React.Component {
                                    <tbody>
                                         {this.props.users.map((user, index) => <tr key={user.id} >
                                              <td>{index + 1}</td>
+                                             <td>{user.name}</td>
                                              <td>{user.email}</td>
                                              <td>{user.role}</td>
                                              <td>{user.facility}</td>
                                             
-                                             {/* <td><Link href={route('facility.edit', { facility: facility })} className='btn btn-warning btn-sm'> Edit </Link></td> */}
+                                             <td><Link href={route('users.edit', { user: user })} className='btn btn-warning btn-sm'> Edit </Link></td>
                                         </tr>)}
                                    </tbody>
                               </Table>

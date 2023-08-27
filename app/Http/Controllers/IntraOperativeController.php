@@ -136,6 +136,16 @@ class IntraOperativeController extends Controller
         $intraoperative->annular_suturing_others = $request->annular_suturing_others;
         $intraoperative->tcb_time = $request->tcb_time;
         $intraoperative->acc_time = $request->acc_time;
+
+        $intraoperative->cabg = $request->cabg;
+        $intraoperative->mitral_valve_repair = $request->mitral_valve_repair;
+        $intraoperative->mitral_valve_replacement = $request->mitral_valve_replacement;
+        $intraoperative->aortic_root = $request->aortic_root;
+        $intraoperative->ascending_aorta = $request->ascending_aorta;
+        $intraoperative->aortic_arch = $request->aortic_arch;
+        $intraoperative->concomitant_procedure_others = $request->concomitant_procedure_others;
+        $intraoperative->concomitant_procedure_others_specify = $request->concomitant_procedure_others_specify;
+
         $intraoperative->concomitant_procedure = $request->concomitant_procedure;
         $intraoperative->all_paravalvular_leak = $request->all_paravalvular_leak;
         $intraoperative->all_paravalvular_leak_specify = $request->all_paravalvular_leak_specify;

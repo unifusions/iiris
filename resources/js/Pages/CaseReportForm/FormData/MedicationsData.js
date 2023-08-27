@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton, RenderUpdateButton } from "./FormDataHelper";
+import { RenderMedicineType } from "../FormFields/Helper";
 
 
 
@@ -44,6 +45,7 @@ export default function MedicationsData({ hasMedication, medications, role, link
                                              <Col>#</Col>
                                              <Col>Medication</Col>
                                              <Col>Indication</Col>
+                                             <Col>Medicine Type</Col>
                                              <Col>Status</Col>
                                              <Col>Start Date</Col>
                                              <Col>Stop Date</Col>
@@ -55,6 +57,7 @@ export default function MedicationsData({ hasMedication, medications, role, link
                                              <Col>{index + 1}</Col>
                                              <Col>{medication.medication}</Col>
                                              <Col>{medication.indication}</Col>
+                                             <Col> {medication.medicine_type === 'others' ? medication.medicine_type_others : <RenderMedicineType medicineType={medication.medicine_type} />} </Col>
                                              <Col>{medication.status} </Col>
                                              <Col>{medication.start_date !== null && new Date(medication.start_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'numeric', year: 'numeric', })}</Col>
                                              <Col>{medication.stop_date !== null && new Date(medication.stop_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'numeric', year: 'numeric', })}</Col>

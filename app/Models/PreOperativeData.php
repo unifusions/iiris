@@ -52,9 +52,18 @@ class PreOperativeData extends Model
     public function medicalhistories(){
         return $this->hasMany(MedicalHistory::class);
     }
+
+    public function predefinedmedicalhistories(){
+        return $this->hasOne(PredefinedMedicalHistory::class);
+    }
     public function surgicalhistories(){
         return $this->hasMany(SurgicalHistory::class);
     }
+
+    public function predefinedfamilyhistories(){
+        return $this->hasOne(PredefinedFamilyHistory::class);
+    }
+
     public function familyhistories(){
         return $this->hasMany(FamilyHistory::class);
     }

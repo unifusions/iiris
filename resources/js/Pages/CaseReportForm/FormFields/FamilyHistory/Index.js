@@ -13,18 +13,16 @@ import { RenderBackButton, RenderCreateButton, RenderUpdateButton } from "../../
 
 import CreateFamilyHistory from "./CreateFamilyHistory";
 import PageTitle from "@/Pages/Shared/PageTitle";
+import { BOOLYESNO } from "../Helper";
+import UpdateFamilyHistory from "./UpdateFamilyHistory";
 
 
 const Create = () => {
-     const { auth, roles, postUrl, mode, familyhistories, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, updateUrl, flash, backUrl } = usePage().props;
+     const { auth, roles, postUrl, mode, familyhistories, crf, preoperative,   updateUrl,  backUrl, predefinedfamilyhistory } = usePage().props;
      const { data, setData, errors, post, put, processing, hasErrors, transform } = useForm({
           family_history: preoperative.family_history !== null ? preoperative.family_history ? '1' : '0' : null
      });
 
-     const boolRadios = [
-          { labelText: 'Yes', value: '1' },
-          { labelText: 'No', value: '0' }
-     ];
 
      function preopSubmit(e) {
           e.preventDefault();
@@ -52,7 +50,7 @@ const Create = () => {
 
 
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle = 'Family History' role={roles}/>
+                    <PageTitle backUrl={backUrl} pageTitle='Family History' role={roles} />
 
                     <Card className="mb-3 shadow-sm rounded-5">
                          <Card.Body>
@@ -60,8 +58,7 @@ const Create = () => {
 
                                    <FormRadio
                                         labelText='Has Family History?'
-
-                                        options={boolRadios}
+                                        options={BOOLYESNO}
                                         name="familyhistory"
                                         handleChange={e => setData('family_history', e.target.value)}
                                         selectedValue={data.family_history !== null && data.family_history}
@@ -84,10 +81,15 @@ const Create = () => {
 
                     {preoperative.family_history !== null &&
                          <>
-                              {preoperative.family_history ? <CreateFamilyHistory preoperative={preoperative} crf={crf} familyhistories={familyhistories} /> : ''}
+                              {predefinedfamilyhistory ? <UpdateFamilyHistory preoperative={preoperative} crf={crf} predefinedfamilyhistory={predefinedfamilyhistory} /> : <CreateFamilyHistory preoperative={preoperative} crf={crf} familyhistories={familyhistories} />}
                          </>
 
                     }
+
+                    
+
+
+                
 
 
 

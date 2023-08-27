@@ -32,6 +32,7 @@ class FamilyHistoryController extends Controller
                 'mode' => 'preoperative',
                 'preoperative' => $preoperative,
                 'familyhistories' => $preoperative->familyhistories,
+                'predefinedfamilyhistory' => $preoperative->predefinedfamilyhistories,
                 'updateUrl' => 'crf.preoperative.update',
                 'backUrl' => route('crf.preoperative.show', [$crf, $preoperative])
             ]

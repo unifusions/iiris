@@ -2,12 +2,14 @@ import Authenticated from "@/Layouts/Authenticated";
 import FormButton from "@/Pages/Shared/FormButton";
 import FormCalendar from "@/Pages/Shared/FormCalendar";
 import FormInput from "@/Pages/Shared/FormInput";
+import FormInputSelect from "@/Pages/Shared/FormInputSelect";
 import FormRadio from "@/Pages/Shared/FormRadio";
 import PageTitle from "@/Pages/Shared/PageTitle";
 import { Link, useForm, usePage } from "@inertiajs/inertia-react";
 
 import React, { useState } from "react";
 import { Card, Col, Modal, Row, Container } from "react-bootstrap";
+import { MEDICINE_TYPES } from "../Helper";
 
 
 
@@ -20,6 +22,8 @@ export default function CreateMedications({ crf, preoperative, postoperative, sc
           unscheduled_visits_id: unscheduledvisit !== undefined ? unscheduledvisit.id : null,
           medication: '',
           indication: '',
+          medicine_type : '',
+          medicine_type_others : '',
           status: '',
           start_date: '',
           stop_date: '',
@@ -76,6 +80,14 @@ export default function CreateMedications({ crf, preoperative, postoperative, sc
                                              labelText='Medication'
                                              value={data.medication}
                                              handleChange={e => setData('medication', e.target.value)} />
+                                        <FormInputSelect
+                                             labelText='Medicine Type'
+                                             selectedValue={data.medicine_type}
+                                             handleChange={e => setData('medicine_type', e.target.value)}
+                                             options={MEDICINE_TYPES}
+                                        />
+
+
 
                                         <FormInput
                                              labelText='Indication'
@@ -88,7 +100,6 @@ export default function CreateMedications({ crf, preoperative, postoperative, sc
                                              selectedValue={data.status}
                                              options={medicationOptions}
                                              handleChange={e => setData('status', e.target.value)}
-
                                              error={errors.status}
                                              className={`${errors.status ? 'is-invalid' : ''}`} />
 
@@ -96,10 +107,7 @@ export default function CreateMedications({ crf, preoperative, postoperative, sc
                                              labelText='Start Date'
                                              name='start_date'
                                              value={data.start_date}
-                                             
                                              handleChange={(date) => date !== null ? setData('start_date', new Date(date)) : setData('start_date', '')}
-
-
                                              className={`${errors.start_date ? 'is-invalid' : ''}`}
                                         />
                                         {data.status === 'Discontinued' && <>
@@ -107,9 +115,7 @@ export default function CreateMedications({ crf, preoperative, postoperative, sc
                                                   name='stop_date'
                                                   minDate={data.start_date}
                                                   value={data.stop_date}
-                                             handleChange={(date) => date !== null ? setData('stop_date', new Date(date)) : setData('stop_date', '')}
-
-                                               
+                                                  handleChange={(date) => date !== null ? setData('stop_date', new Date(date)) : setData('stop_date', '')}
                                                   className={`${errors.stop_date ? 'is-invalid' : ''}`} />
 
                                         </>}

@@ -59,11 +59,13 @@ class MedicationsController extends Controller
     public function store(Request $request, CaseReportForm $crf, PostOperativeData $postoperative)
     {
 
+   
 
         Medication::create([
             'post_operative_data_id' => $request->postoperative->id,
             'medication' => $request->medication,
             'indication' => $request->indication,
+            'medicine_type' => $request->medicine_type,
             'status' => $request->status,
             'dosage' => $request->dosage,
             'reason' => $request->reason,

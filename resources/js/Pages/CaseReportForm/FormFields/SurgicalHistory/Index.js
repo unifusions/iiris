@@ -13,6 +13,7 @@ import { RenderBackButton, RenderCreateButton, RenderUpdateButton } from "../../
 
 import CreateSurgicalHistory from "./CreateSurgicalHistory";
 import PageTitle from "@/Pages/Shared/PageTitle";
+import { BOOLYESNO } from "../Helper";
 
 
 const Create = () => {
@@ -21,10 +22,6 @@ const Create = () => {
           surgical_history: preoperative.surgical_history !== null ? preoperative.surgical_history ? '1' : '0' : null
      });
 
-     const boolRadios = [
-          { labelText: 'Yes', value: '1' },
-          { labelText: 'No', value: '0' }
-     ];
 
      function preopSubmit(e) {
           e.preventDefault();
@@ -48,7 +45,7 @@ const Create = () => {
                </>
                }
           >
-               <Head title="Medical History" />
+               <Head title="Surgical History" />
 
                
 
@@ -60,14 +57,14 @@ const Create = () => {
 
                                    <FormRadio
                                         labelText='Has Surgical History?'
-
-                                        options={boolRadios}
+                                        options={BOOLYESNO}
                                         name="medicalHistory"
                                         handleChange={e => setData('surgical_history', e.target.value)}
                                         selectedValue={data.surgical_history !== null && data.surgical_history}
                                         error={errors.surgical_history}
                                         className={`${errors.surgical_history ? 'is-invalid' : ''}`}
                                    />
+                                   <div className="fst-italic">Only cardiac related surgeries</div>
                                    <hr />
                                    <RenderBackButton backUrl={backUrl} className='me-3' />
                                    <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />

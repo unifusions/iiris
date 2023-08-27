@@ -52,6 +52,7 @@ class UVMedicationController extends Controller
             'unscheduled_visits_id' => $request->unscheduledvisit->id,
             'medication' => $request->medication,
             'indication' => $request->indication,
+            'medicine_type' => $request->medicine_type,
             'status' => $request->status,
             'dosage' => $request->dosage,
             'reason' => $request->reason,

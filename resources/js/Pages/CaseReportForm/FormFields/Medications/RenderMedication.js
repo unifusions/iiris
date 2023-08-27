@@ -6,30 +6,31 @@ import { Link, useForm } from "@inertiajs/inertia-react";
 import React, { useState } from "react";
 import { Card, Col, Modal, Row } from "react-bootstrap";
 import CreateMedications from "./CreateMedications";
+import { MEDICINE_TYPES, RenderMedicineType } from "../Helper";
 
 
 export default function RenderMedication({ crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, medications, postopmedications, preopmedications, createUrl }) {
 
+     
+
      const RenderMedTable = ({ meds }) => {
           return (
                <>
-    
-                    {
-                         meds.length > 0 &&
+                    {meds.length > 0 &&
                          <>
-
-
                               {meds.map((med, index) =>
                                    <Row className="mb-2" key={index}>
                                         {/* <Col>{index + 1}</Col> */}
                                         <Col>{med.medication.medication}</Col>
                                         <Col>{med.medication.indication}</Col>
+                                        <Col>{med.medication.medicine_type === 'others' ? med.medication.medicine_type_others :
+                                             <RenderMedicineType medicineType={med.medication.medicine_type} />}</Col>
                                         <Col>{med.medication.status}</Col>
                                         <Col>
-                                        {med.medication.start_date !== null && new Date(med.medication.start_date).toLocaleDateString('en-IN',{ day: 'numeric',  month: 'numeric',year: 'numeric',  })}
+                                             {med.medication.start_date !== null && new Date(med.medication.start_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'numeric', year: 'numeric', })}
                                         </Col>
                                         <Col>{med.medication.stop_date !== null &&
-                                        new Date(med.medication.stop_date).toLocaleDateString('en-IN',{ day: 'numeric',  month: 'numeric',year: 'numeric',  })}
+                                             new Date(med.medication.stop_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'numeric', year: 'numeric', })}
                                         </Col>
                                         <Col>{med.medication.dosage}</Col>
                                         <Col>{med.medication.reason}</Col>
@@ -72,6 +73,7 @@ export default function RenderMedication({ crf, preoperative, postoperative, sch
                               {/* <Col>#</Col> */}
                               <Col>Medication</Col>
                               <Col>Indication</Col>
+                              <Col>Medicine Type</Col>
                               <Col>Status</Col>
                               <Col>Start Date</Col>
                               <Col>Stop Date</Col>
@@ -80,11 +82,11 @@ export default function RenderMedication({ crf, preoperative, postoperative, sch
                               <Col>Actions</Col>
                          </Row>
                          <hr />
-                         
-                         <RenderMedTable meds={medications}/>
-                    
-                        
-                         
+
+                         <RenderMedTable meds={medications} />
+
+
+
                     </Card.Body>
 
                     <Modal show={show} onHide={() => setShow(false)} backdrop="static" keyboard={false}>

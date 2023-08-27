@@ -52,6 +52,7 @@ class SVMedicationsController extends Controller
             'scheduled_visits_id' => $request->scheduledvisit->id,
             'medication' => $request->medication,
             'indication' => $request->indication,
+            'medicine_type' => $request->medicine_type,
             'status' => $request->status,
             'dosage' => $request->dosage,
             'reason' => $request->reason,

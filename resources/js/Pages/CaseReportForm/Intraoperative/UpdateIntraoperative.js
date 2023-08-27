@@ -10,6 +10,7 @@ import FormInputWithLabel from '@/Pages/Shared/FormInputWithLabel';
 import { TrashIcon } from '@heroicons/react/solid';
 import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
 import ReviewerIntraUpdate from './ReviewerIntraUpdate';
+import { BOOLYESNO, PREDEFINED_CONCOMITANT_PROCEDURE } from '../FormFields/Helper';
 
 export default function UpdateIntraOperative({ crf, intraoperative, role, intradicomfiles, intraopfileswext }) {
 
@@ -26,13 +27,24 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
           annular_suturing_others: intraoperative.annular_suturing_others || '',
           tcb_time: intraoperative.tcb_time || '',
           acc_time: intraoperative.acc_time || '',
+          
+          cabg: intraoperative.cabg !== null ? intraoperative.cabg === 1 ? '1' : '0' : '',
+          mitral_valve_repair: intraoperative.mitral_valve_repair !== null ? intraoperative.mitral_valve_repair === 1 ? '1' : '0' : '',
+          mitral_valve_replacement: intraoperative.mitral_valve_replacement !== null ? intraoperative.mitral_valve_replacement === 1 ? '1' : '0' : '',
+          aortic_root:intraoperative.aortic_root !== null ? intraoperative.aortic_root === 1 ? '1' : '0' : '',
+          ascending_aorta: intraoperative.ascending_aorta !== null ? intraoperative.ascending_aorta === 1 ? '1' : '0' : '',
+          aortic_arch: intraoperative.aortic_arch !== null ? intraoperative.aortic_arch === 1 ? '1' : '0' : '',
+          concomitant_procedure_others:intraoperative.concomitant_procedure_others !== null ? intraoperative.concomitant_procedure_others === 1 ? '1' : '0' : '',
+          concomitant_procedure_others_specify: intraoperative.concomitant_procedure_others_specify || '',
+
+
           concomitant_procedure: intraoperative.concomitant_procedure || '',
           all_paravalvular_leak: intraoperative.all_paravalvular_leak !== null ? intraoperative.all_paravalvular_leak === 1 ? '1' : '0' : '',
           all_paravalvular_leak_specify: intraoperative.all_paravalvular_leak_specify || '',
-
           major_paravalvular_leak: intraoperative.major_paravalvular_leak !== null ? intraoperative.major_paravalvular_leak === 1 ? '1' : '0' : '',
           major_paravalvular_leak_specify: intraoperative.major_paravalvular_leak_specify || '',
-          difiles: ''
+          difiles: '',
+
      });
 
      const [isAortotomyOthers, setAortotomyOthers] = useState(false);
@@ -66,13 +78,10 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
           { labelText: 'Interrupted non-Pledgeted', value: 'Interrupted non-Pledgeted', checked: data.annular_suturing_technique === 'Interrupted non-Pledgeted' },
           { labelText: 'Continuous', value: 'Continuous', checked: data.annular_suturing_technique === 'Continuous' },
           { labelText: 'Others', value: 'Others', checked: data.annular_suturing_technique === 'Others' },
-     ]
+     ];
 
 
-     const boolRadios = [
-          { labelText: 'Yes', value: '1' },
-          { labelText: 'No', value: '0' }
-     ]
+
      const iconStyle = { width: 18, height: 18 };
 
      return (
@@ -166,13 +175,59 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
                                    error={errors.acc_time} labelText="Aortic Cross Clamp Time"
                                    value={data.acc_time} units='mins'
                                    handleChange={e => setData('acc_time', e.target.value)} />
-                              <FormInput
-                                   type="text"
-                                   className={`${errors.concomitant_procedure && 'is-invalid '}`}
-                                   value={data.concomitant_procedure}
-                                   error={errors.concomitant_procedure} labelText="Concomitant Procedure"
-                                   handleChange={e => setData('concomitant_procedure', e.target.value)} />
+
+
                               <hr />
+                              <div className="row mb-3">
+                                   <div className="col-sm-12 fw-bold">Concomitant Procedure</div>
+
+                              </div>
+
+                              {PREDEFINED_CONCOMITANT_PROCEDURE.map((field) => <>
+                                   <FormRadio
+                                        type="radio" labelText={field.labelText}
+                                        name={field.fieldName}
+                                        options={BOOLYESNO}
+                                        selectedValue={data[field.fieldName]}
+                                        handleChange={e => setData(`${field.fieldName}`, e.target.value)}
+                                        error={errors[field.fieldName]}
+                                        className={`${errors[field.fieldName] ? 'is-invalid' : ''}`} />
+
+                                   {field.fieldName === 'concomitant_procedure_others' && (
+                                        data[field.fieldName] !== undefined && (
+                                             data[field.fieldName] === '1' && (
+                                                  <FormInput
+                                                       type="text"
+                                                       className={`${errors.concomitant_procedure && 'is-invalid '}`}
+                                                       value={data[`${field.fieldName}_specify`]}
+                                                       error={errors[`${field.fieldName}_specify`]} labelText="Pls Specify"
+                                                       handleChange={e => setData(`${field.fieldName}_specify`, e.target.value)} />
+                                             )
+                                        )
+                                   )}
+
+
+
+                                   {/* {data[concomitant_procedure_others] === '1' &&
+
+                                        (field.fieldName === 'concomitant_procedure_others' &&
+                                             <FormInput
+                                                  type="text"
+                                                  className={`${errors.concomitant_procedure && 'is-invalid '}`}
+                                                  value={data.concomitant_procedure}
+                                                  error={errors.concomitant_procedure} labelText="Pls Specify"
+                                                  handleChange={e => setData('concomitant_procedure', e.target.value)} />
+                                        )
+
+                                   } */}
+
+                              </>
+                              )}
+
+
+
+                              <hr />
+
                               <div className="row mb-3">
                                    <div className="col-sm-12 fw-bold">Intraoperative TEE</div>
 
@@ -180,7 +235,7 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
                               <FormRadio
                                    type="radio" labelText="All Paravalvular Leak"
                                    name="all_paravalvular_leak"
-                                   options={boolRadios}
+                                   options={BOOLYESNO}
                                    selectedValue={data.all_paravalvular_leak}
                                    handleChange={e => setData('all_paravalvular_leak', e.target.value)}
                                    error={errors.all_paravalvular_leak}
@@ -200,7 +255,7 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
                               <FormRadio
                                    type="radio" labelText="Major Paravalvular Leak"
                                    name="major_paravalvular_leak"
-                                   options={boolRadios}
+                                   options={BOOLYESNO}
                                    selectedValue={data.major_paravalvular_leak}
                                    handleChange={e => setData('major_paravalvular_leak', e.target.value)}
                                    error={errors.major_paravalvular_leak}
@@ -282,9 +337,9 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
                          </form>
                     </>
                     :
-                    <> 
-                         {intraoperative.visit_status ? <ReviewerIntraUpdate crf= {crf} intraoperative = {intraoperative} /> : 'Form is yet to be approved'}
-                         
+                    <>
+                         {intraoperative.visit_status ? <ReviewerIntraUpdate crf={crf} intraoperative={intraoperative} /> : 'Form is yet to be approved'}
+
                     </>
                }
 

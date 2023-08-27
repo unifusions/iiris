@@ -26,6 +26,16 @@ class IntraOperativeData extends Model
         'annular_suturing_others',
         'tcb_time',
         'acc_time',
+
+        'cabg',
+        'mitral_valve',
+        'mitral_valve_replacement',
+        'aortic_root',
+        'ascending_aorta',
+        'aortic_arch',
+        'concomitant_procedure_others',
+        'concomitant_procedure_others_specify',
+
         'concomitant_procedure',
         'all_paravalvular_leak',
         'all_paravalvular_leak_specify',

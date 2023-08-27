@@ -25,6 +25,7 @@ class UserController extends Controller
             'users' => $users->map(function ($user) {
                 return [
                     'id' => $user->id,
+                    'name' => $user->name,
                     'email' => $user->email,
                     'role' => Roles::where('id', $user->role_id)->pluck('name'),
                     'facility' => Facility::where('id', $user->facility_id)->pluck('name'),
@@ -93,9 +94,24 @@ class UserController extends Controller
     }
 
   
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $roles = Roles::whereIn('id',['3', '4'])->get();
+        return Inertia::render('Users/Edit', [ 'user' => $user,
+        'userRoles' => $roles->map(function ($role) {
+            return [
+                'label' => $role->name,
+                'value' => $role->id,
+            ];
+        }),
+        'facilities' => Facility::all()->map(function ($facility) {
+            return [
+                'label' => $facility->name,
+                'value' => $facility->id,
+
+            ];
+        })
+    ]);
     }
 
     public function update(Request $request, $id)

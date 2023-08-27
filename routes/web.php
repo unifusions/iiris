@@ -2,6 +2,7 @@
 
 use App\Exports\PhysicalExaminationExport;
 use App\Http\Controllers\Admins\PreoperativeFormEditableController;
+use App\Http\Controllers\Preoperative\PredefinedFamilyHistoryController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -73,6 +74,7 @@ use App\Http\Controllers\PhysicalExaminationController;
 use App\Http\Controllers\PostoperativeFileDownloadController;
 use App\Http\Controllers\PostoperativeFileUploadController;
 use App\Http\Controllers\PreOperative\DiagnosisController;
+use App\Http\Controllers\PreOperative\PredefinedMedicalHistoryController;
 use App\Http\Controllers\Preoperative\PreopEchoReviewController;
 use App\Http\Controllers\PreoperativeFileDownloadController;
 use App\Http\Controllers\PreoperativeFileUploadController;
@@ -89,6 +91,7 @@ use App\Http\Controllers\SvFileDownloadController;
 use App\Http\Controllers\UnscheduledVisitFileUploadController;
 use App\Http\Controllers\UsvFileDownloadController;
 use App\Models\Echocardiography;
+use App\Models\PredefinedFamilyHistory;
 use Maatwebsite\Excel\Facades\Excel;
 
 // Route::get('/', function () {
@@ -151,8 +154,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.preoperative.electrocardiogram', PreOperativeElectrocardiogramController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.echocardiography', PreOperativeEchocardiographyController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.medicalhistory', MedicalHistoryController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
+        Route::resource('crf.preoperative.predefinedmedicalhistory', PredefinedMedicalHistoryController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.surgicalhistory', SurgicalHistoryController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
+        
         Route::resource('crf.preoperative.familyhistory', FamilyHistoryController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
+        Route::resource('crf.preoperative.predefinedfamilyhistory', PredefinedFamilyHistoryController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
+        
         Route::resource('crf.preoperative.personalhistory', PreOperativePersonalHistoryController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.physicalactivity', PreOperativePhysicalActivityController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
         Route::resource('crf.preoperative.medication', PreOperativeMedicationController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);

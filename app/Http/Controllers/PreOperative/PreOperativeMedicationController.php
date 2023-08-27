@@ -56,10 +56,12 @@ class PreOperativeMedicationController extends Controller
 
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative)
     {
+       
         Medication::create([
             'pre_operative_data_id' => $request->preoperative->id,
             'medication' => $request->medication,
             'indication' => $request->indication,
+            'medicine_type' => $request->medicine_type,
             'status' => $request->status,
             'dosage' => $request->dosage,
             'reason' => $request->reason,

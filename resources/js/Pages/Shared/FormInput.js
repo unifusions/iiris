@@ -6,8 +6,8 @@ const FormInput = ({ type = 'text', name, value, className, autoComplete, requir
      useEffect(() => { if (isFocused) { input.current.focus(); } }, []);
 
      return (
-          <Row className="mb-3 "  >
-               <Col md={3}><span className="text-secondary">{labelText}</span></Col>
+          <Row className="mb-2"  >
+               <label className="col-md-3 col-form-label text-secondary">{labelText}</label>
                <Col md={6} >
                     
                          <input

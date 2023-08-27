@@ -12,23 +12,17 @@ import { RenderBackButton, RenderCreateButton, RenderUpdateButton } from "../../
 import MedicalHistoryData from "../../FormData/MedicalHistoryData";
 import CreateMedicalHistory from "./CreateMedicalHistory";
 import PageTitle from "@/Pages/Shared/PageTitle";
+import { BOOLYESNO } from "../Helper";
 
 
 const Create = () => {
-     const { auth, roles, postUrl, mode, medicalhistories, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, updateUrl, flash, backUrl } = usePage().props;
+     const { auth, roles, postUrl, mode, medicalhistories, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit, updateUrl, flash, backUrl, predefinedmedicalhistories } = usePage().props;
      const { data, setData, errors, post, put, processing, hasErrors, transform } = useForm({
 
 
           medical_history: preoperative.medical_history !== null ? preoperative.medical_history ? '1' : '0' : null
      });
 
-
-
-
-     const boolRadios = [
-          { labelText: 'Yes', value: '1' },
-          { labelText: 'No', value: '0' }
-     ];
 
 
 
@@ -61,7 +55,7 @@ const Create = () => {
 
 
                <Container>
-               <PageTitle backUrl={backUrl} pageTitle = 'Medical History' role={roles}/>
+                    <PageTitle backUrl={backUrl} pageTitle='Medical History' role={roles} />
 
                     <Card className="mb-3 shadow-sm rounded-5">
                          <Card.Body>
@@ -70,7 +64,7 @@ const Create = () => {
                                    <FormRadio
                                         labelText='Has Medical History?'
 
-                                        options={boolRadios}
+                                        options={BOOLYESNO}
                                         name="medicalHistory"
                                         handleChange={e => setData('medical_history', e.target.value)}
                                         selectedValue={data.medical_history !== null && data.medical_history}
@@ -92,10 +86,10 @@ const Create = () => {
                     </Card>
 
                     {preoperative.medical_history !== null &&
-                    <>
-                    {preoperative.medical_history ?  <CreateMedicalHistory preoperative={preoperative} crf={crf} medicalhistories={medicalhistories} />:''}
-                    </>
-                        }
+                         <>
+                              {preoperative.medical_history ? <CreateMedicalHistory preoperative={preoperative} crf={crf} medicalhistories={medicalhistories} predefinedmedicalhistories={predefinedmedicalhistories}/> : ''}
+                         </>
+                    }
                </Container>
 
 
