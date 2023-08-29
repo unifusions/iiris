@@ -41,20 +41,27 @@ export default function PredefinedFamilyHistoryData({ isFamHis, predefinedfamily
                 {isFamHis === null ? <span className="fw-normal text-secondary fst-italic">Family History Data has not been updated. Go ahead and update one.</span> : <>
                     {isFamHis ? <>
 
-                        <Row className="fw-bold mb-2">
-                            <Col>Diagnosis</Col>
-                            <Col>History</Col>
-                            <Col>Relation</Col>
-                        </Row>
 
-                        {FAMILY_HISTORY_FIELDS.map((field, index) =>
+                        {predefinedfamilyhistory !== null ?
+
+                            <>
+                                <Row className="fw-bold mb-2">
+                                    <Col>Diagnosis</Col>
+                                    <Col>History</Col>
+                                    <Col>Relation</Col>
+                                </Row>
+
+                                {FAMILY_HISTORY_FIELDS.map((field, index) =>
                             <Row className="mb-2" key={index}>
                                 <Col>{field.labelText} </Col>
                                 <Col>{predefinedfamilyhistory[field.fieldName] === 1 ? 'Yes' : 'No'}</Col>
                                 <Col> {predefinedfamilyhistory[field.fieldName + '_relation'].map((relation) => <>{relation}, </>)}</Col>
 
                             </Row>)
-                        }
+                        }</>
+
+                            : 'Family history has to be recorded yet'}
+
                     </> : 'No previous family history recorded'}
 
                 </>}
