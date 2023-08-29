@@ -30,6 +30,7 @@ export default function PredefinedFamilyHistoryData({ isFamHis, predefinedfamily
                                                 <RenderEditButton editUrl={linkUrl} className='btn-sm' />}
                                         </>
                                     }
+
                                 </>
                             }
                         </>
@@ -52,15 +53,15 @@ export default function PredefinedFamilyHistoryData({ isFamHis, predefinedfamily
                                 </Row>
 
                                 {FAMILY_HISTORY_FIELDS.map((field, index) =>
-                            <Row className="mb-2" key={index}>
-                                <Col>{field.labelText} </Col>
-                                <Col>{predefinedfamilyhistory[field.fieldName] === 1 ? 'Yes' : 'No'}</Col>
-                                <Col> {predefinedfamilyhistory[field.fieldName + '_relation'].map((relation) => <>{relation}, </>)}</Col>
+                                    <Row className="mb-2" key={index}>
+                                        <Col>{field.labelText} </Col>
+                                        <Col>{predefinedfamilyhistory[field.fieldName] === 1 ? 'Yes' : 'No'}</Col>
+                                        <Col> {predefinedfamilyhistory[field.fieldName + '_relation'].map((relation) => <>{relation}, </>)}</Col>
 
-                            </Row>)
-                        }</>
+                                    </Row>)
+                                }</>
 
-                            : 'Family history has to be recorded yet'}
+                            : 'Family history has to be recorded yet!'}
 
                     </> : 'No previous family history recorded'}
 
