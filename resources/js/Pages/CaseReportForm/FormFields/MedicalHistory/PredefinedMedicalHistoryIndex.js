@@ -13,6 +13,7 @@ import MedicalHistoryData from "../../FormData/MedicalHistoryData";
 import CreateMedicalHistory from "./CreateMedicalHistory";
 import PageTitle from "@/Pages/Shared/PageTitle";
 import { BOOLYESNO } from "../Helper";
+import EditMedicalHistory from "./EditMedicalHistory";
 
 
 const Create = () => {
@@ -54,13 +55,9 @@ const Create = () => {
 
                <Container>
                     <PageTitle backUrl={backUrl} pageTitle='Medical History' role={roles} />
-
+                    <CreateMedicalHistory preoperative={preoperative} crf={crf} medicalhistories={medicalhistories} predefinedmedicalhistories={predefinedmedicalhistories}/> 
                     
-                    {preoperative.medical_history !== null &&
-                         <>
-                              {preoperative.medical_history ? <CreateMedicalHistory preoperative={preoperative} crf={crf} medicalhistories={medicalhistories} predefinedmedicalhistories={predefinedmedicalhistories}/> : ''}
-                         </>
-                    }
+                 
                </Container>
 
 

@@ -13,7 +13,7 @@ export default function PredefinedMedicalHistoryData(
                     <div className='fs-6 fw-bold'>
                         Medical History
                     </div>
-                    {console.log('medhis' + hasMedHis)}
+                   
                     {!enableActions &&
                         <>
                             {role.coordinator &&
@@ -31,7 +31,9 @@ export default function PredefinedMedicalHistoryData(
                 <hr />
 
                 {medicalhistory !== null ? <>
-                    {medicalhistory.hasMedHis ? <>
+                    {/* {medicalhistory.hasMedHis ?  */}
+                    
+                    <>
                         {
                             PREDEFINED_MEDICAL_HISTORY_FIELDS.map((field) =>
                                 <>
@@ -64,10 +66,11 @@ export default function PredefinedMedicalHistoryData(
 
 
                         }
-                    </> : 'No medical history found'
+                    </> 
+                    
+                    {/*  : 'No medical history found'
 
-                    }
-                </> : <span className="fw-normal text-secondary fst-italic">No medical history has been recorded. Go ahead and create one.</span>}
+                    // } */}                </> : <span className="fw-normal text-secondary fst-italic">No medical history has been recorded. Go ahead and create one.</span>}
             </Card.Body>
         </Card>
     );

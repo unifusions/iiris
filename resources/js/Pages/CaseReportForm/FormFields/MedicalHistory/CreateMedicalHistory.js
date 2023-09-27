@@ -50,8 +50,9 @@ export default function CreateMedicalHistory({ crf, preoperative, medicalhistori
                                    <hr />
                                    {data.hasMedHis !== null && <>
                                         {data.hasMedHis === '1' && <div>
-                                             {PREDEFINED_MEDICAL_HISTORY_FIELDS.map((field) =>
+                                             {PREDEFINED_MEDICAL_HISTORY_FIELDS.map((field, i) =>
                                                   <MedicalHistoryField
+                                                       key={i}
                                                        labelText={field.labelText}
                                                        fieldName={field.fieldName}
                                                        handleFieldData={e => setData(`${field.fieldName}`, e.target.value)}
@@ -67,9 +68,9 @@ export default function CreateMedicalHistory({ crf, preoperative, medicalhistori
                                                        handleOthersValue={e => setData(`${field.fieldName}_value`, e.target.value)}
                                                   />
                                              )}
-                                          <hr/>
-                                        </div> }
-                                      
+                                             <hr />
+                                        </div>}
+
                                    </>
                                    }
 

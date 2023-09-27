@@ -19,6 +19,7 @@ class PredefinedMedicalHistoryController extends Controller
      */
     public function index(CaseReportForm $crf, PreOperativeData $preoperative)
     {
+       
         return Inertia::render(
             'CaseReportForm/FormFields/MedicalHistory/PredefinedMedicalHistoryIndex',
             [

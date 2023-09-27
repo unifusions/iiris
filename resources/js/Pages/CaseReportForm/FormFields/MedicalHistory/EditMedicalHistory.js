@@ -10,7 +10,7 @@ export default function EditMedicalHistory({ crf, preoperative, medicalhistory }
 
     const { data, setData, errors, put, processing, hasErrors, transform } = useForm({
         pre_operative_data_id: medicalhistory.pre_operative_data_id,
-        hasMedHis : medicalhistory.hasMedHis !== null ? medicalhistory.hasMedHis ? '1' : '0' : null,
+        hasMedHis: medicalhistory.hasMedHis !== null ? medicalhistory.hasMedHis ? '1' : '0' : null,
         diabetes_mellitus: medicalhistory.diabetes_mellitus !== null ? medicalhistory.diabetes_mellitus ? '1' : '0' : null,
         diabetes_mellitus_duration: medicalhistory.diabetes_mellitus_duration,
         diabetes_mellitus_treatment: medicalhistory.diabetes_mellitus_treatment !== null ? medicalhistory.diabetes_mellitus_treatment ? '1' : '0' : null,
@@ -39,7 +39,7 @@ export default function EditMedicalHistory({ crf, preoperative, medicalhistory }
     const handleShow = () => setShow(true);
     function handlesubmit(e) {
         e.preventDefault();
-        return put(route('crf.preoperative.predefinedmedicalhistory.update', { crf: crf, preoperative: preoperative, predefinedmedicalhistory: medicalhistory}),{
+        return put(route('crf.preoperative.predefinedmedicalhistory.update', { crf: crf, preoperative: preoperative, predefinedmedicalhistory: medicalhistory }), {
             onSuccess: () => setShow(false),
         });
     }
@@ -64,9 +64,10 @@ export default function EditMedicalHistory({ crf, preoperative, medicalhistory }
                 <form onSubmit={handlesubmit}>
                     <Modal.Body>
 
-                        {PREDEFINED_MEDICAL_HISTORY_FIELDS.map((field) => <>
-                            {console.log('Field ' + field.fieldName + ' ' + data[field.fieldName])}
+                        {PREDEFINED_MEDICAL_HISTORY_FIELDS.map((field, i) => <>
+
                             <MedicalHistoryField
+                                key={i}
                                 labelText={field.labelText}
                                 fieldName={field.fieldName}
                                 handleFieldData={e => setData(`${field.fieldName}`, e.target.value)}
