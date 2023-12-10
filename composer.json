@@ -12,6 +12,7 @@
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.7",
+        "league/flysystem-aws-s3-v3": "^3.22",
         "maatwebsite/excel": "^3.1",
         "phpoffice/phpspreadsheet": "^1.21",
         "pion/laravel-chunk-upload": "^1.5",

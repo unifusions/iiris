@@ -23,11 +23,16 @@ export default function MedicalHistoryFieldData({ crf, preoperative, medicalhist
                                     </Col>
 
                                     <Col md={4}>
-                                        Duration :
-                                        {medicalhistory[`${field.fieldName}_duration`] !== null ? medicalhistory[`${field.fieldName}_duration`] : <NotAvailable />}
+
+                                        {medicalhistory[field.fieldName] ?
+
+                                            <>Duration : {medicalhistory[`${field.fieldName}_duration`] !== null ? medicalhistory[`${field.fieldName}_duration`] : <NotAvailable />}</> : '-'}
+
                                     </Col>
                                     <Col md={4}>
-                                        On Treatment : <RenderBoolYesNo boolValue={medicalhistory[`${field.fieldName}_treatment`]} />
+                                        {medicalhistory[field.fieldName] ? <> On Treatment : <RenderBoolYesNo boolValue={medicalhistory[`${field.fieldName}_treatment`]} /></> : '-'}
+
+
                                     </Col>
                                 </Row>
 

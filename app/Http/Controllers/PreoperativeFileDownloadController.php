@@ -19,6 +19,7 @@ class PreoperativeFileDownloadController extends Controller
 
     {
         $pathToFile = storage_path('app/public/' . $fileupload->file_path);
+        dd($fileupload->file_path);
         return response()->download($pathToFile);
     }
 }

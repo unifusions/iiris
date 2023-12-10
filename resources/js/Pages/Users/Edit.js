@@ -3,12 +3,14 @@ import { Head, useForm, usePage } from "@inertiajs/inertia-react";
 import FormInput from "../Shared/FormInput";
 import { Card, Col, Row } from "react-bootstrap";
 import Select from "react-select";
+import FormButton from "../Shared/FormButton";
+import PasswordResetModal from "./PasswordResetModal";
 
 export default function Edit() {
 
     const { auth,
         roles, errors, userRoles, facilities, user } = usePage().props;
-    const { data, setData, put, processing } = useForm({
+    const { data, setData, patch, processing } = useForm({
         name: user.name ? user.name : '',
         email: user.email ? user.email : '',
         role_id: user.role_id ? user.role_id : '',
@@ -17,7 +19,7 @@ export default function Edit() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        return null;
+        return patch(route('users.update', {user:user}));
     }
 
     return (
@@ -33,7 +35,7 @@ export default function Edit() {
             }
             role={roles}
         >
-            {console.log(user)}
+            
             <Head title="Edit User" />
             <Card className="card shadow-sm rounded-5">
                 <Card.Body>
@@ -79,7 +81,13 @@ export default function Edit() {
                             </Col>
                         </Row>
 
+                        <Row>
+                            <Col md={3}></Col>
+                            <Col md={6}> <FormButton processing={processing} labelText='Save User' type="submit" mode="primary btn-sm me-2" className="" /><PasswordResetModal user={user} /></Col>
+                            <Col md={3}></Col>
+                        </Row>
 
+                       
 
 
                     </form>

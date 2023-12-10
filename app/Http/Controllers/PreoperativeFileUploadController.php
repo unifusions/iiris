@@ -47,7 +47,8 @@ class PreoperativeFileUploadController extends Controller
         }
         $file = is_array($input) ? $input[0] : $input;
 
-        if (!($newFile = $file->storeAs($uploadpath, $file->getClientOriginalName(), 'public'))) {
+        if (!($newFile = $file->storeAs($uploadpath, $file->getClientOriginalName()))) {
+            // if (!($newFile = Storage::putFileAs($uploadpath, new File($file), $file->getClientOriginalName()))) {
 
 
             return Response::make('Could not save file', 500, [
@@ -56,12 +57,16 @@ class PreoperativeFileUploadController extends Controller
         }
         $fileupload->pre_operative_data_id = $preoperative->id;
         $fileupload->file_name = $file->getClientOriginalName();
+
+        // https://stagingcliniquest.s3.ap-south-1.amazonaws.com/uploads/001-002/preoperative/m1_small.jpg
+
+        // $fileupload->file_path = 'https://' . env('AWS_BUCKET') . 's3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/'  . $newFile;
         $fileupload->file_path = $newFile;
+        
         $fileupload->save();
         return Response::make($fileupload->id, 200, [
             'Content-Type' => 'text/plain',
         ]);
-
     }
 
 
@@ -70,7 +75,7 @@ class PreoperativeFileUploadController extends Controller
     {
 
         $filelocation =  'uploads/temp/'  . uniqid();
-        $fileCreated = Storage::put($filelocation, '');
+        $fileCreated = Storage::disk('local')->put($filelocation, '');
 
         if (!$fileCreated) {
             abort(500, 'Could not create file');
@@ -85,8 +90,8 @@ class PreoperativeFileUploadController extends Controller
     }
     public function patch(Request $request)
     {
-     
-        
+
+
         $crf = $request->input('crf');
         $preop = $request->input('preop');
         $chunkfilepath = 'uploads/' . $crf . '/preoperative/';
@@ -105,15 +110,15 @@ class PreoperativeFileUploadController extends Controller
         $length = $request->server('HTTP_UPLOAD_LENGTH');
         $fileName = $request->server('HTTP_UPLOAD_NAME');
 
-        Storage::put($basePath . '/patch.' . $offset, $request->getContent(), ['mimetype' => 'application/octet-stream']);
+        Storage::disk('local')->put($basePath . '/patch.' . $offset, $request->getContent(), ['mimetype' => 'application/octet-stream']);
         $this->persistFileIfDone($basePath, $length, $finalFilePath, $fileName, $chunkfilepath, $preop);
 
-        return Response::make('',204,);
+        return Response::make('', 204,);
     }
 
     private function persistFileIfDone($basePath, $length, $finalFilePath, $fileName, $chunkfilepath, $preop)
     {
-        $storage = Storage::disk();
+        $storage = Storage::disk('public');
         $size = 0;
         $chunks = $storage->files($basePath);
 
@@ -140,8 +145,13 @@ class PreoperativeFileUploadController extends Controller
             unset($chunkContents);
         }
         Storage::disk('public')->put($finalFilePath, $data, ['mimetype' => 'application/octet-stream']);
-        Storage::deleteDirectory($basePath);
+        
+        Storage::disk('public')->deleteDirectory($basePath);
         Storage::disk('public')->move($finalFilePath, $chunkfilepath . $fileName);
+        
+        $finalFileStream = Storage::disk('public')->get($finalFilePath, $chunkfilepath . $fileName);
+        Storage::put($finalFilePath, $finalFileStream->stream());
+        
         PreoperativeDicomFile::Create([
             'pre_operative_data_id' => $preop,
             'file_name' => $fileName,
@@ -152,11 +162,15 @@ class PreoperativeFileUploadController extends Controller
 
     public function show(CaseReportForm $crf, PreOperativeData $preoperative, PreoperativeDicomFile $fileupload)
     {
-        $pathToFile = storage_path('app/public/' . $fileupload->file_path);
+
+        // $pathToFile = storage_path('app/public/' . $fileupload->file_path);
+        $pathToFile = Storage::url($fileupload->file_path);
+        
         $fileUrl = url('/storage/app/public', $fileupload->file_path);
         $extension = pathinfo(storage_path('app/public/' . $fileupload->file_path), PATHINFO_EXTENSION);
         if ($extension === 'jpg' || $extension === 'jpeg' || $extension === 'png')
-            return response()->file($pathToFile);
+            return Storage::download($fileupload->file_path);
+        // return response()->file($pathToFile);
         return Inertia::render(
             'EchoDicomFiles/EchoRDicomViewer',
             [

@@ -13,7 +13,7 @@ export default function PredefinedMedicalHistoryData(
                     <div className='fs-6 fw-bold'>
                         Medical History
                     </div>
-                   
+
                     {!enableActions &&
                         <>
                             {role.coordinator &&
@@ -32,7 +32,7 @@ export default function PredefinedMedicalHistoryData(
 
                 {medicalhistory !== null ? <>
                     {/* {medicalhistory.hasMedHis ?  */}
-                    
+
                     <>
                         {
                             PREDEFINED_MEDICAL_HISTORY_FIELDS.map((field) =>
@@ -49,11 +49,16 @@ export default function PredefinedMedicalHistoryData(
                                                 </Col>
 
                                                 <Col md={4}>
-                                                    Duration :
-                                                    {medicalhistory[`${field.fieldName}_duration`] !== null ? medicalhistory[`${field.fieldName}_duration`] : <NotAvailable />}
+
+                                                    {medicalhistory[field.fieldName] ?
+
+                                                        <>Duration : {medicalhistory[`${field.fieldName}_duration`] !== null ? medicalhistory[`${field.fieldName}_duration`] : <NotAvailable />}</> : '-'}
+
                                                 </Col>
                                                 <Col md={4}>
-                                                    On Treatment : <RenderBoolYesNo boolValue={medicalhistory[`${field.fieldName}_treatment`]} />
+                                                    {medicalhistory[field.fieldName] ? <> On Treatment : <RenderBoolYesNo boolValue={medicalhistory[`${field.fieldName}_treatment`]} /></> : '-'}
+
+
                                                 </Col>
                                             </Row>
 
@@ -66,8 +71,8 @@ export default function PredefinedMedicalHistoryData(
 
 
                         }
-                    </> 
-                    
+                    </>
+
                     {/*  : 'No medical history found'
 
                     // } */}                </> : <span className="fw-normal text-secondary fst-italic">No medical history has been recorded. Go ahead and create one.</span>}

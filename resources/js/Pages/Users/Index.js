@@ -37,7 +37,7 @@ export default class Index extends React.Component {
                                              <th>Registered Email</th>
                                              <th>Role</th>
                                              <th>Facility</th>
-                                             {/* <th>Actions</th> */}
+                                             <th></th>
                                              
                                         </tr>
                                    </thead>
