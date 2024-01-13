@@ -38,7 +38,7 @@ class PreoperativeFileUploadController extends Controller
 
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, PreoperativeDicomFile $fileupload)
     {
-       
+        
         $uploadpath = 'uploads/' . $crf->subject_id . '/preoperative';
         $input =  $request->file('files');
 
@@ -48,7 +48,7 @@ class PreoperativeFileUploadController extends Controller
         }
         $file = is_array($input) ? $input[0] : $input;
 
-        if (!($newFile = $file->storeAs($uploadpath, $file->getClientOriginalName(),'s3'))) {
+        if (!($newFile = $file->storeAs($uploadpath, $file->getClientOriginalName()))) {
             // if (!($newFile = Storage::putFileAs($uploadpath, new File($file), $file->getClientOriginalName()))) {
 
 
@@ -76,7 +76,7 @@ class PreoperativeFileUploadController extends Controller
     {
 
         $filelocation =  'uploads/temp/'  . uniqid();
-        $fileCreated = Storage::disk('public')->put($filelocation, '');
+        $fileCreated = Storage::disk('local')->put($filelocation, '');
 
         if (!$fileCreated) {
             abort(500, 'Could not create file');
@@ -98,7 +98,7 @@ class PreoperativeFileUploadController extends Controller
         $chunkfilepath = 'uploads/' . $crf . '/preoperative/';
         $encryptedPath = $request->input('patch');
         if (!$encryptedPath) {
-            abort(400, 'No id given');  
+            abort(400, 'No id given');
         }
         try {
             $finalFilePath = Crypt::decryptString($encryptedPath);
@@ -111,7 +111,7 @@ class PreoperativeFileUploadController extends Controller
         $length = $request->server('HTTP_UPLOAD_LENGTH');
         $fileName = $request->server('HTTP_UPLOAD_NAME');
 
-        Storage::disk('public')->put($basePath . '/patch.' . $offset, $request->getContent(), ['mimetype' => 'application/octet-stream']);
+        Storage::disk('local')->put($basePath . '/patch.' . $offset, $request->getContent(), ['mimetype' => 'application/octet-stream']);
         $this->persistFileIfDone($basePath, $length, $finalFilePath, $fileName, $chunkfilepath, $preop);
 
         return Response::make('', 204,);
@@ -146,20 +146,18 @@ class PreoperativeFileUploadController extends Controller
             unset($chunkContents);
         }
         Storage::disk('public')->put($finalFilePath, $data, ['mimetype' => 'application/octet-stream']);
-        Storage::deleteDirectory($basePath);
+        
+        Storage::disk('public')->deleteDirectory($basePath);
         Storage::disk('public')->move($finalFilePath, $chunkfilepath . $fileName);
         
+        $finalFileStream = Storage::disk('public')->get($finalFilePath, $chunkfilepath . $fileName);
+        Storage::put($finalFilePath, $finalFileStream->stream());
         
-        // $finalFileStream = Storage::disk('public')->get($finalFilePath, $chunkfilepath . $fileName);
-        // Storage::disk('s3')->copy($finalFilePath, $finalFileStream->stream());
-        
-        $preopfile = PreoperativeDicomFile::Create([
+        PreoperativeDicomFile::Create([
             'pre_operative_data_id' => $preop,
             'file_name' => $fileName,
             'file_path' => $chunkfilepath . $fileName,
         ]);
-       
-        Storage::disk('s3')->put($fileName, Storage::disk('public')->get($chunkfilepath. $fileName));
     }
 
 
