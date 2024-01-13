@@ -160,7 +160,11 @@ class PreoperativeFileUploadController extends Controller
         ]);
         //
        
-        Storage::disk('s3')->put($chunkfilepath. $fileName, $fileName, file_get_contents(Storage::disk('public')->get($chunkfilepath. $fileName)));
+
+        Storage::disk('s3')->writeStream($chunkfilepath. $fileName, $fileName, Storage::disk('public')->readStream($chunkfilepath. $fileName));
+
+
+        // Storage::disk('s3')->put($chunkfilepath. $fileName, $fileName, file_get_contents(Storage::disk('public')->get($chunkfilepath. $fileName)));
     }
 
 
