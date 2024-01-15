@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\CaseReportForm;
 use App\Models\PreOperativeData;
 use App\Models\PreoperativeDicomFile;
+use Aws\Exception\MultipartUploadException;
+use Aws\S3\MultipartUploader;
+use Aws\S3\ObjectUploader;
+use Aws\S3\S3Client;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -159,12 +163,45 @@ class PreoperativeFileUploadController extends Controller
             'file_path' => $chunkfilepath . $fileName,
         ]);
         //
+
+        $s3Client = new S3Client([
+            'profile' => 'default',
+            'region' => env('AWS_DEFAULT_REGION'),
+            'version' => '2006-03-01',
+        ]);
+
+        $bucket = env('AWS_BUCKET');
+        $key = $fileName;
+        $source = fopen(Storage::disk('public')->url($chunkfilepath . $fileName), 'rb');
+        $uploader = new ObjectUploader(
+            $s3Client,
+            $bucket,
+            $key,
+            $source
+        );
+        do {
+            try {
+                $result = $uploader->upload();
+                if ($result["@metadata"]["statusCode"] == '200') {
+                    print('<p>File successfully uploaded to ' . $result["ObjectURL"] . '.</p>');
+                }
+                print($result);
+                // If the SDK chooses a multipart upload, try again if there is an exception.
+                // Unlike PutObject calls, multipart upload calls are not automatically retried.
+            } catch (MultipartUploadException $e) {
+                rewind($source);
+                $uploader = new MultipartUploader($s3Client, $source, [
+                    'state' => $e->getState(),
+                ]);
+            }
+        } while (!isset($result));
+        fclose($source);
        
 
         // Storage::disk('s3')->writeStream($chunkfilepath. $fileName, $fileName, Storage::disk('public')->readStream($chunkfilepath. $fileName));
 
 
-        Storage::putFileAs($chunkfilepath, new File(Storage::disk('public')->get($chunkfilepath. $fileName)), $fileName);
+        // Storage::putFileAs($chunkfilepath, new File(Storage::disk('public')->get($chunkfilepath. $fileName)), $fileName);
     }
 
 
