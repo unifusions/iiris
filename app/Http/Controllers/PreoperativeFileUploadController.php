@@ -42,19 +42,28 @@ class PreoperativeFileUploadController extends Controller
 
     public function store(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, PreoperativeDicomFile $fileupload)
     {
-       
+
+
+        PreoperativeDicomFile::Create([
+            'pre_operative_data_id' => $preoperative->id,
+            'file_name' => $request->input('fileName'),
+            'file_path' => $request->input('url'),
+        ]);
+
+
+
+        return Response::make('', 200, [
+            'Content-Type' => 'text/plain',
+        ]);
+
+
         $uploadpath = 'uploads/' . $crf->subject_id . '/preoperative';
         $input =  $request->file('files');
-
         if ($input === null) {
-
             return $this->handleChunkInitialization();
         }
         $file = is_array($input) ? $input[0] : $input;
-
-        if (!($newFile = $file->storeAs($uploadpath, $file->getClientOriginalName(),'s3'))) {
-            // if (!($newFile = Storage::putFileAs($uploadpath, new File($file), $file->getClientOriginalName()))) {
-
+        if (!($newFile = $file->storeAs($uploadpath, $file->getClientOriginalName(), 's3'))) {
 
             return Response::make('Could not save file', 500, [
                 'Content-Type' => 'text/plain',
@@ -62,16 +71,8 @@ class PreoperativeFileUploadController extends Controller
         }
         $fileupload->pre_operative_data_id = $preoperative->id;
         $fileupload->file_name = $file->getClientOriginalName();
-
-        // https://stagingcliniquest.s3.ap-south-1.amazonaws.com/uploads/001-002/preoperative/m1_small.jpg
-
-        // $fileupload->file_path = 'https://' . env('AWS_BUCKET') . 's3.' . env('AWS_DEFAULT_REGION') . '.amazonaws.com/'  . $newFile;
         $fileupload->file_path = $newFile;
-        
         $fileupload->save();
-        return Response::make($fileupload->id, 200, [
-            'Content-Type' => 'text/plain',
-        ]);
     }
 
 
@@ -96,13 +97,12 @@ class PreoperativeFileUploadController extends Controller
     public function patch(Request $request)
     {
 
-
         $crf = $request->input('crf');
         $preop = $request->input('preop');
         $chunkfilepath = 'uploads/' . $crf . '/preoperative/';
         $encryptedPath = $request->input('patch');
         if (!$encryptedPath) {
-            abort(400, 'No id given');  
+            abort(400, 'No id given');
         }
         try {
             $finalFilePath = Crypt::decryptString($encryptedPath);
@@ -152,11 +152,11 @@ class PreoperativeFileUploadController extends Controller
         Storage::disk('public')->put($finalFilePath, $data, ['mimetype' => 'application/octet-stream']);
         Storage::deleteDirectory($basePath);
         Storage::disk('public')->move($finalFilePath, $chunkfilepath . $fileName);
-        
-        
+
+
         // $finalFileStream = Storage::disk('public')->get($finalFilePath, $chunkfilepath . $fileName);
         // Storage::disk('s3')->copy($finalFilePath, $finalFileStream->stream());
-        
+
         $preopfile = PreoperativeDicomFile::Create([
             'pre_operative_data_id' => $preop,
             'file_name' => $fileName,
@@ -164,39 +164,39 @@ class PreoperativeFileUploadController extends Controller
         ]);
         //
 
-        $s3Client = new S3Client([
-            'profile' => 'default',
-            'region' => env('AWS_DEFAULT_REGION'),
-            'version' => '2006-03-01',
-        ]);
+        // $s3Client = new S3Client([
+        //     'profile' => 'default',
+        //     'region' => env('AWS_DEFAULT_REGION'),
+        //     'version' => '2006-03-01',
+        // ]);
 
-        $bucket = env('AWS_BUCKET');
-        $key = $fileName;
-        $source = fopen(Storage::disk('public')->url($chunkfilepath . $fileName), 'rb');
-        $uploader = new ObjectUploader(
-            $s3Client,
-            $bucket,
-            $key,
-            $source
-        );
-        do {
-            try {
-                $result = $uploader->upload();
-                if ($result["@metadata"]["statusCode"] == '200') {
-                    print('<p>File successfully uploaded to ' . $result["ObjectURL"] . '.</p>');
-                }
-                print($result);
-                // If the SDK chooses a multipart upload, try again if there is an exception.
-                // Unlike PutObject calls, multipart upload calls are not automatically retried.
-            } catch (MultipartUploadException $e) {
-                rewind($source);
-                $uploader = new MultipartUploader($s3Client, $source, [
-                    'state' => $e->getState(),
-                ]);
-            }
-        } while (!isset($result));
-        fclose($source);
-       
+        // $bucket = env('AWS_BUCKET');
+        // $key = $fileName;
+        // $source = fopen(Storage::disk('public')->url($chunkfilepath . $fileName), 'rb');
+        // $uploader = new ObjectUploader(
+        //     $s3Client,
+        //     $bucket,
+        //     $key,
+        //     $source
+        // );
+        // do {
+        //     try {
+        //         $result = $uploader->upload();
+        //         if ($result["@metadata"]["statusCode"] == '200') {
+        //             print('<p>File successfully uploaded to ' . $result["ObjectURL"] . '.</p>');
+        //         }
+        //         print($result);
+        //         // If the SDK chooses a multipart upload, try again if there is an exception.
+        //         // Unlike PutObject calls, multipart upload calls are not automatically retried.
+        //     } catch (MultipartUploadException $e) {
+        //         rewind($source);
+        //         $uploader = new MultipartUploader($s3Client, $source, [
+        //             'state' => $e->getState(),
+        //         ]);
+        //     }
+        // } while (!isset($result));
+        // fclose($source);
+
 
         // Storage::disk('s3')->writeStream($chunkfilepath. $fileName, $fileName, Storage::disk('public')->readStream($chunkfilepath. $fileName));
 
@@ -209,9 +209,14 @@ class PreoperativeFileUploadController extends Controller
     {
 
         // $pathToFile = storage_path('app/public/' . $fileupload->file_path);
-        $pathToFile = Storage::url($fileupload->file_path);
         
+        
+
+        $pathToFile = Storage::url($fileupload->file_path);
         $fileUrl = url('/storage/app/public', $fileupload->file_path);
+
+
+
         $extension = pathinfo(storage_path('app/public/' . $fileupload->file_path), PATHINFO_EXTENSION);
         if ($extension === 'jpg' || $extension === 'jpeg' || $extension === 'png')
             return Storage::download($fileupload->file_path);
@@ -219,7 +224,7 @@ class PreoperativeFileUploadController extends Controller
         return Inertia::render(
             'EchoDicomFiles/EchoRDicomViewer',
             [
-                'file' => preg_replace("(^https?://)", "", urldecode($fileUrl))
+                'file' => preg_replace("(^https?://)", "", urldecode($pathToFile))
                 // 'file' => $fileUrl
             ]
         );
