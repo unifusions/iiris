@@ -79,7 +79,7 @@ export default function EchoRDicomViewer() {
 
      return (
           <>
-          {console.log(file)}
+         
                {imageIds.length > 0 && <CornerstoneViewport
                     tools={tools}
                     imageIds={imageIds}

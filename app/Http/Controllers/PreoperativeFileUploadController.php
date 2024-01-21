@@ -211,23 +211,24 @@ class PreoperativeFileUploadController extends Controller
         // $pathToFile = storage_path('app/public/' . $fileupload->file_path);
         
         
-
-        $pathToFile = Storage::url($fileupload->file_path);
-        $fileUrl = url('/storage/app/public', $fileupload->file_path);
-
-
-
-        $extension = pathinfo(storage_path('app/public/' . $fileupload->file_path), PATHINFO_EXTENSION);
-        if ($extension === 'jpg' || $extension === 'jpeg' || $extension === 'png')
-            return Storage::download($fileupload->file_path);
-        // return response()->file($pathToFile);
         return Inertia::render(
             'EchoDicomFiles/EchoRDicomViewer',
             [
-                'file' => preg_replace("(^https?://)", "", urldecode($pathToFile))
+                'file' => preg_replace("(^https?://)", "", Storage::url($fileupload->file_path))
                 // 'file' => $fileUrl
             ]
         );
+
+        // $pathToFile = Storage::url($fileupload->file_path);
+        // $fileUrl = url('/storage/app/public', $fileupload->file_path);
+
+
+
+        // $extension = pathinfo(storage_path('app/public/' . $fileupload->file_path), PATHINFO_EXTENSION);
+        // if ($extension === 'jpg' || $extension === 'jpeg' || $extension === 'png')
+        //     return Storage::download($fileupload->file_path);
+        // // return response()->file($pathToFile);
+       
     }
 
 
