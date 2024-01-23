@@ -16,6 +16,7 @@ import { TrashIcon } from '@heroicons/react/outline';
 import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
 import ApprovalActionEditable from './ApprovalActionsEditable';
 import ReviewerIntraUpdate from './ReviewerIntraUpdate';
+import { PREDEFINED_CONCOMITANT_PROCEDURE, RenderBoolYesNo } from '../FormFields/Helper';
 
 
 function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, intraopfileswext }) {
@@ -46,7 +47,46 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
 
                <RenderFieldDatas labelText='Total Cardiopulmonary Bypass Time' value={intraoperative.tcb_time} />
                <RenderFieldDatas labelText='Aortic Cross Clamp Time' value={intraoperative.acc_time} />
-               <RenderFieldDatas labelText='Concomitant Procedure' value={intraoperative.concomitant_procedure} />
+               {/* <RenderFieldDatas labelText='Concomitant Procedure' value={intraoperative.concomitant_procedure} /> */}
+
+               <hr />
+               <div className='fw-bold fs-6 mb-3'>Concomitant Procedure</div>
+
+               {PREDEFINED_CONCOMITANT_PROCEDURE.map((field) =>
+                    <>
+                         <Row className='mb-3'>
+                              <Col md={4} className='text-secondary'>
+                                   {field.labelText}
+                              </Col>
+                              <Col md={8}>
+                                   <Row>
+                                        <Col md={4}>
+                                             <RenderBoolYesNo boolValue={intraoperative[field.fieldName]} />
+
+                                        </Col>
+                                        <Col md={4}>
+                                             {field.fieldName === 'concomitant_procedure_others' && (
+
+                                                  intraoperative[field.fieldName] === 1 && (
+                                                       intraoperative['concomitant_procedure_others_specify']
+
+
+
+                                                  )
+                                             )
+                                             }
+
+                                        </Col>
+
+                                   </Row>
+
+                              </Col>
+                         </Row>
+
+
+                    </>
+               )}
+
                <RenderFieldBoolNoDatas labelText='All paravalvular leak' boolValue={intraoperative.all_paravalvular_leak} value={intraoperative.all_paravalvular_leak_specify} />
                <RenderFieldBoolNoDatas labelText='Major Pravalvular Leak' boolValue={intraoperative.major_paravalvular_leak} value={intraoperative.major_paravalvular_leak_specify} />
 
