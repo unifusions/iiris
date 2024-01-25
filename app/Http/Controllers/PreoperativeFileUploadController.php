@@ -30,6 +30,9 @@ class PreoperativeFileUploadController extends Controller
                 'crf' => $crf,
                 'preoperative' => $preoperative,
                 'csrf_token' => csrf_token(),
+                'accessId' => env('AWS_ACCESS_KEY_ID'),
+                'accessKey' => env('AWS_SECRET_ACCESS_KEY'),
+                'bucket' => env('AWS_BUCKET')
             ]
 
         );

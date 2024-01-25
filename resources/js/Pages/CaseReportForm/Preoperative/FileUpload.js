@@ -12,7 +12,7 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 
 export default function FileUpload() {
-     const { auth, roles, errors, crf, preoperative, csrf_token } = usePage().props;
+     const { auth, roles, errors, crf, preoperative, csrf_token, accessKey, accessId, bucket } = usePage().props;
 
      const { post } = useForm();
 
@@ -67,14 +67,14 @@ export default function FileUpload() {
                                                                       region: 'ap-south-1',
                                                                       // signatureVersion: 'v4'
                                                                       credentials: {
-                                                                           accessKeyId: 'AKIAZYKYWY6QBQTKQ4YS',
-                                                                           secretAccessKey: '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'
+                                                                           accessKeyId: accessId,
+                                                                           secretAccessKey: accessKey
                                                                       }
                                                                  });
 
-                                                                 const S3_BUCKET = "stagingcliniquest";
+                                                                
                                                                  const params = {
-                                                                      Bucket: S3_BUCKET,
+                                                                      Bucket: bucket,
                                                                       Key: `uploads/${crf.subject_id}/preoperative/` + file.name,
                                                                       Body: file,
                                                                  };
