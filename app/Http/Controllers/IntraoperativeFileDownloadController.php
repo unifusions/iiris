@@ -6,6 +6,7 @@ use App\Models\CaseReportForm;
 use App\Models\IntraOperativeData;
 use App\Models\IntraoperativeDicomFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class IntraoperativeFileDownloadController extends Controller
 {
@@ -17,9 +18,8 @@ class IntraoperativeFileDownloadController extends Controller
      */
     public function __invoke(Request $request, CaseReportForm $crf, IntraOperativeData $intraoperative, IntraoperativeDicomFile $fileupload)
     {
-        
-            $pathToFile = storage_path('app/public/' . $fileupload->file_path);
-            return response()->download($pathToFile);
+        return Storage::download($fileupload->file_path);
+
        
     }
 }

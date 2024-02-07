@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Link, useForm, usePage } from '@inertiajs/inertia-react';
-import { Row, Col, Card, Container } from 'react-bootstrap';
+import { Row, Col, Card, Container, Modal, Button } from 'react-bootstrap';
 import FormCalendar from '@/Pages/Shared/FormCalendar';
 import FormButton from '@/Pages/Shared/FormButton';
 import FormInput from '@/Pages/Shared/FormInput';
@@ -11,6 +11,8 @@ import { TrashIcon } from '@heroicons/react/solid';
 import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
 import ReviewerIntraUpdate from './ReviewerIntraUpdate';
 import { BOOLYESNO, PREDEFINED_CONCOMITANT_PROCEDURE } from '../FormFields/Helper';
+import { Inertia } from '@inertiajs/inertia';
+
 
 export default function UpdateIntraOperative({ crf, intraoperative, role, intradicomfiles, intraopfileswext }) {
 
@@ -27,14 +29,14 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
           annular_suturing_others: intraoperative.annular_suturing_others || '',
           tcb_time: intraoperative.tcb_time || '',
           acc_time: intraoperative.acc_time || '',
-          
+
           cabg: intraoperative.cabg !== null ? intraoperative.cabg === 1 ? '1' : '0' : '',
           mitral_valve_repair: intraoperative.mitral_valve_repair !== null ? intraoperative.mitral_valve_repair === 1 ? '1' : '0' : '',
           mitral_valve_replacement: intraoperative.mitral_valve_replacement !== null ? intraoperative.mitral_valve_replacement === 1 ? '1' : '0' : '',
-          aortic_root:intraoperative.aortic_root !== null ? intraoperative.aortic_root === 1 ? '1' : '0' : '',
+          aortic_root: intraoperative.aortic_root !== null ? intraoperative.aortic_root === 1 ? '1' : '0' : '',
           ascending_aorta: intraoperative.ascending_aorta !== null ? intraoperative.ascending_aorta === 1 ? '1' : '0' : '',
           aortic_arch: intraoperative.aortic_arch !== null ? intraoperative.aortic_arch === 1 ? '1' : '0' : '',
-          concomitant_procedure_others:intraoperative.concomitant_procedure_others !== null ? intraoperative.concomitant_procedure_others === 1 ? '1' : '0' : '',
+          concomitant_procedure_others: intraoperative.concomitant_procedure_others !== null ? intraoperative.concomitant_procedure_others === 1 ? '1' : '0' : '',
           concomitant_procedure_others_specify: intraoperative.concomitant_procedure_others_specify || '',
 
 
@@ -46,6 +48,33 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
           difiles: '',
 
      });
+
+
+     const [fullscreen, setFullscreen] = useState(true);
+     const [show, setShow] = useState(false);
+     const [imageurl, setImageurl] = useState();
+
+
+
+     function handleShow(file) {
+          // setFullscreen(breakpoint);
+          fetch(route('crf.intraoperative.fileupload.show', { crf: crf, intraoperative: intraoperative, fileupload: file.file }))
+               .then(response => response.json())
+               .then(data => {
+                  
+                    setImageurl(data.imageurl)
+                    setShow(true)
+               }
+               )
+
+          // Inertia.get(route('crf.intraoperative.fileupload.show', { crf: crf, intraoperative: intraoperative, fileupload: file.file }, {
+
+
+          //      // data : {crf: crf, intraoperative: intraoperative, fileupload: file},
+          //      onSuccess: response => { console.log(response) },
+          // }));
+
+     }
 
      const [isAortotomyOthers, setAortotomyOthers] = useState(false);
      const [isAannularSuturingOthers, setAnnularSuturingOthers] = useState(false);
@@ -86,6 +115,7 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
 
      return (
           <>
+
                {!role.reviewer ?
                     <>
                          <form onSubmit={handlesubmit} >
@@ -283,11 +313,41 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
                                                   {intraopfileswext.map((file) =>
                                                        <div key={file.file.id} className="mb-3">
                                                             <div className="d-flex justify-content-between">
-                                                                 <div> {file.file.file_name} </div>
+                                                                 <div> {file.file.file_name}</div>
                                                                  <div>
 
-                                                                      {(file.extension === 'jpg' || file.extension === '512' || file.extension === '') &&
+                                                                      {
+                                                                           file.file.file_name &&
+                                                                           (file.extension === 'jpg' || file.extension === 'png' || file.extension === 'jpeg') &&
                                                                            <>
+                                                                                <Button variant="outline-info" className="btn-sm me-2" onClick={() => handleShow(file)} >
+                                                                                     View
+
+                                                                                </Button>
+
+                                                                                <Modal show={show} dialogClassName="modal-90w" onHide={() => setShow(false)}>
+                                                                                     <Modal.Header closeButton>
+                                                                                          <Modal.Title id="example-custom-modal-styling-title">
+                                                                                               {file.file.file_name}
+                                                                                          </Modal.Title>
+                                                                                     </Modal.Header>
+                                                                                     <Modal.Body>
+                                                                                          <img src={imageurl} />
+                                                                                     </Modal.Body>
+                                                                                </Modal>
+
+                                                                           </>
+
+                                                                      }
+
+
+                                                                      {
+                                                                           file.file.file_name &&
+                                                                           (file.extension === '512' || file.extension === 'dic' || file.extension === '') &&
+                                                                           <>
+
+
+
 
                                                                                 <a
                                                                                      className='btn btn-outline-info btn-sm me-2'

@@ -4,7 +4,7 @@ import { useForm, usePage } from '@inertiajs/inertia-react';
 import Authenticated from '@/Layouts/Authenticated';
 import { Link } from '@inertiajs/inertia-react';
 import { LinkIcon } from '@heroicons/react/outline';
-import { Row, Col, Card, Container, Alert } from 'react-bootstrap';
+import { Row, Col, Card, Container, Alert, Modal, Button } from 'react-bootstrap';
 import CaseReportFormData from '../FormData/CaseReportFormData';
 import { RenderFieldBoolDatas, RenderFieldBoolNoDatas, RenderFieldDatas, RenderFormStatus } from '../FormData/FormDataHelper';
 import UpdateIntraOperative from './UpdateIntraoperative';
@@ -19,6 +19,7 @@ import ReviewerIntraUpdate from './ReviewerIntraUpdate';
 import { PREDEFINED_CONCOMITANT_PROCEDURE, RenderBoolYesNo } from '../FormFields/Helper';
 
 
+
 function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, intraopfileswext }) {
      const options = {
           day: 'numeric',
@@ -26,6 +27,8 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
           year: 'numeric'
      }
      const iconStyle = { width: 15, height: 15, };
+     const [fullscreen, setFullscreen] = useState(true);
+     const [show, setShow] = useState(false);
 
      return (<>
           {!role.reviewer ? <>
@@ -116,14 +119,26 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
                                              <div> {file.file.file_name} </div>
                                              <div>
 
-                                                  {(file.extension === 'jpg' || file.extension === '512' || file.extension === '') &&
+                                                  {
+
+
+                                                       console.log(file.file.file_name.split('.').pop())
+                                                            (file.file.file_name.split('.').pop() === 'jpg' || file.file.file_name.split('.').pop() === '512' || file.file.file_name.split('.').pop() === '') &&
                                                        <>
+                                                            <a className="btn btn-primary btn-sm me-2 mb-2" onClick={() => handleShow(v)} href="">
+                                                                 Full screen
+
+                                                            </a>
+
 
                                                             <a
                                                                  className='btn btn-outline-info btn-sm me-2'
                                                                  href={route('crf.intraoperative.fileupload.show', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}
                                                                  target="_blank" rel="noopener noreferrer">View</a></>}
+                                                  <a className="btn btn-primary btn-sm me-2 mb-2" onClick={() => handleShow(v)} href="">
+                                                       Full screen
 
+                                                  </a>
                                                   <a
                                                        className='btn btn-outline-success btn-sm'
                                                        href={route('intraoperativefiledownload', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}>Download</a>
@@ -147,6 +162,13 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
 
                                    </div>)}
                          </ul>
+
+                         <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+                              <Modal.Header closeButton>
+                                   <Modal.Title>Modal</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>Modal body content</Modal.Body>
+                         </Modal>
                     </Col>
 
                </Row>

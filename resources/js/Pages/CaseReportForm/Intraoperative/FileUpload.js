@@ -1,16 +1,20 @@
 import Authenticated from "@/Layouts/Authenticated";
 import FormButton from "@/Pages/Shared/FormButton";
 import PageTitle from "@/Pages/Shared/PageTitle";
-import { Head, Link, usePage } from "@inertiajs/inertia-react";
+import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
 import { FilePond } from "react-filepond";
 
 import React from "react";
 import { Card, Col, Row, Container } from "react-bootstrap";
 import { RenderBackButton } from "../FormData/FormDataHelper";
 
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+
 export default function FileUpload() {
 
-     const { auth, roles, errors, crf, intraoperative, csrf_token } = usePage().props;
+     const { auth, roles, errors, crf, intraoperative, csrf_token,
+          accessKey, accessId, bucket } = usePage().props;
+     const { post } = useForm();
      return (
           <>
                <Authenticated
@@ -46,13 +50,54 @@ export default function FileUpload() {
                                                        chunkUploads
                                                        maxParallelUploads={2}
                                                        server={{
-                                                            process: {url: route('crf.intraoperative.fileupload.store', { crf: crf, intraoperative: intraoperative })},
-                                                            headers: { 'X-CSRF-Token': csrf_token },     
-                                                            patch : '?crf='+ crf.subject_id +'&intraop='+ intraoperative.id+'&patch='                                                // patch:{
-                                                           
+                                                            process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+
+
+                                                                 const client = new S3Client({
+                                                                      region: 'ap-south-1',
+                                                                      // signatureVersion: 'v4'
+                                                                      credentials: {
+                                                                           accessKeyId: accessId,
+                                                                           secretAccessKey: accessKey
+                                                                      }
+                                                                 });
+
+
+                                                                 const params = {
+                                                                      Bucket: bucket,
+                                                                      Key: `uploads/${crf.subject_id}/intraoperative/` + file.name,
+                                                                      Body: file,
+                                                                 };
+                                                                 const command = new PutObjectCommand(params);
+                                                                 client.send(command).then(
+                                                                      (response) => {
+                                                                           if (response.$metadata.httpStatusCode == 200) {
+
+
+                                                                                post(route('crf.intraoperative.fileupload.store', {
+                                                                                     crf: crf, intraoperative: intraoperative,
+                                                                                     fileName: file.name,
+                                                                                     url: params.Key
+
+                                                                                }))
+                                                                                load();
+                                                                           }
+                                                                           else {
+                                                                                error();
+                                                                           }
+                                                                      }
+                                                                 );
+
+
+
+
+
+
+
+                                                            }
                                                        }}
 
-                                                      
+
 
                                                   />
                                              </Col>

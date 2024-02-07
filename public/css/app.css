@@ -11689,6 +11689,7 @@ font-family: inherit;
  */
 
 /* @import url('sidebar.css'); */
+
 body {
   font-family: 'Inter';
   color: #000;
@@ -11700,10 +11701,11 @@ body {
 textarea.form-control {
   min-height: calc(8em + 0.75rem + 2px);
 }
-.dot{
+
+.dot {
   height: 7px;
   width: 7px;
-  
+
   border-radius: 50%;
   display: inline-block;
 }
@@ -11714,31 +11716,31 @@ textarea.form-control {
   }
 }
 
-table{
+table {
   font-size: 0.875rem;
 }
 
-main{
+main {
   margin-top: 6rem;
 }
 
-form{
+form {
   margin-bottom: 0;
 }
 
-.rounded-pill.bg-warning{
-  background-color: #FEF3C7!important;
-  color: #954614!important
+.rounded-pill.bg-warning {
+  background-color: #FEF3C7 !important;
+  color: #954614 !important
 }
 
-.rounded-pill.bg-secondary{
-  background-color: #F3F4F6!important;
-  color: #222B39!important
+.rounded-pill.bg-secondary {
+  background-color: #F3F4F6 !important;
+  color: #222B39 !important
 }
 
-.rounded-pill.bg-success{
-  background-color: #D1FAE5!important;
-  color: #1E7159!important
+.rounded-pill.bg-success {
+  background-color: #D1FAE5 !important;
+  color: #1E7159 !important
 }
 
 
@@ -11746,15 +11748,15 @@ form{
 
 /* Mini Sidebar */
 
-.menu-bar .menu-items{
+.menu-bar .menu-items {
   padding: 0;
   margin-bottom: 0;
   height: auto;
   list-style-type: none;
 }
 
-.menu-bar .menu-items li{
-  
+.menu-bar .menu-items li {
+
   transition: 0.4s;
   position: relative;
   display: flex;
@@ -11773,7 +11775,7 @@ form{
 
 .menu-bar .menu-items li a:hover {
   background-color: #283943;
-  color:#fff;
+  color: #fff;
   font-size: 0.812rem;
   text-decoration: none;
   transition: 0.5s;
@@ -11825,7 +11827,7 @@ form{
 .form-control:focus,
 .with-units:focus,
 .with-units:focus+.input-units {
-  border:2px solid;
+  border: 2px solid;
   border-color: #14bab0;
   box-shadow: none;
   outline: 0 none;
@@ -11858,6 +11860,10 @@ form{
   background-color: #fff !important;
 }
 
+.modal-90w {
+  max-width: none !important;
+  width: 90%;
+}
 
 
 

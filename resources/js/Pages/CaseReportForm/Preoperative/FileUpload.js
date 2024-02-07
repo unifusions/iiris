@@ -5,7 +5,7 @@ import { FilePond } from "react-filepond";
 import React, { useState } from "react";
 import { Card, Col, Row, Container } from "react-bootstrap";
 import { RenderBackButton } from "../FormData/FormDataHelper";
-import { Upload } from "@aws-sdk/lib-storage";
+
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 
@@ -16,13 +16,6 @@ export default function FileUpload() {
 
      const { post } = useForm();
 
-     // Function to handle file and store it to file state
-     // const handleFileChange = (e) => {
-     //      // Uploaded file
-     //      const file = e.target.files[0];
-     //      // Changing file state
-     //      setFile(file);
-     // };
      return (
 
           <Authenticated
@@ -72,7 +65,7 @@ export default function FileUpload() {
                                                                       }
                                                                  });
 
-                                                                
+
                                                                  const params = {
                                                                       Bucket: bucket,
                                                                       Key: `uploads/${crf.subject_id}/preoperative/` + file.name,
@@ -82,13 +75,13 @@ export default function FileUpload() {
                                                                  client.send(command).then(
                                                                       (response) => {
                                                                            if (response.$metadata.httpStatusCode == 200) {
-                                                                                console.log(params.Key | ' || File' + file.name);
                                                                                 
+
                                                                                 post(route('crf.preoperative.fileupload.store', {
                                                                                      crf: crf, preoperative: preoperative,
-                                                                                          fileName : file.name,
-                                                                                          url : params.Key
-                                                                                    
+                                                                                     fileName: file.name,
+                                                                                     url: params.Key
+
                                                                                 }))
                                                                                 load();
                                                                            }

@@ -46,7 +46,6 @@ class PostOperativeController extends Controller
             'postopdicomfiles' => $postoperative->fileuploads,
             'postopfileswext' => $postoperative->fileuploads->map(fn ($file) => [
                 'file' => $file,
-
                 'extension' =>  pathinfo(storage_path('app/public/' . $file->file_path), PATHINFO_EXTENSION)
             ]),
             'approvalremarks' => $postoperative->approvalremarks,

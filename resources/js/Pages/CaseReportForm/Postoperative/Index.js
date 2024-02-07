@@ -66,7 +66,7 @@ export default class Index extends React.Component {
                                                   <ApprovalActionsApprove role={roles} crf={crf} postoperative={postoperative} />
                                              </> : ''
                                              }
-    <ApprovalActionEditable role={roles} crf={crf} postoperative={postoperative} />
+                                             <ApprovalActionEditable role={roles} crf={crf} postoperative={postoperative} />
                                         </div>
 
 
@@ -186,6 +186,7 @@ export default class Index extends React.Component {
                                                        <div className="row ">
                                                             {postopfileswext.map((file) =>
                                                                  <div key={file.file.id} className="col-md-6 mb-3">
+                                                                      
                                                                       <div className="d-flex justify-content-between">
                                                                            <div> {file.file.file_name} </div>
                                                                            <div>

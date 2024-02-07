@@ -1,15 +1,23 @@
 import Authenticated from "@/Layouts/Authenticated";
 import PageTitle from "@/Pages/Shared/PageTitle";
-import { Head, Link, usePage } from "@inertiajs/inertia-react";
+import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
 import React from "react";
 import { Card, Col, Row, Container } from "react-bootstrap";
 import { FilePond } from "react-filepond";
 
 import { RenderBackButton } from "../FormData/FormDataHelper";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 export default function FileUpload() {
 
-     const { auth, roles, errors, crf, postoperative, csrf_token } = usePage().props;
+     const { auth, roles, errors, crf, postoperative, csrf_token,
+
+          accessKey, accessId, bucket
+     } = usePage().props;
+
+     const { post } = useForm();
+
+     
      return (
 
           <Authenticated
@@ -43,13 +51,53 @@ export default function FileUpload() {
                                                   chunkUploads
 
                                                   server={{
-                                                       process: {url: route('crf.postoperative.fileupload.store', { crf: crf, postoperative: postoperative })},
-                                                       headers: { 'X-CSRF-Token': csrf_token },     
-                                                       patch : '?crf='+ crf.subject_id +'&postop='+ postoperative.id+'&patch='                                                // patch:{
-                                                      
+                                                       // process: { url: route('crf.postoperative.fileupload.store', { crf: crf, postoperative: postoperative }) },
+                                                       // headers: { 'X-CSRF-Token': csrf_token },
+                                                       // patch: '?crf=' + crf.subject_id + '&postop=' + postoperative.id + '&patch='                                                // patch:{
+
+                                                  process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+
+                                                       const client = new S3Client({
+                                                            region: 'ap-south-1',
+                                                          
+                                                            credentials: {
+                                                                 accessKeyId: accessId,
+                                                                 secretAccessKey: accessKey
+                                                            }
+                                                       });
+
+                                                       const params = {
+                                                            Bucket: bucket,
+                                                            Key: `uploads/${crf.subject_id}/postoperative/` + file.name,
+                                                            Body: file,
+                                                       };
+                                                       const command = new PutObjectCommand(params);
+                                                       client.send(command).then(
+                                                            (response) => {
+                                                                 if (response.$metadata.httpStatusCode == 200) {
+                                                                     
+
+                                                                      post(route('crf.postoperative.fileupload.store', {
+                                                                           crf: crf, postoperative: postoperative,
+                                                                           fileName: file.name,
+                                                                           url: params.Key
+
+                                                                      }))
+                                                                      load();
+                                                                 }
+                                                                 else {
+                                                                      error();
+                                                                 }
+                                                            }
+                                                       );
+
+
+
+                                                  }
+                                                  
                                                   }}
 
-                                                  
+
 
                                              />
                                         </Col>
