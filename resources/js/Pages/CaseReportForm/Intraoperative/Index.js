@@ -26,7 +26,7 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
           month: 'numeric',
           year: 'numeric'
      }
-     const iconStyle = { width: 15, height: 15, };
+     
      const [fullscreen, setFullscreen] = useState(true);
      const [show, setShow] = useState(false);
 
