@@ -122,7 +122,7 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
                                                   {
 
 
-                                                       console.log(file.file.file_name.split('.').pop())
+                                                     
                                                             (file.file.file_name.split('.').pop() === 'jpg' || file.file.file_name.split('.').pop() === '512' || file.file.file_name.split('.').pop() === '') &&
                                                        <>
                                                             <a className="btn btn-primary btn-sm me-2 mb-2" onClick={() => handleShow(v)} href="">
