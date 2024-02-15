@@ -26,7 +26,7 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
           month: 'numeric',
           year: 'numeric'
      }
-     
+
      const [fullscreen, setFullscreen] = useState(true);
      const [show, setShow] = useState(false);
 
@@ -122,23 +122,23 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
                                                   {
 
 
-                                                     
-                                                            (file.file.file_name.split('.').pop() === 'jpg' || file.file.file_name.split('.').pop() === '512' || file.file.file_name.split('.').pop() === '') &&
+
+                                                       (file.file.file_name.split('.').pop() === 'jpg' || file.file.file_name.split('.').pop() === '512' || file.file.file_name.split('.').pop() === '') &&
                                                        <>
-                                                            <a className="btn btn-primary btn-sm me-2 mb-2" onClick={() => handleShow(v)} href="">
+                                                            {/* <a className="btn btn-primary btn-sm me-2 mb-2" onClick={() => handleShow(v)} href="">
                                                                  Full screen
 
-                                                            </a>
+                                                            </a> */}
 
 
                                                             <a
                                                                  className='btn btn-outline-info btn-sm me-2'
                                                                  href={route('crf.intraoperative.fileupload.show', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}
                                                                  target="_blank" rel="noopener noreferrer">View</a></>}
-                                                  <a className="btn btn-primary btn-sm me-2 mb-2" onClick={() => handleShow(v)} href="">
+                                                  {/* <a className="btn btn-primary btn-sm me-2 mb-2" onClick={() => handleShow(v)} href="">
                                                        Full screen
 
-                                                  </a>
+                                                  </a> */}
                                                   <a
                                                        className='btn btn-outline-success btn-sm'
                                                        href={route('intraoperativefiledownload', { crf: crf, intraoperative: intraoperative, fileupload: file.file })}>Download</a>
