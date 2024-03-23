@@ -21,6 +21,7 @@ class PostoperativeFileDownloadController extends Controller
     {
         // $pathToFile = storage_path('app/public/' . $fileupload->file_path);
         // return response()->download($pathToFile);
+        //OLD CODE
        return Storage::download($fileupload->file_path);
 
     }
