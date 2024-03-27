@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Preoperative;
+
+namespace App\Http\Controllers\PreOperative;
 
 use App\Http\Controllers\Controller;
 use App\Models\CaseReportForm;
