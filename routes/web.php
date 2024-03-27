@@ -9,7 +9,7 @@ use Inertia\Inertia;
 
 use App\Exports\PhysicalExaminationExport;
 use App\Http\Controllers\Admins\PreoperativeFormEditableController;
-use App\Http\Controllers\Preoperative\PredefinedFamilyHistoryController;
+use App\Http\Controllers\PreOperative\PredefinedFamilyHistoryController;
 use App\Http\Controllers\CaseReportFormController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EchocardiographyGetReviewController;
