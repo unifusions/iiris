@@ -6,6 +6,7 @@ use App\Models\CaseReportForm;
 use App\Models\ScheduledVisit;
 use App\Models\ScheduledVisitDicomFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SvFileDownloadController extends Controller
 {
@@ -18,7 +19,9 @@ class SvFileDownloadController extends Controller
     public function __invoke(Request $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit, ScheduledVisitDicomFile $fileupload)
 
     {
-        $pathToFile = storage_path('app/public/' . $fileupload->file_path);
-        return response()->download($pathToFile);
+        // $pathToFile = storage_path('app/public/' . $fileupload->file_path);
+        // return response()->download($pathToFile);
+
+        return Storage::download($fileupload->file_path);
     }
 }
