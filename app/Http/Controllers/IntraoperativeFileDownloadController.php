@@ -18,8 +18,21 @@ class IntraoperativeFileDownloadController extends Controller
      */
     public function __invoke(Request $request, CaseReportForm $crf, IntraOperativeData $intraoperative, IntraoperativeDicomFile $fileupload)
     {
-        return Storage::download($fileupload->file_path);
+       
+        $fileUrl = Storage::disk('s3')->url($fileupload->file_path);
 
+       
+        $fileMetadata = Storage::disk('s3')->mimeType($fileupload->file_path) ?? 'application/octet-stream';
+       
+
+        // return Storage::get($fileupload->file_name);
+        return response()->stream(function () use ($fileUrl) {
+            // You can use file_get_contents, but ensure the proper headers are set
+            echo file_get_contents($fileUrl);
+        }, 200, [
+            'Content-Type' => $fileMetadata,
+            'Content-Disposition' => 'attachment; filename="' . basename($fileupload->file_path) . '"',
+        ]);
        
     }
 }
