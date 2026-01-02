@@ -6,19 +6,27 @@ use Doctrine\DBAL\Driver\AbstractSQLiteDriver;
 use Doctrine\DBAL\Driver\API\SQLite\UserDefinedFunctions;
 use Doctrine\DBAL\Driver\PDO\Connection;
 use Doctrine\DBAL\Driver\PDO\Exception;
+use Doctrine\DBAL\Driver\PDO\PDOConnect;
 use Doctrine\Deprecations\Deprecation;
-use PDO;
+use Pdo\Sqlite;
 use PDOException;
+use SensitiveParameter;
+
+use function array_intersect_key;
 
 final class Driver extends AbstractSQLiteDriver
 {
+    use PDOConnect;
+
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @return Connection
      */
-    public function connect(array $params)
-    {
+    public function connect(
+        #[SensitiveParameter]
+        array $params
+    ) {
         $driverOptions        = $params['driverOptions'] ?? [];
         $userDefinedFunctions = [];
 
@@ -35,8 +43,8 @@ final class Driver extends AbstractSQLiteDriver
         }
 
         try {
-            $pdo = new PDO(
-                $this->constructPdoDsn($params),
+            $pdo = $this->doConnect(
+                $this->constructPdoDsn(array_intersect_key($params, ['path' => true, 'memory' => true])),
                 $params['user'] ?? '',
                 $params['password'] ?? '',
                 $driverOptions,
@@ -46,7 +54,7 @@ final class Driver extends AbstractSQLiteDriver
         }
 
         UserDefinedFunctions::register(
-            [$pdo, 'sqliteCreateFunction'],
+            $pdo instanceof Sqlite ? [$pdo, 'createFunction'] : [$pdo, 'sqliteCreateFunction'],
             $userDefinedFunctions,
         );
 
@@ -56,7 +64,7 @@ final class Driver extends AbstractSQLiteDriver
     /**
      * Constructs the Sqlite PDO DSN.
      *
-     * @param mixed[] $params
+     * @param array<string, mixed> $params
      */
     private function constructPdoDsn(array $params): string
     {

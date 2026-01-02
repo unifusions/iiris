@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Vite;
+use Illuminate\Support\ServiceProvider;
 use App\Models\CaseReportForm;
 use App\Models\CaseReportFormVisit;
 use App\Models\LabInvestigation;
@@ -17,28 +19,24 @@ use App\Observers\PreOperativeDataObserver;
 use App\Observers\SymptomsObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\ServiceProvider;
+ 
 use Inertia\Inertia;
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
+        Vite::prefetch(concurrency: 3);
 
         $this->registerRolePolicy();
 
@@ -49,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         PhysicalExamination::observe(PhysicalExaminationObserver::class);
         //    OperativeSymptoms::observe(SymptomsObserver::class);
         LabInvestigation::observe(LabInvestigationObserver::class);
+
     }
 
     public function registerRolePolicy()

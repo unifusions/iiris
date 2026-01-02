@@ -8,6 +8,257 @@ Breaking changes are marked with ⚠️.
 
 ## [Unreleased]
 
+## [v2.6.0] - 2025-09-14
+
+**Added**
+
+* Support route model binding and interfaces by @christian98 in https://github.com/tighten/ziggy/pull/854
+* feat(typescript): add branded type for creating routes by @pataar in https://github.com/tighten/ziggy/pull/862
+* Add JSON option to `@routes` for improved CSP compatibility by @flexponsive in https://github.com/tighten/ziggy/pull/831
+
+**Fixed**
+
+* Fix current checks with encoded `#` in URL by @bakerkretzmar in https://github.com/tighten/ziggy/pull/863
+
+**Changed**
+
+* Replace `qs` by @benmccann in https://github.com/tighten/ziggy/pull/846
+
+## [v2.5.3] - 2025-05-17
+
+**Fixed**
+
+* Fix type hinting for PHP 8.4 by @bodny in https://github.com/tighten/ziggy/pull/816
+* Fix checking current route in strict mode by @bakerkretzmar in https://github.com/tighten/ziggy/pull/840
+
+## [v2.5.2] - 2025-02-27
+
+**Changed**
+
+* Test on Laravel 12 by @shuvroroy in https://github.com/tighten/ziggy/pull/820
+* Update extendability of `Types.php` by @rrmesquita in https://github.com/tighten/ziggy/pull/821
+
+## [v2.5.1] - 2025-01-31
+
+**Fixed**
+
+* Fix `current()` type in strict mode by @bakerkretzmar in https://github.com/tighten/ziggy/pull/809
+
+## [v2.5.0] - 2025-01-22
+
+**Added**
+
+- Support passing except/only args to ziggy command by @joshmanders in https://github.com/tighten/ziggy/pull/805
+
+**Fixed**
+
+* Redefine `ParsedQs` type by @bakerkretzmar in https://github.com/tighten/ziggy/pull/806
+* Only limit route names when calling route() by @simon-tma in https://github.com/tighten/ziggy/pull/790
+
+## [v2.4.2] - 2025-01-02
+
+**Fixed**
+
+- Fix deprecated implictly nullable parameter by @datlechin in https://github.com/tighten/ziggy/pull/792
+
+## [v2.4.1] - 2024-11-21
+
+**Fixed**
+
+- Fix `qs` type dependencies
+
+## [v2.4.0] - 2024-11-09
+
+**Added**
+
+- Add ability to strictly type check route names by @bakerkretzmar and @Andyuu in https://github.com/tighten/ziggy/pull/787
+
+**Fixed**
+
+- Fix type definition for route() with only options by @bram-pkg in https://github.com/tighten/ziggy/pull/786
+- Fix `queryParams` return type by @bakerkretzmar in https://github.com/tighten/ziggy/pull/788
+
+**Changed**
+
+- Add note to use inject for vue 3 by @mhelaiwa in https://github.com/tighten/ziggy/pull/785
+- Update `README.md`. by @choowx in https://github.com/tighten/ziggy/pull/782
+
+## [v2.3.1] - 2024-10-17
+
+**Fixed**
+
+- Escape special regex characters when matching routes by @aguingand in https://github.com/tighten/ziggy/pull/766
+- Fix params sometimes being double-decoded by @bakerkretzmar in https://github.com/tighten/ziggy/pull/778
+
+**Changed**
+
+- Optimize has() by @thomas-brx in https://github.com/tighten/ziggy/pull/770
+
+## [v2.3.0] - 2024-07-21
+
+**Added**
+
+- Add ability to acess only the query params or the actual route params by @peter-emad99 in https://github.com/tighten/ziggy/pull/744
+
+**Changed**
+
+- Pest by @bakerkretzmar in https://github.com/tighten/ziggy/pull/756
+- Laravel route change by @hasanablak in https://github.com/tighten/ziggy/pull/763
+- Modernize some PHP syntax by @bakerkretzmar in https://github.com/tighten/ziggy/pull/757
+
+## [v2.2.1] - 2024-05-16
+
+**Fixed**
+
+- Fix double slashes with domain params by @bakerkretzmar in https://github.com/tighten/ziggy/pull/754
+
+## [v2.2.0] - 2024-05-16
+
+**Added**
+
+- Support Laravel Folio by @bakerkretzmar in https://github.com/tighten/ziggy/pull/733
+
+**Fixed**
+
+- Fix route().params type by @peter-emad99 in https://github.com/tighten/ziggy/pull/743
+
+## [v2.1.0] - 2024-03-26
+
+**Added**
+
+- Improve generated types to include optional types by @alexmccabe in https://github.com/tighten/ziggy/pull/697
+
+**Fixed**
+
+- Fix Vue plugin on Vue 2 by @bakerkretzmar in https://github.com/tighten/ziggy/pull/738
+
+## [v2.0.5] - 2024-03-19
+
+**Fixed**
+
+- Export the types file by @simon-tma in https://github.com/tighten/ziggy/pull/721
+
+## [v2.0.4] - 2024-03-05
+
+**Fixed**
+
+- Fix event listener propagation by @bakerkretzmar in https://github.com/tighten/ziggy/pull/724
+
+## [v2.0.3] - 2024-02-20
+
+**Fixed**
+
+- Add Vue plugin and React hook types by @bakerkretzmar in https://github.com/tighten/ziggy/pull/715
+
+## [v2.0.2] - 2024-02-20
+
+**Fixed**
+
+- Fix package.json module and exports by @bakerkretzmar in https://github.com/tighten/ziggy/pull/714
+
+## [v2.0.1] - 2024-02-20
+
+**Fixed**
+
+- Remove default export from type declarations by @bakerkretzmar in https://github.com/tighten/ziggy/pull/713
+
+## [v2.0.0] - 2024-02-20
+
+See [UPGRADING](UPGRADING.md#upgrading-from-1x-to-2x) for detailed upgrade instructions.
+
+**Changed**
+
+- Changed PHP package namespace from `Tightenco\Ziggy` to `Tighten\Ziggy`.
+- Updated JavaScript package to only provide named exports.
+- Moved Vue and React integrations to root of JavaScript module.
+- Updated builds to only use ES Modules.
+- Updated minimum dependency versions to Laravel 9 and PHP 8.1.
+
+**Removed**
+
+- Made `makeDirectory` method of `CommandRouteGenerator` class private.
+- Removed deprecated JavaScript `check()` method.
+
+## [v1.8.2] - 2024-02-20
+
+**Added**
+
+- Test on Laravel 11 by @shuvroroy in https://github.com/tighten/ziggy/pull/709
+
+**Fixed**
+
+- Fix `route().current()` with encoded characters by @bakerkretzmar in https://github.com/tighten/ziggy/pull/668
+- Fix retrieving ziggys config from an api endpoint link in readme by @RomainMazB in https://github.com/tighten/ziggy/pull/694
+- Fix `route().current()` with nested/object query params by @bakerkretzmar in https://github.com/tighten/ziggy/pull/712
+
+**Changed**
+
+- Enable provenance for npm package by @saibotk in https://github.com/tighten/ziggy/pull/684
+- Handle generated file extensions more robustly by @bakerkretzmar in https://github.com/tighten/ziggy/pull/687
+
+## [v1.8.1] - 2023-10-12
+
+**Fixed**
+
+- Update: Correction of some spellings and articles in the Readme file. by @prince-noman in https://github.com/tighten/ziggy/pull/678
+- Fix `route().current()` with encoded characters by @bakerkretzmar in https://github.com/tighten/ziggy/pull/668
+
+**Changed**
+
+- Update Readme, formatting, and testing setup by @bakerkretzmar in https://github.com/tighten/ziggy/pull/675
+
+## [v1.8.0] - 2023-10-06
+
+**Added**
+
+- Add type declarations and `ziggy.d.ts` generation by @lmeysel and @bakerkretzmar in https://github.com/tighten/ziggy/pull/664
+
+## [v1.7.0] - 2023-10-04
+
+**Added**
+
+- Add `useRoute()` React hook by @bakerkretzmar in https://github.com/tighten/ziggy/pull/473
+
+**Fixed**
+
+- URL-encode fewer special characters inside in route parameters by @bakerkretzmar in https://github.com/tighten/ziggy/pull/662
+- Fix empty root URL with `absolute: false` by @bakerkretzmar in https://github.com/tighten/ziggy/pull/667
+
+## [v1.6.2] - 2023-08-18
+
+**Fixed**
+
+- Make slash "not encoding" less restrictive by @aguingand in https://github.com/tighten/ziggy/pull/661
+
+## [v1.6.1] - 2023-08-04
+
+**Fixed**
+
+- Fix numeric route names by @bakerkretzmar https://github.com/tighten/ziggy/pull/658
+
+## [v1.6.0] - 2023-05-12
+
+**Added**
+
+- Add `'ziggy.output.path'` config option by @mhelaiwa https://github.com/tighten/ziggy/pull/633
+
+## [v1.5.2] - 2023-05-05
+
+**Added**
+
+- Add Vite instructions to README.md by @fullstackfool https://github.com/tighten/ziggy/pull/627
+
+**Fixed**
+
+- Trim slashes between origin and optional first param by @bakerkretzmar in https://github.com/tighten/ziggy/pull/637
+- Fix `route().params` not being decoded by @Tofandel in https://github.com/tighten/ziggy/pull/610
+
+## [v1.5.1] - 2023-04-22
+
+**Fixed**
+
+- Check for overridden `getKeyName()` and `$primaryKey` by @Jared0430 in https://github.com/tighten/ziggy/pull/630
+
 ## [v1.5.0] - 2022-09-23
 
 **Added**
@@ -253,7 +504,35 @@ Breaking changes are marked with ⚠️.
 
 For previous changes see the [Releases](https://github.com/tighten/ziggy/releases) page.
 
-[Unreleased]: https://github.com/tighten/ziggy/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/tighten/ziggy/compare/v2.6.0...HEAD
+[v2.6.0]: https://github.com/tighten/ziggy/compare/v2.5.3...v2.6.0
+[v2.5.3]: https://github.com/tighten/ziggy/compare/v2.5.2...v2.5.3
+[v2.5.2]: https://github.com/tighten/ziggy/compare/v2.5.1...v2.5.2
+[v2.5.1]: https://github.com/tighten/ziggy/compare/v2.5.0...v2.5.1
+[v2.5.0]: https://github.com/tighten/ziggy/compare/v2.4.2...v2.5.0
+[v2.4.2]: https://github.com/tighten/ziggy/compare/v2.4.1...v2.4.2
+[v2.4.1]: https://github.com/tighten/ziggy/compare/v2.4.0...v2.4.1
+[v2.4.0]: https://github.com/tighten/ziggy/compare/v2.3.1...v2.4.0
+[v2.3.1]: https://github.com/tighten/ziggy/compare/v2.3.0...v2.3.1
+[v2.3.0]: https://github.com/tighten/ziggy/compare/v2.2.1...v2.3.0
+[v2.2.1]: https://github.com/tighten/ziggy/compare/v2.2.0...v2.2.1
+[v2.2.0]: https://github.com/tighten/ziggy/compare/v2.1.0...v2.2.0
+[v2.1.0]: https://github.com/tighten/ziggy/compare/v2.0.5...v2.1.0
+[v2.0.5]: https://github.com/tighten/ziggy/compare/v2.0.4...v2.0.5
+[v2.0.4]: https://github.com/tighten/ziggy/compare/v2.0.3...v2.0.4
+[v2.0.3]: https://github.com/tighten/ziggy/compare/v2.0.2...v2.0.3
+[v2.0.2]: https://github.com/tighten/ziggy/compare/v2.0.1...v2.0.2
+[v2.0.1]: https://github.com/tighten/ziggy/compare/v2.0.0...v2.0.1
+[v2.0.0]: https://github.com/tighten/ziggy/compare/v1.8.2...v2.0.0
+[v1.8.2]: https://github.com/tighten/ziggy/compare/v1.8.1...v1.8.2
+[v1.8.1]: https://github.com/tighten/ziggy/compare/v1.8.0...v1.8.1
+[v1.8.0]: https://github.com/tighten/ziggy/compare/v1.7.0...v1.8.0
+[v1.7.0]: https://github.com/tighten/ziggy/compare/v1.6.2...v1.7.0
+[v1.6.2]: https://github.com/tighten/ziggy/compare/v1.6.1...v1.6.2
+[v1.6.1]: https://github.com/tighten/ziggy/compare/v1.6.0...v1.6.1
+[v1.6.0]: https://github.com/tighten/ziggy/compare/v1.5.2...v1.6.0
+[v1.5.2]: https://github.com/tighten/ziggy/compare/v1.5.1...v1.5.2
+[v1.5.1]: https://github.com/tighten/ziggy/compare/v1.5.0...v1.5.1
 [v1.5.0]: https://github.com/tighten/ziggy/compare/v1.4.6...v1.5.0
 [v1.4.6]: https://github.com/tighten/ziggy/compare/v1.4.5...v1.4.6
 [v1.4.5]: https://github.com/tighten/ziggy/compare/v1.4.4...v1.4.5

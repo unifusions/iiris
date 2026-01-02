@@ -1,0 +1,90 @@
+import React from 'react';
+import { Link } from '@inertiajs/react';
+import { Breadcrumb } from 'react-bootstrap'
+import MiniLogo from './MiniLogo';
+import BrandLogo from './BrandLogo';
+import {  
+     ChevronDownIcon, 
+     ArrowLeftEndOnRectangleIcon as LoginIcon, 
+     ArrowRightStartOnRectangleIcon as  LogoutIcon, 
+     Bars3Icon as MenuIcon, 
+     UserIcon } from '@heroicons/react/24/outline';
+
+const iconStyle = {
+     width: 24,
+     height: 24
+};
+
+const iconStyle20 = {
+     width: 20,
+     height: 20
+};
+
+export default class NavBar extends React.Component {
+
+     constructor(props) {
+          super(props);
+
+     }
+
+     render() {
+
+
+          return (
+               <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+
+                    <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+                         <div>
+                              <a className="navbar-brand brand-logo ms-4" href={route('dashboard')}>
+                                   <BrandLogo />
+                              </a>
+                              <a className="navbar-brand brand-logo-mini text-centre" href={route('dashboard')}>
+                                   <MiniLogo />
+                              </a>
+                         </div>
+                    </div>
+
+                    <div className="navbar-menu-wrapper d-flex align-items-center  ">
+                         <div className="d-flex flex-row align-items-center">
+                              <MenuIcon style={{ width: 24, height: 24, cursor: 'pointer' }}
+                                   className="navbar-toggler navbar-toggler align-self-center text-dark me-3"
+                                   onClick={this.props.toggleNav} />
+                              <Breadcrumb>
+                                   {this.props.breadcrumb}
+                              </Breadcrumb>
+
+                         </div>
+                         <ul className="navbar-nav ms-auto flex-row">
+
+                              <li className="nav-item dropdown d-none d-lg-block user-dropdown">
+                                   <a className="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {this.props.user.name} <ChevronDownIcon style={{ width: 10, height: 10 }} />
+                                   </a>
+                                   <div className="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+                                        <div className='dropdown-item'>
+                                             <div className='fw-bold my-2'>{this.props.user?.name}</div>
+                                             <div className='small my-2'><span className='text-secondary' ><UserIcon style={iconStyle20} className="me-2" /> </span>{this.props.user?.UserRole?.name}</div>
+                                             <div className='small my-2'><span className='text-secondary' ><LoginIcon style={iconStyle20} className="me-2" /></span>{this.props.user?.email}</div>
+
+                                        </div>
+
+
+                                        <Link href={route('logout')} className='dropdown-item' method="post" as="button" type="submit">
+                                             <LogoutIcon style={iconStyle20} className="me-3" />Sign Out
+                                        </Link>
+
+                                   </div>
+                              </li>
+                         </ul>
+                         <div className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" >
+                              <MenuIcon style={{ width: 24, height: 24, cursor: 'pointer' }} onClick={this.props.toggleNav} />
+                         </div>
+
+
+
+                    </div>
+               </nav>
+          );
+     }
+
+}

@@ -2,6 +2,7 @@
 
 namespace Maatwebsite\Excel\Cache;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use Psr\SimpleCache\CacheInterface;
 
 class MemoryCache implements CacheInterface
@@ -19,7 +20,7 @@ class MemoryCache implements CacheInterface
     /**
      * @param  int|null  $memoryLimit
      */
-    public function __construct(int $memoryLimit = null)
+    public function __construct(?int $memoryLimit = null)
     {
         $this->memoryLimit = $memoryLimit;
     }
@@ -27,7 +28,7 @@ class MemoryCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function clear():bool
+    public function clear(): bool
     {
         $this->cache = [];
 
@@ -37,7 +38,7 @@ class MemoryCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($key):bool
+    public function delete(string $key): bool
     {
         unset($this->cache[$key]);
 
@@ -47,7 +48,7 @@ class MemoryCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function deleteMultiple($keys):bool
+    public function deleteMultiple($keys): bool
     {
         foreach ($keys as $key) {
             $this->delete($key);
@@ -59,7 +60,7 @@ class MemoryCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function get($key, $default = null): mixed
+    public function get(string $key, mixed $default = null): mixed
     {
         if ($this->has($key)) {
             return $this->cache[$key];
@@ -71,7 +72,7 @@ class MemoryCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function getMultiple($keys, $default = null): iterable
+    public function getMultiple(iterable $keys, mixed $default = null): iterable
     {
         $results = [];
         foreach ($keys as $key) {
@@ -84,7 +85,7 @@ class MemoryCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function has($key):bool
+    public function has($key): bool
     {
         return isset($this->cache[$key]);
     }
@@ -92,7 +93,7 @@ class MemoryCache implements CacheInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, $ttl = null):bool
+    public function set(string $key, mixed $value, null|int|\DateInterval $ttl = null): bool
     {
         $this->cache[$key] = $value;
 
@@ -130,6 +131,12 @@ class MemoryCache implements CacheInterface
     public function flush(): array
     {
         $memory = $this->cache;
+
+        foreach ($memory as $cell) {
+            if ($cell instanceof Cell) {
+                $cell->detach();
+            }
+        }
 
         $this->clear();
 

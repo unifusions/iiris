@@ -32,11 +32,29 @@ class DashboardController extends Controller
         ];
 
 
+        // $adminCards = [
+        //     'crfs' => CaseReportForm::all(),
+        //     'crfreg' => CaseReportForm::selectRaw('year(created_at) as year, monthname(created_at) as month,count(subject_id) as total')
+        //     ->groupBy('year', 'month')->get()
+        // ];
+
         $adminCards = [
-            'crfs' => CaseReportForm::all(),
-            'crfreg' => CaseReportForm::selectRaw('year(created_at) as year, monthname(created_at) as month,count(subject_id) as total')
-            ->groupBy('year', 'month')->get()
+    'crfs' => CaseReportForm::all(),
+
+    'crfreg' => CaseReportForm::query()
+    ->get()
+    ->groupBy(fn ($row) => $row->created_at->format('Y-m'))
+    ->map(function ($group) {
+        return [
+            'year'  => $group->first()->created_at->year,
+            'month' => $group->first()->created_at->month,
+            'total' => $group->count(),
         ];
+    })
+    ->values()
+
+];
+
         // return view('dashboard')->with($data);
 
         return Inertia::render('Dashboard', [

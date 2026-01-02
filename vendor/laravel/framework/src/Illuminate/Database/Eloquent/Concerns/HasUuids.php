@@ -6,67 +6,26 @@ use Illuminate\Support\Str;
 
 trait HasUuids
 {
-    /**
-     * Generate a primary UUID for the model.
-     *
-     * @return void
-     */
-    public static function bootHasUuids()
-    {
-        static::creating(function (self $model) {
-            foreach ($model->uniqueIds() as $column) {
-                if (empty($model->{$column})) {
-                    $model->{$column} = $model->newUniqueId();
-                }
-            }
-        });
-    }
+    use HasUniqueStringIds;
 
     /**
-     * Generate a new UUID for the model.
+     * Generate a new unique key for the model.
      *
      * @return string
      */
     public function newUniqueId()
     {
-        return (string) Str::orderedUuid();
+        return (string) Str::uuid7();
     }
 
     /**
-     * Get the columns that should receive a unique identifier.
+     * Determine if given key is valid.
      *
-     * @return array
-     */
-    public function uniqueIds()
-    {
-        return [$this->getKeyName()];
-    }
-
-    /**
-     * Get the auto-incrementing key type.
-     *
-     * @return string
-     */
-    public function getKeyType()
-    {
-        if (in_array($this->getKeyName(), $this->uniqueIds())) {
-            return 'string';
-        }
-
-        return $this->keyType;
-    }
-
-    /**
-     * Get the value indicating whether the IDs are incrementing.
-     *
+     * @param  mixed  $value
      * @return bool
      */
-    public function getIncrementing()
+    protected function isValidUniqueId($value): bool
     {
-        if (in_array($this->getKeyName(), $this->uniqueIds())) {
-            return false;
-        }
-
-        return $this->incrementing;
+        return Str::isUuid($value);
     }
 }
