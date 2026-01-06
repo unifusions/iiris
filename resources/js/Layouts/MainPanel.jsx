@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import Footer from './Footer';
+ 
 import ToastAlert from "@/Pages/Shared/ToastAlert";
 export default function MainPanel({ flash, header, children }) {
 
@@ -10,11 +10,11 @@ export default function MainPanel({ flash, header, children }) {
           setShowToast(true)
      }, [flash.message])
      return (
-          <div className="main-panel" >
-               <div className="content-wrapper">
+          < >
+               <div className="h-100">
                     {header && <>
-                         <header>
-                              <div>{header}</div>
+                         <header className="mt-3">
+                              <h2>{header}</h2>
                          </header>
                     </>}
 
@@ -25,8 +25,8 @@ export default function MainPanel({ flash, header, children }) {
                {flash.message &&
                     <ToastAlert showToast={showToast} onClose={() => setShowToast(false)} message={flash.message} />
                }
-               <Footer />
+              
 
-          </div>
+          </>
      )
 }

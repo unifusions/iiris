@@ -39,15 +39,12 @@ export default function Login({ status, canResetPassword }) {
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
            
-
-            <form onSubmit={submit}>
-                <Card className='rounded-5 shadow-sm'>
-                    <Card.Body>
-
-                        <Link href="/" >
-                            {/* <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" /> */}
-                            <BrandLogo />
-                        </Link>
+<div className="form-signin w-100 m-auto">
+    <form onSubmit={submit}>
+        <BrandLogo />
+              
+ <h1 class="h3 mt-3 mb-3 fw-normal">Please sign in</h1>
+                       
                         <div className="form-floating my-3">
 
 
@@ -80,32 +77,13 @@ export default function Login({ status, canResetPassword }) {
                         Log in
                     </Button>
                     <ValidationErrors errors={errors} />
-                    </Card.Body>
-                </Card>
+                     
+<p class="mt-5 mb-3 text-body-secondary">© 2022–2025. DataInsight.</p>
 
-
-
-                {/* <div className="block mt-4">
-                    <label className="flex items-center">
-                        <Checkbox name="remember" value={data.remember} handleChange={onHandleChange} />
-
-                        <span className="ml-2 text-sm text-gray-600">Remember me</span>
-                    </label>
-                </div> */}
-
-                {/* <div className="flex items-center justify-end mt-4">
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900"
-                        >
-                            Forgot your password?
-                        </Link>
-                    )}
-
-                 
-                </div> */}
+              
             </form>
+</div>
+        
         </Guest>
     );
 }

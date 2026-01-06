@@ -1,73 +1,80 @@
- 
+
 import React, { useState } from 'react';
 import Authenticated from '@/Layouts/Authenticated';
-import { Head } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { Card, Col, Row } from 'react-bootstrap';
 import AdminDashboard from './Dashboards/AdminDashboard';
 
 
-const CoordinatorDashboard = (props) => {
-    const { dashboardData, facility } = props;
-    let colDivision = 12 / Object.keys(dashboardData).length;
+const DashCard = ({ colDivision, count, title, subTitle }) => {
+    return (
+        <Col lg={colDivision} className="d-flex align-items-stretch mb-3">
+            <Card className="shadow-sm w-100" >
+                <Card.Body>
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex flex-column">
+                            <span className="fw-normal fs-1 text-primary">{count}</span>
+                            <span className="fw-light fs-5 text-secondary">{title}</span>
+                            <span className="fs-6 text-muted">{subTitle}</span>
+                        </div>
+                    </div>
+                </Card.Body>
+            </Card>
+        </Col>
+    )
+}
 
+const CoordinatorDashboard = ({dashboardData, facility}) => {
+     
+    let colDivision = 12 / Object.keys(dashboardData).length;
+    const dashDatas = [
+        {
+            id: 1,
+            colDivision: colDivision,
+            count: dashboardData.allcrfcount,
+            title: "Case Report Forms",
+            subTitle: "Overall Enrollments"
+        },
+           {
+            id: 2,
+            colDivision: colDivision,
+            count: dashboardData.crfcount,
+            title: "Case Report Forms",
+            subTitle: `from ${facility}`
+        },
+
+        {
+            id: 3,
+            colDivision: colDivision,
+            count: dashboardData.scheduledVisitCount,
+            title: "Scheduled Visits",
+             
+        },
+
+        {
+            id: 4,
+            colDivision: colDivision,
+            count: dashboardData.unscheduledVisitCount,
+             title: "Uncheduled Visits",
+           
+        },
+    ]
     return (
         <>
 
-            <Col lg={colDivision} className="d-flex align-items-stretch mb-3">
-                <Card className="shadow-sm rounded-5 w-100" >
-                    <Card.Body>
-                        <div className="d-flex justify-content-between align-items-center">
-                            <div className="d-flex flex-column">
-                                <span className="fw-normal fs-1 text-primary">{dashboardData.allcrfcount}</span>
-                                <span className="fw-light fs-5 text-secondary">Case Report Forms</span>
-                                <span className="fs-6 text-muted">Overall Enrollments</span>
-                            </div>
-                        </div>
-                    </Card.Body>
-                </Card>
-            </Col>
+            {
+                dashDatas.map((dashData) => <DashCard key={dashData.id}
+                    colDivision={dashData.colDivision}
+                    count={dashData.count}
+                    title={dashData.title}
+                    subTitle={dashData.subTitle}
+                />)
+            }
 
-            <Col lg={colDivision} className="d-flex align-items-stretch mb-3">
-                <Card className="shadow-sm rounded-5 w-100" >
-                    <Card.Body>
-                        <div className="d-flex justify-content-stretch align-items-center">
-                            <div className="d-flex flex-column">
-                                <span className="fw-normal fs-1 text-primary">{dashboardData.crfcount}</span>
-                                <span className="fw-light fs-5 text-secondary">Case Report Forms</span>
-                                <span className="fs-6 text-muted">from {facility}</span>
-                            </div>
-                        </div>
-                    </Card.Body>
-                </Card>
-            </Col>
 
-            <Col lg={colDivision} className="d-flex align-items-stretch mb-3">
-                <Card className="shadow-sm rounded-5 w-100" >
-                    <Card.Body>
-                        <div className="d-flex justify-content-between align-items-center">
-                            <div className="d-flex flex-column">
-                                <span className="fw-normal fs-1 text-primary">{dashboardData.scheduledVisitCount}</span>
-                                <span className="fw-light fs-5 text-secondary">Scheduled Visits</span>
 
-                            </div>
-                        </div>
-                    </Card.Body>
-                </Card>
-            </Col>
-
-            <Col lg={colDivision} className="d-flex align-items-stretch mb-3">
-                <Card className="shadow-sm rounded-5 w-100" >
-                    <Card.Body>
-                        <div className="d-flex justify-content-between align-items-center">
-                            <div className="d-flex flex-column">
-                                <span className="fw-normal fs-1 text-primary">{dashboardData.unscheduledVisitCount}</span>
-                                <span className="fw-light fs-5 text-secondary">Unscheduled Visits</span>
-
-                            </div>
-                        </div>
-                    </Card.Body>
-                </Card>
-            </Col>
+ 
+ 
 
         </>
     )
@@ -76,20 +83,20 @@ const CoordinatorDashboard = (props) => {
 
 
 
-export default function Dashboard(props) {
+export default function Dashboard() {
 
-   
+    const { roles, data, facility, adminData, adminCards } = usePage().props;
     return (
         <Authenticated
-            auth={props.auth}
-            errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight mb-3">Dashboard</h2>}
-            role={props.roles}
+            pageTitle="Dashbaord"
+
         >
-          
-            <Head title="Dashboard" />
-            <Row className='mb-3'>
-                {props?.roles?.coordinator || props?.roles?.investigator ? <CoordinatorDashboard dashboardData={props.data} facility={props.facility} /> : <AdminDashboard dashboardData={props.adminData} adminCards = {props.adminCards } />}
+
+
+            <Row className='mt-3 mb-3'>
+                {roles?.coordinator || roles?.investigator ?
+                    <CoordinatorDashboard dashboardData={data} facility={facility} /> :
+                    <AdminDashboard dashboardData={adminData} adminCards={adminCards} />}
 
             </Row>
 

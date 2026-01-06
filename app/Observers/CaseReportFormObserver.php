@@ -29,50 +29,49 @@ class CaseReportFormObserver
 
     public function created(CaseReportForm $caseReportForm)
     {
-        $preoperative = array();
+ 
         $postoperative = array();
         $intraoperative = array();
-        $preoperative = new PreOperativeData(
-            array(
-                'case_report_form_id' => $caseReportForm->id,
-                'visit_no' => 1,
-                'form_status' => true
-            )
-        );
-        $intraoperative = new IntraOperativeData(
-            array(
-                'case_report_form_id' => $caseReportForm->id,
-                'visit_no' => 1,
-                'form_status' => true
+        
 
-            )
+        $caseReportForm->preoperatives()->create(
+[ 'case_report_form_id' => $caseReportForm->id,
+                'visit_no' => 1,
+                'form_status' => true]
         );
 
-        $postoperative = new PostOperativeData(
-            [
-                'case_report_form_id' => $caseReportForm->id,
+         $caseReportForm->intraoperatives()->create([
+'case_report_form_id' => $caseReportForm->id,
                 'visit_no' => 1,
                 'form_status' => true
-            ]
-        );
+         ]);
 
+       
+           $caseReportForm->postoperatives()->create([
+  'case_report_form_id' => $caseReportForm->id,
+                'visit_no' => 1,
+                'form_status' => true
+           ]);
+
+        
+$scheduledVisits = [];
         for ($i = 2; $i <= 7; $i++) {
 
 
-            $scheduledvisit[] = new ScheduledVisit(
+            $scheduledVisits[] =  
                 [
                     'case_report_form_id' => $caseReportForm->id,
                     'visit_no' => $i,
 
-                ]
-            );
+                ];
+             
         }
 
-        $caseReportForm->preoperatives()->save($preoperative);
-        $caseReportForm->postoperatives()->save($postoperative);
-        $caseReportForm->intraoperatives()->save($intraoperative);
+        
+      
+       
 
-        $caseReportForm->scheduledvisits()->saveMany($scheduledvisit);
+        $caseReportForm->scheduledvisits()->createMany($scheduledVisits);
     }
 
     /**

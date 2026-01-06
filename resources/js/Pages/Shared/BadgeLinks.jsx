@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Link } from "@inertiajs/inertia-react";
+import { Link } from "@inertiajs/react";
 
 const BadgeLink = ({routeUrl, status, labelText}) => {
      return (

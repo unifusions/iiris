@@ -167,7 +167,7 @@ Route::group(['middleware' => 'auth'], function () {
         // });
         Route::resource('crf.preoperative.fileupload', PreoperativeFileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'preoperative' => 'preoperative:visit_no']);
 
-        Route::get('/download/{crf}/preoperative/{preoperative}/{fileupload}', PreoperativeFileDownloadController::class)->name('preopertivefiledownload');
+        Route::get('/download/{crf}/preoperative/{preoperative}/{fileupload}', PreoperativeFileDownloadController::class)->name('preoperativefiledownload');
 
 
 
@@ -200,7 +200,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.unscheduledvisit.safetyparameter', UVSafetyParameterController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
         Route::resource('crf.unscheduledvisit.medication', UVMedicationController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
         Route::resource('crf.unscheduledvisit.fileupload', UnscheduledVisitFileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'unscheduledvisit' => 'unscheduledvisit:visit_no']);
-        Route::get('/download/{crf}/unscheduledvisit/{unscheduledvisit}/{fileupload}', UsvFileDownloadController::class)->name('usvfiledownload');
+        Route::get('/download/{crf}/unscheduledvisit/{unscheduledvisit}/{fileupload}', UsvFileDownloadController::class)->name('unscheduledvisitfiledownload');
 
         Route::patch('/crf/{crf}/unscheduledvisit/{unscheduledvisit}/fileupload', [UnscheduledVisitFileUploadController::class, 'patch']);
 
@@ -216,7 +216,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('crf.scheduledvisit.safetyparameter', SVSafetyParameterController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
         Route::resource('crf.scheduledvisit.medication', SVMedicationsController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
         Route::resource('crf.scheduledvisit.fileupload', ScheduledVisitFileUploadController::class)->parameters(['crf' => 'crf:subject_id', 'scheduledvisit' => 'scheduledvisit:visit_no']);
-        Route::get('/download/{crf}/scheduledvisit/{scheduledvisit}/{fileupload}', SvFileDownloadController::class)->name('svfiledownload');
+        Route::get('/download/{crf}/scheduledvisit/{scheduledvisit}/{fileupload}', SvFileDownloadController::class)->name('scheduledvisitfiledownload');
 
         Route::patch('/crf/{crf}/scheduledvisit/{scheduledvisit}/fileupload', [ScheduledVisitFileUploadController::class, 'patch']);
 

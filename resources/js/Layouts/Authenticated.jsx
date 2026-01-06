@@ -1,18 +1,15 @@
-import React, {  useState } from 'react';
-import { Link, usePage } from '@inertiajs/react';
-
-import NavBar from './NavBar';
-
-import {  
-    Squares2X2Icon as ViewGridIcon, 
-    LifebuoyIcon as SupportIcon, 
-    BuildingOfficeIcon as OfficeBuildingIcon, 
-    UserGroupIcon,
-DocumentTextIcon } from '@heroicons/react/24/outline';
+import React, { useState } from 'react';
+import { Head, Link, usePage } from '@inertiajs/react';
+ 
  
 
 import MainPanel from './MainPanel';
- 
+import NavBarTop from './NavBarTop';
+import Sidebar from './Sidebar';
+import Footer from './Footer';
+
+
+
 
 const AdminNavigation = () => {
     const iconStyle = {
@@ -49,13 +46,14 @@ const AdminNavigation = () => {
 }
 
 
-export default function Authenticated(props) {
+export default function Authenticated({pageTitle, header, breadcrumb, children}) {
 
+    const {auth, flash, roles, errors } = usePage().props;
     const [showNav, setShowNav] = useState(true);
 
-    const iconStyle = { width: 24, height: 24, };
-    const { auth, breadcrumb, header, children, role } = props;
-    const { flash } = usePage().props;
+   const {user } = auth;
+    
+   
 
 
     const toggleNav = () => {
@@ -71,64 +69,83 @@ export default function Authenticated(props) {
     }
 
     return (
-        <div className={showNav ? 'sidebar-icon-only' : ''} >
-            <div className="container-scroller">
 
-                <NavBar toggleNav={toggleNav} user={auth.user} breadcrumb={breadcrumb} />
+        <div className="d-flex flex-column vh-100 overflow-hidden">
 
-                <div className="container-fluid page-body-wrapper">
+            <Head title={pageTitle} />
+    {/* Top Header */}
+    <NavBarTop breadcrumb= {breadcrumb} />
 
-                    <div className='navContainer' onMouseEnter={menuExpand} onMouseLeave={menuCollape}>
-                        <nav className={`sidebar sidebar-offcanvas ${showNav ? 'active' : ''}`} id="sidebar">
-                            <ul className="nav">
-                                <li className="nav-item">
-                                    <Link href={route('dashboard')} className={`nav-link ${route().current('dashboard') ? 'active' : ''}`}>
-                                        <ViewGridIcon className='menu-arrow' style={iconStyle} />
-                                        <span className="menu-title ms-1">Dashboard</span>
-                                    </Link>
+    {/* Body */}
+    <div className="container-fluid flex-grow-1 overflow-hidden">
+        <div className="row h-100">
 
-                                </li>
+            {/* Sidebar */}
+            
+                <Sidebar role={roles} />
+           
 
+            {/* Main Area (ONLY this scrolls) */}
+            <main className="col-md-10 col-lg-10  h-100   overflow-auto overflow-y-auto">
+                <MainPanel
+                    flash={flash}
+                    header={pageTitle}
+                >
+                    {children}
+                </MainPanel>
+            </main>
 
-                                <li className="nav-item">
-                                    <Link className={`nav-link ${route().current('crf.index') ? 'active' : ''}`} href={route('crf.index')}>
-                                        <DocumentTextIcon className='menu-arrow' style={iconStyle} />
-                                        <span className="menu-title ms-1">Case Reports</span>
-                                    </Link>
-                                </li>
-
-                                {/* <li className="nav-item">
-                                    <Link className="nav-link"
-                                    href={route('underconstruction')}
-                                        // href={route('logs.index')}
-                                    >
-                                        <ViewListIcon className='menu-arrow' style={iconStyle} />
-                                        <span className="menu-title ms-1">Logs</span>
-                                    </Link>
-                                </li> */}
-
-
-                                <li className="nav-item">
-                                    <Link className={`nav-link ${route().current('tickets.index') ? 'active' : ''}`} href={route('tickets.index')}>
-                                        <SupportIcon className='menu-arrow' style={iconStyle} />
-                                        <span className="menu-title ms-1">Queries</span>
-                                    </Link>
-                                </li>
-
-                                {role?.admin || role?.sudo ? <AdminNavigation /> : ''}
-
-
-
-                            </ul>
-                        </nav>
-                    </div>
-                    
-                        <MainPanel flash={flash} header={header} children={children} />
-                    
-
-                </div>
-            </div>
         </div>
+    </div>
+
+    {/* Footer */}
+     
+         <Footer />
+     
+</div>
+
+        //         <div className={showNav ? 'sidebar-icon-only' : ''} >
+
+
+        //        
+
+        //             <div className="container-scroller">
+
+        //                 <NavBar toggleNav={toggleNav} user={auth.user} breadcrumb={breadcrumb} />
+
+        //                 <div className="container-fluid page-body-wrapper">
+
+        //                     <div className='navContainer' onMouseEnter={menuExpand} onMouseLeave={menuCollape}>
+        //                         <nav className={`sidebar sidebar-offcanvas ${showNav ? 'active' : ''}`} id="sidebar">
+        //                             <ul className="nav">
+        //                               
+
+
+                                      
+
+
+
+        //                                 <li className="nav-item">
+        //                                     <Link className={`nav-link ${route().current('tickets.index') ? 'active' : ''}`} href={route('tickets.index')}>
+        //                                         <SupportIcon className='menu-arrow' style={iconStyle} />
+        //                                         <span className="menu-title ms-1">Queries</span>
+        //                                     </Link>
+        //                                 </li>
+
+        //                                 
+
+
+
+        //                             </ul>
+        //                         </nav>
+        //                     </div>
+
+
+
+
+        //                 </div>
+        //             </div>
+        //         </div>
 
     )
 }

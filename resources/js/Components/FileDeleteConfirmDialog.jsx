@@ -1,5 +1,5 @@
-import { TrashIcon } from "@heroicons/react/outline";
-import { Link, usePage } from "@inertiajs/inertia-react";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 

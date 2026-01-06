@@ -1,7 +1,7 @@
 
 import Authenticated from "@/Layouts/Authenticated";
-import { Inertia } from "@inertiajs/inertia";
-import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
+ 
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import React, { useEffect } from "react";
 import { Row, Col, Card, Table } from "react-bootstrap";
 import Select from "react-select";
