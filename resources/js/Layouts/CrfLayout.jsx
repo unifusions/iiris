@@ -2,16 +2,39 @@ import { Col, Row } from "react-bootstrap";
 import Authenticated from "./Authenticated";
 import CrfSidebar from "@/Pages/CaseReportForm/CrfSidebar";
 
+import ScreenTitle from "@/Components/ScreenTitle";
+import { usePage } from "@inertiajs/react";
 
-export default function CrfLayout({ pageTitle, children, crf }) {
 
+
+
+export default function CrfLayout({ pageTitle, children,  screenTitle, backUrl,
+    entity, entityType, extraActions }) {
+
+        const {crf} = usePage().props;
     const staticLinks = [
         {
             id: 1,
             linkTitle: 'Pre-Operative',
             entity: crf.preoperative,
             crf: crf,
-            entityRouteKey: 'preoperative'
+            entityRouteKey: 'preoperative',
+            subMenu : [                
+                { linkTitle : 'Diagnosis',anchor : 'diagnosis'},
+                { linkTitle : 'Physical Examination',anchor : 'physicalexamination'},
+                { linkTitle : 'Symptoms',anchor : 'symptoms'},
+                { linkTitle : 'Medical History',anchor : 'medical-history'},
+                { linkTitle : 'Surgical History',anchor : 'surgical-history'},
+                { linkTitle : 'Family History',anchor : 'family-history'},
+                { linkTitle : 'Personal History',anchor : 'personal-history'},
+                { linkTitle : 'Physical Activity',anchor : 'physical-activity'},
+                { linkTitle : 'Lab Investigation',anchor : 'lab-investigation'},
+                { linkTitle : 'Electrocardiogram',anchor : 'electrocardiogram'},
+                { linkTitle : 'Echocardiography',anchor : 'echocardiography'},
+                { linkTitle : 'Medications',anchor : 'medications'},
+                { linkTitle : 'Echo Files',anchor : 'echo-files'},
+
+        ]
         },
         {
             id: 2,
@@ -37,30 +60,39 @@ export default function CrfLayout({ pageTitle, children, crf }) {
         crf: crf,
 
     }));
- 
+
     const usvLinks = {
-        url:route('crf.unscheduledvisit.index', { crf: crf }),
-        linkTitle : 'Unscheduled Visits',
-        isActive : route().current('crf.unscheduledvisit.*') ? true : false
+        url: route('crf.unscheduledvisit.index', { crf: crf }),
+        linkTitle: 'Unscheduled Visits',
+        isActive: route().current('crf.unscheduledvisit.*') ? true : false
     }
 
     const links = [
         ...staticLinks,
         ...svLinks,
-        
+
     ];
     return (
-        <Authenticated pageTitle={pageTitle}>
-            <Row className="h-100">
-                <Col md={2} lg={2} className="sidebar border border-right bg-body-tertiary ms-0">
-                    <CrfSidebar links={links} staticLink = {usvLinks}/>
-                </Col>
-                      <Col md={9} lg={10} className="mt-3 overflow-y-auto">
-                       {children}
-                      </Col>
-               
-            </Row>
+        <Authenticated pageTitle={pageTitle} 
 
+        hasSecondarySidebar = {true}
+        secondarySidebar = {<CrfSidebar links={links} staticLink={usvLinks} />}
+        >
+             
+               
+                    <ScreenTitle
+                        title={screenTitle}
+                        backUrl={backUrl}
+                        crf={crf}
+                        entity={entity}
+                        entityType={entityType}
+
+                         
+                    />
+
+ 
+                    {children}
+                 
 
         </Authenticated>
     )

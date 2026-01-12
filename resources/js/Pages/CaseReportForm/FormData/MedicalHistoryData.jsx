@@ -7,7 +7,7 @@ import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton,
 export default function MedicalHistoryData({ hasMedHis, medicalhistories, role, linkUrl, enableActions }) {
      return (
 
-          <Card className="mb-3 shadow-sm rounded-5">
+          <Card className="mb-3 shadow-sm ">
 
 
                <Card.Body>

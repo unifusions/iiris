@@ -4,10 +4,10 @@ import { RenderCreateButton, RenderEditButton } from "./FormDataHelper";
 import { NotAvailable, PREDEFINED_MEDICAL_HISTORY_FIELDS, RenderBoolYesNo } from "../FormFields/Helper";
 
 export default function PredefinedMedicalHistoryData(
-    { medicalhistory, role, enableActions, hasMedHis, createUrl, editUrl }
+    {id,  medicalhistory, role, enableActions, hasMedHis, createUrl, editUrl }
 ) {
     return (
-        <Card className="mb-3 shadow-sm rounded-5">
+        <Card id={id} className="mb-3 shadow-sm scroll-section">
             <Card.Body>
                 <div className="d-flex justify-content-between align-items center">
                     <div className='fs-6 fw-bold'>

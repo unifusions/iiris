@@ -1,5 +1,5 @@
 import Authenticated from "@/Layouts/Authenticated";
-import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import React from "react";
 import { Card } from "react-bootstrap";
 import FormButton from "../Shared/FormButton";

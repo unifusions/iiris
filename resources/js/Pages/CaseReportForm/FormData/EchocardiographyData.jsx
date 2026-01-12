@@ -18,7 +18,7 @@ import FormDataHelper, { RenderCreateButton, RenderFieldEchoDatas, RenderEditBut
 import MarkasReviewed from "./MarkasReviewed";
 
 
-export default function EchocardiographyData({ echodicomfiles, echocardiographies, role, createUrl, editUrl, enableActions, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit }) {
+export default function EchocardiographyData({ id, echodicomfiles, echocardiographies, role, createUrl, editUrl, enableActions, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit }) {
      const options = {
           day: 'numeric',
           month: 'numeric',
@@ -43,7 +43,7 @@ export default function EchocardiographyData({ echodicomfiles, echocardiographie
 
      return (
           <>
-               <Card className="mb-3 rounded-5 shadow-sm">
+               <Card id={id} className="mb-3  shadow-sm scroll-section">
                     <Card.Body>
                          <div className='d-flex justify-content-between align-items-center'>
                               <div className='fs-6 fw-bold'>Echocardiography</div>

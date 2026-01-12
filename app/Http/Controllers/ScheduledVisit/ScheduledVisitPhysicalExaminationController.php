@@ -13,27 +13,27 @@ use Inertia\Inertia;
 
 class ScheduledVisitPhysicalExaminationController extends Controller
 {
-    
+
     public function index()
     {
         //
     }
 
-   
+
     public function create(CaseReportForm $crf, ScheduledVisit $scheduledvisit)
     {
         return Inertia::render('CaseReportForm/FormFields/PhysicalExamination/Create', [
-            'postUrl' => 'crf.scheduledvisit.physicalexamination.store',
+
             'crf' => $crf,
-            'mode' => 'scheduledvisit',
-            'scheduledvisit' => $scheduledvisit,
-            'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit]),
+            'entityType' => 'scheduledvisit',
+            'entity' => $scheduledvisit,
+
 
 
         ]);
     }
 
-    
+
     public function store(PhysicalExaminationStoreRequest $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit, PhysicalExaminationService $physicalExaminationService)
     {
         $physicalExaminationService->createScheduledVisitPhysicalExamination($request);
@@ -45,16 +45,14 @@ class ScheduledVisitPhysicalExaminationController extends Controller
         //
     }
 
-    
+
     public function edit(CaseReportForm $crf, ScheduledVisit $scheduledvisit, PhysicalExamination $physicalexamination)
     {
         return Inertia::render('CaseReportForm/FormFields/PhysicalExamination/Edit', [
-            'postUrl' => 'crf.scheduledvisit.physicalexamination.update',
             'crf' => $crf,
-            'mode' => 'scheduledvisit',
-            'scheduledvisit' => $scheduledvisit,
+            'entityType' => 'scheduledvisit',
+            'entity' => $scheduledvisit,
             'physicalexamination' => $physicalexamination,
-            'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit])
         ]);
     }
     public function update(Request $request, CaseReportForm $crf, ScheduledVisit $scheduledvisit, PhysicalExamination $physicalexamination, PhysicalExaminationService $physicalExaminationService)

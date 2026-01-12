@@ -1,7 +1,7 @@
 import Authenticated from "@/Layouts/Authenticated";
 import FormButton from "@/Pages/Shared/FormButton";
 import PageTitle from "@/Pages/Shared/PageTitle";
-import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import { FilePond } from "react-filepond";
 
 import React from "react";

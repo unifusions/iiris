@@ -4,10 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <title inertia>{{ config('app.name', 'DataInsights') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
+      
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
 
         <!-- Scripts -->
@@ -16,7 +16,7 @@
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @inertiaHead
     </head>
-    <body >
+    <body class="bg-body-tertiary">
         @inertia
     </body>
 </html>

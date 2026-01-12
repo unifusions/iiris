@@ -3,7 +3,7 @@ import { Row, Col } from "react-bootstrap";
 const FormInput = ({ type = 'text', name, value, className, autoComplete, required, isFocused, handleChange, labelText, error, disabled }) => {
 
      const input = useRef();
-     useEffect(() => { if (isFocused) { input.current.focus(); } }, []);
+     // useEffect(() => { if (isFocused) { input.current.focus(  ); } }, []);
 
      return (
           <Row className="mb-2"  >

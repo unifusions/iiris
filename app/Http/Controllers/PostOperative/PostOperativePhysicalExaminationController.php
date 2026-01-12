@@ -24,11 +24,11 @@ class PostOperativePhysicalExaminationController extends Controller
     {
 
         return Inertia::render('CaseReportForm/FormFields/PhysicalExamination/Create', [
-            'postUrl' => 'crf.postoperative.physicalexamination.store',
+
             'crf' => $crf,
-            'mode' => 'postoperative',
-            'postoperative' => $postoperative,
-            'backUrl' => route('crf.postoperative.show', [$crf, $postoperative])
+            'entityType' => 'postoperative',
+            'entity' => $postoperative,
+
 
         ]);
     }
@@ -49,17 +49,15 @@ class PostOperativePhysicalExaminationController extends Controller
 
     public function edit(CaseReportForm $crf, PostOperativeData $postoperative, PhysicalExamination $physicalexamination)
     {
-        return Inertia::render('CaseReportForm/FormFields/PhysicalExamination/Edit', [
-            'postUrl' => 'crf.postoperative.physicalexamination.update',
+            return Inertia::render('CaseReportForm/FormFields/PhysicalExamination/Edit', [
+
             'crf' => $crf,
-            'mode' => 'postoperative',
-            'postoperative' => $postoperative,
-            'physicalexamination' => $physicalexamination,
-            'backUrl' => route('crf.postoperative.show', [$crf, $postoperative])
+            'entityType' => 'postoperative',
+            'entity' => $postoperative,
+
+                'physicalexamination' => $physicalexamination,
         ]);
     }
-
-
     public function update(Request $request, CaseReportForm $crf, PostOperativeData $postoperative, PhysicalExamination $physicalexamination, PhysicalExaminationService $physicalExaminationService)
     {
         $physicalExaminationService->updatePreOperativePhysicalExamination($request, $physicalexamination);
@@ -69,6 +67,6 @@ class PostOperativePhysicalExaminationController extends Controller
 
     public function destroy($id)
     {
-        //
+        //  
     }
 }

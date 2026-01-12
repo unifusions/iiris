@@ -29,11 +29,10 @@ class PreOperativePhysicalExaminationController extends Controller
   
 
         return Inertia::render('CaseReportForm/FormFields/PhysicalExamination/Create', [
-            'postUrl' => 'crf.preoperative.physicalexamination.store',
-            'crf' => $crf,
-            'mode' => 'preoperative',
-            'preoperative' => $preoperative,
-            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative]),
+           
+            'crf' => $crf,             
+            'entity' => $preoperative,
+            'entityType' => 'preoperative'
 
 
         ]);
@@ -70,28 +69,20 @@ class PreOperativePhysicalExaminationController extends Controller
     }
     public function edit(CaseReportForm $crf, PreOperativeData $preoperative, PhysicalExamination $physicalexamination)
     {
-        $storeUri = 'crf.preoperative.physicalexamination.update';
-        $storeParameters = [
-            'crf' => $crf,
-            'preoperative' => $preoperative,
-            'physicalexamination' => $physicalexamination
-        ];
-
-        $breadcrumb = [
-            'name' => 'Pre Operative Data',
-            'link' => 'crf.preoperative.index'
-        ];
+         
 
         return Inertia::render('CaseReportForm/FormFields/PhysicalExamination/Edit', [
             'postUrl' => 'crf.preoperative.physicalexamination.update',
             'crf' => $crf,
-            'mode' => 'preoperative',
-            'preoperative' => $preoperative,
+            'entity' => $preoperative,
+            'entityType' => 'preoperative',
+
+             
             'physicalexamination' => $physicalexamination,
-            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative])
+          
         ]);
 
-        // return view('casereportforms.FormFields.PhysicalExamination.edit', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf', 'physicalexamination'));
+     
     }
 
     public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, PhysicalExamination $physicalexamination, PhysicalExaminationService $physicalExaminationService)

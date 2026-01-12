@@ -1,13 +1,17 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton } from "./FormDataHelper";
+import { usePage } from "@inertiajs/react";
 
 
 
-export default function PhysicalExaminationData({ physicalexamination, role, createUrl, editUrl, enableActions, showHWB }) {
+export default function PhysicalExaminationData({id,  physicalexamination,  createUrl, editUrl, enableActions, showHWB }) {
+    
+     const {roles}= usePage().props;
+     
      return (
 
-          <Card className="mb-3 shadow-sm rounded-5">
+          <Card id={id} className="mb-3 shadow-sm scroll-section">
 
 
                <Card.Body>
@@ -17,7 +21,7 @@ export default function PhysicalExaminationData({ physicalexamination, role, cre
                          </div>
                          {!enableActions &&
                               <>
-                                   {role.coordinator &&
+                                   {roles.coordinator &&
                                         <>
                                              {physicalexamination === null ?
                                                   <RenderCreateButton createUrl={createUrl} className="btn-sm" /> :

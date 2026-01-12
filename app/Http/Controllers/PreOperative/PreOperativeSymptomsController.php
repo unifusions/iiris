@@ -27,29 +27,12 @@ class PreOperativeSymptomsController extends Controller
 
     public function create(CaseReportForm $crf, PreOperativeData $preoperative)
     {
-
-        $storeUri = 'crf.preoperative.symptoms.store';
-        $storeParameters = [
-            'crf' => $crf,
-            'preoperative' => $preoperative,
-            'operative' => 'Preoperative'
-        ];
-
-
-
-        $breadcrumb = [
-            'name' => 'Pre Operative Data',
-            'link' => 'crf.preoperative.index'
-        ];
-
-        // return view('casereportforms.FormFields.OperativeSymptoms.create', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf'));
-
+ 
         return Inertia::render('CaseReportForm/FormFields/Symptoms/Create', [
-            'postUrl' => 'crf.preoperative.symptoms.store',
+          
             'crf' => $crf,
-            'mode' => 'preoperative',
-            'preoperative' => $preoperative,
-            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative]),
+            'entityType' => 'preoperative',
+            'entity' => $preoperative,
             'title' => 'Pre Operative'
         ]);
     }
@@ -86,13 +69,12 @@ class PreOperativeSymptomsController extends Controller
         ];
 
         return Inertia::render('CaseReportForm/FormFields/Symptoms/Edit', [
-            'putUrl' => 'crf.preoperative.symptoms.update',
             'crf' => $crf,
-            'mode' => 'preoperative',
-            'preoperative' => $preoperative,
-            'symptom' => $symptom,
-            'backUrl' => route('crf.preoperative.show', [$crf, $preoperative]),
-            'title' => 'Pre Operative'
+            'entityType' => 'preoperative',
+            'entity' => $preoperative,
+            'title' => 'Pre Operative',
+            'symptom' => $symptom,             
+             
         ]);
 
         // return view('casereportforms.FormFields.OperativeSymptoms.edit', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf', 'symptom'));

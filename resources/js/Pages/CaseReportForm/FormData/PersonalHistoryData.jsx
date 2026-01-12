@@ -5,14 +5,14 @@ import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton,
 
 
 
-export default function PersonalHistoryData({ personalhistories, role, createUrl, editUrl, enableActions }) {
+export default function PersonalHistoryData({id, personalhistories, role, createUrl, editUrl, enableActions }) {
      const options = {
 
           year: 'numeric'
      }
      return (
 
-          <Card className="mb-3 rounded-5 shadow-sm">
+          <Card id={id} className="mb-3 shadow-sm scroll-section">
 
 
                <Card.Body>

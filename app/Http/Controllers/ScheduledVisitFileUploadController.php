@@ -55,7 +55,8 @@ class ScheduledVisitFileUploadController extends Controller
         return Inertia::render(
             'EchoDicomFiles/EchoRDicomViewer',
             [
-                'file' => preg_replace("(^https?://)", "", Storage::url($fileupload->file_path))
+                // 'file' => preg_replace("(^https?://)", "", Storage::url($fileupload->file_path))
+                   'file' => Storage::url($fileupload->file_path)
             ]
         );
     }

@@ -12,26 +12,26 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class UVSymptomController extends Controller
-{public function index(CaseReportForm $crf, UnscheduledVisit $unscheduledvisit)
+{
+    public function index(CaseReportForm $crf, UnscheduledVisit $unscheduledvisit)
     {
-       
+
     }
 
 
     public function create(CaseReportForm $crf, UnscheduledVisit $unscheduledvisit)
     {
         return Inertia::render('CaseReportForm/FormFields/Symptoms/Create', [
-            'postUrl' => 'crf.unscheduledvisit.symptoms.store',
+
             'crf' => $crf,
-            'mode' => 'unscheduledvisit',
-            'unscheduledvisit' => $unscheduledvisit,
-            'backUrl' => route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]),
+            'entityType' => 'unscheduledvisit',
+            'entity' => $unscheduledvisit,
             'title' => 'Post Operative'
         ]);
     }
 
-    public function store(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, OperativeSymptomsService $operativeSymptomsService)
-    {   
+    public function store(StoreOperativeSymptomsRequest $request, CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, OperativeSymptomsService $operativeSymptomsService)
+    {
         // dd($request->input());
         if ($operativeSymptomsService->createUnscheduledVisitOperativeSymptoms($request))
             return redirect()->route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]);
@@ -43,21 +43,19 @@ class UVSymptomController extends Controller
     public function edit(CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, OperativeSymptoms $symptom)
     {
         return Inertia::render('CaseReportForm/FormFields/Symptoms/Edit', [
-            'putUrl' => 'crf.unscheduledvisit.symptoms.update',
-            'crf' => $crf,
-            'mode' => 'unscheduledvisit',
-            'unscheduledvisit' => $unscheduledvisit,
-            'symptom' => $symptom,
-            'backUrl' => route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]),
+           'crf' => $crf,
+            'entityType' => 'unscheduledvisit',
+            'entity' => $unscheduledvisit,
             'title' => 'Post Operative',
+            'symptom' => $symptom,
             
         ]);
     }
 
-    public function update(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, OperativeSymptoms $symptom, OperativeSymptomsService $operativeSymptomsService)
+    public function update(StoreOperativeSymptomsRequest $request, CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, OperativeSymptoms $symptom, OperativeSymptomsService $operativeSymptomsService)
     {
         if ($operativeSymptomsService->updateOperativeSymptoms($request))
-        return redirect()->route('crf.unscheduledvisit.show', [$crf,$unscheduledvisit]);
+            return redirect()->route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]);
     }
 
     public function destroy($id)

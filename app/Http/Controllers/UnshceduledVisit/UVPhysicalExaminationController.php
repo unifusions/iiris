@@ -21,13 +21,10 @@ class UVPhysicalExaminationController extends Controller
     public function create(CaseReportForm $crf, UnscheduledVisit $unscheduledvisit)
     {
         return Inertia::render('CaseReportForm/FormFields/PhysicalExamination/Create', [
-            'postUrl' => 'crf.unscheduledvisit.physicalexamination.store',
+             
             'crf' => $crf,
-            'mode' => 'unscheduledvisit',
-            'unscheduledvisit' => $unscheduledvisit,
-            'backUrl' => route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit]),
-
-
+            'entityType' => 'unscheduledvisit',
+            'entity' => $unscheduledvisit,
         ]);
     }
 
@@ -47,12 +44,11 @@ class UVPhysicalExaminationController extends Controller
     public function edit(CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, PhysicalExamination $physicalexamination)
     {
         return Inertia::render('CaseReportForm/FormFields/PhysicalExamination/Edit', [
-            'postUrl' => 'crf.unscheduledvisit.physicalexamination.update',
-            'crf' => $crf,
-            'mode' => 'unscheduledvisit',
-            'unscheduledvisit' => $unscheduledvisit,
+             'crf' => $crf,
+            'entityType' => 'unscheduledvisit',
+            'entity' => $unscheduledvisit,
             'physicalexamination' => $physicalexamination,
-            'backUrl' => route('crf.unscheduledvisit.show', [$crf, $unscheduledvisit])
+            
         ]);
     }
     public function update(Request $request, CaseReportForm $crf, UnscheduledVisit $unscheduledvisit, PhysicalExamination $physicalexamination, PhysicalExaminationService $physicalExaminationService)

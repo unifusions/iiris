@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/react";
 
 export default function Sidebar({ role }) {
   return (
-    <div class="sidebar border border-right col-md-2 col-lg-2 p-0 bg-body-tertiary">
+    <div class="sidebar border-end col-md-2 col-lg-2 p-0 bg-body-tertiary">
       <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu"
         aria-labelledby="sidebarMenuLabel">
         <div class="offcanvas-header">
@@ -25,7 +25,7 @@ export default function Sidebar({ role }) {
 
 
             <li className="nav-item">
-              <Link className={`nav-link d-flex align-items-center gap-2 ${route().current('crf.index') ? 'active' : ''}`} href={route('crf.index')}>
+              <Link className={`nav-link d-flex align-items-center gap-2 ${route().current('crf.*') ? 'active' : ''}`} href={route('crf.index')}>
                 <DocumentTextIcon className='menu-arrow' width={24} />
                 Case Reports
               </Link>
@@ -74,7 +74,10 @@ export default function Sidebar({ role }) {
 
           </>}
         </div>
+
+        
       </div>
+      
     </div>
   )
 }

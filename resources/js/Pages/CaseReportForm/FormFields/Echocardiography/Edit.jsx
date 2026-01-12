@@ -9,6 +9,7 @@ import FormCalendar from "@/Pages/Shared/FormCalendar";
 import FormInput from "@/Pages/Shared/FormInput";
 import PageTitle from "@/Pages/Shared/PageTitle";
 import FileUpload from "./FileUpload";
+import CrfLayout from "@/Layouts/CrfLayout";
 
 
 const Create = () => {
@@ -61,10 +62,7 @@ const Create = () => {
 
 
      return (
-          <Authenticated
-               auth={auth}
-               errors={errors}
-               role={roles}
+          <CrfLayout
                breadcrumb={<>
                     <li className='breadcrumb-item'>
                          <Link href={route('crf.index')} className="breadcrumb-item"> Case Report Form</Link>
@@ -76,10 +74,7 @@ const Create = () => {
                }
           >
 
-               <Head title="Edit Echocardiography" />
-               <Container>
-                    <PageTitle backUrl={backUrl} pageTitle='Echocardiography' role={roles} />
-                    <Card className='card shadow-sm rounded-5'>
+                 <Card className='card shadow-sm rounded-5'>
                          <Card.Body>
                               <form onSubmit={handlesubmit}>
 
@@ -276,8 +271,8 @@ const Create = () => {
                               </form>
                          </Card.Body>
                     </Card>
-               </Container>
-          </Authenticated>
+               
+          </CrfLayout>
      )
 }
 

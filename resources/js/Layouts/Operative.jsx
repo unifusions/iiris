@@ -8,6 +8,7 @@ export default function Operative({ title, children, activities }) {
 
          
             <Row className="mt-3">
+              
                 <Col md={9} lg={9} >
                     {children}
                 </Col>

@@ -2,7 +2,7 @@ import React from "react";
 
 import Authenticated from "@/Layouts/Authenticated";
 import { Card, Row, Col } from "react-bootstrap";
-import { Head, Link, useForm, usePage } from "@inertiajs/inertia-react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import TablePagination from "../Shared/TablePagination";
 import Label from "@/Components/Label";
 import FormInput from "../Shared/FormInput";

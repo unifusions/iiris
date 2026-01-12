@@ -82,3 +82,12 @@ export const RenderMedicineType = ({ medicineType }) => {
               (rendType.optionText)
          ))
 }
+
+// ENTITY_ID_FIELD_MAP
+
+export const ENTITY_ID_FIELD_MAP = {
+     preoperative: 'pre_operative_data_id',
+     postoperative: 'post_operative_data_id',
+     scheduledvisit: 'scheduled_visits_id',
+     unscheduledvisit: 'unscheduled_visits_id',
+};

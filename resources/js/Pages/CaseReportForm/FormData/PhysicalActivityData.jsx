@@ -4,10 +4,10 @@ import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton,
 
 
 
-export default function PhysicalActivityData({ physicalactivites, isPhyAct, role, linkUrl, enableActions }) {
+export default function PhysicalActivityData({ id, physicalactivites, isPhyAct, role, linkUrl, enableActions }) {
      return (
 
-          <Card className="mb-3 shadow-sm rounded-5">
+          <Card id={id} className="mb-3 shadow-sm  scroll-section">
 
 
                <Card.Body>

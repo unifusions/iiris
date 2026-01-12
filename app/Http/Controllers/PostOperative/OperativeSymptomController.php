@@ -25,17 +25,17 @@ class OperativeSymptomController extends Controller
     {
 
         return Inertia::render('CaseReportForm/FormFields/Symptoms/Create', [
-            'postUrl' => 'crf.postoperative.symptoms.store',
+
             'crf' => $crf,
-            'mode' => 'postoperative',
-            'postoperative' => $postoperative,
-            'backUrl' => route('crf.postoperative.show', [$crf, $postoperative]),
+            'entityType' => 'postoperative',
+            'entity' => $postoperative,
+
             'title' => 'Post Operative'
         ]);
     }
 
 
-    public function store(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, PostOperativeData $postoperative, OperativeSymptomsService $operativeSymptomsService)
+    public function store(StoreOperativeSymptomsRequest $request, CaseReportForm $crf, PostOperativeData $postoperative, OperativeSymptomsService $operativeSymptomsService)
     {
 
         if ($operativeSymptomsService->createPostOperativeSymptoms($request))
@@ -53,17 +53,16 @@ class OperativeSymptomController extends Controller
     {
 
         return Inertia::render('CaseReportForm/FormFields/Symptoms/Edit', [
-            'putUrl' => 'crf.postoperative.symptoms.update',
             'crf' => $crf,
-            'mode' => 'postoperative',
-            'postoperative' => $postoperative,
+            'entityType' => 'postoperative',
+            'entity' => $postoperative,
             'symptom' => $symptom,
-            'backUrl' => route('crf.postoperative.show', [$crf, $postoperative])
+            'title' => 'Post Operative'
         ]);
     }
 
 
-    public function update(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, PostOperativeData $postoperative, OperativeSymptoms $symptom, OperativeSymptomsService $operativeSymptomsService)
+    public function update(StoreOperativeSymptomsRequest $request, CaseReportForm $crf, PostOperativeData $postoperative, OperativeSymptoms $symptom, OperativeSymptomsService $operativeSymptomsService)
     {
 
         if ($operativeSymptomsService->updateOperativeSymptoms($request))

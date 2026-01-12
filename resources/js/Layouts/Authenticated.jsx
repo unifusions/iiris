@@ -46,12 +46,12 @@ const AdminNavigation = () => {
 }
 
 
-export default function Authenticated({pageTitle, header, breadcrumb, children}) {
+export default function Authenticated({pageTitle, header, breadcrumb, children, hasSecondarySidebar =false, secondarySidebar}) {
 
     const {auth, flash, roles, errors } = usePage().props;
     const [showNav, setShowNav] = useState(true);
 
-   const {user } = auth;
+   const { user } = auth;
     
    
 
@@ -83,10 +83,10 @@ export default function Authenticated({pageTitle, header, breadcrumb, children})
             {/* Sidebar */}
             
                 <Sidebar role={roles} />
-           
 
+{hasSecondarySidebar && <div className='sidebar col-md-2 col-lg-2  p-0 border-end'>{secondarySidebar}</div>}
             {/* Main Area (ONLY this scrolls) */}
-            <main className="col-md-10 col-lg-10  h-100   overflow-auto overflow-y-auto">
+            <main className={` ${hasSecondarySidebar ? 'col-md-8': 'col-md-10 col-lg-10'}  h-100   overflow-auto overflow-y-auto`}>
                 <MainPanel
                     flash={flash}
                     header={pageTitle}

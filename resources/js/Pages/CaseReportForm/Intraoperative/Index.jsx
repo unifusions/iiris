@@ -9,7 +9,7 @@ import CaseReportFormData from '../FormData/CaseReportFormData';
 import { RenderFieldBoolDatas, RenderFieldBoolNoDatas, RenderFieldDatas, RenderFormStatus } from '../FormData/FormDataHelper';
 import UpdateIntraOperative from './UpdateIntraoperative';
 import ApprovalActionsDisapprove from './ApprovalActionsDisapprove';
-import ApprovalSubmit from './ApprovalSubmit';
+ 
 import ApprovalActionsApprove from './ApprovalActionsApprove';
 
 import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
@@ -19,6 +19,7 @@ import { PREDEFINED_CONCOMITANT_PROCEDURE, RenderBoolYesNo } from '../FormFields
 import Operative from '@/Layouts/Operative';
 import FileList from '@/Components/FileList';
 import CrfLayout from '@/Layouts/CrfLayout';
+import ApprovalSubmit from '../FormFields/ApprovalSubmit';
 
 
 
@@ -150,16 +151,25 @@ export default function Index() {
 
            <CrfLayout 
                     crf={crf}
-                    pageTitle    ={`Intraoperative | ${crf.subject_id}`}>
+                    pageTitle    ={`Intraoperative | ${crf.subject_id}`}
+                    screenTitle={`Case Report Forms \\ ${crf.subject_id} \\ Intraoperative`}
+                    extraActions = {
+                                                  <ApprovalSubmit
+                                                       role={roles}
+                                                       crf={crf}
+                                                       entity={crf.intraoperative}
+                                                       entityType="intraoperative"
+                                                  />}
+                    >
           <Operative
                
                activities={approvalremarks}
           >
-               <div className='d-flex justify-content-between align-items-center mb-3'>
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">Case Report Forms \ {crf.subject_id} \ Intraoperative</h2>
+               <div className='d-flex justify-content-between align-items-center '>
+                    
                     <div className='d-flex'>
-                         <Link href={route('crf.show', { crf: crf })} className="btn btn-secondary me-2" type="button" as="button" >Back</Link>
-                         <ApprovalSubmit role={roles} crf={crf} intraoperative={intraoperative} />
+                         
+                        
                          {intraoperative.is_submitted ? <>
                               <ApprovalActionsDisapprove role={roles} crf={crf} intraoperative={intraoperative} />
                               <ApprovalActionsApprove role={roles} crf={crf} intraoperative={intraoperative} />

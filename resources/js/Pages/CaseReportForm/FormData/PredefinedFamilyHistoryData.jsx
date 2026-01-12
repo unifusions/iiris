@@ -5,10 +5,10 @@ import { FAMILY_HISTORY_FIELDS } from "../FormFields/Helper";
 
 
 
-export default function PredefinedFamilyHistoryData({ isFamHis, predefinedfamilyhistory, role, linkUrl, enableActions }) {
+export default function PredefinedFamilyHistoryData({id, isFamHis, predefinedfamilyhistory, role, linkUrl, enableActions }) {
     return (
 
-        <Card className="mb-3 rounded-5 shadow-sm">
+        <Card id={id} className="mb-3 shadow-sm scroll-section">
 
 
             <Card.Body>

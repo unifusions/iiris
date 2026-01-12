@@ -26,7 +26,7 @@ const Edit = () => {
 
 
 
-  
+
 
      function handlesubmit(e) {
           e.preventDefault();
@@ -41,20 +41,14 @@ const Edit = () => {
      return (
           <CrfLayout
                crf={crf}
-               breadcrumb={<>
-                    <li className='breadcrumb-item'>
-                         <Link href={route('crf.index')} className="breadcrumb-item"> Case Report Form</Link>
-                    </li>
-                    <li className='breadcrumb-item'>
-                         <span className="Active">Create</span>
-                    </li>
-               </>
-               }
+               backUrl={backUrl}
+
+               screenTitle="Preoperative Diagnosis \ Edit"
+                  pageTitle={`${crf.subject_id} | Preoperative | Diagnosis`} 
           >
 
-             
-               <Container>
-                    <PageTitle backUrl={backUrl} pageTitle={`${title} Diagnosis`} role={roles} />
+ 
+                  
 
                     <Card className='card shadow-sm '>
                          <Card.Body>
@@ -76,17 +70,17 @@ const Edit = () => {
                                    />
 
 
-                                
+
 
                                    <hr />
-                                
+
 
                                    <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />
 
                               </form>
                          </Card.Body>
                     </Card>
-               </Container>
+                
           </CrfLayout>
      )
 }

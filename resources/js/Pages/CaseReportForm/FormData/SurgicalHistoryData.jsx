@@ -4,13 +4,13 @@ import FormDataHelper, { RenderCreateButton, RenderEditButton, RenderUpdateButto
 
 
 
-export default function SurgicalHistoryData({ hasSurHis, surgicalhistories, role, linkUrl, enableActions }) {
+export default function SurgicalHistoryData({ id, hasSurHis, surgicalhistories, role, linkUrl, enableActions }) {
 
 
 
      return (
 
-          <Card className="mb-3 rounded-5 shadow-sm">
+          <Card id={id}className="mb-3 shadow-sm scroll-section">
                <Card.Body>
                     <div className='d-flex justify-content-between align-items-center'>
                          <div className='fs-6 fw-bold'>

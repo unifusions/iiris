@@ -4,7 +4,7 @@ import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton,
 
 
 
-export default function ElectrocardiogramData({ electrocardiograms, role, createUrl, editUrl, enableActions }) {
+export default function ElectrocardiogramData({id, electrocardiograms, role, createUrl, editUrl, enableActions }) {
      const options = {
           day: 'numeric',
           month: 'numeric',
@@ -12,7 +12,7 @@ export default function ElectrocardiogramData({ electrocardiograms, role, create
      }
      return (
 
-          <Card className="mb-3 shadow-sm rounded-5">
+          <Card id={id} className="mb-3 shadow-sm  scroll-section">
                <Card.Body>
                     <div className='d-flex justify-content-between align-items-center'>
                          <div className='fs-6 fw-bold'>

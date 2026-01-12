@@ -88,11 +88,11 @@ export default function Dashboard() {
     const { roles, data, facility, adminData, adminCards } = usePage().props;
     return (
         <Authenticated
-            pageTitle="Dashbaord"
+            pageTitle="Dashboard"
 
         >
-
-
+ 
+ 
             <Row className='mt-3 mb-3'>
                 {roles?.coordinator || roles?.investigator ?
                     <CoordinatorDashboard dashboardData={data} facility={facility} /> :

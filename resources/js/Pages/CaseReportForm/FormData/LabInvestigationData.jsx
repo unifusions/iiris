@@ -4,7 +4,7 @@ import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton 
 
 
 
-export default function LabInvestigationData({ labinvestigations, role, createUrl, editUrl, enableActions }) {
+export default function LabInvestigationData({ id,labinvestigations, role, createUrl, editUrl, enableActions }) {
 
      const options = {
           day: 'numeric',
@@ -13,7 +13,7 @@ export default function LabInvestigationData({ labinvestigations, role, createUr
      }
      return (
 
-          <Card className="mb-3 shadow-sm rounded-5">
+          <Card id={id} className="mb-3 shadow-sm scroll-section " >
                <Card.Body>
                     <div className='d-flex justify-content-between align-items-center'>
                          <div className='fs-6 fw-bold'>

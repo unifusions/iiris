@@ -5,10 +5,10 @@ import { RenderMedicineType } from "../FormFields/Helper";
 
 
 
-export default function MedicationsData({ hasMedication, medications, role, linkUrl, enableActions }) {
+export default function MedicationsData({ id, hasMedication, medications, role, linkUrl, enableActions }) {
      return (
 
-          <Card className="mb-3 shadow-sm rounded-5">
+          <Card id={id} className="mb-3 shadow-sm scroll-section">
 
                <Card.Body>
                     <div className='d-flex justify-content-between align-items-center'>

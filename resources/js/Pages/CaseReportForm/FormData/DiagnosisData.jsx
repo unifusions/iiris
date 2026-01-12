@@ -5,12 +5,12 @@ import { usePage } from "@inertiajs/react";
 
 
 
-export default function DiagnosisData({ diagnosis, role, createUrl, editUrl, enableActions }) {
+export default function DiagnosisData({ id, diagnosis,  createUrl, editUrl, enableActions }) {
 
      const { roles } = usePage().props;
      return (
 
-          <Card className="mb-3 shadow-sm ">
+          <Card id={id} className="mb-3 shadow-sm scroll-section">
                <Card.Body>
                     <div className='d-flex justify-content-between align-items-center'>
                          <div className='fs-6 fw-bold'>

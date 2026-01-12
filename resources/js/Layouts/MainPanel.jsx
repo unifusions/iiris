@@ -11,8 +11,10 @@ export default function MainPanel({ flash, header, children }) {
      }, [flash.message])
      return (
           < >
+
+         
                <div className="h-100">
-                    {header && <>
+                    {!route().current('crf.*') || route().current('crf.index') && header && <>
                          <header className="mt-3">
                               <h2>{header}</h2>
                          </header>

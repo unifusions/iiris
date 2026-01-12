@@ -1,8 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+ 
 
-
+html{
+  scroll-behavior: smooth !important;
+}
 /* dashboard.css */
 .bi {
   display: inline-block;
@@ -31,7 +34,10 @@
 }
 
 .sidebar .nav-link.active {
-  color: #2470dc;
+  background-color: #2470dc;
+  color: #FFF;
+  border-right-width: 1;
+  border-right-color: #2470dc;
 }
 
 .sidebar-heading {

@@ -7,6 +7,7 @@ import { Card, Col, Row, Container } from "react-bootstrap";
 import { RenderBackButton } from "../FormData/FormDataHelper";
 
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import CrfLayout from "@/Layouts/CrfLayout";
 
 
 
@@ -18,7 +19,7 @@ export default function FileUpload() {
 
      return (
 
-          <Authenticated
+          <CrfLayout
                auth={auth}
                errors={errors}
                role={roles}
@@ -35,9 +36,7 @@ export default function FileUpload() {
                <Head title="Preoperative File Uploads" />
 
 
-               <Container>
-                    <PageTitle backUrl={route('crf.preoperative.show', { crf: crf, preoperative: preoperative })} pageTitle='Preoperative Echo File Uploads' role={roles} />
-
+               
                     <Card className="mb-3 shadow-sm rounded-5">
                          <Card.Body>
                               {!preoperative.is_submitted ? <>
@@ -133,8 +132,8 @@ export default function FileUpload() {
                               }
                          </Card.Body>
                     </Card>
-               </Container>
-          </Authenticated>
+            
+          </CrfLayout>
 
      )
 }

@@ -24,11 +24,11 @@ class ScheduledVisitSymptomController extends Controller
     public function create(CaseReportForm $crf, ScheduledVisit $scheduledvisit)
     {
         return Inertia::render('CaseReportForm/FormFields/Symptoms/Create', [
-            'postUrl' => 'crf.scheduledvisit.symptoms.store',
+           
             'crf' => $crf,
-            'mode' => 'scheduledvisit',
-            'scheduledvisit' => $scheduledvisit,
-            'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit]),
+            'entityType' => 'scheduledvisit',
+            'entity' => $scheduledvisit,
+            
             'title' => 'Post Operative'
         ]);
     }
@@ -46,12 +46,12 @@ class ScheduledVisitSymptomController extends Controller
     public function edit(CaseReportForm $crf, ScheduledVisit $scheduledvisit, OperativeSymptoms $symptom)
     {
         return Inertia::render('CaseReportForm/FormFields/Symptoms/Edit', [
-            'putUrl' => 'crf.scheduledvisit.symptoms.update',
-            'crf' => $crf,
-            'mode' => 'scheduledvisit',
-            'scheduledvisit' => $scheduledvisit,
+             'crf' => $crf,
+            'entityType' => 'scheduledvisit',
+            'entity' => $scheduledvisit,
+            'title' => 'Post Operative',
             'symptom' => $symptom,
-            'backUrl' => route('crf.scheduledvisit.show', [$crf, $scheduledvisit])
+             
         ]);
     }
 

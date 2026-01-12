@@ -75,7 +75,7 @@ export function RenderFieldEchoReviewDatas({ labelText, rvalue, units, normality
           <Row className='mb-3'>
                <Col md={4} className='text-secondary'>{labelText}</Col>
 
-               <Col md={2}>
+               <Col md={3} sm={6}>
                     {rvalue !== null ? <>{rvalue}
                          {units !== undefined &&
                               <RenderUnits units={units} />
@@ -83,10 +83,10 @@ export function RenderFieldEchoReviewDatas({ labelText, rvalue, units, normality
                </Col>
 
                
-               <Col md={2}>
+               <Col md={2} sm={4}>
                     {normality !== null ? <>{normality ? 'Normal' : 'Abnormal'}</> : <NotAvailable />}
                </Col>
-               <Col md={4}>
+               <Col md={4} sm={4}>
                     {abnormality !== null ? <>{abnormality}</> : <NotAvailable />}
                </Col>
 
@@ -104,7 +104,7 @@ export function RenderFieldEchoDatas({ labelText, value, rvalue, units, normalit
           <Row className='mb-3'>
                <Col md={4} className='text-secondary'>{labelText}</Col>
                {(role.investigator || role.coordinator || role.admin) &&
-                    <Col md={1}>
+                    <Col md={2} sm={6} lg={1}>
                          {value !== null ? <>{value}
                               {units !== undefined &&
                                    <RenderUnits units={units} />
