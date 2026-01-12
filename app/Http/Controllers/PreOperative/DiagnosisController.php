@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Preoperative;
+namespace App\Http\Controllers\PreOperative;
 
 use App\Http\Controllers\Controller;
 use App\Models\CaseReportForm;
@@ -11,11 +11,7 @@ use Inertia\Inertia;
 
 class DiagnosisController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         //
