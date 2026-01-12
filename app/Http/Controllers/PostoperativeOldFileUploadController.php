@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Response;
 
 use Inertia\Inertia;
 
-class PostoperativeFileUploadController extends Controller
+class PostoperativeOldFileUploadController extends Controller
 {
     public function index(CaseReportForm $crf, PostOperativeData $postoperative)
     {

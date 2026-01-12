@@ -13,7 +13,7 @@ use Illuminate\Http\File;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Response;
 
-class PreoperativeFileUploadController extends Controller
+class PreoperativeOldFileUploadController extends Controller
 {
     protected $crf;
     protected $chunkUploadPath;

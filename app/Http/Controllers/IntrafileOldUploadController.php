@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
-class IntrafileUploadController extends Controller
+class IntrafileOldUploadController extends Controller
 {
     /**
      * Display a listing of the resource.

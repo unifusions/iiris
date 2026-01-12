@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
-class ScheduledVisitFileUploadController extends Controller
+class ScheduledVisitOldFileUploadController extends Controller
 {
 
     public function index(CaseReportForm $crf, ScheduledVisit $scheduledvisit)
