@@ -36,4 +36,14 @@ window.axios.defaults.withCredentials = true;
 window.axios.defaults.withXSRFToken = true;
 
 
-  
+ window.axios.interceptors.request.use((config) => {
+    const token = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute('content');
+
+    if (token) {
+        config.headers['X-CSRF-TOKEN'] = token;
+    }
+
+    return config;
+});
