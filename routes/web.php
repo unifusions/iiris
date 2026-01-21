@@ -244,4 +244,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/underconstruction', function () {
         return 'Feature under developement';
     })->middleware(['auth'])->name('underconstruction');
+
+    Route::post('/test-csrf', function () {
+    return response()->with([
+        'token' => csrf_token(),
+        'session' => session()->all(),
+    ]);
+});
 });
