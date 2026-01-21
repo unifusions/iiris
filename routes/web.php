@@ -103,7 +103,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+
+Route::middleware('web')->group(function () {
+    require __DIR__.'/auth.php';
+});
+
+// require __DIR__.'/auth.php';
 
 
 Route::group(['middleware' => 'auth'], function () {
