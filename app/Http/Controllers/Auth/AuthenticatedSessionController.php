@@ -30,12 +30,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+     $request->authenticate();
 
-        $request->session()->regenerate();
-return redirect()->intended(route('dashboard'))->withHeaders([
-        'X-Inertia-Location' => route('dashboard'),
-    ]);
+    $request->session()->regenerate();
+
+    return redirect()->away(route('dashboard'));
         // return redirect()->intended(route('dashboard', absolute: false));
     }
 
@@ -50,9 +49,7 @@ return redirect()->intended(route('dashboard'))->withHeaders([
 
         $request->session()->regenerateToken();
 
-        // return redirect('/');
-            return redirect()->route('login')->withHeaders([
-        'X-Inertia-Location' => route('login'),
-    ]);
+           return redirect()->away(route('login'));
+
     }
 }
