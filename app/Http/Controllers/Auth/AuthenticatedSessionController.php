@@ -33,8 +33,9 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-    return Inertia::location(route('dashboard'));
-
+return redirect()->intended(route('dashboard'))->withHeaders([
+        'X-Inertia-Location' => route('dashboard'),
+    ]);
         // return redirect()->intended(route('dashboard', absolute: false));
     }
 
@@ -50,7 +51,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         // return redirect('/');
-            return Inertia::location(route('/'));
-
+            return redirect()->route('login')->withHeaders([
+        'X-Inertia-Location' => route('login'),
+    ]);
     }
 }
