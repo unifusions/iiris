@@ -1,0 +1,1 @@
+import{j as e,L as a}from"./app-CEVBwXvE.js";const o=({routeUrl:n,status:r,labelText:t})=>e.jsx(e.Fragment,{children:e.jsx(a,{href:n,className:"badge text-decoration-none rounded-pill fw-bold p-2 me-2 "+r,children:t})});export{o as default};
