@@ -82,7 +82,7 @@ export default function Login({ status, canResetPassword }) {
                     </Button>
                     <ValidationErrors errors={errors} />
                      
-<p class="mt-5 mb-3 text-body-secondary">© 2022–2025. DataInsight.</p>
+<p class="mt-5 mb-3 text-body-secondary">© 2022–2026. DataInsights.</p>
 
               
             </form>

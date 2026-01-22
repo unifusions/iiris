@@ -1,7 +1,7 @@
 import '../css/app.css';
 import './bootstrap';
 import 'filepond/dist/filepond.min.css';
-
+import 'react-calendar/dist/Calendar.css';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
