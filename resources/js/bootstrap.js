@@ -32,18 +32,31 @@ import axios from 'axios';
 
 window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.withCredentials = true;
+// window.axios.defaults.withCredentials = true;
 // window.axios.defaults.withXSRFToken = true;
+window.axios.defaults.xsrfCookieName = 'XSRF-TOKEN';
+window.axios.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
+window.axios.defaults.baseURL = window.location.origin;
+
+// fetch('/csrf-cookie', { credentials: 'include' });
 
 
- window.axios.interceptors.request.use((config) => {
-    const token = document
-        .querySelector('meta[name="csrf-token"]')
-        ?.getAttribute('content');
+console.log(window.axios.defaults.headers.common['X-CSRF-TOKEN']);
+// const token = document.head.querySelector('meta[name="csrf-token"]');
+// if (token) {
+//     axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+// } else {
+//     console.error('CSRF token not found in <meta>');
+// }
 
-    if (token) {
-        config.headers['X-CSRF-TOKEN'] = token;
-    }
+//  window.axios.interceptors.request.use((config) => {
+//     const token = document
+//         .querySelector('meta[name="csrf-token"]')
+//         ?.getAttribute('content');
 
-    return config;
-});
+//     if (token) {
+//         config.headers['X-CSRF-TOKEN'] = token;
+//     }
+
+//     return config;
+// });

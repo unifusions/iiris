@@ -17,6 +17,7 @@ export default function Login({ status, canResetPassword }) {
     });
 
     useEffect(() => {
+        
         return () => {
             reset('password');
         };
@@ -29,7 +30,10 @@ export default function Login({ status, canResetPassword }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('login'));
+        post(route('login',  {onSuccess: () => {
+            // This performs a "hard" refresh by moving the browser to the new URL
+            // window.location.href = '/dashboard';
+        }},));
     };
 
     return (

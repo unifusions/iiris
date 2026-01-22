@@ -250,10 +250,16 @@ Route::group(['middleware' => 'auth'], function () {
         return 'Feature under developement';
     })->middleware(['auth'])->name('underconstruction');
 
-    Route::post('/test-csrf', function () {
-    return response()->with([
-        'token' => csrf_token(),
-        'session' => session()->all(),
-    ]);
+   
 });
+
+Route::get('/session-id', function () {
+    return [
+        'id' => session()->getId(),
+        'token' => session()->token(),
+    ];
+});
+
+Route::get('/csrf-cookie', function () {
+    return response()->json(['csrf' => csrf_token()]);
 });
