@@ -47,7 +47,7 @@ export default function FileUpload() {
                                                        name="files"
                                                        labelIdle="Upload Files here"
                                                        allowMultiple
-                                                      
+                                                       credits={false}
                                                        maxParallelUploads={2}
                                                       
 
@@ -71,7 +71,8 @@ export default function FileUpload() {
                                                                       const params = {
                                                                            Bucket: bucket,
                                                                            Key: `uploads/${crf.subject_id}/scheduledvisits/visit_${scheduledvisit.visit_no}/` + file.name,
-                                                                           Body: file,
+                                                                          Body: file.file,
+ContentType: file.file.type,
                                                                       };
                                                                       const command = new PutObjectCommand(params);
                                                                       client.send(command).then(
