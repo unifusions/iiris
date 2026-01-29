@@ -72,7 +72,7 @@ export default function FileUpload() {
                                                                            Bucket: bucket,
                                                                            Key: `uploads/${crf.subject_id}/scheduledvisits/visit_${scheduledvisit.visit_no}/` + file.name,
                                                                           Body: file.file,
-ContentType: file.file.type,
+ 
                                                                       };
                                                                       const command = new PutObjectCommand(params);
                                                                       client.send(command).then(
