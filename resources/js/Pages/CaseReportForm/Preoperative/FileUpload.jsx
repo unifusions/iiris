@@ -20,6 +20,7 @@ export default function FileUpload() {
      return (
 
           <CrfLayout
+          backUrl={backUrl}
                auth={auth}
                errors={errors}
                role={roles}

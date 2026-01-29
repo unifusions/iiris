@@ -35,7 +35,7 @@ class ScheduledVisit extends Model
     }
 
     public function symptoms(){
-        return $this->hasOne(OperativeSymptoms::class);
+        return $this->hasOne(OperativeSymptoms::class,'scheduled_visit_id', 'id');
     }
     public function personalhistories()
     {

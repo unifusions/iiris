@@ -291,6 +291,7 @@ export default function Show() {
                                         createUrl={route('crf.scheduledvisit.physicalexamination.create', { crf: crf, scheduledvisit: scheduledvisit })}
                                         editUrl={physicalexamination !== null && route('crf.scheduledvisit.physicalexamination.edit', { crf: crf, scheduledvisit: scheduledvisit, physicalexamination: physicalexamination })}
                                    />
+                                 
                                    <SymptomsData
                                         symptoms={symptoms}
                                         enableActions={scheduledvisit.is_submitted}

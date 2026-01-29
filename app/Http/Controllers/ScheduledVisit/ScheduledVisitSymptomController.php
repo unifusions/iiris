@@ -23,6 +23,8 @@ class ScheduledVisitSymptomController extends Controller
 
     public function create(CaseReportForm $crf, ScheduledVisit $scheduledvisit)
     {
+
+   
         return Inertia::render('CaseReportForm/FormFields/Symptoms/Create', [
            
             'crf' => $crf,
@@ -34,7 +36,7 @@ class ScheduledVisitSymptomController extends Controller
     }
 
     public function store(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, ScheduledVisit $scheduledvisit, OperativeSymptomsService $operativeSymptomsService)
-    {   
+    {    
         // dd($request->input());
         if ($operativeSymptomsService->createScheduledVisitOperativeSymptoms($request))
             return redirect()->route('crf.scheduledvisit.show', [$crf, $scheduledvisit]);

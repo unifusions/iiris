@@ -18,6 +18,7 @@ export default function FileUpload() {
      return (
           <>
                <Authenticated
+               backUrl={backUrl}
                     auth={auth}
                     errors={errors}
                     role={roles}

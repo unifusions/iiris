@@ -57,7 +57,7 @@ export default function CreateMedications({ crf, preoperative, postoperative, sc
           <>
           
                <CrfLayout
-                    
+                    backUrl={backUrl}
                     breadcrumb={<>
                          <li className='breadcrumb-item'>
                               <Link href={route('crf.index')} className="breadcrumb-item">Case Report Form</Link>

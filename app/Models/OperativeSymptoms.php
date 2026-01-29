@@ -40,4 +40,8 @@ class OperativeSymptoms extends Model
     public function preoperatives(){
         return $this->belongsTo(PreOperativeData::class);
     }
+
+    public function scheduledvisit(){
+        return $this->belongsTo(ScheduledVisit::class);
+    }
 }

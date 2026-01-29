@@ -52,7 +52,7 @@ const Create = () => {
      return (
 
           <CrfLayout
-             
+             backUrl={backUrl}
                breadcrumb={<>
                     <li className='breadcrumb-item'>
                          <Link href={route('crf.index')} className="breadcrumb-item"> Case Report Form</Link>

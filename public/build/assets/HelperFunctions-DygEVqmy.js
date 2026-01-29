@@ -1,1 +1,0 @@
-import{j as n}from"./app-C1RNvoZ4.js";const s=({birthDate:e})=>{var t=new Date,a=new Date(e),r=t.getFullYear()-a.getFullYear(),o=t.getMonth()-a.getMonth();return(o<0||o===0&&t.getDate()<a.getDate())&&r--,n.jsx(n.Fragment,{children:r})},l=e=>e.charAt(0).toUpperCase()+e.slice(1);export{s as GetAge,l as toTitleCase};

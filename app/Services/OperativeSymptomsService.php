@@ -10,6 +10,7 @@ class OperativeSymptomsService
 {
      public function createOperativeSymptoms(StoreOperativeSymptomsRequest $request): OperativeSymptoms
      {
+         
 
           $preopsymptoms = OperativeSymptoms::Create([
                'case_report_form_id' => $request->case_report_form_id,
@@ -73,11 +74,11 @@ class OperativeSymptomsService
 
      public function createScheduledVisitOperativeSymptoms(StoreOperativeSymptomsRequest $request): OperativeSymptoms
      {
-
+ 
          
           $preopsymptoms = OperativeSymptoms::Create([
                'case_report_form_id' => $request->case_report_form_id,
-               'scheduled_visit_id' => $request->scheduled_visit_id,
+               'scheduled_visit_id' => $request->scheduled_visits_id,
                'symptoms' => $request->symptoms ? true : false,
                'angina' => $request->angina !== null ? $request->angina : null,
                'angina_class' => $request->angina_class,
