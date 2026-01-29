@@ -25,7 +25,9 @@ class ScheduledVisitFileUploadController extends Controller
                 'csrf_token' => csrf_token(),
                 'accessId' => env('AWS_ACCESS_KEY_ID'),
                 'accessKey' => env('AWS_SECRET_ACCESS_KEY'),
-                'bucket' => env('AWS_BUCKET')
+                'bucket' => env('AWS_BUCKET'),
+                'backUrl' => route('crf.scheduledvisit.show', ['crf' => $crf, 'scheduledvisit' => $scheduledvisit])
+                
             ]
 
         );

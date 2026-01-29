@@ -12,7 +12,7 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 export default function FileUpload() {
 
      
-     const { auth, roles, errors, crf, scheduledvisit, csrf_token, accessKey, accessId, bucket } = usePage().props;
+     const { auth, roles, errors, crf, scheduledvisit, csrf_token, accessKey, accessId, bucket, backUrl } = usePage().props;
      const { post } = useForm();
 
      return (

@@ -11,7 +11,7 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 export default function FileUpload() {
 
      const { auth, roles, errors, crf, postoperative, csrf_token,
-
+backUrl,
           accessKey, accessId, bucket
      } = usePage().props;
 

@@ -13,7 +13,7 @@ import CrfLayout from "@/Layouts/CrfLayout";
 
 
 export default function FileUpload() {
-     const { auth, roles, errors, crf, preoperative, csrf_token, accessKey, accessId, bucket } = usePage().props;
+     const { auth, roles, errors, crf, preoperative, csrf_token, accessKey, accessId, bucket, backUrl } = usePage().props;
 
      const { post } = useForm();
 

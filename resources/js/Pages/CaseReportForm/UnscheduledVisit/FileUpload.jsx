@@ -14,7 +14,7 @@ export default function FileUpload() {
 
 
 
-     const { auth, roles, errors, crf, unscheduledvisit, csrf_token, accessKey, accessId, bucket } = usePage().props;
+     const { auth, roles, errors, crf, unscheduledvisit, csrf_token, accessKey, accessId, bucket, backUrl } = usePage().props;
      const { post } = useForm();
 
 
