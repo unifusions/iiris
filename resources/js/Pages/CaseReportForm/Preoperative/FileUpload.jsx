@@ -49,6 +49,7 @@ export default function FileUpload() {
                                                   name="files"
                                                   labelIdle="Upload Files here"
                                                   allowMultiple
+                                                 
                                                   // chunkUploads
                                                   maxParallelUploads={2}
                                                   credits={false}
@@ -70,7 +71,7 @@ export default function FileUpload() {
                                                                  const params = {
                                                                       Bucket: bucket,
                                                                       Key: `uploads/${crf.subject_id}/preoperative/` + file.name,
-                                                                      Body: file,
+                                                                      Body: file.file,
                                                                  };
                                                                  const command = new PutObjectCommand(params);
                                                                  client.send(command).then(

@@ -45,6 +45,7 @@ export default function FileUpload() {
                                              <Col lg={12}>
                                                   <FilePond
                                                        allowRevert={false}
+                                                        credits={false}
                                                        name="files"
                                                        labelIdle="Upload Files here"
                                                        allowMultiple
@@ -67,7 +68,7 @@ export default function FileUpload() {
                                                                  const params = {
                                                                       Bucket: bucket,
                                                                       Key: `uploads/${crf.subject_id}/intraoperative/` + file.name,
-                                                                      Body: file,
+                                                                      Body: file.file,
                                                                  };
                                                                  const command = new PutObjectCommand(params);
                                                                  client.send(command).then(

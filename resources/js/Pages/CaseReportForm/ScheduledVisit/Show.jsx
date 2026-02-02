@@ -211,14 +211,16 @@ export default function Show() {
      return (
 
           <CrfLayout 
+          backUrl={backUrl}
                                              crf={crf}
-                                             pageTitle    ={`Scheduled Visit # ${scheduledvisit.visit_no} | ${crf.subject_id}`} >
+                                             pageTitle    ={`Scheduled Visit # ${scheduledvisit.visit_no} | ${crf.subject_id}`}  
+                                             screenTitle    ={`Scheduled Visit # ${scheduledvisit.visit_no}`} >
           <Operative  activities={approvalremarks}>
 
 
                {scheduledvisit.pod === null ? <>
 
-
+{/* 
                     <div className='d-flex justify-content-between align-items-center mb-3'>
 
                          <h2 className="font-semibold text-xl text-gray-800 leading-tight">Scheduled Visit No: {scheduledvisit.visit_no}</h2>
@@ -228,12 +230,12 @@ export default function Show() {
 
                          </div>
 
-                    </div>
+                    </div> */}
                     <RenderFormStatus
                          isSubmitted={scheduledvisit.is_submitted}
                          visitStatus={scheduledvisit.visit_status}
                          visitNo={scheduledvisit.visit_no}
-                         formTitle="Scheduled Visit" />
+                         formTitle="Scheduled Visit" />  
                     <CaseReportFormData crf={crf} />
                     <DateofInvestigation crf={crf} scheduledvisit={scheduledvisit} isCordinator={roles.coordinator} />
                </> : <>
@@ -241,23 +243,11 @@ export default function Show() {
 
                               <div className='d-flex justify-content-between align-items-center mb-3'>
 
-                                   <h2 className="font-semibold text-xl text-gray-800 leading-tight">Scheduled Visit No: {scheduledvisit.visit_no}</h2>
+                                
                                    <div className='d-flex'>
-                                        <Link
-                                             href={backUrl} className="btn btn-secondary me-2" method="get" type="button" as="button">Back</Link>
+                                      
 
-                                        <ApprovalSubmit role={roles} crf={crf} scheduledvisit={scheduledvisit} />
-
-
-
-
-                                        {scheduledvisit.is_submitted ? <>
-                                             <ApprovalActionsDisapprove role={roles} crf={crf} scheduledvisit={scheduledvisit} />
-                                             <ApprovalActionsApprove role={roles} crf={crf} scheduledvisit={scheduledvisit} />
-                                        </> : ''
-                                        }
-
-                                        <ApprovalActionEditable role={roles} crf={crf} scheduledvisit={scheduledvisit} />
+                                     
 
 
                                    </div>
@@ -270,16 +260,42 @@ export default function Show() {
                                    formTitle="Scheduled Visit" />
                               <CaseReportFormData crf={crf} />
 
-                              <Card className="mb-3 shadow-sm rounded-5">
+                              <Card className="mb-3 shadow-sm  ">
                                    <Card.Body>
-                                        Date of Visit :
+
+                                        <div className="flex items-center w-full justify-between">
+
+                                             <div>
+ Date of Visit :
                                         {/* {scheduledvisit.pod} */}
 
                                         {new Date(scheduledvisit.pod).toLocaleDateString('en-IN',
                                              { day: '2-digit', month: '2-digit', year: 'numeric', }
                                         )}
+ 
+                                             </div>
 
+                                                 <ApprovalSubmit role={roles} crf={crf} scheduledvisit={scheduledvisit} />
+                                       
+                                        {scheduledvisit.is_submitted ? <>
+                                             <ApprovalActionsDisapprove role={roles} crf={crf} scheduledvisit={scheduledvisit} />
+                                             <ApprovalActionsApprove role={roles} crf={crf} scheduledvisit={scheduledvisit} />
+                                        </> : ''
+                                        }
+
+                                        <ApprovalActionEditable role={roles} crf={crf} scheduledvisit={scheduledvisit} />
+                                       
+                                        </div>
+                                       
+
+
+
+
+
+                                        
                                    </Card.Body>
+
+                                  
                               </Card>
 
                               {!roles.reviewer ? <>

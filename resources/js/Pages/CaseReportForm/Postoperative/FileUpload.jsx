@@ -50,7 +50,7 @@ backUrl,
                                                   allowMultiple
                                                   maxParallelUploads={2}
                                                   chunkUploads
-
+ credits={false}
                                                   server={{
                                                        // process: { url: route('crf.postoperative.fileupload.store', { crf: crf, postoperative: postoperative }) },
                                                        // headers: { 'X-CSRF-Token': csrf_token },
@@ -70,7 +70,7 @@ backUrl,
                                                        const params = {
                                                             Bucket: bucket,
                                                             Key: `uploads/${crf.subject_id}/postoperative/` + file.name,
-                                                            Body: file,
+                                                            Body: file.file,
                                                        };
                                                        const command = new PutObjectCommand(params);
                                                        client.send(command).then(

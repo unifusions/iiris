@@ -4,10 +4,12 @@ import {
 
     ArrowRightStartOnRectangleIcon
 } from '@heroicons/react/24/outline';
+import HeaderDropdown from "@/Components/HeaderDropdown";
 
 export default function NavBarTop( ) {
 
     const {auth, roles} = usePage().props;
+    const {user} = auth;
     return (
         <header>
 
@@ -17,21 +19,8 @@ export default function NavBarTop( ) {
                     <BrandLogo />
                 </Link>
 
-              
-                <ul className="navbar-nav px-3 ">
-                   
-              
-                    <li className="nav-item text-nowrap">
-
-                        <Link href={route('logout')} className='nav-link d-flex align-items-center' method="post" as="button" type="submit">
-
-                            <ArrowRightStartOnRectangleIcon height={20} className="me-1" /> Sign Out
-                        </Link>
-
-
-
-                    </li>
-                </ul>
+<HeaderDropdown />
+               
             </nav>
         </header>
     )
