@@ -50,6 +50,7 @@ class PostOperativeController extends Controller
             ]),
             'approvalremarks' => $postoperative->approvalremarks,
             'medications' => $postoperative->medications,
+            'backUrl' => route('crf.show', [$crf]),
             'echodicomfiles' => $postoperative->echocardiographies ?
                 EchoDicomFile::where('echocardiography_id', $postoperative->echocardiographies->id)->get()->map(fn ($file) => [
                     'id' => $file->id,

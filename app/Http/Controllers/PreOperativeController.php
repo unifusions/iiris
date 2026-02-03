@@ -88,6 +88,7 @@ class PreOperativeController extends Controller
 
                 'extension' =>  pathinfo(storage_path('app/public/' . $file->file_path), PATHINFO_EXTENSION)
             ]),
+            'backUrl' => route('crf.show', [$crf]),
             'approvalremarks' => $preoperative->approvalremarks,
             'echodicomfiles' => $preoperative->echocardiographies ?
                 EchoDicomFile::where('echocardiography_id', $preoperative->echocardiographies->id)->get()->map(fn ($file) => [

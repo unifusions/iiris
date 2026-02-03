@@ -48,6 +48,7 @@ class IntraOperativeController extends Controller
                     'download_url' => storage_path('app/public/' . $file->file_path)
                 ]) : null,
             'updateUrl' => route('crf.intraoperative.update', ['crf' => $crf, 'intraoperative' => $intraoperative]),
+           'backUrl' => route('crf.show', [$crf])
         ]);
 
         // return view('casereportforms.IntraOperativeData.index', compact('crf', 'intraoperative'));

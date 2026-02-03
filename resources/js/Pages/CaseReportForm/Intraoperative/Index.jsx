@@ -145,11 +145,12 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
 export default function Index() {
 
      const { roles, crf, intraoperative, intradicomfiles, updateUrl,
-          approvalremarks, intraopfileswext
+          approvalremarks, intraopfileswext, backUrl
      } = usePage().props;
      return (
 
            <CrfLayout 
+           backUrl={backUrl}
                     crf={crf}
                     pageTitle    ={`Intraoperative | ${crf.subject_id}`}
                     screenTitle={`Case Report Forms \\ ${crf.subject_id} \\ Intraoperative`}
