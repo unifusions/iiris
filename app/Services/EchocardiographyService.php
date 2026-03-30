@@ -118,7 +118,7 @@ class EchocardiographyService
      public function updatePreoperativeEchocardiography(Request $request, Echocardiography $echocardiography): Echocardiography
      {
 
-          $echocardiography->echodate= $request->echodate;
+          $echocardiography->echodate = Carbon::parse($request->echodate);
           $echocardiography->peak_velocity= $request->peak_velocity;
           $echocardiography->velocity_time_integral= $request->velocity_time_integral;
           $echocardiography->peak_gradient= $request->peak_gradient;
