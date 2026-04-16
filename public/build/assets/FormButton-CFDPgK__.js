@@ -1,1 +1,0 @@
-import{j as t}from"./app-CN-ZOFNG.js";const a=({processing:s,labelText:n,mode:r})=>t.jsxs("button",{disabled:s,className:"btn btn-"+r,type:"submit",children:[s&&t.jsx("span",{className:"spinner-border spinner-border-sm"}),!s&&t.jsx("span",{children:n})]});export{a as default};

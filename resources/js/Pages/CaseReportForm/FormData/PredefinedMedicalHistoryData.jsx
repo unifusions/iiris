@@ -1,7 +1,7 @@
-import { Card, Col, Row } from "react-bootstrap";
+import { Card  } from "react-bootstrap";
 import { RenderCreateButton, RenderEditButton } from "./FormDataHelper";
 
-import { NotAvailable, PREDEFINED_MEDICAL_HISTORY_FIELDS, RenderBoolYesNo } from "../FormFields/Helper";
+ import DisplayFieldData from "../FormFields/MedicalHistory/DisplayFieldData";
 
 export default function PredefinedMedicalHistoryData(
     {id,  medicalhistory, role, enableActions, hasMedHis, createUrl, editUrl }
@@ -33,45 +33,10 @@ export default function PredefinedMedicalHistoryData(
                 {medicalhistory !== null ? <>
                     {/* {medicalhistory.hasMedHis ?  */}
 
-                    <>
-                        {
-                            PREDEFINED_MEDICAL_HISTORY_FIELDS.map((field) =>
-                                <>
-                                    <Row className='mb-3'>
-                                        <Col md={4} className='text-secondary'>
-                                            {field.labelText}
-                                        </Col>
-                                        <Col md={8}>
-                                            <Row>
-                                                <Col md={4}>
-                                                    <RenderBoolYesNo boolValue={medicalhistory[field.fieldName]} />
-
-                                                </Col>
-
-                                                <Col md={4}>
-
-                                                    {medicalhistory[field.fieldName] ?
-
-                                                        <>Duration : {medicalhistory[`${field.fieldName}_duration`] !== null ? medicalhistory[`${field.fieldName}_duration`] : <NotAvailable />}</> : '-'}
-
-                                                </Col>
-                                                <Col md={4}>
-                                                    {medicalhistory[field.fieldName] ? <> On Treatment : <RenderBoolYesNo boolValue={medicalhistory[`${field.fieldName}_treatment`]} /></> : '-'}
-
-
-                                                </Col>
-                                            </Row>
-
-                                        </Col>
-                                    </Row>
-
-
-                                </>
-                            )
-
-
-                        }
-                    </>
+                   
+                    <DisplayFieldData medicalhistory={medicalhistory} />
+                        
+                  
 
                     {/*  : 'No medical history found'
 

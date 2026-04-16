@@ -63,7 +63,7 @@ export default function EditMedicalHistory({ crf, preoperative, medicalhistory }
 
                 <form onSubmit={handlesubmit}>
                     <Modal.Body>
-
+ 
                         {PREDEFINED_MEDICAL_HISTORY_FIELDS.map((field, i) => <>
 
                             <MedicalHistoryField
@@ -79,8 +79,8 @@ export default function EditMedicalHistory({ crf, preoperative, medicalhistory }
                                 treatment={data[field.fieldName + '_treatment']}
                                 handleTreatementChange={e => setData(`${field.fieldName}_treatment`, e.target.value)}
                                 errorTreatment={errors[`${field.fieldName}_treatment`]}
-                                othersValue={data[`${field.fieldName}_value`]}
-                                handleOthersValue={e => setData(`${field.fieldName}_value`, e.target.value)}
+                                othersValue={data[`${field.fieldName}_specify`]}
+                                handleOthersValue={e => setData(`${field.fieldName}_specify`, e.target.value)}
                             /></>
                         )}
 
