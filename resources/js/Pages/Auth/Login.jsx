@@ -6,7 +6,7 @@ import Input from '@/Components/Input';
 import Label from '@/Components/Label';
 import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Card } from 'react-bootstrap';
+ 
 import BrandLogo from '@/Layouts/BrandLogo';
 import { EyeIcon } from '@heroicons/react/24/outline';
 
@@ -45,7 +45,7 @@ export default function Login({ status, canResetPassword }) {
     return (
         <Guest>
             <Head title="Log in" />
-
+<Card></Card>
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
 
