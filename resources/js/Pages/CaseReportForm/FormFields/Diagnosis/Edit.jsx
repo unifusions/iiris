@@ -1,18 +1,18 @@
 
 import React, { useEffect, useState } from "react";
-import { Container, Card, Row, Col } from "react-bootstrap";
+ 
 
 import { Head, Link, usePage, useForm, } from "@inertiajs/react";
-import FormInput from "@/Pages/Shared/FormInput";
-import FormInputWithLabel from "@/Pages/Shared/FormInputWithLabel";
-import FormInputDuration from "@/Pages/Shared/FormInputDuration";
+ 
 
-import FormButton from "@/Pages/Shared/FormButton";
-import Authenticated from '@/Layouts/Authenticated';
+ 
 import FormRadio from "@/Pages/Shared/FormRadio";
-import PageTitle from "@/Pages/Shared/PageTitle";
+ 
 import { DIAGNOSIS_OPTIONS } from "./HelperOptions";
 import CrfLayout from "@/Layouts/CrfLayout";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/Components/ui/card";
+import { Button } from "@/Components/ui/button";
+import { Save } from "lucide-react";
 
 
 const Edit = () => {
@@ -49,37 +49,45 @@ const Edit = () => {
 
  
                   
-
-                    <Card className='card shadow-sm '>
-                         <Card.Body>
-                              <form onSubmit={handlesubmit}
-                              // className={hasErrors && 'was-validated'}
-                              >
-
-
-
-                                   <FormRadio
-                                        labelText='Diagnosis'
-
-                                        options={DIAGNOSIS_OPTIONS}
-                                        name="diagnosis"
-                                        handleChange={e => setData('diagnosis', e.target.value)}
-                                        selectedValue={data.diagnosis !== null && data.diagnosis}
-                                        error={errors.diagnosis}
-                                        className={`${errors.diagnosis ? 'is-invalid' : ''}`}
-                                   />
+ <Card  >
+                    <form onSubmit={handlesubmit}
+                    // className={hasErrors && 'was-validated'}
+                    >
+                         <CardHeader className="border-b border-gray-200">
+                              <CardTitle >
+                                   <div className="flex items-center justify-between">
+                                        <div className='fs-6 font-bold'>
+                                             Diagnosis
+                                        </div>
+                                   </div>
+                              </CardTitle>
+                         </CardHeader>
+                         <CardContent>
 
 
 
+                              <FormRadio
+                                   labelText='Diagnosis'
+                                   options={DIAGNOSIS_OPTIONS}
+                                   name="diagnosis"
+                                   handleChange={e => setData('diagnosis', e.target.value)}
+                                   selectedValue={data.diagnosis !== null && data.diagnosis}
+                                   error={errors.diagnosis}
+                                   className={`${errors.diagnosis ? 'is-invalid' : ''}`}
+                              />
 
-                                   <hr />
 
 
-                                   <FormButton processing={processing} labelText='Save' type="submit" mode="primary" />
 
-                              </form>
-                         </Card.Body>
-                    </Card>
+                         </CardContent>
+
+                         <CardFooter className="border-t border-gray-200">
+                              <Button processing={processing} labelText='Save' type="submit" mode="primary" > <Save /> Save </Button>
+                         </CardFooter>
+                    </form>
+               </Card>
+
+                 
                 
           </CrfLayout>
      )

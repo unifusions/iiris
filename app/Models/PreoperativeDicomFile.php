@@ -14,4 +14,8 @@ class PreoperativeDicomFile extends Model
         'file_name',
         'file_path',
     ];
+
+    protected $casts = [
+        "created_at" => 'datetime:d/m/Y',
+    ];
 }

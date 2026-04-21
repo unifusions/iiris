@@ -1,51 +1,60 @@
-import { Col, Row } from "react-bootstrap";
-import { PREDEFINED_MEDICAL_HISTORY_FIELDS, RenderBoolYesNo } from "../Helper";
+
+import { Badge } from "@/Components/ui/badge";
+import { NotAvailable, PREDEFINED_MEDICAL_HISTORY_FIELDS, RenderBoolYesNo } from "../Helper";
 
 export default function DisplayFieldData({ medicalhistory }) {
 
     return (
         <>
             {
-                PREDEFINED_MEDICAL_HISTORY_FIELDS.map((field) =>
-                    <>
-                        <Row className='mb-3'>
-                            <Col md={4} className='text-secondary'>
-                                {field.labelText}
-                            </Col>
-                            <Col md={8}>
-                                <Row>
-                                    <Col md={4}>
+                PREDEFINED_MEDICAL_HISTORY_FIELDS.map((field) => {
+                    const treatment = medicalhistory[`${field.fieldName}_treatment`];
 
-                                        <div className="flex items-center gap-2">
+                    return (
+                        <>
+                            <div className='grid grid-cols-5'>
+                                <div className='text-foreground/70 col-span-2'>
+                                    {field.labelText}
+                                </div>
+                                <div className="col-span-3">
+                                    <div className="grid grid-cols-2  ">
+                                        <div >
 
-                                            {field.fieldName === 'others' ? medicalhistory[field.fieldName] ? <span className="fst-italic">{medicalhistory[`${field.fieldName}_specify`]}</span> : null
-                                                : <RenderBoolYesNo boolValue={medicalhistory[field.fieldName]} />
-                                            }
+                                            <div className="flex items-center gap-2">
+
+                                                {field.fieldName === 'others' && medicalhistory[field.fieldName] === 1   ? <> 
+                                                <span className="font-bold">Yes</span>     
+                                                <span className="italics">{medicalhistory[`${field.fieldName}_specify`]}</span> 
+                                                </> 
+                                                    : <RenderBoolYesNo boolValue={medicalhistory[field.fieldName]} />
+                                                }
+ 
+                                                {medicalhistory[field.fieldName] === 1 && treatment != null && (
+                                                    <Badge variant={treatment === 1 ? "success" : "destructive"}>
+                                                        {treatment === 1 ? "On Treatment" : "Not on Treatment"}
+                                                    </Badge>
+                                                )}
+                                            </div>
+
+
                                         </div>
 
+                                        <div  >
 
-                                    </Col>
+                                            {medicalhistory[`${field.fieldName}_duration`] &&
 
-                                    <Col md={4}>
+                                                <>Duration : {medicalhistory[`${field.fieldName}_duration`] !== null ? medicalhistory[`${field.fieldName}_duration`] : <NotAvailable />}</>}
 
-                                        {medicalhistory[field.fieldName] ?
+                                        </div>
 
-                                            <>Duration : {medicalhistory[`${field.fieldName}_duration`] !== null ? medicalhistory[`${field.fieldName}_duration`] : <NotAvailable />}</> : '-'}
+                                    </div>
 
-                                    </Col>
-                                    <Col md={4}>
-
-                                        {medicalhistory[field.fieldName] ? <> On Treatment : <RenderBoolYesNo boolValue={medicalhistory[`${field.fieldName}_treatment`]} /></> : '-'}
-
-
-                                    </Col>
-                                </Row>
-
-                            </Col>
-                        </Row>
+                                </div>
+                            </div>
 
 
-                    </>
+                        </>)
+                }
                 )
 
 

@@ -15,7 +15,7 @@ import LabInvestigationData from "../FormData/LabInvestigationData";
 import MedicationsData from "../FormData/MedicationsData";
 import PersonalHistoryData from "../FormData/PersonalHistoryData";
 import PhysicalActivityData from "../FormData/PhysicalActivityData";
-import PhysicalExaminationData from "../FormData/PhysicalExaminationData";
+import PhysicalExaminationData from "../physical-examination/PhysicalExaminationData";
 import SafetyParameterData from "../FormData/SafetyParameterData";
 import SymptomsData from "../FormData/SymptomsData";
 import ApprovalActionEditable from "./ApprovalActionsEditable";
@@ -35,7 +35,7 @@ function DateofInvestigation({ crf, scheduledvisit, isCordinator }) {
      }
      return (
           <>
-               <Card className='card shadow-sm rounded-5'>
+               <Card >
                     <Card.Body>
                          {isCordinator ? <>   <form onSubmit={handlesubmit} >
                               <FormCalendar
@@ -220,17 +220,7 @@ export default function Show() {
 
                {scheduledvisit.pod === null ? <>
 
-{/* 
-                    <div className='d-flex justify-content-between align-items-center mb-3'>
-
-                         <h2 className="font-semibold text-xl text-gray-800 leading-tight">Scheduled Visit No: {scheduledvisit.visit_no}</h2>
-                         <div className='d-flex'>
-                              <Link
-                                   href={backUrl} className="btn btn-secondary" method="get" type="button" as="button">Back</Link>
-
-                         </div>
-
-                    </div> */}
+ 
                     <RenderFormStatus
                          isSubmitted={scheduledvisit.is_submitted}
                          visitStatus={scheduledvisit.visit_status}
@@ -241,18 +231,7 @@ export default function Show() {
                </> : <>
                   
 
-                              <div className='d-flex justify-content-between align-items-center mb-3'>
-
-                                
-                                   <div className='d-flex'>
-                                      
-
-                                     
-
-
-                                   </div>
-
-                              </div>
+                           
                               <RenderFormStatus
                                    isSubmitted={scheduledvisit.is_submitted}
                                    visitStatus={scheduledvisit.visit_status}

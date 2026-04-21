@@ -4,7 +4,10 @@ import Authenticated from "@/Layouts/Authenticated";
 import { Head, Link, router, usePage } from "@inertiajs/react";
 import React, { forwardRef, useEffect, useState } from "react";
 import { Card, Dropdown, Form, Table } from "react-bootstrap";
-import TablePagination from "../Shared/TablePagination";
+ 
+import { LinkButton } from "@/Components/ui-ext/LinkButton";
+import { PlusCircle } from "lucide-react";
+import { TablePagination } from "@/Components/ui-ext/table-pagination";
 
 export default function Index() {
 
@@ -97,12 +100,11 @@ export default function Index() {
 
      return (
           <Authenticated
-               auth={auth}
-               errors={errors}
+               
                header={
                     <div className='d-flex justify-content-between align-items-center mb-3'>
                          <h2 className="font-semibold text-xl text-gray-800 leading-tight">Queries</h2>
-                         <Link href={route('tickets.create')} className="btn btn-primary" method="get" type="button" as="button" >Create</Link>
+                         <Link  className="btn btn-primary" method="get" type="button" as="button" >Create</Link>
 
                     </div>
 
@@ -110,9 +112,20 @@ export default function Index() {
                role={roles}
           >
 
-               <Head title="Queries" />
-               <Card className="mt-3 shadow-sm ">
-                    <Card.Body>
+           
+               <div className=' flex justify-between items-center mb-3'>
+                    <div className='w-1/2'>
+                         <h1 className="text-xl font-bold">Queries</h1>
+
+                    </div>
+
+
+
+                    <LinkButton href={route('tickets.create')}> <PlusCircle /> Add Query</LinkButton>
+
+               </div>
+             
+             {JSON.stringify(tickets, null, 3)}
                          <Table hover responsive size="sm">
                               <thead>
                                    <tr>
@@ -165,10 +178,8 @@ export default function Index() {
                               </tbody>
                          </Table>
                          <hr />
-                         <TablePagination links={links} />
-                    </Card.Body>
-               </Card>
-
+                         <TablePagination links={links} from={tickets.from} total={tickets.total}/>
+                    
           </Authenticated>
      )
 }

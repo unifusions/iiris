@@ -1,4 +1,4 @@
-
+// DELETE THIS FILE
 import React, { useEffect, useState } from "react";
 import {  Card, Row, Col } from "react-bootstrap";
 
@@ -100,17 +100,6 @@ const Edit = () => {
 
                                    />
 
-                                   <FormInputWithLabel
-                                        labelText='White  Blood Cell (RBC)'
-                                        type='number'
-                                        name='wbc'
-                                        value={data.wbc}
-                                        error={errors.wbc}
-                                        units='cells/cu.mm'
-                                        handleChange={e => setData('wbc', e.target.value.toString().slice(0, 8).split(".").map((el, i) => i ? el.split("").slice(0, 2).join("") : el).join("."))}
-                                        step='0.01'
-
-                                   />
 
                                    <FormInputWithLabel
                                         labelText='Hemoglobin'

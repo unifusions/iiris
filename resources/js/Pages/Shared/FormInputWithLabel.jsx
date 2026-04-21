@@ -1,45 +1,42 @@
 import React, { useEffect, useRef } from "react";
-import { Row, Col } from "react-bootstrap";
 
-const FormInputWithLabel = ({ type = 'text', name,  
-onBlur, min, max,step, value, units, className, autoComplete, required, isFocused, handleChange, labelText, error, disabled,
-remarks }) => {
+import { Field, FieldLabel } from "@/components/ui/field"
+import {
+     InputGroup,
+     InputGroupAddon,
+     InputGroupInput,
+     InputGroupText,
+} from "@/components/ui/input-group"
+const FormInputWithLabel = ({ units, labelText, layout,
+     remarks, ...props }) => {
 
-     const input = useRef();
-     useEffect(() => { if (isFocused) { input.current.focus(); } }, []);
 
+     const isRow = layout === "row";
      return (
-          <Row className="mb-3">
-               <Col md={3}><span className="text-secondary">{labelText}</span></Col>
-               <Col md={6} >
-                    <div className="input-group has-validation">
-                         <input
-                              type={type}
-                              name={name}
-                              value={value}
-                              className={`form-control with-units ` + className}
-                              ref={input}
-                              autoComplete={autoComplete}
-                              required={required}
-                              onChange={(e) => handleChange(e)}
-                              disabled = {disabled}
-                              onBlur = {onBlur}
-                              min = {min}
-                              max = {max}
-                              step = {step}
-                              
-                         />
-                                <span className="input-group-text input-units text-secondary" dangerouslySetInnerHTML={{ __html: units }}></span>
+          <>
 
-                         {error && <div className="invalid-feedback">
-                              {error}
-                         </div>}
+               <Field className={isRow ? "grid grid-cols-3 items-center gap-4" : "flex flex-col gap-2"}>
+                    <FieldLabel htmlFor="input-group-url">{labelText}</FieldLabel>
+                    <div className={isRow ? "col-span-2 max-w-64" : ""}>
+                         <InputGroup>
+                              <InputGroupInput  {...props} />
+
+
+
+                              {/* <InputGroupAddon>
+          <InputGroupText>https://</InputGroupText>
+        </InputGroupAddon> */}
+                              <InputGroupAddon align="inline-end">
+                                   {units && <span className="text-foreground/50 font-light">{units}</span>}
+                              </InputGroupAddon>
+                         </InputGroup>
                     </div>
-               </Col>
-               <Col md={3} className='fw-normal text-secondary fst-italic'>
-                    {remarks && remarks}
-               </Col>
-          </Row>
+               </Field>
+
+
+               
+          </>
+
 
      );
 }

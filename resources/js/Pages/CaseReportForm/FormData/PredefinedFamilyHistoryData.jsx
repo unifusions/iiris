@@ -1,8 +1,13 @@
+//TBD
+// 
 import React from "react";
-import { Card, Col, Row } from "react-bootstrap";
+ 
 import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton, RenderUpdateButton } from "./FormDataHelper";
 import { FAMILY_HISTORY_FIELDS } from "../FormFields/Helper";
-
+import { CirclePlus, Dna, Group, Pencil, Users } from "lucide-react";
+import SectionTitle from "@/Components/ui-ext/SectionTitle";
+import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
+import { LinkButton } from "@/Components/ui-ext/LinkButton";
 
 
 export default function PredefinedFamilyHistoryData({id, isFamHis, predefinedfamilyhistory, role, linkUrl, enableActions }) {
@@ -10,24 +15,27 @@ export default function PredefinedFamilyHistoryData({id, isFamHis, predefinedfam
 
         <Card id={id} className="mb-3 shadow-sm scroll-section">
 
+                <CardHeader className="border-b border-gray-200">
 
-            <Card.Body>
-                <div className='d-flex justify-content-between align-items-center'>
-                    <div className='fs-6 fw-bold'>
-                        Family History
-                    </div>
+             
+        <CardTitle>
+        <div className="flex items-center justify-between">
+            <div className='flex items-center gap-2 font-bold'>
+                <Dna className="h-5 w-5 text-primary/70" />       {SECTION_TITLE}
+            </div>
 
+           
                     {!enableActions &&
                         <>
                             {role.coordinator &&
                                 <>
                                     {isFamHis === null ?
-                                        <div> <span className="text-secondary small">Family History status is null. Update with Yes/No</span>
-                                            <RenderUpdateButton updateUrl={linkUrl} className='btn-sm ms-3' />
+                                        <div>  
+                                            <LinkButton href={linkUrl}   > <CirclePlus />Add {SECTION_TITLE} </LinkButton>
                                         </div> : <>
                                             {isFamHis ?
-                                                <RenderCreateButton createUrl={linkUrl} className='btn-sm' /> :
-                                                <RenderEditButton editUrl={linkUrl} className='btn-sm' />}
+                                                <LinkButton href={linkUrl}   > <CirclePlus />Add {SECTION_TITLE} </LinkButton>:
+                                                <LinkButton href={linkUrl} variant="secondary" ><Pencil /> Edit {SECTION_TITLE}</LinkButton>}
                                         </>
                                     }
 
@@ -36,39 +44,52 @@ export default function PredefinedFamilyHistoryData({id, isFamHis, predefinedfam
                         </>
                     }
 
-
-                </div>
-                <hr />
-                {isFamHis === null ? <span className="fw-normal text-secondary fst-italic">Family History Data has not been updated. Go ahead and update one.</span> : <>
+        </div></CardTitle>
+          </CardHeader>
+                
+                <CardContent>
+  {isFamHis === null ? <SectionNoData title={SECTION_TITLE} /> : <>
                     {isFamHis ? <>
 
 
                         {predefinedfamilyhistory !== null ?
 
-                            <>
-                                <Row className="fw-bold mb-2">
-                                    <Col>Diagnosis</Col>
-                                    <Col>History</Col>
-                                    <Col>Relation</Col>
-                                </Row>
+                           <Table className="w-full text-sm">
+                                        <TableHeader >
+                                             <TableRow className="border-gray-200 bg-muted">
+ 
+                                             <TableCell>Diagnosis</TableCell>
+                                             <TableCell>History</TableCell>
+                                             <TableCell>Relation</TableCell>
+                                             
+                                             </TableRow>
+                                           
+                                        </TableHeader>
+                                     <TableBody>
 
                                 {FAMILY_HISTORY_FIELDS.map((field, index) =>
-                                    <Row className="mb-2" key={index}>
-                                        <Col>{field.labelText} </Col>
-                                        <Col>{predefinedfamilyhistory[field.fieldName] === 1 ? 'Yes' : 'No'}</Col>
-                                        <Col> {predefinedfamilyhistory[field.fieldName + '_relation'].map((relation) => <>{relation}, </>)}</Col>
+                                    <TableRow className="mb-2" key={index}>
+                                        <TableCell>{field.labelText} </TableCell>
+                                        <TableCell>{predefinedfamilyhistory[field.fieldName] === 1 ? 'Yes' : 'No'}</TableCell>
+                                        <TableCell> {predefinedfamilyhistory[field.fieldName + '_relation'].map((relation) => <>{relation}, </>)}</TableCell>
 
-                                    </Row>)
-                                }</>
+                                    </TableRow>)
+                                }
+                                </TableBody>
+                                </Table>
 
                             : 'Family history has to be recorded yet!'}
 
-                    </> : 'No previous family history recorded'}
+                    </> :<SectionNoData title={SECTION_TITLE} />}
 
                 </>}
 
+                </CardContent>
+           
+              
+              
 
-            </Card.Body>
+           
         </Card>
     )
 }

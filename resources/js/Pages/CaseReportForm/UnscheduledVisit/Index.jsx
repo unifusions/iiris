@@ -4,7 +4,7 @@ import { Link, usePage } from "@inertiajs/react";
 import React from "react";
 import { Card, Col, Row, Table } from "react-bootstrap";
 import CaseReportFormData from "../FormData/CaseReportFormData";
-import PhysicalExaminationData from "../FormData/PhysicalExaminationData";
+import PhysicalExaminationData from "../physical-examination/PhysicalExaminationData";
 import CrfLayout from "@/Layouts/CrfLayout";
 
 export default function Show() {

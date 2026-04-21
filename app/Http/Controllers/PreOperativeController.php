@@ -120,7 +120,7 @@ class PreOperativeController extends Controller
             $preoperative->surgical_history = $request->surgical_history;
             $preoperative->save();
             if ($preoperative->surgical_history)
-                return redirect()->route('crf.preoperative.surgicalhistory.index', ['crf' => $crf, 'preoperative' => $preoperative]);
+                return back()->with(['success' => 'Surgical history has been updated successfully']);
             return redirect()->route('crf.preoperative.show', ['crf' => $crf, 'preoperative' => $preoperative]);
         }
 

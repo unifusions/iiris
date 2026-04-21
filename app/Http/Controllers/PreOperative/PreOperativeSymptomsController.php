@@ -8,6 +8,7 @@ use App\Models\CaseReportForm;
 use App\Models\OperativeSymptoms;
 use App\Models\PreOperativeData;
 use App\Services\OperativeSymptomsService;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -27,9 +28,9 @@ class PreOperativeSymptomsController extends Controller
 
     public function create(CaseReportForm $crf, PreOperativeData $preoperative)
     {
- 
+
         return Inertia::render('CaseReportForm/FormFields/Symptoms/Create', [
-          
+
             'crf' => $crf,
             'entityType' => 'preoperative',
             'entity' => $preoperative,
@@ -38,11 +39,18 @@ class PreOperativeSymptomsController extends Controller
     }
 
 
-    public function store(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, PreOperativeData $preoperative, OperativeSymptomsService $operativeSymptomsService)
+    public function store(StoreOperativeSymptomsRequest $request, CaseReportForm $crf, PreOperativeData $preoperative, OperativeSymptomsService $operativeSymptomsService)
     {
 
-        if ($operativeSymptomsService->createOperativeSymptoms($request))
-            return redirect()->route('crf.preoperative.show', [$crf, $preoperative])->with(['message' => 'Properative Symptoms for subject' . $crf->subject_id . 'created successfully']);
+        try {
+            if ($operativeSymptomsService->createOperativeSymptoms($request))
+                return back()->with(['success' => 'Properative Symptoms for subject' . $crf->subject_id . 'created successfully']);
+        }   catch (\Exception $e) {
+        
+        
+            return back()->withErrors(['error' => $e->errorInfo[2]  ]);
+        }
+
     }
 
 
@@ -73,19 +81,22 @@ class PreOperativeSymptomsController extends Controller
             'entityType' => 'preoperative',
             'entity' => $preoperative,
             'title' => 'Pre Operative',
-            'symptom' => $symptom,             
-             
+            'symptom' => $symptom,
+
         ]);
 
         // return view('casereportforms.FormFields.OperativeSymptoms.edit', compact('storeUri', 'storeParameters', 'breadcrumb', 'crf', 'symptom'));
     }
 
 
-    public function update(StoreOperativeSymptomsRequest $request,  CaseReportForm $crf, PreOperativeData $preoperative, OperativeSymptoms $symptom, OperativeSymptomsService $operativeSymptomsService)
+    public function update(StoreOperativeSymptomsRequest $request, CaseReportForm $crf, PreOperativeData $preoperative, OperativeSymptoms $symptom, OperativeSymptomsService $operativeSymptomsService)
     {
 
         $operativeSymptomsService->updateOperativeSymptoms($request);
-        return redirect()->route('crf.preoperative.show', [$crf, $preoperative]);
+
+         return back()->with(['success' => 'Properative Symptoms for subject' . $crf->subject_id . 'updated']);
+
+ 
     }
 
     public function destroy($id)

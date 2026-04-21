@@ -43,7 +43,7 @@ class PreOperativePhysicalExaminationController extends Controller
     {
         try {
             $physicalExaminationService->createPreOperativePhysicalExamination($request);
-            return redirect()->route('crf.preoperative.show', [$crf, $preoperative])->with(['crf' => $crf]);
+            return back()->with(['crf' => $crf]);
         } catch (Throwable $e) {
 
             return redirect()->back()->withErrors($e);
@@ -88,8 +88,10 @@ class PreOperativePhysicalExaminationController extends Controller
     public function update(Request $request, CaseReportForm $crf, PreOperativeData $preoperative, PhysicalExamination $physicalexamination, PhysicalExaminationService $physicalExaminationService)
     {
         $physicalexaminationUpdate = $physicalExaminationService->updatePreOperativePhysicalExamination($request, $physicalexamination);
+  
 
-        return redirect()->route('crf.preoperative.show', [$crf, $preoperative]);
+        return back()->with(['success' => 'Physical Examination Updated Successfully']);
+        // return redirect()->route('crf.preoperative.show', [$crf, $preoperative]);
     }
 
 

@@ -1,6 +1,10 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+ 
 import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton, RenderDuration, RenderFieldBoolDatas, RenderSymptomDatas } from "./FormDataHelper";
+import { Card, CardContent, CardHeader } from "@/Components/ui/card";
+import SectionTitle from "@/Components/ui-ext/SectionTitle";
+import { Siren } from "lucide-react";
+import SectionNoData from "@/Components/ui-ext/SectionNoData";
 
 
 
@@ -9,33 +13,25 @@ export default function SymptomsData({id,  symptoms, role, createUrl, editUrl, e
 
      return (
 
-          <Card id={id} className="mb-3 shadow-sm scroll-section">
-               <Card.Body>
-                    <div className='d-flex justify-content-between align-items-center'>
-                         <div className='fs-6 fw-bold'>
-                              {title} Symptoms
-                         </div>
-                         {!enableActions &&
-                              <>
-                                   {role.coordinator &&
-                                        <>
-                                             {symptoms === null ?
-                                                  <RenderCreateButton createUrl={createUrl} className="btn-sm" /> :
-                                                  <RenderEditButton editUrl={editUrl} className="btn-sm" />
-                                             }
-                                        </>
-                                   }
-                              </>
-                         }
-
-
-                    </div><hr />
+          <Card id={id}  >
+              
+                         <SectionTitle title={`${title} Symptoms`} enableActions={enableActions} coordinator={role.coordinator}
+                              createUrl={createUrl}
+                              editUrl={editUrl}
+                              data={symptoms}
+                              icon={Siren}
+                         />
+             
+                     
+               <CardContent> 
+                     
                     {symptoms !== null ?
                          <>
                               {symptoms.symptoms ? <>
                                    <RenderFieldDatas labelText="Symptoms" value={symptoms.symptoms && 'Yes'} />
 
-                                   <RenderSymptomDatas labelText="Angina on Exertion" boolValue={symptoms.angina} symptomClass={symptoms.angina_class} duration={symptoms.angina_duration}
+<div className="ms-3 ps-3 border-s border-gray-200">
+<RenderSymptomDatas labelText="Angina on Exertion" boolValue={symptoms.angina} symptomClass={symptoms.angina_class} duration={symptoms.angina_duration}
                                  
                                    />
 
@@ -47,6 +43,8 @@ export default function SymptomsData({id,  symptoms, role, createUrl, editUrl, e
                                    <RenderSymptomDatas labelText="Fever" boolValue={symptoms.fever}  duration={symptoms.fever_duration} />
                                    <RenderSymptomDatas labelText="Heart Failure Admission" boolValue={symptoms.heart_failure_admission}  duration={symptoms.heart_failure_admission_duration} />
                                    <RenderSymptomDatas labelText="Others" boolValue={symptoms.others} symptomClass = {symptoms.others_text} duration={symptoms.others_duration} />
+</div>
+                                   
 
 
                              
@@ -60,11 +58,11 @@ export default function SymptomsData({id,  symptoms, role, createUrl, editUrl, e
 
 
 
-                         </> : <span className="fw-normal text-secondary fst-italic">No symptoms has been recorded. Go ahead and create one.</span>
+                         </> : <SectionNoData title={`${title} Symptoms`} />
 
                     }
 
-               </Card.Body>
+               </CardContent>
           </Card>
      )
 }

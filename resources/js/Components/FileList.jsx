@@ -1,5 +1,11 @@
 import { Link } from "@inertiajs/react";
 import FileDeleteConfirmDialog from "./FileDeleteConfirmDialog";
+import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "./ui/item";
+import { Download, Eye, InboxIcon, Upload } from "lucide-react";
+import { Button } from "./ui/button";
+import { LinkButton } from "./ui-ext/LinkButton";
+import HyperLink from "./ui-ext/HyperLink";
+
 
 
 const getFileExtension = (fileName = "") =>
@@ -26,39 +32,54 @@ const FileRow = ({ item,
     };
 
     return (
-        <div className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+        <>  
+            <Item variant="outline" size="xs">
+                <ItemMedia variant="icon">
+                    {/* <InboxIcon /> */}
+                </ItemMedia>
+                <ItemContent>
+                    <ItemTitle>{file.file_name}</ItemTitle>
+                    <ItemDescription> {file.created_at}  </ItemDescription>
+                </ItemContent>
+                <ItemActions>
+                    {canPreview(fileName) && (
+                        <HyperLink
 
-            <div className="me-3">
 
-                <p className="mb-0">{file.file_name}</p>
-            </div>
+                            variant="outline" href={route(`crf.${entityRouteKey}.fileupload.show`, routeParams)}
+                            target="_blank">
+                            <Eye /> Preview
+                        </HyperLink>)}
+
+                           <HyperLink
+                        href={route(`${entityRouteKey}filedownload`, routeParams)}
+                        className="btn btn-outline-success btn-sm me-2"><Download /> Download</HyperLink>
+                </ItemActions>
+            </Item>
+            {/* <div className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+
+                <div className="me-3">
+
+                    <p className="mb-0"></p>
+                </div>
 
 
-            <div    >
-                {canPreview(fileName) && (
-                    <a
-                        className="btn btn-outline-info btn-sm me-2"
-                        href={route(`crf.${entityRouteKey}.fileupload.show`, routeParams)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        View
-                    </a>
-                )}
+                <div    >
+                    
 
-                <a
-                    href={route(`${entityRouteKey}filedownload`, routeParams)}
-                    className="btn btn-outline-success btn-sm me-2">Download</a>
+                  
 
-                {role.admin &&
-                    <FileDeleteConfirmDialog
-                        url={`crf.${entityRouteKey}.fileupload.destroy`}
-                        options={routeParams}
-                    />
-                }
-               
-            </div>
-        </div>
+                    {role.admin &&
+                        <FileDeleteConfirmDialog
+                            url={`crf.${entityRouteKey}.fileupload.destroy`}
+                            options={routeParams}
+                        />
+                    }
+
+                </div>
+            </div> */}
+        </>
+
     )
 }
 
@@ -71,7 +92,7 @@ export default function FileList({ crf, entity, entityRouteKey, role, files }) {
 
     return (
 
-        <div className="list-group">
+        <div className="grid grid-cols-2 gap-2 space-y-2">
             {files.map((file) => <FileRow key={file.file.id} item={file}
                 crf={crf}
                 entity={entity}        // 👈 generic (intraoperative / preoperative / etc.)

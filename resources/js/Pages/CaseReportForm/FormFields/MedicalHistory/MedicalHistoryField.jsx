@@ -1,7 +1,9 @@
 import FormRadio from "@/Pages/Shared/FormRadio";
 import { BOOLYESNO } from "../Helper";
-import { Col, Row } from "react-bootstrap";
+ 
 import FormInput from "@/Pages/Shared/FormInput";
+import FormRadioRow from "@/Pages/Shared/FormRadioRow";
+import { Card, CardContent } from "@/Components/ui/card";
 
 
 export default function MedicalHistoryField({ labelText, fieldName, handleFieldData,
@@ -10,19 +12,11 @@ export default function MedicalHistoryField({ labelText, fieldName, handleFieldD
     treatment, handleTreatementChange, errorTreatment,
     othersValue, handleOthersValue
 }) {
-
-    const mountedStyle = {
-        animation: "inAnimation 250ms ease-in"
-    };
-
-    const unmountedStyle = {
-        animation: "outAnimation 270ms ease-out",
-        animationFillMode: "forwards"
-    };
+ 
 
     return (
-        <div style={{ overflow: 'hidden' }}>
-            <FormRadio
+        <div className="mt-3 space-y-3 border-b border-gray-200" >
+            <FormRadioRow
                 type="radio"
                 labelText={labelText}
                 options={BOOLYESNO}
@@ -33,15 +27,16 @@ export default function MedicalHistoryField({ labelText, fieldName, handleFieldD
                 className={`${errorfieldData ? 'is-invalid' : ''}`}
             />
             {selectedValue === '1' && (
-                <Row className="mb-3" style={selectedValue === '1' ? mountedStyle : unmountedStyle}>
-                    <Col md={3}></Col>
-                    <Col md={9}>
+                <Card className="mb-3" >
+                    <CardContent>
+                     
+                    <div className="grid grid-cols-2 gap-3 ">
                         {fieldName === 'others' && (
                             <FormInput
                                 labelText='Specify'
                                 name={`${fieldName}_specify`}
                                 value={othersValue}
-                                handleChange={handleOthersValue}
+                                onChange={handleOthersValue}
                                 error={errorDuration}
                                 className={`${errorDuration ? 'is-invalid' : ''}`}
                             />
@@ -51,20 +46,22 @@ export default function MedicalHistoryField({ labelText, fieldName, handleFieldD
                             labelText='Duration'
                             value={duration}
                             name={`${fieldName}_duration`}
-                            handleChange={handleDuration} />
+                            onChange={handleDuration} />
 
+ 
                         <FormRadio
                             labelText="On Treatment?"
                             options={BOOLYESNO}
                             name={fieldName + '_treatment'}
                             handleChange={handleTreatementChange}
-                            selectedValue={treatment !== null && treatment}
+                            value={treatment}
                             error={errorTreatment}
                             className={`${errorTreatment ? 'is-invalid' : ''}`}
                         />
-                    </Col>
-
-                </Row>
+                        </div>
+                     
+</CardContent>
+                </Card>
 
             )
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+ 
 import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton, RenderUpdateButton } from "./FormDataHelper";
+import { Card } from "@/Components/ui/card";
 
 
 
@@ -10,7 +11,7 @@ export default function MedicalHistoryData({ hasMedHis, medicalhistories, role, 
           <Card className="mb-3 shadow-sm ">
 
 
-               <Card.Body>
+            
                     <div className='d-flex justify-content-between align-items-center'>
                          <div className='fs-6 fw-bold'>
                               Medical History
@@ -41,23 +42,23 @@ export default function MedicalHistoryData({ hasMedHis, medicalhistories, role, 
                               {hasMedHis ? <>
                                    {medicalhistories.length > 0 &&
                                         <>
-                                             <Row className="fw-bold">
-                                                  <Col>#</Col>
-                                                  <Col>Diagnosis</Col>
-                                                  <Col>Duration</Col>
-                                                  <Col>On Treatment</Col>
-                                             </Row>
+                                             <div className="fw-bold">
+                                                  <div>#</div>
+                                                  <div>Diagnosis</div>
+                                                  <div>Duration</div>
+                                                  <div>On Treatment</div>
+                                             </div>
                                              <hr />
-                                             {medicalhistories.map((medicalhistory, index) => <Row className="mb-2" key={index}>
-                                                  <Col>{index + 1}</Col>
-                                                  <Col>{medicalhistory.diagnosis}</Col>
-                                                  <Col>{medicalhistory.duration}</Col>
-                                                  <Col>{medicalhistory.on_treatment !== null &&
+                                             {medicalhistories.map((medicalhistory, index) => <div className="mb-2" key={index}>
+                                                  <div>{index + 1}</div>
+                                                  <div>{medicalhistory.diagnosis}</div>
+                                                  <div>{medicalhistory.duration}</div>
+                                                  <div>{medicalhistory.on_treatment !== null &&
                                                        <> {medicalhistory.on_treatment === 1 ? 'Yes' : 'No'}
                                                        </>
-                                                  }</Col>
+                                                  }</div>
 
-                                             </Row>)}
+                                             </div>)}
                                         </>
 
                                    }
@@ -68,7 +69,7 @@ export default function MedicalHistoryData({ hasMedHis, medicalhistories, role, 
 
 
 
-               </Card.Body>
+       
           </Card>
      )
 }

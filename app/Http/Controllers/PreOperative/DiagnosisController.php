@@ -11,7 +11,7 @@ use Inertia\Inertia;
 
 class DiagnosisController extends Controller
 {
-    
+
     public function index()
     {
         //
@@ -27,7 +27,7 @@ class DiagnosisController extends Controller
         return Inertia::render('CaseReportForm/FormFields/Diagnosis/Create', [
             'postUrl' => 'crf.preoperative.diagnosis.store',
             'crf' => $crf,
-           'preoperative' => $preoperative,
+            'preoperative' => $preoperative,
             'backUrl' => route('crf.preoperative.show', [$crf, $preoperative]),
             'title' => 'Pre Operative'
         ]);
@@ -48,7 +48,7 @@ class DiagnosisController extends Controller
         ]);
 
 
-        return redirect()->route('crf.preoperative.show', [$crf, $preoperative])->with(['message' => 'Properative Diagnosis for subject' . $crf->subject_id . 'created successfully']);
+        return back()->with(['success' => 'Properative Diagnosis for subject' . $crf->subject_id . 'created successfully']);
     }
 
     /**
@@ -70,10 +70,10 @@ class DiagnosisController extends Controller
      */
     public function edit(CaseReportForm $crf, PreoperativeData $preoperative, Diagnosis $diagnosi)
     {
-        
+
         // dd($preoperative->diagnosis);
         return Inertia::render('CaseReportForm/FormFields/Diagnosis/Edit', [
-          
+
             'crf' => $crf,
             'preoperative' => $preoperative,
             'diagnosis' => $diagnosi,
@@ -93,7 +93,8 @@ class DiagnosisController extends Controller
     {
         $diagnosi->diagnosis_data = $request->diagnosis;
         $diagnosi->save();
-        return redirect()->route('crf.preoperative.show', [$crf, $preoperative]);
+        return back()->with(['success' => 'Properative Diagnosis for subject ' . $crf->subject_id . ' updated successfully']);
+
     }
 
     /**

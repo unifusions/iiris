@@ -1,47 +1,65 @@
-import { Card  } from "react-bootstrap";
+ 
 import { RenderCreateButton, RenderEditButton } from "./FormDataHelper";
 
  import DisplayFieldData from "../FormFields/MedicalHistory/DisplayFieldData";
+import { Card, CardContent, CardHeader } from "@/Components/ui/card";
+import SectionNoData from "@/Components/ui-ext/SectionNoData";
+import SectionTitle from "@/Components/ui-ext/SectionTitle";
+import { BriefcaseMedical } from "lucide-react";
+import MedicalHistoryForm from "../medical-history/medical-history-form";
 
 export default function PredefinedMedicalHistoryData(
-    {id,  medicalhistory, role, enableActions, hasMedHis, createUrl, editUrl }
+    {id,  medicalhistory, role, enableActions, hasMedHis, createUrl, 
+
+        crf, entity, entityType, isEditing, onEdit, onCancel
+
+     }
 ) {
     return (
-        <Card id={id} className="mb-3 shadow-sm scroll-section">
-            <Card.Body>
-                <div className="d-flex justify-content-between align-items center">
-                    <div className='fs-6 fw-bold'>
-                        Medical History
-                    </div>
+        <Card  >
+             
+                <SectionTitle title="Medical History" 
+                icon={BriefcaseMedical}
+                createUrl={createUrl}
+                editUrl={createUrl}
+                coordinator={role.coordinator}
+                enableActions={enableActions}
 
-                    {!enableActions &&
-                        <>
-                            {role.coordinator &&
-                                <>
-                                    {hasMedHis === null ?
-                                        <RenderCreateButton createUrl={createUrl} className="btn-sm" /> :
-                                        <RenderEditButton editUrl={createUrl} className="btn-sm" />
-                                    }
-                                </>
-                            }
-                        </>
+                  isEditing={isEditing}
+                onEdit={onEdit}
+                >
 
-                    }
-                </div>
-                <hr />
+                </SectionTitle>
+                
+               
+                {isEditing ? <MedicalHistoryForm 
+    crf={crf}
+    entity={entity}
+    entityType={entityType}
+    medicalhistory={medicalhistory}
+     editMode={medicalhistory === null ? 'store' : 'update'}
 
-                {medicalhistory !== null ? <>
-                    {/* {medicalhistory.hasMedHis ?  */}
+                    onCancel={onCancel}
+                />
+              
+
+              : <CardContent>  <div className="space-y-3">
+{medicalhistory !== null ? <>
+                   
 
                    
                     <DisplayFieldData medicalhistory={medicalhistory} />
                         
                   
 
-                    {/*  : 'No medical history found'
+                             </> : <SectionNoData title="Medical History" />}
+                </div>  </CardContent>}
+              
+   
+            
 
-                    // } */}                </> : <span className="fw-normal text-secondary fst-italic">No medical history has been recorded. Go ahead and create one.</span>}
-            </Card.Body>
+             
+           
         </Card>
     );
 }

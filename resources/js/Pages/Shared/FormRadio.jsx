@@ -1,47 +1,75 @@
-import React, { useEffect, useRef } from "react";
-import { Row, Col } from "react-bootstrap";
+import React from "react";
+import { Label } from "@/Components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/Components/ui/radio-group";
+import { Field, FieldLabel } from "@/Components/ui/field";
 
-const FormRadio = ({ type = 'radio', name, checked, selectedValue, options, className, autoComplete, required, isFocused, handleChange, labelText, error }) => {
+const FormRadio = ({
+    labelText,
+    name,
+    options = [],
+    layout = "column",
+    optionsLayout = "vertical",
+    columns = 2,
+    value,
+    handleChange,
+    disabled,
+    error,
+    others
+}) => {
 
-     const input = useRef();
-     // useEffect(() => { if (isFocused) { input.current.focus(); } }, []);
+    const isRow = layout === "row";
 
-     return (
-          <Row className="mb-3">
-               <Col md={3}><span className="text-secondary">{labelText}</span></Col>
-               <Col md={9}>
-                    {options.map((option, index) => (
-                         <div
-                              className={`form-check form-check-inline ${className}`}
-                              key={`${name}-${option.value}`}
-                         >
-                              <input
-                                   ref={index === 0 ? input : null}
-                                   id={`${name}-${option.value}`}
-                                   name={name}
-                                   value={option.value}
-                                   type={type}
-                                   className="form-check-input"
-                                   checked={selectedValue === option.value}
-                                   onChange={handleChange}
-                                   // required={required && index === 0}
-                                   //  tabIndex={-1}
-                              />
+    const getOptionsClass = () => {
+        switch (optionsLayout) {
+            case "horizontal":
+                return "flex flex-row gap-4 flex-wrap items-center";
+            case "grid":
+                return `grid grid-cols-${columns} gap-3`;
+            default:
+                return "flex flex-col gap-2"; // vertical
+        }
+    };
 
-                              <label
-                                   className="form-check-label"
-                                   htmlFor={`${name}-${option.value}`}
-                              >
-                                   {option.labelText}
-                              </label>
-                         </div>
-                    ))}
+    return (
+        <Field className={isRow
+            ? "grid grid-cols-3 items-start gap-4"
+            : "flex flex-col gap-2"
+        }>
+            <FieldLabel className={isRow ? "col-span-1  " : ""}>{labelText}</FieldLabel>
 
-                    {error && <div className="invalid-feedback d-block">{error}</div>}
-               </Col>
-          </Row>
+            <div className={isRow ? "col-span-2" : ""}>    <RadioGroup
+                value={value}
+                onValueChange={handleChange}
+                className={getOptionsClass()}
+            >
+                {options.map((option) => {
+                    const id = `${name}-${option.value}`;
 
-     );
-}
+                    return (
+                        <div key={id} className="flex items-center gap-2">
+                            <RadioGroupItem
+                                value={option.value}
+                                id={id}
+                                disabled={disabled || option.disabled}
+                            />
+                            <Label htmlFor={id} className="whitespace-nowrap">
+                                {option.labelText}
+                            </Label>
+                        </div>
+                    );
+                })}
+                   {others && others} 
+
+            </RadioGroup>
+            </div>
+
+            {error && (
+                <div className="text-sm text-red-500">
+                    {error}
+                </div>
+            )}
+        </Field>
+    );
+};
 
 export default FormRadio;

@@ -1,36 +1,28 @@
-import React, { useEffect, useRef } from "react";
-import { Row, Col } from "react-bootstrap";
-const FormInput = ({ type = 'text', name, value, className, autoComplete, required, isFocused, handleChange, labelText, error, disabled }) => {
+import { Field, FieldDescription, FieldLabel } from "@/Components/ui/field";
+import { Input } from "@/Components/ui/input";
+import React, { useRef } from "react";
 
-     const input = useRef();
-     // useEffect(() => { if (isFocused) { input.current.focus(  ); } }, []);
+const FormInput = ({ labelText, id, fieldDescription, layout, ...props }) => {
+
+     const isRow = layout === "row";
 
      return (
-          <Row className="mb-2"  >
-               <label className="col-md-3 col-form-label text-secondary">{labelText}</label>
-               <Col md={6} >
-                    
-                         <input
-                              type={type}
-                              name={name}
-                              value={value}
-                              className={`form-control ` + className}
-                              ref={input}
-                              autoComplete={autoComplete}
-                              required={required}
-                              onChange={(e) => handleChange(e)}
-                              disabled={disabled}
-                         />
-                   
 
-                    {error && <div className="invalid-feedback">
-                         {error}
-                    </div>}
+          <Field className={isRow ? "grid grid-cols-3 items-center gap-4" : "flex flex-col gap-2"}>
+               <FieldLabel htmlFor={id}>{labelText}</FieldLabel>
+               <div className={isRow ? "col-span-2" : ""}>
+                    <Input id={id} {...props} />
+                    {fieldDescription && <FieldDescription>{fieldDescription}
+                    </FieldDescription>}</div>
 
-               </Col>
-            
-          </Row>
 
+
+
+
+
+
+
+          </Field>
      );
 }
 

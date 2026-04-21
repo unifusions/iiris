@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
- 
- 
+
+
 
 import MainPanel from './MainPanel';
 import NavBarTop from './NavBarTop';
-import Sidebar from './Sidebar';
+import Sidebar from './app-sidebar';
 import Footer from './Footer';
+import { SidebarInset, SidebarProvider } from '@/Components/ui/sidebar';
+import AppSidebar from './app-sidebar';
+import { SiteHeader } from './site-header';
+import FlashNotifications from '@/Components/ui-ext/flash-notifications';
+import { Toaster } from 'sonner';
 
 
 
@@ -46,14 +51,14 @@ const AdminNavigation = () => {
 }
 
 
-export default function Authenticated({pageTitle, header, breadcrumb, children, hasSecondarySidebar =false, secondarySidebar}) {
+export default function Authenticated({ pageTitle, header, breadcrumb, children, hasSecondarySidebar = false, secondarySidebar }) {
 
-    const {auth, flash, roles, errors } = usePage().props;
+    const { auth, flash, roles, errors } = usePage().props;
     const [showNav, setShowNav] = useState(true);
 
-   const { user } = auth;
-    
-   
+    const { user } = auth;
+
+
 
 
     const toggleNav = () => {
@@ -70,82 +75,28 @@ export default function Authenticated({pageTitle, header, breadcrumb, children, 
 
     return (
 
-        <div className="d-flex flex-column vh-100 overflow-hidden">
+        <SidebarProvider style={
+            {
+                "--sidebar-width": "calc(var(--spacing) * 56)",
+                "--header-height": "calc(var(--spacing) * 12)",
+            }
+        }>
+            <AppSidebar variant="inset" />
 
-            <Head title={pageTitle} />
-    {/* Top Header */}
-    <NavBarTop breadcrumb= {breadcrumb} />
+            <SidebarInset>
+                <Head title={pageTitle} />
+                {/* site header to be included */}
+                <SiteHeader pageTitle={pageTitle} />
+                <div className="flex flex-1 flex-col">
+                    <div className="@container/main flex flex-1 flex-col gap-2 pt-5 px-4  ">
+                        {children}
+                    </div>
+                </div>
+            </SidebarInset>
 
-    {/* Body */}
-    <div className="container-fluid flex-grow-1 overflow-hidden">
-        <div className="row h-100">
-
-            {/* Sidebar */}
-            
-                <Sidebar role={roles} />
-
-{hasSecondarySidebar && <div className='sidebar col-md-2 col-lg-2  p-0 border-end'>{secondarySidebar}</div>}
-            {/* Main Area (ONLY this scrolls) */}
-            <main className={` ${hasSecondarySidebar ? 'col-md-8': 'col-md-10 col-lg-10'}  h-100   overflow-auto overflow-y-auto`}>
-                <MainPanel
-                    flash={flash}
-                    header={pageTitle}
-                >
-                    {children}
-                </MainPanel>
-            </main>
-
-        </div>
-    </div>
-
-    {/* Footer */}
-     
-         <Footer />
-     
-</div>
-
-        //         <div className={showNav ? 'sidebar-icon-only' : ''} >
-
-
-        //        
-
-        //             <div className="container-scroller">
-
-        //                 <NavBar toggleNav={toggleNav} user={auth.user} breadcrumb={breadcrumb} />
-
-        //                 <div className="container-fluid page-body-wrapper">
-
-        //                     <div className='navContainer' onMouseEnter={menuExpand} onMouseLeave={menuCollape}>
-        //                         <nav className={`sidebar sidebar-offcanvas ${showNav ? 'active' : ''}`} id="sidebar">
-        //                             <ul className="nav">
-        //                               
-
-
-                                      
-
-
-
-        //                                 <li className="nav-item">
-        //                                     <Link className={`nav-link ${route().current('tickets.index') ? 'active' : ''}`} href={route('tickets.index')}>
-        //                                         <SupportIcon className='menu-arrow' style={iconStyle} />
-        //                                         <span className="menu-title ms-1">Queries</span>
-        //                                     </Link>
-        //                                 </li>
-
-        //                                 
-
-
-
-        //                             </ul>
-        //                         </nav>
-        //                     </div>
-
-
-
-
-        //                 </div>
-        //             </div>
-        //         </div>
+            <FlashNotifications />
+            <Toaster richColors position="top-right" />
+        </SidebarProvider>
 
     )
 }

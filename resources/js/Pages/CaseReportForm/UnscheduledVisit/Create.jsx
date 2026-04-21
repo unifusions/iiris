@@ -6,7 +6,7 @@ import { Card, Col, Row } from "react-bootstrap";
 import CaseReportFormData from "../FormData/CaseReportFormData";
 import FormCalendar from "@/Pages/Shared/FormCalendar";
 import FormButton from "@/Pages/Shared/FormButton";
-import PhysicalExaminationData from "../FormData/PhysicalExaminationData";
+import PhysicalExaminationData from "../physical-examination/PhysicalExaminationData";
 
 export default function Show() {
 

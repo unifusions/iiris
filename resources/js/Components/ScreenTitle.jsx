@@ -4,6 +4,8 @@ import ActionsEditable from "@/Pages/CaseReportForm/FormFields/ActionsEditable";
 import ApprovalSubmit from "@/Pages/CaseReportForm/FormFields/ApprovalSubmit";
 import { toTitleCase } from "@/Pages/CaseReportForm/FormFields/HelperFunctions";
 import { Link, usePage } from "@inertiajs/react";
+import { LinkButton } from "./ui-ext/LinkButton";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 
 export default function ScreenTitle({
     title, backUrl,
@@ -14,11 +16,17 @@ export default function ScreenTitle({
     const { roles } = usePage().props;
     return (
         <>
-            <div className='d-flex justify-content-between align-items-center mt-3 mb-3'>
-                <h4 className="">Case Report Forms \ {crf.subject_id}  {title && `\\ ${title}`}</h4>
+            <div className=' flex justify-between items-center mt-3 mb-3'>
+               <div>
+         <h4 className="text-lg font-semibold">Case Report Forms \ {crf.subject_id}  {title && `\\ ${title}`}</h4>
+<p className="text-foreground/60">Manage patient CRFs and clinical data collection
 
-                <div className="d-flex gap-2">
-                    <Link href={backUrl} className="btn btn-secondary" method="get" type="button" as="button">Back</Link>
+</p>
+               </div>
+       
+                <div className="flex items-center gap-2">
+                    <LinkButton variant="outline" href={backUrl}   method="get" type="button" as="button">
+                    <ChevronLeftIcon />Back</LinkButton>
 
 
                     {entity?.is_submitted === 0 && <ApprovalSubmit

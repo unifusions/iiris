@@ -13,7 +13,7 @@ import LabInvestigationData from "../FormData/LabInvestigationData";
 import MedicationsData from "../FormData/MedicationsData";
 import PersonalHistoryData from "../FormData/PersonalHistoryData";
 import PhysicalActivityData from "../FormData/PhysicalActivityData";
-import PhysicalExaminationData from "../FormData/PhysicalExaminationData";
+import PhysicalExaminationData from "../physical-examination/PhysicalExaminationData";
 import SafetyParameterData from "../FormData/SafetyParameterData";
 import SymptomsData from "../FormData/SymptomsData";
 import ApprovalActionEditable from "./ApprovalActionsEditable";

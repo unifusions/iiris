@@ -5,42 +5,65 @@ import { Row, Col } from "react-bootstrap";
 import ReactDatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-const FormCalendar = ({ name, value, className, minDate, autoComplete, required, isFocused, handleChange, labelText, error, showYearPicker, dateFormat }) => {
 
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import { Field, FieldLabel } from "@/components/ui/field"
+import {
+     Popover,
+     PopoverContent,
+     PopoverTrigger,
+} from "@/components/ui/popover"
+
+const FormCalendar = ({ name, value, className, minDate, autoComplete, required, isFocused, handleChange, labelText, error, showYearPicker, dateFormat }) => {
+     const [open, setOpen] = React.useState(false)
+     const [date, setDate] = React.useState(undefined)
      const input = useRef(null);
      useEffect(() => { if (isFocused) { input.current.focus(); } }, []);
 
+     const parsedDate = value ? new Date(value) : undefined;
+
      return (
-          <Row className="mb-3">
-               <Col md={3}><span className="text-secondary">{labelText}</span></Col>
-               <Col md={6}>
-              
-                    <ReactDatePicker
-                         minDate={minDate ? new Date(minDate) : null}
-                         dateFormat={dateFormat!== undefined ? dateFormat : 'dd/M/Y'}
-                         maxDate={new Date()}
-                         showYearDropdown
-                         showMonthDropdown
-                         yearDropdownItemNumber={100}
-                         scrollableYearDropdown={true}
-                         dropdownMode="select"
-                         name={name}
+
+          <>
+               <Field className="grid grid-cols-3">
+
+                    <FieldLabel htmlFor="date" >{labelText}</FieldLabel>
+                    <div className="col-span-2">
                          
-                         selected={value !== '' ? new Date(value) : null}
-                         onChange={(date) => handleChange(date)}
-                         className={`form-control ` + className} 
-                         showYearPicker = {showYearPicker}
-                         required = {required}
-                         autoComplete = "off"/>
-                         
+                         <Popover open={open} onOpenChange={setOpen}>
+                              <PopoverTrigger asChild>
+                                   <Button
+                                        variant="outline"
+                                        id="date"
+                                        className="justify-start font-normal w-64"
+                                   >
+                                       {parsedDate
+                                ? parsedDate.toLocaleDateString()
+                                : "Select date"}
+                                   </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-full overflow-hidden p-0 bg-white" align="start">
+                                   <Calendar
+                                        mode="single"
+                                        selected={date}
+                                        defaultMonth={date}
+                                        captionLayout="dropdown"
+                                        onSelect={(date) => {
+                                           
+                                            handleChange(date)
+                                            
+                                             setOpen(false)
+                                        }}
+                                   />
+                              </PopoverContent>
+                         </Popover>
+                    </div>
 
-                    {error && <div class="invalid-feedback">
-                         {error}
-                    </div>}
-               </Col>
+               </Field>
+             
 
-
-          </Row>
+          </>
 
      );
 }

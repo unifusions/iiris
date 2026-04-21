@@ -2,11 +2,12 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 import { Row, Col } from 'react-bootstrap';
- 
+import { TableCell, TableRow } from '@/Components/ui/table';
+
 
 export const NotAvailable = () => {
      return (
-          <span className='fw-normal text-secondary fst-italic'>No data available</span>
+          <span className='font-normal text-foreground/70 italic'>No data available</span>
      )
 }
 export default function FormDataHelper() {
@@ -15,25 +16,25 @@ export default function FormDataHelper() {
 
 export function RenderUnits({ units }) {
      return (<span
-          className="text-secondary small ms-1" dangerouslySetInnerHTML={{ __html: units }}></span>)
+          className="ms-1 text-xs text-foreground/50 font-normal" dangerouslySetInnerHTML={{ __html: units }}></span>)
 }
 export function RenderDuration({ duration }) {
      return (
           <>
                {duration !== undefined ?
                     <div className="ms-4">
-                         <span className="text-secondary">Duration </span>
-                         {duration.days !== undefined && <>
+                         
+                         {duration?.days !== undefined && <>
                               {duration.days !== null && <>{duration.days} days </>}
                          </>
                          }
 
-                         {duration.months !== undefined && <>
+                         {duration?.months !== undefined && <>
                               {duration.months !== null && <>{duration.months} months </>}
 
                          </>
                          }
-                         {duration.years !== undefined && <>
+                         {duration?.years !== undefined && <>
                               {duration.years !== null && <>{duration.years} years</>}
 
                          </>
@@ -48,11 +49,11 @@ export function RenderDuration({ duration }) {
 
 export function RenderFieldDatas({ labelText, value, units, status }) {
      return (
-          <Row className='mb-3'>
-               <Col md={4} className='text-secondary'>
+          <div className='grid grid-cols-3'>
+               <div className='text-foreground/70'>
                     {labelText}
-               </Col>
-               <Col md={8}>
+               </div>
+               <div className='col-span-2 font-semibold'>
                     {status !== undefined &&
                          <span className={`dot bg-${status} me-1`}></span>
                     }
@@ -62,8 +63,8 @@ export function RenderFieldDatas({ labelText, value, units, status }) {
                          }</> : <NotAvailable />}
 
 
-               </Col>
-          </Row>
+               </div>
+          </div>
      )
 }
 
@@ -82,7 +83,7 @@ export function RenderFieldEchoReviewDatas({ labelText, rvalue, units, normality
                          }</> : <NotAvailable />}
                </Col>
 
-               
+
                <Col md={2} sm={4}>
                     {normality !== null ? <>{normality ? 'Normal' : 'Abnormal'}</> : <NotAvailable />}
                </Col>
@@ -101,55 +102,38 @@ export function RenderFieldEchoReviewDatas({ labelText, rvalue, units, normality
 export function RenderFieldEchoDatas({ labelText, value, rvalue, units, normality, abnormality, role }) {
      return (
 
-          <Row className='mb-3'>
-               <Col md={4} className='text-secondary'>{labelText}</Col>
-               {(role.investigator || role.coordinator || role.admin) &&
-                    <Col md={2} sm={6} lg={1}>
-                         {value !== null ? <>{value}
-                              {units !== undefined &&
-                                   <RenderUnits units={units} />
-                              }</> : <NotAvailable />}
-                    </Col>
-               }
+          <div className='grid grid-cols-3'>
+               <div className='text-foreground/70'>{labelText}</div>
+               <div className="">
+                    {(role.investigator || role.coordinator || role.admin) &&
+                         <div  className='font-bold'>
+                              {value !== null ? <>{value}
+                                   {units !== undefined &&
+                                        <RenderUnits units={units} />
+                                   }</> : <NotAvailable />}
+                         </div>
+                    }
+               </div>
+
 
                {(role.admin || role.reviewer) && <>
-                    <Col md={1}>
+                    <div md={1}>
                          {rvalue !== null ? <>{rvalue}
                               {units !== undefined &&
                                    <RenderUnits units={units} />
                               }</> : <NotAvailable />}
-                    </Col>
-                    <Col md={2}>
+                    </div>
+                    <div md={2}>
                          {normality !== null ? <>{normality ? 'Normal' : 'Abnormal'}</> : <NotAvailable />}
-                    </Col>
-                    <Col md={4}>
+                    </div>
+                    <div md={4}>
                          {abnormality !== null ? <>{abnormality}</> : <NotAvailable />}
-                    </Col>
+                    </div>
                </>}
 
 
-          </Row>
-          // <Row className='mb-3'>
-          //      <Col md={4} className='text-secondary'>
-          //           {labelText}
-          //      </Col>
-          //      <Col md={2}>
+          </div>
 
-          //           {value !== null ? <>{value}
-          //                {units !== undefined &&
-          //                     <RenderUnits units={units} />
-          //                }</> : <NotAvailable />}
-
-
-          //      </Col>
-          //      <Col md={2}>
-          //         {normality !== null ? <>{normality ? 'Normal' : 'Abnormal'}</> : <NotAvailable /> }
-          //      </Col> 
-          //      <Col md={3}>
-          //                {abnormality !== null ? <>{abnormality}</> : <NotAvailable /> }
-          //      </Col>
-
-          // </Row>
      )
 }
 
@@ -157,11 +141,11 @@ export function RenderFieldEchoDatas({ labelText, value, rvalue, units, normalit
 
 export function RenderDateFieldDatas({ labelText, value, units, status, options }) {
      return (
-          <Row className='mb-3'>
-               <Col md={4} className='text-secondary'>
+          <div className='grid grid-cols-3  '>
+               <div   className='text-foreground/70'>
                     {labelText}
-               </Col>
-               <Col md={8}>
+               </div>
+               <div className='col-span-2 font-bold'>
                     {status !== undefined &&
                          <span className={`dot bg-${status} me-1`}></span>
                     }
@@ -172,8 +156,8 @@ export function RenderDateFieldDatas({ labelText, value, units, status, options 
                          }</> : <NotAvailable />}
 
 
-               </Col>
-          </Row>
+               </div>
+          </div>
      )
 }
 
@@ -238,11 +222,11 @@ export function RenderFormStatus({ isSubmitted, visitStatus, formTitle, visitNo 
 
                {isSubmitted ? <> {visitStatus ?
                     <>
-                         <div className='bg-success text-white p-3 mb-3 rounded-1 shadow-sm'>
+                         <div className='bg-green-50 text-green-800 border border-green-200 p-3 mb-3 rounded-lg'>
                               {formTitle} Data has been submitted & approved. To modify data, please raise a
-                              <Link href={route('tickets.index')} className="fw-bold text-white" style={{ textDecoration: 'none' }}> query</Link>
+                              <Link href={route('tickets.index')} className="font-semibold " style={{ textDecoration: 'none' }}> query</Link>
                          </div>
-                    </> : <div className='bg-warning text-dark p-3 mb-3 rounded-1'>
+                    </> : <div className='bg-amber-50 text-amber-800 border border-amber-200 p-3 mb-3 rounded-lg'>
                          {formTitle} {visitNo} Data has been submitted. Please wait until your investigator approves/disapproves
                          {/* <Link href={route('tickets.index')} className="fw-bold text-dark" style={{ textDecoration: 'none' }}> ticket</Link> */}
                     </div>
@@ -290,62 +274,78 @@ export function RenderFieldSafetyParameterData({ labelText, value, boolValue, da
 
 export function RenderFieldBoolDatas({ labelText, value, boolValue, units }) {
      return (
-          <Row className='mb-3'>
-               <Col md={4} className='text-secondary'>
+          <div className='grid grid-cols-3'>
+               <div className='text-foreground/70'>
                     {labelText}
-               </Col>
+               </div>
 
-               {boolValue !== null ?
-                    <>
-                         <Col md={1}>{boolValue === 1 ? 'Yes' : 'No'}</Col>
-                         <Col md={7}>{boolValue !== 0 && <>
-                              {value !== null ?
-                                   <> {value}
-                                        {units !== 'undefined' && <RenderUnits units={units} />}
-                                   </> : <span className='fw-normal text-secondary fst-italic'>No data available</span>}
-                         </>}
-                         </Col>
-                    </>
-
-
+               <div className="col-span-2">
+                    {boolValue !== null ?
+                         <div className='grid grid-cols-4'>
+                              <div >{boolValue === 1 ? 'Yes' : 'No'}</div>
+                              <div className='col-span-3' >{boolValue !== 0 && <>
+                                   {value !== null ?
+                                        <> {value} {units !== 'undefined' && <RenderUnits units={units} />}
+                                        </> : <span className='text-foreground/70 italic'>No data available</span>}
+                              </>}
+                              </div>
+                         </div>
 
 
-                    : <Col md={8}><NotAvailable /></Col>
-               }
-          </Row>
+
+
+                         : <NotAvailable />
+                    }
+               </div>
+
+          </div>
      )
 }
 
 
 export function RenderSymptomDatas({ labelText, symptomClass, boolValue, duration }) {
      return (
-          <Row className='mb-3'>
-               <Col md={4} className='text-secondary'>
+          <div className=' grid grid-cols-3 mb-3'>
+               <div className='text-foreground/70'>
                     {labelText}
-               </Col>
-
-               {boolValue !== null ?
-                    <>
-                         <Col md={1}>{boolValue === 1 ? 'Yes' : 'No'}</Col>
-                         <Col md={7}>{boolValue !== 0 && <>
-                              <div className="d-flex align-items-center">
-                                   {symptomClass !== null && <> <div className="ms-4">{symptomClass}</div></>}
-                                   {duration !== null && <RenderDuration duration={duration} />
-                                   }
+               </div>
+               <div className='col-span-2'>
+                    {boolValue !== null ?
+                         <div className='grid grid-cols-5'>
+                              <div className={` ${boolValue === 1 && 'font-bold'}`}>{boolValue === 1 ? 'Yes' : 'No'}</div>
+                              <div className='col-span-4'>{boolValue !== 0 && <>
+                                   <div className=" flex  items-center">
+                                        {symptomClass !== null && <> <div className="ms-4 whitespace-nowrap">{symptomClass}</div></>}
+                                        {duration !== null && <RenderDuration duration={duration} />
+                                        }
+                                   </div>
+                              </>}
                               </div>
-                         </>}
-                         </Col>
-                    </>
+                         </div>
 
 
 
 
-                    : <Col md={8}><NotAvailable /></Col>
-               }
-          </Row>
+                         : <NotAvailable />
+                    }
+               </div >
+          </div>
      )
 }
 
+
+export function RenderSymptomRows({ labelText, symptomClass, boolValue, duration }) {
+     return (
+          <TableRow>
+               <TableCell> {labelText}</TableCell>
+               <TableCell className={` ${boolValue === 1 && 'font-bold'}`}> {boolValue === 1 ? 'Yes' : 'No'}  </TableCell>
+               <TableCell> {symptomClass} </TableCell>
+               <TableCell><RenderDuration duration={duration} /></TableCell>
+         
+        
+           </TableRow>
+     )
+}
 
 
 export function RenderFieldBoolNoDatas({ labelText, value, boolValue, units }) {

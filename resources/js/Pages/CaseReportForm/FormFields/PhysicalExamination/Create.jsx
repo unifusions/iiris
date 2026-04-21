@@ -17,7 +17,7 @@ const Create = () => {
      const {
           entity,
           entityType,
-           crf } = usePage().props;
+          crf } = usePage().props;
 
      const entityIdField = ENTITY_ID_FIELD_MAP[entityType];
 
@@ -25,7 +25,7 @@ const Create = () => {
      const { data, setData, errors, post, processing, hasErrors, transform } = useForm({
           case_report_form_id: crf.id,
           [entityIdField]: entity?.id ?? null,
-        
+
           height: '',
           weight: '',
           bsa: '',
@@ -44,7 +44,7 @@ const Create = () => {
 
           e.preventDefault();
           post(route(`crf.${entityType}.physicalexamination.store`, routeParams));
-         
+
      }
 
      useEffect(
@@ -128,9 +128,7 @@ const Create = () => {
                                    handleChange={e => setData('heart_rate', e.target.value)}
                                    units='bpm'
                                    required
-
-
-                              />
+  />
 
                               <FormInputWithLabel
                                    type="number"

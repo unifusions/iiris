@@ -8,6 +8,7 @@ use App\Models\CaseReportForm;
 use App\Models\OperativeSymptoms;
 use App\Models\PostOperativeData;
 use App\Services\OperativeSymptomsService;
+use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -38,8 +39,13 @@ class OperativeSymptomController extends Controller
     public function store(StoreOperativeSymptomsRequest $request, CaseReportForm $crf, PostOperativeData $postoperative, OperativeSymptomsService $operativeSymptomsService)
     {
 
-        if ($operativeSymptomsService->createPostOperativeSymptoms($request))
+    try{
+  $operativeSymptomsService->createPostOperativeSymptoms($request);
             return redirect()->route('crf.postoperative.show', [$crf, $postoperative]);
+    }
+    catch (Exception $e){
+       
+        return  back()->with(['error' => $e]);}
     }
 
 

@@ -1,16 +1,17 @@
 import React from "react";
-import { Card, Col, Row } from "react-bootstrap";
+ 
 import FormDataHelper, { RenderCreateButton, RenderFieldDatas, RenderEditButton, RenderUpdateButton } from "./FormDataHelper";
+import { Card } from "@/Components/ui/card";
 
 
 
 export default function FamilyHistoryData({ isFamHis, familyhistories, role, linkUrl, enableActions }) {
      return (
 
-          <Card className="mb-3 rounded-5 shadow-sm">
+          <Card  >
 
 
-               <Card.Body>
+              
                     <div className='d-flex justify-content-between align-items-center'>
                          <div className='fs-6 fw-bold'>
                               Family History
@@ -62,7 +63,7 @@ export default function FamilyHistoryData({ isFamHis, familyhistories, role, lin
                     </>}
 
 
-               </Card.Body>
+               
           </Card>
      )
 }

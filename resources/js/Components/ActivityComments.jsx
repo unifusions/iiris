@@ -1,6 +1,7 @@
 import { DocumentArrowUpIcon, DocumentCheckIcon, DocumentMinusIcon, LockOpenIcon } from "@heroicons/react/24/outline";
-import { Card } from "react-bootstrap";
+ 
 import { iconClasses, statusClasses, statusTitle } from "./CommonConstants";
+import { Card } from "./ui/card";
 
 
 const CommentItem = ({ item }) => {
@@ -37,7 +38,7 @@ export default function ActivityComments({ title, items }) {
 
         <Card>
 
-            <Card.Body>
+          
 
                 <h6 class="border-bottom pb-2 mb-0">{title}</h6>
 
@@ -48,7 +49,7 @@ export default function ActivityComments({ title, items }) {
 
 
 
-            </Card.Body>
+          
 
         </Card>
 

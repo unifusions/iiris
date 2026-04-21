@@ -1,8 +1,17 @@
+//TBD
+// 
 import React, { useState } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+ 
 import FormDataHelper, { RenderCreateButton, RenderEditButton, RenderUpdateButton } from "./FormDataHelper";
+import { CirclePlus, SquareActivity } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
+import ScreenTitle from "@/Components/ScreenTitle";
+import { LinkButton } from "@/Components/ui-ext/LinkButton";
+import SectionNoData from "@/Components/ui-ext/SectionNoData";
 
 
+
+const SECTON_TITLE = "Surgical History";
 
 export default function SurgicalHistoryData({ id, hasSurHis, surgicalhistories, role, linkUrl, enableActions }) {
 
@@ -10,71 +19,75 @@ export default function SurgicalHistoryData({ id, hasSurHis, surgicalhistories, 
 
      return (
 
-          <Card id={id}className="mb-3 shadow-sm scroll-section">
-               <Card.Body>
-                    <div className='d-flex justify-content-between align-items-center'>
-                         <div className='fs-6 fw-bold'>
-                              Surgical History
-                         </div>
+          <Card id={id} className="mb-3 shadow-sm scroll-section">
+               <CardHeader className="border-b border-gray-200">
+                    <CardTitle>
+                         <div className="flex items-center justify-between">
+                              <div className='flex items-center gap-2 font-bold'>
+                                   <SquareActivity className="h-5 w-5 text-primary/70" />   {SECTON_TITLE}
+                              </div>
 
-                         {!enableActions &&
-                              <>
-                                   {role.coordinator &&
-                                        <>
-                                             {hasSurHis === null ?
-                                                  <div> <span className="text-secondary small">Surgical History status is null. Update with Yes/No</span>
-                                                       <RenderUpdateButton updateUrl={linkUrl} className='btn-sm ms-3' />
-                                                  </div> : <>
-                                                       {hasSurHis ?
-                                                            <RenderCreateButton createUrl={linkUrl} className='btn-sm' /> :
-                                                            <RenderEditButton editUrl={linkUrl} className='btn-sm' />}
-                                                  </>
-                                             }
-                                        </>
-                                   }
-                              </>
-                         }
-
-
-                    </div>
-                    <hr />
-
-                    {
-                         hasSurHis === null ? <span className="fw-normal text-secondary fst-italic">Surgical History Data has not been updated. Go ahead and update one.</span> : 
-                         <>
-                          {hasSurHis ? <>
-                         {surgicalhistories.length > 0 &&
-
-                              <> 
-                              
-                              
-                              <Row className="fw-bold">
-                                   <Col>#</Col>
-                                   <Col>Date</Col>
-                                   <Col>Diagnosis</Col>
-                                   <Col>Treatment</Col>
-
-                              </Row>
-                              <hr/>
-                              {surgicalhistories.map((surgicalhistory, index) => <Row className="mb-2" key={index}>
-                                   <Col>{index + 1}</Col>
-                                   <Col>{surgicalhistory.sh_date}</Col>
-                                   <Col>{surgicalhistory.diagnosis}</Col>
-                                   <Col>{surgicalhistory.on_treatment !== null &&
-                                             <> {surgicalhistory.on_treatment === 1 ? 'Yes' : 'No'}
+                              {!enableActions &&
+                                   <>
+                                        {role.coordinator &&
+                                             <>
+                                                  {hasSurHis === null ?
+                                                       
+                                                            <LinkButton href={linkUrl} > <CirclePlus /> Add {SECTON_TITLE}</LinkButton>
+                                                        : <>
+                                                            {hasSurHis ?
+                                                                 <LinkButton href={linkUrl} > <CirclePlus /> Add {SECTON_TITLE}</LinkButton> :
+                                                                 <LinkButton href={linkUrl} > Edit {SECTON_TITLE}</LinkButton>}
+                                                       </>
+                                                  }
                                              </>
-                                        }</Col>
-                              </Row>)}</>
+                                        }
+                                   </>
+                              }
+
+                         </div></CardTitle>
+
+               </CardHeader>
+
+               <CardContent>
 
 
-                         }
-                    </> : 'No previous surgical history recorded'}
+
+                    {(hasSurHis === null || surgicalhistories?.length < 1) ? <SectionNoData title={SECTON_TITLE} /> :
+                         <>
+
+                              {surgicalhistories.length > 0 &&
+
+                                   <>
+
+
+                                        <div className="fw-bold">
+                                             <div>#</div>
+                                             <div>Date</div>
+                                             <div>Diagnosis</div>
+                                             <div>Treatment</div>
+
+                                        </div>
+                                        <hr />
+                                        {surgicalhistories.map((surgicalhistory, index) => <div className="mb-2" key={index}>
+                                             <div>{index + 1}</div>
+                                             <div>{surgicalhistory.sh_date}</div>
+                                             <div>{surgicalhistory.diagnosis}</div>
+                                             <div>{surgicalhistory.on_treatment !== null &&
+                                                  <> {surgicalhistory.on_treatment === 1 ? 'Yes' : 'No'}
+                                                  </>
+                                             }</div>
+                                        </div>)}</>
+
+
+                              }
+
                          </>
                     }
-                   
+               </CardContent>
 
 
-               </Card.Body>
+
           </Card>
      )
 }

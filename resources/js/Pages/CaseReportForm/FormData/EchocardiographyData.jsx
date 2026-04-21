@@ -8,7 +8,7 @@ import FormInputWithLabel from "@/Pages/Shared/FormInputWithLabel";
 import FormRadio from "@/Pages/Shared/FormRadio";
 import { Link, useForm } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
-import { Card, Modal, Button, Row, Col } from "react-bootstrap";
+ 
 import EditReview from "../FormFields/Echocardiography/EditReview";
 
 
@@ -16,8 +16,11 @@ import EditReview from "../FormFields/Echocardiography/EditReview";
 
 import FormDataHelper, { RenderCreateButton, RenderFieldEchoDatas, RenderEditButton, RenderDateFieldDatas, RenderUnits, NotAvailable, RenderDateFieldEchoDatas, RenderFieldDatas, RenderFieldEchoReviewDatas } from "./FormDataHelper";
 import MarkasReviewed from "./MarkasReviewed";
+import { Heart } from "lucide-react";
+import { Card, CardContent } from "@/Components/ui/card";
+import SectionTitle from "@/Components/ui-ext/SectionTitle";
 
-
+const SECTION_TITLE = "Echocardiography";
 export default function EchocardiographyData({ id, echodicomfiles, echocardiographies, role, createUrl, editUrl, enableActions, crf, preoperative, postoperative, scheduledvisit, unscheduledvisit }) {
      const options = {
           day: 'numeric',
@@ -43,22 +46,22 @@ export default function EchocardiographyData({ id, echodicomfiles, echocardiogra
 
      return (
           <>
-               <Card id={id} className="mb-3  shadow-sm scroll-section">
-                    <Card.Body>
+               <Card  >
+                    <SectionTitle 
+                         icon={Heart}
+                         
+                         title={SECTION_TITLE}
+                         enableActions={enableActions}
+                         coordinator={role.coordinator}
+                         data={echocardiographies}
+                         createUrl={createUrl}
+                         editUrl={editUrl}
+                    />
+            
+            <CardContent>
                          <div className='d-flex justify-content-between align-items-center'>
-                              <div className='fs-6 fw-bold'>Echocardiography</div>
-                              {!enableActions &&
-                                   <>
-                                        {role.coordinator &&
-                                             <>
-                                                  {echocardiographies === null ?
-                                                       <RenderCreateButton createUrl={createUrl} className="btn-sm" /> :
-                                                       <RenderEditButton editUrl={editUrl} className="btn-sm" />
-                                                  }
-                                             </>
-                                        }
-                                   </>
-                              }
+                              
+                             
 
                               {role.reviewer && <div className="d-flex">
                                    {echocardiographies !== null && <>
@@ -72,10 +75,9 @@ export default function EchocardiographyData({ id, echodicomfiles, echocardiogra
 
                               </div>}
                          </div>
-                         <hr />
-
-
-                         {role.reviewer ? <>
+                        
+                        <div className="space-y-3">
+{role.reviewer ? <>
                               {echocardiographies !== null && <>
                                    {!echocardiographies.is_reviewed ?
                                         <>
@@ -352,12 +354,18 @@ export default function EchocardiographyData({ id, echodicomfiles, echocardiogra
                          </>
 
                          }
+                        </div>
+                         
+
+            </CardContent>
 
 
 
 
 
-                    </Card.Body>
+
+
+                     
                </Card>
 
 

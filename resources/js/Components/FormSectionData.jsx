@@ -1,7 +1,7 @@
 import { RenderCreateButton, RenderEditButton } from "@/Pages/CaseReportForm/FormData/FormDataHelper";
 import { usePage } from "@inertiajs/react";
-import { Card } from "react-bootstrap";
-
+import { Card } from "./ui/card";
+ 
 export default function FormSectionData ({ id,
   title,
   data,
@@ -20,7 +20,7 @@ const canShowActions =
 
     return (
     <Card id={id} className="mb-3 shadow-sm scroll-section">
-      <Card.Body>
+     
         {/* Header */}
         <div className="d-flex justify-content-between align-items-center">
           <div className="fs-6 fw-bold">{title}</div>
@@ -45,7 +45,7 @@ const canShowActions =
             {emptyText}
           </span>
         )}
-      </Card.Body>
+      
     </Card>
   );
 

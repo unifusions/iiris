@@ -1,25 +1,21 @@
-import { Head } from "@inertiajs/react";
-import Authenticated from "./Authenticated";
-import { Col, Row } from "react-bootstrap";
+ 
+ 
 import ActivityTimeline from "@/Components/ActivityTimeline";
 
 export default function Operative({ title, children, activities }) {
     return (
 
-         
-            <Row className="mt-3">
-              
-                <Col md={9} lg={9} >
-                    {children}
-                </Col>
+        <div className="grid grid-cols-6 gap-4">
+            <div className="col-span-5 space-y-4"> {children}</div>
+            <div>
+                <div className="fs-6 fw-bold">
+                    Notification
+                </div>
+                <ActivityTimeline items={activities} />
+            </div>
+        </div>
 
-                <Col md={3} lg={3}>
-                    <div className="fs-6 fw-bold">
-                        Notification
-                    </div>
-                    <ActivityTimeline items={activities} />
-                </Col>
-            </Row>
- 
+
+
     )
 }

@@ -1,16 +1,18 @@
 
 import React from "react";
 import { Link } from "@inertiajs/react";
+import { Badge } from "@/Components/ui/badge";
 
 const BadgeLink = ({routeUrl, status, labelText}) => {
      return (
-          <>
+          <Badge  variant={status}>
                <Link href={routeUrl}
-               className={`badge text-decoration-none rounded-pill fw-bold p-2 me-2 ` + status}
+                
                     >
-                    {labelText}
+                    {labelText}  
+                    
                </Link>
-          </>
+          </Badge>
      )
 }
 

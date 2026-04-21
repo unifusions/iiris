@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import Button from '@/Components/Button';
-import Checkbox from '@/Components/Checkbox';
+
+
 import Guest from '@/Layouts/Guest';
-import Input from '@/Components/Input';
+
 import Label from '@/Components/Label';
 import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/react';
- 
+
 import BrandLogo from '@/Layouts/BrandLogo';
 import { EyeIcon } from '@heroicons/react/24/outline';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/Components/ui/field';
+import { Input } from '@/Components/ui/input';
+import { Button } from '@/Components/ui/button';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -28,6 +32,7 @@ export default function Login({ status, canResetPassword }) {
     }, []);
 
     const onHandleChange = (event) => {
+
         setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
     };
 
@@ -45,64 +50,96 @@ export default function Login({ status, canResetPassword }) {
     return (
         <Guest>
             <Head title="Log in" />
-<Card></Card>
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+            <div className="flex flex-col gap-6 bg-white">
+                <Card className="">
+                    <CardHeader className="">
+
+                        <BrandLogo className="h-10 mx-auto"/>
 
 
-            <div className="form-signin w-100 m-auto">
-                <form onSubmit={submit}>
-                    <BrandLogo />
+                        <CardTitle className="mt-3">Please sign in  </CardTitle>
+                        <CardDescription>
+                            Enter your email below to login to your account
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent >
 
-                    <h1 class="h3 mt-3 mb-3 fw-normal">Please sign in</h1>
+                        <form onSubmit={submit}>
 
-                    <div className="space-y-2  my-3">
+                            <FieldGroup> <Field>
+                                <FieldLabel htmlFor="email">Email</FieldLabel>
+                                <Input
+                                    type="text"
+                                    name="email"
+                                    value={data.email}
+                                    placeholder="Enter your email"
 
-  <Label forInput="email" value="Email" />
-                        <Input
-                            type="text"
-                            name="email"
-                            value={data.email}
-                            className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            autoComplete="username"
-                            isFocused={true}
-                            handleChange={onHandleChange}
-                        />
-                      
-                    </div>
+                                    onChange={onHandleChange}
+                                />
+                            </Field>
 
-                    <div className="relative space-y-2">
+                                <Field>
+                                    <div className="flex items-center">
+                                        <FieldLabel htmlFor="password">Password</FieldLabel>
+                                        <a
+                                            href="/forgot-password"
+                                            className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                                        >
+                                            Forgot your password?
+                                        </a>
+                                    </div>
 
-  <Label forInput="password" value="Password" />
- 
-                        <Input
-                            type={showPassword ? 'text' : 'password'}
-                            name="password"
-                            value={data.password}
-                            className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          
-                            handleChange={onHandleChange}
-                        />
-                        <button
-                            type="button"
-                            id="password-toggle"
-                            class="absolute inset-y-0 top-5 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none"
-                            aria-label="Toggle password visibility"
-                            onClick={  togglePasswordVisibility}
-                        >
-                            <EyeIcon className='text-muted' width={20} />
-                        </button>
-                      
-                    </div>
-                    <Button className="btn btn-primary w-100 mt-3" processing={processing}>
-                        Log in
-                    </Button>
-                    <ValidationErrors errors={errors} />
+                                    <div className='relative'>
+                                        <Input
+                                            type={showPassword ? 'text' : 'password'}
+                                            name="password"
+                                            value={data.password}
+                                            className="w-full py-2 pl-4 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
 
-                    <p class="mt-5 mb-3 text-body-secondary">© 2022–2026. DataInsights.</p>
+                                            onChange={onHandleChange}
+                                        />
+                                        <button
+                                            type="button"
+                                            id="password-toggle"
+                                            class="absolute inset-y-0 top-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none"
+                                            aria-label="Toggle password visibility"
+                                            onClick={togglePasswordVisibility}
+                                        >
+                                            <EyeIcon className='text-muted' width={20} />
 
 
-                </form>
+                                        </button>
+                                    </div>
+                                </Field>
+
+
+                                <Field>
+                                    <Button type="submit" variant='default' processing={processing}>Login</Button>
+
+
+                                </Field>
+
+                            </FieldGroup>
+
+
+
+
+
+                            <ValidationErrors errors={errors} />
+
+                            <p class="mt-2 mb-3 text-body-secondary text-center">© 2022– {(new Date().getFullYear())}. DataInsights.</p>
+
+
+                        </form>
+                        {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+                    </CardContent>
+                </Card>
             </div>
+
+
+
+
+
 
         </Guest>
     );

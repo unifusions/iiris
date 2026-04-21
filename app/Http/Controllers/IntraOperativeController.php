@@ -76,7 +76,7 @@ class IntraOperativeController extends Controller
             Mail::to($investigators)->send(new IntraoperativeApprovalMail($crf, $intraoperative, $remarks));
 
             $message = 'Intraoperative Data for Subject:' . $crf->subject_id . 'submitted Successfully';
-            return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+            return back()->with(['success' => $message]);
         }
 
 
@@ -92,7 +92,7 @@ class IntraOperativeController extends Controller
             Mail::to($crf->user->email)->send(new IntraoperativeApprovalMail($crf, $intraoperative, $remarks));
 
             $message = 'Intraoperative Data has been approved';
-            return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+          return back()->with(['success' => $message]);
         }
 
         if (isset($request->disapprove)) {
@@ -107,7 +107,7 @@ class IntraOperativeController extends Controller
             ]);
             Mail::to($crf->user->email)->send(new IntraoperativeApprovalMail($crf, $intraoperative, $remarks));
             $message = 'Intraoperative Data has been disapproved';
-            return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+         return back()->with(['success' => $message]);
         }
 
         if (isset($request->action)) {
@@ -122,7 +122,7 @@ class IntraOperativeController extends Controller
                 ]);
                 $intraoperative->save();
                 $message = 'Intraoperative Data has been unlocked to edit';
-                return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+              return back()->with(['success' => $message]);
             }
         }
 
@@ -159,7 +159,7 @@ class IntraOperativeController extends Controller
 
 
         $message = 'Intraoperative Data for Subject:' . $crf->subject_id . ' updated Successfully';
-        return redirect()->route('crf.show', $crf)->with(['message' => $message]);
+        return back()->with(['success' => $message]);
     }
 
     public function destroy(IntraOperativeData $intraOperativeData)

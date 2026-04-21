@@ -54,7 +54,7 @@ class PredefinedMedicalHistoryController extends Controller
      
     
        PredefinedMedicalHistory::create($request->validated());
-       return redirect()->back()->with(['message' => 'Medical history saved successfully']);
+       return  back()->with(['message' => 'Medical history saved successfully']);
     
     }
 
@@ -91,7 +91,7 @@ class PredefinedMedicalHistoryController extends Controller
     {
         $predefinedmedicalhistory->fill($request->validated());
         $predefinedmedicalhistory->save();
-        return redirect()->back()->with(['message' => 'Medical History Updated successfully !']);
+        return  back()->with(['success' => 'Medical History Updated successfully !']);
     }
 
     /**

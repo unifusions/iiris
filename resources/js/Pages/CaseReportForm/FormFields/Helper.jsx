@@ -5,7 +5,7 @@ export const BOOLYESNO = [
 export const PREDEFINED_MEDICAL_HISTORY_FIELDS = [
     { fieldName: 'diabetes_mellitus', labelText: 'Diabetes Mellitus' },
     { fieldName: 'hypertension', labelText: 'Hypertension' },
-    { fieldName: 'copd', labelText: 'copd' },
+    { fieldName: 'copd', labelText: 'Copd' },
     { fieldName: 'respiratory_failure', labelText: 'Respiratory Failure' },
     { fieldName: 'stroke', labelText: 'Stroke' },
     { fieldName: 'peripheral_vascular_disease', labelText: 'Peripheral Vascular Disease ' },
@@ -60,7 +60,7 @@ export const MEDICINE_TYPES = [
 
 export const NotAvailable = () => {
     return (
-        <span className='fw-normal text-secondary fst-italic'>No data available</span>
+        <span className='text-foreground/70 italic'>No data available</span>
     )
 }
 
@@ -70,7 +70,7 @@ export const RenderBoolYesNo = ({ boolValue }) => {
     }
     else {
         return (
-            <span className='fw-normal'>{boolValue ? 'Yes' : 'No'}</span>
+            <span className={boolValue && 'font-bold'}>{boolValue ? 'Yes' : 'No'}</span>
         )
 
     }
@@ -91,3 +91,14 @@ export const ENTITY_ID_FIELD_MAP = {
      scheduledvisit: 'scheduled_visits_id',
      unscheduledvisit: 'unscheduled_visits_id',
 };
+
+export const ENTITY_ACTIVITY_FIELD_MAP = {
+    preoperative: 'physical_activity',
+     
+     scheduledvisit: 'sv_physical_activity',
+     unscheduledvisit: 'usv_physical_activity',
+}
+
+
+export const normalizeBool = v =>
+    v !== null ? (v ? "1" : "0") : null;

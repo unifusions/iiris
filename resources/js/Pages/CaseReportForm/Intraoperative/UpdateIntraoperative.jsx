@@ -1,17 +1,20 @@
 
 import React, { useEffect, useState } from 'react';
 import { Link, useForm, usePage } from '@inertiajs/react';
-import { Row, Col, Card, Container, Modal, Button } from 'react-bootstrap';
+import { Row, Col, Card, Container, Modal } from 'react-bootstrap';
 import FormCalendar from '@/Pages/Shared/FormCalendar';
-import FormButton from '@/Pages/Shared/FormButton';
+
 import FormInput from '@/Pages/Shared/FormInput';
 import FormRadio from '@/Pages/Shared/FormRadio';
 import FormInputWithLabel from '@/Pages/Shared/FormInputWithLabel';
- 
+
 import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
 import ReviewerIntraUpdate from './ReviewerIntraUpdate';
 import { BOOLYESNO, PREDEFINED_CONCOMITANT_PROCEDURE } from '../FormFields/Helper';
 import { Inertia } from '@inertiajs/inertia';
+import { Button } from '@/Components/ui/button';
+import { Save } from 'lucide-react';
+import FormButton from '@/Components/ui-ext/form-button';
 
 
 export default function UpdateIntraOperative({ crf, intraoperative, role, intradicomfiles, intraopfileswext }) {
@@ -23,7 +26,7 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
           arterial_cannulation: intraoperative.arterial_cannulation || '',
           venous_cannulation: intraoperative.venous_cannulation || '',
           cardioplegia: intraoperative.cardioplegia || '',
-          aortotomy: intraoperative.aortotomy || '',
+          aortotomy: intraoperative?.aortotomy || '',
           aortotomy_others: intraoperative.aortotomy_others || '',
           annular_suturing_technique: intraoperative.annular_suturing_technique || '',
           annular_suturing_others: intraoperative.annular_suturing_others || '',
@@ -61,7 +64,7 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
           fetch(route('crf.intraoperative.fileupload.show', { crf: crf, intraoperative: intraoperative, fileupload: file.file }))
                .then(response => response.json())
                .then(data => {
-                  
+
                     setImageurl(data.imageurl)
                     setShow(true)
                }
@@ -90,7 +93,6 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
 
      function handlesubmit(e) {
           e.preventDefault();
-
           put(route('crf.intraoperative.update', { crf: crf, intraoperative: intraoperative }));
      }
 
@@ -118,196 +120,224 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
 
                {!role.reviewer ?
                     <>
-                         <form onSubmit={handlesubmit} >
+
+                         <form onSubmit={handlesubmit} className='space-y-3' >
+
+
+
                               <FormCalendar
                                    labelText="Date of Procedure" error={errors.date_of_procedure}
                                    name="date_of_procedure"
                                    value={data.date_of_procedure}
-                                   handleChange={(date) => date !== null ? setData('date_of_procedure', new Date(date)) : setData('date_of_procedure', '')}
+                                   handleChange={(date) => setData('date_of_procedure', date)}
 
                                    className={`${errors.date_of_procedure && 'is-invalid'}`}
                               />
-                              <hr />
-                              <div className="row mb-3">
-                                   <div className="col-sm-12 fw-bold">Surgical Strategy</div>
 
+                              <div className="border-t border-gray-200 space-y-3">
+                                   <h5 className='text-lg font-bold mt-3' >Surgical Strategy</h5>
+
+                                   <div className="grid grid-cols-3 gap-3">
+                                        <FormInput
+                                             type="text"
+                                             className={`${errors.arterial_cannulation && 'is-invalid '}`}
+                                             value={data.arterial_cannulation}
+                                             error={errors.arterial_cannulation}
+                                             labelText="Arterial Cannulation"
+                                             onChange={e => setData('arterial_cannulation', e.target.value)} />
+                                        <FormInput
+                                             type="text"
+                                             className={`${errors.venous_cannulation && 'is-invalid '}`}
+                                             value={data.venous_cannulation}
+                                             error={errors.venous_cannulation}
+                                             labelText="Venous Cannulation"
+                                             onChange={e => setData('venous_cannulation', e.target.value)} />
+                                        <FormInput
+                                             type="text"
+                                             className={`${errors.cardioplegia && 'is-invalid '}`}
+                                             error={errors.cardioplegia} labelText="Cardioplegia"
+                                             value={data.cardioplegia}
+                                             onChange={e => setData('cardioplegia', e.target.value)} />
+                                   </div>
                               </div>
 
-                              <FormInput
-                                   type="text"
-                                   className={`${errors.arterial_cannulation && 'is-invalid '}`}
-                                   value={data.arterial_cannulation}
-                                   error={errors.arterial_cannulation}
-                                   labelText="Arterial Cannulation"
-                                   handleChange={e => setData('arterial_cannulation', e.target.value)} />
-                              <FormInput
-                                   type="text"
-                                   className={`${errors.venous_cannulation && 'is-invalid '}`}
-                                   value={data.venous_cannulation}
-                                   error={errors.venous_cannulation}
-                                   labelText="Venous Cannulation"
-                                   handleChange={e => setData('venous_cannulation', e.target.value)} />
-                              <FormInput
-                                   type="text"
-                                   className={`${errors.cardioplegia && 'is-invalid '}`}
-                                   error={errors.cardioplegia} labelText="Cardioplegia"
-                                   value={data.cardioplegia}
-                                   handleChange={e => setData('cardioplegia', e.target.value)} />
+
+
 
                               <FormRadio
-                                   type="radio" labelText="Aortotomy"
+                                   layout='row'
+                                   optionsLayout='horizontal'
+                                   labelText="Aortotomy"
                                    name="aortotomy"
-                                   selectedValue={data.aortotomy}
+                                   value={data.aortotomy}
                                    options={aortotomyRadios}
-                                   handleChange={e => setData('aortotomy', e.target.value)}
+                                   handleChange={(val) => setData('aortotomy', val)}
                                    error={errors.aortotomy}
-
+                                   others={isAortotomyOthers &&
+                                        <FormInput
+                                             type="text"
+                                             className={`${errors.aortotomy_others && 'is-invalid '}`}
+                                             error={errors.aortotomy_others}
+                                             value={data.aortotomy_others}
+                                             placeholder="other surgical incision"
+                                             onChange={e => setData('aortotomy_others', e.target.value)} />}
                                    className={`${errors.aortotomy ? 'is-invalid' : ''}`}
                               />
 
-                              {isAortotomyOthers &&
-                                   <FormInput
-                                        type="text"
-                                        className={`${errors.aortotomy_others && 'is-invalid '}`}
-                                        error={errors.aortotomy_others}
-                                        value={data.aortotomy_others} labelText="Aortotomy Others"
-                                        handleChange={e => setData('aortotomy_others', e.target.value)} />}
+ 
 
                               <FormRadio
-                                   type="radio" labelText="Annular Suturing Technique"
+                                   labelText="Annular Suturing Technique"
+                                   layout='row'
+                                   optionsLayout='horizontal'
                                    name="annular_suturing_technique"
                                    options={annularSuturingRadios}
-                                   selectedValue={data.annular_suturing_technique}
-                                   handleChange={e => setData('annular_suturing_technique', e.target.value)}
-                                   error={errors.annular_suturing_technique}
+                                   value={data.annular_suturing_technique}
+                                   handleChange={(val) => setData('annular_suturing_technique', val)}
+                                 
                                    className={`${errors.annular_suturing_technique ? 'is-invalid' : ''}`}
+                                   others={isAannularSuturingOthers &&
+                                        <FormInput
+                                             type="text"
+                                             className={`${errors.annular_suturing_others && 'is-invalid '}`}
+                                             value={data.annular_suturing_others}
+                                             error={errors.annular_suturing_others}
+                                             placeholder="Others"
+                                             onChange={e => setData('annular_suturing_others', e.target.value)} />
+                                   }
                               />
 
-                              {isAannularSuturingOthers &&
-                                   <FormInput
-                                        type="text"
-                                        className={`${errors.annular_suturing_others && 'is-invalid '}`}
-                                        value={data.annular_suturing_others}
-                                        error={errors.annular_suturing_others} labelText="Aortotomy Others"
-                                        handleChange={e => setData('annular_suturing_others', e.target.value)} />
-                              }
+
 
                               <FormInputWithLabel
                                    type="number"
+                                   layout="row"
                                    className={`${errors.tcb_time && 'is-invalid '}`}
                                    error={errors.tcb_time} labelText="Total Cardiopulmonary Bypass Time"
                                    value={data.tcb_time} units='mins'
-                                   handleChange={e => setData('tcb_time', e.target.value)} />
+                                   onChange={e => setData('tcb_time', e.target.value)} />
 
                               <FormInputWithLabel
                                    type="number"
+                                   layout="row"
                                    className={`${errors.acc_time && 'is-invalid '}`}
                                    error={errors.acc_time} labelText="Aortic Cross Clamp Time"
                                    value={data.acc_time} units='mins'
-                                   handleChange={e => setData('acc_time', e.target.value)} />
+                                   onChange={e => setData('acc_time', e.target.value)} />
 
 
-                              <hr />
-                              <div className="row mb-3">
-                                   <div className="col-sm-12 fw-bold">Concomitant Procedure</div>
+
+                              <div className="border-t border-gray-200 space-y-3">
+                                   <div className="mt-3 text-lg font-bold">Concomitant Procedure</div>
+
+
+                                   <div className="grid grid-cols-3 space-y-4">
+                                        {PREDEFINED_CONCOMITANT_PROCEDURE.map((field) => <>
+                                             <FormRadio
+                                                  layout="column"
+                                                  optionsLayout='horizontal'
+                                                  type="radio" labelText={field.labelText}
+                                                  name={field.fieldName}
+                                                  options={BOOLYESNO}
+                                                  value={data[field.fieldName]}
+                                                  handleChange={(val) => setData(`${field.fieldName}`, val)}
+                                                  error={errors[field.fieldName]}
+                                                  className={`${errors[field.fieldName] ? 'is-invalid' : ''}`}
+
+                                                  others={field.fieldName === 'concomitant_procedure_others' && (
+                                                       data[field.fieldName] !== undefined && (
+                                                            data[field.fieldName] === '1' && (
+                                                                 <FormInput
+                                                                      type="text"
+                                                                      className={`${errors.concomitant_procedure && 'is-invalid '}`}
+                                                                      value={data[`${field.fieldName}_specify`]}
+                                                                      error={errors[`${field.fieldName}_specify`]} placeholder="Pls Specify"
+                                                                      onChange={e => setData(`${field.fieldName}_specify`, e.target.value)} />
+                                                            )
+                                                       )
+                                                  )}
+                                             />
+
+
+
+
+
+                                        </>
+                                        )}
+
+                                   </div>
+
 
                               </div>
 
-                              {PREDEFINED_CONCOMITANT_PROCEDURE.map((field) => <>
+
+                              <div className="border-t border-gray-200 mb-3">
+                                   <h5 className='text-lg font-bold mt-3' >Intraoperative TEE</h5>
+
+
+                              </div>
+
+                              <div className="grid grid-cols-2 gap-3 mb-5">
                                    <FormRadio
-                                        type="radio" labelText={field.labelText}
-                                        name={field.fieldName}
+                                        labelText="All Paravalvular Leak"
+                                        optionsLayout='horizontal'
+                                        name="all_paravalvular_leak"
                                         options={BOOLYESNO}
-                                        selectedValue={data[field.fieldName]}
-                                        handleChange={e => setData(`${field.fieldName}`, e.target.value)}
-                                        error={errors[field.fieldName]}
-                                        className={`${errors[field.fieldName] ? 'is-invalid' : ''}`} />
+                                        value={data.all_paravalvular_leak}
+                                        handleChange={(val) => setData('all_paravalvular_leak', val)}
+                                        error={errors.all_paravalvular_leak}
+                                        className={`${errors.all_paravalvular_leak ? 'is-invalid' : ''}`}
+                                        others={data.all_paravalvular_leak === '1' && <FormInput
+                                             type="text"
+                                             layout="horizontal"
+                                             className={`max-w-64 ${errors.all_paravalvular_leak_specify && 'is-invalid '}`}
+                                             value={data.all_paravalvular_leak_specify}
+                                             error={errors.all_paravalvular_leak_specify} placeholder="If Yes, please Specify"
+                                             onChange={e => setData('all_paravalvular_leak_specify', e.target.value)}
 
-                                   {field.fieldName === 'concomitant_procedure_others' && (
-                                        data[field.fieldName] !== undefined && (
-                                             data[field.fieldName] === '1' && (
-                                                  <FormInput
-                                                       type="text"
-                                                       className={`${errors.concomitant_procedure && 'is-invalid '}`}
-                                                       value={data[`${field.fieldName}_specify`]}
-                                                       error={errors[`${field.fieldName}_specify`]} labelText="Pls Specify"
-                                                       handleChange={e => setData(`${field.fieldName}_specify`, e.target.value)} />
-                                             )
-                                        )
-                                   )}
+                                        />}
+                                   />
 
 
 
-                                   {/* {data[concomitant_procedure_others] === '1' &&
-
-                                        (field.fieldName === 'concomitant_procedure_others' &&
-                                             <FormInput
-                                                  type="text"
-                                                  className={`${errors.concomitant_procedure && 'is-invalid '}`}
-                                                  value={data.concomitant_procedure}
-                                                  error={errors.concomitant_procedure} labelText="Pls Specify"
-                                                  handleChange={e => setData('concomitant_procedure', e.target.value)} />
-                                        )
-
-                                   } */}
-
-                              </>
-                              )}
 
 
 
-                              <hr />
 
-                              <div className="row mb-3">
-                                   <div className="col-sm-12 fw-bold">Intraoperative TEE</div>
+                                   <FormRadio
+                                        type="radio" labelText="Major Paravalvular Leak"
+                                        optionsLayout='horizontal'
+                                        name="major_paravalvular_leak"
+                                        options={BOOLYESNO}
+                                        value={data.major_paravalvular_leak}
+                                        handleChange={(val) => setData('major_paravalvular_leak', val)}
+                                        error={errors.major_paravalvular_leak}
+                                        className={`${errors.major_paravalvular_leak ? 'is-invalid' : ''}`}
+
+
+                                        others={data.major_paravalvular_leak === '1' && <FormInput
+                                             type="text"
+                                             className={`max-w-64 ${errors.major_paravalvular_leak_specify && 'is-invalid '}`}
+                                             value={data.major_paravalvular_leak_specify}
+                                             error={errors.major_paravalvular_leak_specify} placeholder="If Yes, please Specify"
+                                             onChange={e => setData('major_paravalvular_leak_specify', e.target.value)} />
+                                        }
+                                   />
+                              </div>
+
+
+
+
+
+                              <div className="border-t border-gray-200 mb-3">
+                                   <h5 className='text-lg font-bold mt-3' >Echo Files</h5>
+
 
                               </div>
-                              <FormRadio
-                                   type="radio" labelText="All Paravalvular Leak"
-                                   name="all_paravalvular_leak"
-                                   options={BOOLYESNO}
-                                   selectedValue={data.all_paravalvular_leak}
-                                   handleChange={e => setData('all_paravalvular_leak', e.target.value)}
-                                   error={errors.all_paravalvular_leak}
-                                   className={`${errors.all_paravalvular_leak ? 'is-invalid' : ''}`} />
-
-                              {data.all_paravalvular_leak === '1' ? <FormInput
-                                   type="text"
-                                   className={`${errors.all_paravalvular_leak_specify && 'is-invalid '}`}
-                                   value={data.all_paravalvular_leak_specify}
-                                   error={errors.all_paravalvular_leak_specify} labelText="If Yes, please Specify"
-                                   handleChange={e => setData('all_paravalvular_leak_specify', e.target.value)}
-
-                              /> : ''
-                              }
-
-
-                              <FormRadio
-                                   type="radio" labelText="Major Paravalvular Leak"
-                                   name="major_paravalvular_leak"
-                                   options={BOOLYESNO}
-                                   selectedValue={data.major_paravalvular_leak}
-                                   handleChange={e => setData('major_paravalvular_leak', e.target.value)}
-                                   error={errors.major_paravalvular_leak}
-                                   className={`${errors.major_paravalvular_leak ? 'is-invalid' : ''}`} />
-
-
-                              {data.major_paravalvular_leak === '1' ? <FormInput
-                                   type="text"
-                                   className={`${errors.major_paravalvular_leak_specify && 'is-invalid '}`}
-                                   value={data.major_paravalvular_leak_specify}
-                                   error={errors.major_paravalvular_leak_specify} labelText="If Yes, please Specify"
-                                   handleChange={e => setData('major_paravalvular_leak_specify', e.target.value)} /> : ''
-                              }
-
-                              <hr />
-
-
-
 
                               {intraopfileswext !== undefined &&
                                    <Row>
-                                        <Col md={3} className='text-secondary'>Echo Files</Col>
+                                        <Col md={3} className='text-secondary'></Col>
                                         <Col md={6} >
                                              {intraopfileswext !== undefined && <>
                                                   {intraopfileswext.map((file) =>
@@ -387,11 +417,11 @@ export default function UpdateIntraOperative({ crf, intraoperative, role, intrad
 
                               }
 
-                              <hr />
 
 
 
-                              {role.coordinator && <FormButton processing={processing} labelText='Update' type="submit" mode="warning" />}
+
+                              {role.coordinator && <FormButton processing={processing} label='Update' />}
 
 
                          </form>

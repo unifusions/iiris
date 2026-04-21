@@ -1,11 +1,13 @@
 import React from 'react';
-import Authenticated from '@/Layouts/Authenticated';
-import { Head, Link, usePage, useForm } from '@inertiajs/react';
-import { Card, BreadcrumbItem, Row, Col, Container, Table, Nav, Tab } from 'react-bootstrap';
-import { LinkIcon } from '@heroicons/react/24/solid';
+ 
+import {   Link, usePage,  } from '@inertiajs/react';
+ 
+ 
 import CaseReportFormData from './FormData/CaseReportFormData';
 import ActivityComments from '@/Components/ActivityComments';
 import CrfLayout from '@/Layouts/CrfLayout';
+import Authenticated from '@/Layouts/Authenticated';
+import ScreenTitle from '@/Components/ScreenTitle';
 
 
 const ActivityColumn = ({ title, items }) => {
@@ -17,7 +19,7 @@ const ActivityColumn = ({ title, items }) => {
           return null;
       
      return (
-          <Col md={3} lg={3} className='mb-3'>
+          <div md={3} lg={3} className='mb-3'>
 
                <ActivityComments
                     title={title}
@@ -25,7 +27,7 @@ const ActivityColumn = ({ title, items }) => {
                />
 
 
-          </Col>
+          </div>
      )
 }
 
@@ -39,9 +41,12 @@ export default function Show() {
 
 
      return (
+          
+         
+            
           <CrfLayout
                crf={crf}
-               pageTitle={`CRF | ${crf.subject_id}`}
+            
                breadcrumb={<>
                     <li className='breadcrumb-item'>
                          <Link href={route('crf.index')} className="breadcrumb-item"> Case Report Form</Link>
@@ -62,9 +67,9 @@ export default function Show() {
 
             
 
-               <CaseReportFormData crf={crf} />
+            
 
-               <Row className='align-items-stretch'>
+               <div className='align-items-stretch'>
 
                     {preopremarks && <ActivityColumn 
                               title="Preoperative Form Comments"
@@ -108,11 +113,12 @@ export default function Show() {
                     )}
 
 
-               </Row>
+               </div>
 
 
 
 
           </CrfLayout>
+         
      )
 }

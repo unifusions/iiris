@@ -1,7 +1,7 @@
 import React from "react"
 
 
-export default function BrandLogo() {
+export default function BrandLogo({className}) {
      const fil0 = { fill: '#3F6FB5' }
      const fil1 = { fill: '#ED3237' }
      const fil2 = { fill: '#1C91CB' }
@@ -14,8 +14,10 @@ export default function BrandLogo() {
      return (
           <svg xmlns="http://www.w3.org/2000/svg"
 
-               height="40"
+                
                viewBox="0 0 6495 1771"
+               className={className}
+               preserveAspectRatio="xMidYMid meet"
           >
 
                <g id="Layer_x0020_1">

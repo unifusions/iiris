@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import Authenticated from '@/Layouts/Authenticated';
 import { Link, usePage } from '@inertiajs/react';
 
-import { Row, Col, Card, Container, Alert, Modal, Button } from 'react-bootstrap';
+import { Row, Col,  Container, Alert, Modal, Button } from 'react-bootstrap';
 import CaseReportFormData from '../FormData/CaseReportFormData';
 import { RenderFieldBoolDatas, RenderFieldBoolNoDatas, RenderFieldDatas, RenderFormStatus } from '../FormData/FormDataHelper';
 import UpdateIntraOperative from './UpdateIntraoperative';
 import ApprovalActionsDisapprove from './ApprovalActionsDisapprove';
- 
+
 import ApprovalActionsApprove from './ApprovalActionsApprove';
 
 import FileDeleteConfirmDialog from '@/Components/FileDeleteConfirmDialog';
@@ -20,6 +20,7 @@ import Operative from '@/Layouts/Operative';
 import FileList from '@/Components/FileList';
 import CrfLayout from '@/Layouts/CrfLayout';
 import ApprovalSubmit from '../FormFields/ApprovalSubmit';
+import { Card, CardContent } from '@/Components/ui/card';
 
 
 
@@ -116,14 +117,14 @@ function SubmittedIntraOperative({ intraoperative, crf, intradicomfiles, role, i
                     <Col md={8} >
 
 
-                         <FileList 
-                         crf={crf}
-                         entityRouteKey="intraoperative"
-                         role={role}
-                         entity ={intraoperative}
-                         files={intraopfileswext} />
+                         <FileList
+                              crf={crf}
+                              entityRouteKey="intraoperative"
+                              role={role}
+                              entity={intraoperative}
+                              files={intraopfileswext} />
 
-                          
+
 
                          <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
                               <Modal.Header closeButton>
@@ -149,75 +150,78 @@ export default function Index() {
      } = usePage().props;
      return (
 
-           <CrfLayout 
-           backUrl={backUrl}
-                    crf={crf}
-                    pageTitle    ={`Intraoperative | ${crf.subject_id}`}
-                    screenTitle={`Case Report Forms \\ ${crf.subject_id} \\ Intraoperative`}
-                    extraActions = {
-                                                  <ApprovalSubmit
-                                                       role={roles}
-                                                       crf={crf}
-                                                       entity={crf.intraoperative}
-                                                       entityType="intraoperative"
-                                                  />}
-                    >
-          <Operative
-               
-               activities={approvalremarks}
+          <CrfLayout
+               backUrl={backUrl}
+               crf={crf}
+               pageTitle={`Intraoperative | ${crf.subject_id}`}
+               screenTitle={`Case Report Forms \\ ${crf.subject_id} \\ Intraoperative`}
+               extraActions={
+                    <ApprovalSubmit
+                         role={roles}
+                         crf={crf}
+                         entity={crf.intraoperative}
+                         entityType="intraoperative"
+                    />}
           >
-               <div className='d-flex justify-content-between align-items-center '>
-                    
-                    <div className='d-flex'>
-                         
-                        
-                         {intraoperative.is_submitted ? <>
-                              <ApprovalActionsDisapprove role={roles} crf={crf} intraoperative={intraoperative} />
-                              <ApprovalActionsApprove role={roles} crf={crf} intraoperative={intraoperative} />
-                         </> : ''
-                         }
-                         <ApprovalActionEditable role={roles} crf={crf} intraoperative={intraoperative} />
+               <Operative
+
+                    activities={approvalremarks}
+               >
+                    <div className='d-flex justify-content-between align-items-center '>
+
+                         <div className='d-flex'>
+
+
+                              {intraoperative.is_submitted ? <>
+                                   <ApprovalActionsDisapprove role={roles} crf={crf} intraoperative={intraoperative} />
+                                   <ApprovalActionsApprove role={roles} crf={crf} intraoperative={intraoperative} />
+                              </> : ''
+                              }
+                              <ApprovalActionEditable role={roles} crf={crf} intraoperative={intraoperative} />
+
+                         </div>
+
+
 
                     </div>
 
 
 
-               </div>
+                    {roles.reviewer ?
+                         <>
+                              {intraoperative.is_reviewed ? <>   <div className='bg-success text-white p-3 mb-3 rounded-5 shadow-sm'>
+                                   Intraoperative Data has been reviewed. To modify data, please raise a
+                                   <Link href={route('tickets.index')} className="fw-bold text-white" style={{ textDecoration: 'none' }}> query</Link>
+                              </div></> : ''}
+                         </> : <RenderFormStatus
+                              isSubmitted={intraoperative.is_submitted}
+                              visitStatus={intraoperative.visit_status}
+                              visitNo=''
+                              formTitle="Intraoperative " />
+                    }
+                    <CaseReportFormData crf={crf} />
 
+                    <Card  >
+                         <CardContent>
 
-
-               {roles.reviewer ?
-                    <>
-                         {intraoperative.is_reviewed ? <>   <div className='bg-success text-white p-3 mb-3 rounded-5 shadow-sm'>
-                              Intraoperative Data has been reviewed. To modify data, please raise a
-                              <Link href={route('tickets.index')} className="fw-bold text-white" style={{ textDecoration: 'none' }}> query</Link>
-                         </div></> : ''}
-                    </> : <RenderFormStatus
-                         isSubmitted={intraoperative.is_submitted}
-                         visitStatus={intraoperative.visit_status}
-                         visitNo=''
-                         formTitle="Intraoperative " />
-               }
-               <CaseReportFormData crf={crf} />
-
-               <Card className='shadow-sm rounded-t'>
-                    <Card.Body>
-                         {intraoperative.is_submitted ? <>
-                              <SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} />
-
-                         </> : <>
-                              {roles.admin ?
-
+                        
+                        
+                              {intraoperative.is_submitted ? <>
                                    <SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} />
-                                   :
 
-                                   <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} />
+                              </> : <>
+                                   {roles.admin ?
+
+                                        <SubmittedIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} />
+                                        :
+
+                                        <UpdateIntraOperative intraoperative={intraoperative} crf={crf} role={roles} intradicomfiles={intradicomfiles} intraopfileswext={intraopfileswext} />
+                                   }
+                              </>
                               }
-                         </>
-                         }
-                    </Card.Body>
-               </Card>
-          </Operative>
+                           </CardContent>
+                    </Card>
+               </Operative>
 
           </CrfLayout>
      )

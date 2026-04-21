@@ -1,7 +1,9 @@
+import { Button } from "@/Components/ui/button";
 import FormButton from "@/Pages/Shared/FormButton";
 import { Link, useForm } from "@inertiajs/react"
+import { Upload } from "lucide-react";
 import React, { useState } from "react"
-import { Button, Modal } from "react-bootstrap";
+import {   Modal } from "react-bootstrap";
 
 export default function ApprovalSubmit({ role,
     crf,
@@ -37,7 +39,8 @@ export default function ApprovalSubmit({ role,
         <>
 
 
-            <Button variant="primary" onClick={handleShow}> Submit</Button>
+            <Button variant="success" onClick={handleShow}>
+                <Upload /> Submit</Button>
 
  
 
