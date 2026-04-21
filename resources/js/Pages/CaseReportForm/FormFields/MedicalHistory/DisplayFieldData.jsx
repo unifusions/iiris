@@ -1,5 +1,6 @@
 import { Col, Row } from "react-bootstrap";
 import { PREDEFINED_MEDICAL_HISTORY_FIELDS, RenderBoolYesNo } from "../Helper";
+import { NotAvailable } from "../../FormData/FormDataHelper";
 
 export default function DisplayFieldData({ medicalhistory }) {
 
